@@ -1,14 +1,15 @@
-import React from "react"
 import SignInButton from "./SignInButton";
 import * as Auth from 'firebase/auth'
 import UserIcon from "./UserIcon";
+import { AlertCallback } from "./AlertComponent";
 
 type NavBarProps = {
     user: Auth.User|null
+    alertCallback: AlertCallback
 }
 
 const NavBar = (props: NavBarProps) => {
-    const {user} = props;
+    const { user, alertCallback } = props;
     return (
         <div>
             <div className="navbar bg-base-300">
@@ -29,7 +30,7 @@ const NavBar = (props: NavBarProps) => {
                 </div>
                 <div className="navbar-end">
                     {!user && (<div className='mx-3'>
-                        <SignInButton/>
+                        <SignInButton alertCallback={alertCallback}/>
                     </div>)}
                     {user && (<div className='mx-3'>
                         <UserIcon user={user}/>

@@ -1,7 +1,16 @@
 import React from "react";
 import { Persistence } from '../persistence/firebase';
+import { AlertCallback } from "./AlertComponent";
+import { FirebaseError } from "firebase/app";
+import { BsGoogle } from 'react-icons/bs';
 
-const SignInFormComponent = () => {
+type SignInFormProps = {
+    alertCallback: AlertCallback
+}
+
+const SignInFormComponent = (props: SignInFormProps) => {
+    const { alertCallback } = props;
+
     const [isOnAccountCreation, setIsOnAccountCreation] = React.useState<boolean>(false);
     const [emailEntryText, setEmailEntryText] = React.useState<string>("");
     const [pwEntryText, setPwEntryText] = React.useState<string>("");
@@ -10,6 +19,22 @@ const SignInFormComponent = () => {
     const [emailEntryError, setEmailEntryError] = React.useState<string|null>(null);
     const [pwEntryError, setPwEntryError] = React.useState<string|null>(null);
     const [pwConfirmError, setPwConfirmError] = React.useState<string|null>(null);
+
+    const handleError = (error: any) => {
+        var errMessage;
+        if (error instanceof FirebaseError) {
+            errMessage = error.code;
+        } else {
+            errMessage = error;
+        }
+        const dateToDismissAt = new Date();
+        dateToDismissAt.setSeconds(dateToDismissAt.getSeconds() + 10);
+        alertCallback({
+            text: `Failed to login: ${errMessage}`,
+            autoDismissAt: dateToDismissAt,
+            alertLevel: "error"
+        });
+    }
 
     const createUser = () => {
         const emailIsBlank = emailEntryText.length === 0;
@@ -22,11 +47,10 @@ const SignInFormComponent = () => {
         setPwConfirmError(pwDoNotMatch? "Passwors do not match" : null);
 
         if (!hasError) {
-            Persistence.createUser(emailEntryText, pwEntryText).catch((error) => {
-                alert(error);
-            });
+            Persistence.createUser(emailEntryText, pwEntryText).catch(handleError);
         }
     }
+
     const signIn = () => {
         const emailIsBlank = emailEntryText.length === 0;
         const pwIsBlank = pwEntryText.length === 0;
@@ -36,11 +60,10 @@ const SignInFormComponent = () => {
         setPwEntryError(pwIsBlank? "Password cannot be blank" : null);
 
         if (!hasError) {
-            Persistence.signInUser(emailEntryText, pwEntryText).catch((error) => {
-                console.log(error);
-            });
+            Persistence.signInUser(emailEntryText, pwEntryText).catch(handleError);
         }
     }
+
     const nextOnClick = () => {
         if (isOnAccountCreation) {
             createUser();
@@ -48,14 +71,15 @@ const SignInFormComponent = () => {
             signIn();
         }
     }
+
     const signInWithGoogle = () => {
-        Persistence.signInWithGoogle().catch((error) => {
-            alert(error)
-        });
+        Persistence.signInWithGoogle().catch(handleError);
     }
+
     const forgotPasswordOnClick = () => {
         alert("this feature has not been implemented");
     }
+
     const toggleIsOnAccountCreation = () => {
         setIsOnAccountCreation(!isOnAccountCreation);
     }
@@ -119,7 +143,10 @@ const SignInFormComponent = () => {
                 <div className="divider mx-3">OR</div>
 
                 {/* Show signInWithGoogle */}
-                <button className="btn btn-primary mx-3 mb-2" onClick={signInWithGoogle}>Sign in with Google</button>
+                <button className="btn btn-primary mx-3 mb-2" onClick={signInWithGoogle}>
+                    <BsGoogle/>
+                    Sign in with Google
+                </button>
             </div>
     )
 }
