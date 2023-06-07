@@ -2,8 +2,10 @@ const SettingsComponent = () => {
     return ( 
         <>
             <h2 className="text-lg font-semibold my-3">Theme: </h2>
-                <button data-set-theme="light" data-act-class="ACTIVECLASS">light</button>
-                <button data-set-theme="dark" data-act-class="ACTIVECLASS">dark</button>
+            <select className="select select-accent" data-choose-theme>
+                <option value="dark">Dark mode</option>
+                <option value="light">Light mode</option>
+            </select>
         </>
     );
 }
