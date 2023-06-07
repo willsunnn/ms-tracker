@@ -89,69 +89,69 @@ const SignInFormComponent = () => {
     }
 
     return (
-        <div className="flex flex-col w-full border-opacity-50 pt-5">
-                {/* Regular Sign in Section*/}
-                <div className="grid card bg-base-300 rounded-box place-items-center py-5 mx-3">
-                    <h3 className="font-semibold text-2xl w-full max-w-xs px-3 pt-5 pb-3">{(isOnAccountCreation) ? 'Create Account' : 'Sign In'}</h3>
-                    {/* Email Entry */}
-                    <div className="form-control w-full max-w-xs p-3">
-                        <input type="text" placeholder="Email Address" className={`input input-bordered w-full max-w-xs ${emailEntryError!=null ? " input-error":""}`}
-                            value={emailEntryText}
-                            onChange={(event) => {
-                                setEmailEntryText(event.target.value)
-                            }} />
-                        <label className="label -m-1">
-                            <span></span>
-                            <span className="text-xs text-error" onClick={nextOnClick}>{emailEntryError != null? emailEntryError : ""}</span>
-                        </label>
-                    </div>
-
-                    {/* Password Entry */}
-                    <div className="form-control w-full max-w-xs p-3">
-                        <input type="password" placeholder="Password" className={`input input-bordered w-full max-w-xs ${pwEntryError!=null ? " input-error":""}`}
-                            value={pwEntryText}
-                            onChange={(event) => {
-                                setPwEntryText(event.target.value)
-                            }} />
-                            <label className="label -m-1">
-                                <span className="link link-primary link-hover text-xs" onClick={forgotPasswordOnClick}>{(!isOnAccountCreation)? "Forgot password?" : ""}</span>
-                                <span className="text-xs text-error">{pwEntryError != null? pwEntryError : ""}</span>
-                            </label>
-                    </div>
-
-                    {/* Password Confirmation */}
-                    {
-                        isOnAccountCreation && (
-                            <div className="collapse form-control w-full max-w-xs p-3 error">
-                                <input type="password" placeholder="Confirm Password" className={`input input-bordered w-full max-w-xs ${pwConfirmError!=null ? " input-error":""}`}
-                                    value={pwConfirmText}
-                                    onChange={(event) => {
-                                        setPwConfirmText(event.target.value)
-                                    }} />
-                                <label className="label -m-1">
-                                    <span></span>
-                                    <span className="text-xs text-error" onClick={nextOnClick}>{pwConfirmError != null? pwConfirmError : ""}</span>
-                                </label>
-                            </div>
-                        )
-                    }
-
-                    {/* Create Account/Sign In Toggle and Submit Button*/}
-                    <div className="flex items-center w-full max-w-xs pb-5 pt-3 px-3">
-                        <span className="link link-primary link-hover text-xs" onClick={toggleIsOnAccountCreation}>{(isOnAccountCreation) ? 'Already have an account? Sign in instead' : 'Don\'t have an account? Create one instead'}</span>
-                        <button className="btn btn-primary btn-sm ml-auto" onClick={nextOnClick}>Next</button>
-                    </div>
-
+        <div className="card w-96 bg-base-200 p-5">
+            {/* Regular Sign in Section*/}
+            <div className="grid card bg-base-300 rounded-box place-items-center">
+                <h3 className="font-semibold text-2xl w-full max-w-xs px-3 pt-5 pb-3">{(isOnAccountCreation) ? 'Create Account' : 'Sign In'}</h3>
+                {/* Email Entry */}
+                <div className="form-control w-full max-w-xs p-3">
+                    <input type="text" placeholder="Email Address" className={`input input-bordered w-full max-w-xs ${emailEntryError!=null ? " input-error":""}`}
+                        value={emailEntryText}
+                        onChange={(event) => {
+                            setEmailEntryText(event.target.value)
+                        }} />
+                    <label className="label -m-1">
+                        <span></span>
+                        <span className="text-xs text-error" onClick={nextOnClick}>{emailEntryError != null? emailEntryError : ""}</span>
+                    </label>
                 </div>
 
-                <div className="divider mx-3">OR</div>
+                {/* Password Entry */}
+                <div className="form-control w-full max-w-xs p-3">
+                    <input type="password" placeholder="Password" className={`input input-bordered w-full max-w-xs ${pwEntryError!=null ? " input-error":""}`}
+                        value={pwEntryText}
+                        onChange={(event) => {
+                            setPwEntryText(event.target.value)
+                        }} />
+                        <label className="label -m-1">
+                            <span className="link link-primary link-hover text-xs" onClick={forgotPasswordOnClick}>{(!isOnAccountCreation)? "Forgot password?" : ""}</span>
+                            <span className="text-xs text-error">{pwEntryError != null? pwEntryError : ""}</span>
+                        </label>
+                </div>
 
-                {/* Show signInWithGoogle */}
-                <button className="btn btn-primary mx-3 mb-2" onClick={signInWithGoogle}>
-                    <BsGoogle/>
-                    Sign in with Google
-                </button>
+                {/* Password Confirmation */}
+                {
+                    isOnAccountCreation && (
+                        <div className="collapse form-control w-full max-w-xs p-3 error">
+                            <input type="password" placeholder="Confirm Password" className={`input input-bordered w-full max-w-xs ${pwConfirmError!=null ? " input-error":""}`}
+                                value={pwConfirmText}
+                                onChange={(event) => {
+                                    setPwConfirmText(event.target.value)
+                                }} />
+                            <label className="label -m-1">
+                                <span></span>
+                                <span className="text-xs text-error" onClick={nextOnClick}>{pwConfirmError != null? pwConfirmError : ""}</span>
+                            </label>
+                        </div>
+                    )
+                }
+
+                {/* Create Account/Sign In Toggle and Submit Button*/}
+                <div className="flex items-center w-full max-w-xs pb-5 pt-3 px-3">
+                    <span className="link link-primary link-hover text-xs" onClick={toggleIsOnAccountCreation}>{(isOnAccountCreation) ? 'Already have an account? Sign in instead' : 'Don\'t have an account? Create one instead'}</span>
+                    <span className="btn btn-primary btn-sm ml-auto" onClick={nextOnClick}>Next</span>
+                </div>
+
             </div>
+
+            <div className="divider mx-3">OR</div>
+
+            {/* Show signInWithGoogle */}
+            <button className="btn btn-primary" onClick={signInWithGoogle}>
+                <BsGoogle/>
+                Sign in with Google
+            </button>
+        </div>
     )
 }
 
