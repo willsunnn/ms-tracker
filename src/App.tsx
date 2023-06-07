@@ -4,9 +4,8 @@ import { themeChange } from 'theme-change'
 import NavBar from './components/NavBar';
 import * as Auth from 'firebase/auth';
 import { Persistence } from './persistence/firebase';
-import { Alert, AlertCallback, AlertList } from './components/AlertComponent';
 import { AddAlertCallbackProvider } from './contexts/AlertContext';
-import SignInFormComponent from './components/SignInFormComponent';
+import SignInFormComponent from './components/SignInForm';
 
 const App = () => {
   // Handle theme change

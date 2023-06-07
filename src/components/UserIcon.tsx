@@ -2,7 +2,7 @@ import { useState } from "react";
 import * as Auth from 'firebase/auth';
 import { Persistence } from '../persistence/firebase';
 import defaultUserIcon from '../resources/default-user-icon.jpg';
-import SettingsDialog from "./SettingsDialogComponent";
+import SettingsDialog from "./SettingsDialog";
 
 type UserIconProps = {
     user: Auth.User

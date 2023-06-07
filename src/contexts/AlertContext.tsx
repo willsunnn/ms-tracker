@@ -1,5 +1,5 @@
 import React, { useContext, useState, ReactNode } from 'react';
-import { Alert, AlertList } from '../components/AlertComponent';
+import { Alert, AlertList } from '../components/AlertList';
 
 
 type AlertCallback = (alert: Alert) => void;
