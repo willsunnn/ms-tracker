@@ -1,13 +1,7 @@
 import React from "react"
 import SignInFormComponent from "./SignInFormComponent";
-import { AlertCallback } from "./AlertComponent";
 
-type SignInButtonProps = {
-    alertCallback: AlertCallback
-}
-
-const SignInButton = (props: SignInButtonProps) => {
-    const { alertCallback } = props
+const SignInButton = () => {
     const dialogRef = React.createRef<HTMLDialogElement>();
 
     const openSignInModal = () => {
@@ -27,7 +21,7 @@ const SignInButton = (props: SignInButtonProps) => {
                     {/* This Button allows us to close the modal by clicking the x */}
                     <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
                     {/* This is the body of the modal */}
-                    <SignInFormComponent alertCallback={alertCallback}/>
+                    <SignInFormComponent/>
                 </form>
             </dialog>
         </div>

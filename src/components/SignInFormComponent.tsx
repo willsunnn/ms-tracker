@@ -1,15 +1,11 @@
 import React from "react";
 import { Persistence } from '../persistence/firebase';
-import { AlertCallback } from "./AlertComponent";
 import { FirebaseError } from "firebase/app";
 import { BsGoogle } from 'react-icons/bs';
+import { useAddAlertCallback } from "../contexts/AlertContext";
 
-type SignInFormProps = {
-    alertCallback: AlertCallback
-}
-
-const SignInFormComponent = (props: SignInFormProps) => {
-    const { alertCallback } = props;
+const SignInFormComponent = () => {
+    const alertCallback = useAddAlertCallback();
 
     const [isOnAccountCreation, setIsOnAccountCreation] = React.useState<boolean>(false);
     const [emailEntryText, setEmailEntryText] = React.useState<string>("");
@@ -20,7 +16,7 @@ const SignInFormComponent = (props: SignInFormProps) => {
     const [pwEntryError, setPwEntryError] = React.useState<string|null>(null);
     const [pwConfirmError, setPwConfirmError] = React.useState<string|null>(null);
 
-    const handleError = (error: any) => {
+    const handleError = (operation: string, error: any) => {
         var errMessage;
         if (error instanceof FirebaseError) {
             errMessage = error.code;
@@ -30,10 +26,18 @@ const SignInFormComponent = (props: SignInFormProps) => {
         const dateToDismissAt = new Date();
         dateToDismissAt.setSeconds(dateToDismissAt.getSeconds() + 10);
         alertCallback({
-            text: `Failed to login: ${errMessage}`,
+            text: `Failed to ${operation}: ${errMessage}`,
             autoDismissAt: dateToDismissAt,
             alertLevel: "error"
         });
+    }
+
+    const handleLoginError = (error: any) => {
+        handleError('login', error);
+    }
+
+    const handleAccountCreationError = (error: any) => {
+        handleError('create account', error);
     }
 
     const createUser = () => {
@@ -47,7 +51,7 @@ const SignInFormComponent = (props: SignInFormProps) => {
         setPwConfirmError(pwDoNotMatch? "Passwors do not match" : null);
 
         if (!hasError) {
-            Persistence.createUser(emailEntryText, pwEntryText).catch(handleError);
+            Persistence.createUser(emailEntryText, pwEntryText).catch(handleAccountCreationError);
         }
     }
 
@@ -60,7 +64,7 @@ const SignInFormComponent = (props: SignInFormProps) => {
         setPwEntryError(pwIsBlank? "Password cannot be blank" : null);
 
         if (!hasError) {
-            Persistence.signInUser(emailEntryText, pwEntryText).catch(handleError);
+            Persistence.signInUser(emailEntryText, pwEntryText).catch(handleLoginError);
         }
     }
 
@@ -73,7 +77,7 @@ const SignInFormComponent = (props: SignInFormProps) => {
     }
 
     const signInWithGoogle = () => {
-        Persistence.signInWithGoogle().catch(handleError);
+        Persistence.signInWithGoogle().catch(handleLoginError);
     }
 
     const forgotPasswordOnClick = () => {

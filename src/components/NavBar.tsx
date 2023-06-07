@@ -5,11 +5,10 @@ import { AlertCallback } from "./AlertComponent";
 
 type NavBarProps = {
     user: Auth.User|null
-    alertCallback: AlertCallback
 }
 
 const NavBar = (props: NavBarProps) => {
-    const { user, alertCallback } = props;
+    const { user } = props;
     return (
         <div>
             <div className="navbar bg-base-300">
@@ -30,7 +29,7 @@ const NavBar = (props: NavBarProps) => {
                 </div>
                 <div className="navbar-end">
                     {!user && (<div className='mx-3'>
-                        <SignInButton alertCallback={alertCallback}/>
+                        <SignInButton/>
                     </div>)}
                     {user && (<div className='mx-3'>
                         <UserIcon user={user}/>

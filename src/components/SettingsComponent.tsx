@@ -1,7 +1,4 @@
-type SettingsSheetProps = {
-}
-
-const SettingsSheet = (props: SettingsSheetProps) => {
+const SettingsComponent = () => {
     return ( 
         <select className="select select-accent" data-choose-theme>
             <option value="dark">Dark mode</option>
@@ -10,4 +7,4 @@ const SettingsSheet = (props: SettingsSheetProps) => {
     );
 }
 
-export default SettingsSheet;
+export default SettingsComponent;
