@@ -1,10 +1,29 @@
+import { useAddAlertCallback } from "../contexts/AlertContext";
+import { useSetTheme, useTheme } from "../contexts/ThemeContext";
+
 const SettingsComponent = () => {
+    const theme = useTheme();
+    const setTheme = useSetTheme();
+    const addAlertCallback = useAddAlertCallback();
+
+    const onSelectChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+        const { value } = event.target;
+        if (value==='light' || value==='dark') {
+            setTheme(value);
+        } else {
+            addAlertCallback({
+                text: `Theme ${value} is not supported`,
+                alertLevel: "error"
+            });
+        }
+    }
+
     return ( 
         <>
             <h2 className="text-lg font-semibold my-3">Theme: </h2>
-            <select className="select select-accent" data-choose-theme>
-                <option value="dark">Dark mode</option>
-                <option value="light">Light mode</option>
+            <select className="select select-accent" onChange={onSelectChange}>
+                <option value="dark" selected={theme==='dark'}>Dark mode</option>
+                <option value="light" selected={theme==='light'}>Light mode</option>
             </select>
         </>
     );

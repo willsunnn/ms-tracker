@@ -48,7 +48,6 @@ export type AlertListProps = {
 
 export const AlertList = (props: AlertListProps) => {
     const { alerts } = props;
-    console.log(alerts)
     return (
         <div className="toast whitespace-normal">
             {
