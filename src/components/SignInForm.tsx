@@ -71,8 +71,9 @@ const SignInFormComponent = () => {
             forgotPassword(emailEntryText).catch(handleError).then(() => {
                 alert({
                     text: `email sent to ${emailEntryText}`,
-                    alertLevel: 'info'
-                })
+                    alertLevel: 'success'
+                });
+                setFormState('signIn');
             });
         }
     }
