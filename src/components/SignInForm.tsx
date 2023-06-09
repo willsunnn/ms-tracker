@@ -1,14 +1,16 @@
-import React from "react";
+import React, { KeyboardEventHandler } from "react";
 import { FirebaseError } from "firebase/app";
 import { BsGoogle } from 'react-icons/bs';
 import { useAddAlertCallback } from "../contexts/AlertContext";
 import { useAuth } from "../contexts/AuthContext";
 
+type FormFunction = 'signIn' | 'signUp' | 'resetPassword';
+
 const SignInFormComponent = () => {
-    const { signIn, signUp, signInWithGoogle } = useAuth();
+    const { signIn, signUp, signInWithGoogle, forgotPassword } = useAuth();
     const alert = useAddAlertCallback();
 
-    const [isOnAccountCreation, setIsOnAccountCreation] = React.useState<boolean>(false);
+    const [formState, setFormState] = React.useState<FormFunction>('signIn');
     const [emailEntryText, setEmailEntryText] = React.useState<string>("");
     const [pwEntryText, setPwEntryText] = React.useState<string>("");
     const [pwConfirmText, setPwConfirmText] = React.useState<string>("");
@@ -17,25 +19,20 @@ const SignInFormComponent = () => {
     const [pwEntryError, setPwEntryError] = React.useState<string|null>(null);
     const [pwConfirmError, setPwConfirmError] = React.useState<string|null>(null);
 
-    const handleError = (operation: string, error: any) => {
+    const handleError = (error: any) => {
         var errMessage;
         if (error instanceof FirebaseError) {
             errMessage = error.code;
         } else {
             errMessage = error;
         }
+        const operation = (formState==='signIn') ? 'sign in' : 
+                          (formState==='signUp') ? 'sign up' :
+                          'reset password';
         alert({
             text: `Failed to ${operation}: ${errMessage}`,
             alertLevel: "error"
         });
-    }
-
-    const handleLoginError = (error: any) => {
-        handleError('login', error);
-    }
-
-    const handleAccountCreationError = (error: any) => {
-        handleError('create account', error);
     }
 
     const validateAndSignUp = () => {
@@ -46,10 +43,10 @@ const SignInFormComponent = () => {
 
         setEmailEntryError(emailIsBlank? "Email cannot be blank" : null);
         setPwEntryError(pwIsBlank? "Password cannot be blank" : null);
-        setPwConfirmError(pwDoNotMatch? "Passwors do not match" : null);
+        setPwConfirmError(pwDoNotMatch? "Passwords do not match" : null);
 
         if (!hasError) {
-            signUp(emailEntryText, pwEntryText).catch(handleAccountCreationError);
+            signUp(emailEntryText, pwEntryText).catch(handleError);
         }
     }
 
@@ -62,73 +59,107 @@ const SignInFormComponent = () => {
         setPwEntryError(pwIsBlank? "Password cannot be blank" : null);
 
         if (!hasError) {
-            signIn(emailEntryText, pwEntryText).catch(handleLoginError);
+            signIn(emailEntryText, pwEntryText).catch(handleError);
+        }
+    }
+
+    const validateAndResetPassword = () => {
+        const emailIsBlank = emailEntryText.length === 0;
+        setEmailEntryError(emailIsBlank? "Email cannot be blank" : null);
+
+        if (!emailIsBlank) {
+            forgotPassword(emailEntryText).catch(handleError).then(() => {
+                alert({
+                    text: `email sent to ${emailEntryText}`,
+                    alertLevel: 'info'
+                })
+            });
         }
     }
 
     const nextOnClick = () => {
-        if (isOnAccountCreation) {
-            validateAndSignUp();
-        } else {
-            validateAndSignIn();
-        }
+        const submitFunc = (formState==='signIn') ? validateAndSignIn : 
+                           (formState==='signUp') ? validateAndSignUp :
+                           validateAndResetPassword;
+        submitFunc();
     }
 
     const signInWithGoogleWithErrorHandler = () => {
-        signInWithGoogle().catch(handleLoginError);
+        signInWithGoogle().catch(handleError);
     }
 
     const forgotPasswordOnClick = () => {
-        alert("this feature has not been implemented");
+        setFormState('resetPassword');
     }
 
-    const toggleIsOnAccountCreation = () => {
-        setIsOnAccountCreation(!isOnAccountCreation);
+    const handleEnterPressed = (event: React.KeyboardEvent<HTMLInputElement>) => {
+        if (event.key==='Enter') {
+            nextOnClick();
+        }
+    }
+
+    const formTitle = (formState==='signIn') ? 'Sign In' : 
+                      (formState==='signUp') ? 'Sign Up' :
+                      'Reset Password';
+    const toggleFormFuncText = (formState==='signIn') ? 'Don\'t have an account? Create one instead':
+                               (formState==='signUp') ? 'Already have an account? Sign in instead' : 
+                               'Return to sign in'
+    const toggleFormFunc = () => {
+        setFormState((formState==='signIn') ? 'signUp':
+                     (formState==='signUp') ? 'signIn' : 
+                     'signIn')
     }
 
     return (
         <div className="card w-96 bg-base-200 p-5">
             {/* Regular Sign in Section*/}
             <div className="grid card bg-base-300 rounded-box place-items-center">
-                <h3 className="font-semibold text-2xl w-full max-w-xs px-3 pt-5 pb-3">{(isOnAccountCreation) ? 'Create Account' : 'Sign In'}</h3>
+                <h3 className="font-semibold text-2xl w-full max-w-xs px-3 pt-5 pb-3">{formTitle}</h3>
                 {/* Email Entry */}
                 <div className="form-control w-full max-w-xs p-3">
                     <input type="text" placeholder="Email Address" className={`input input-bordered w-full max-w-xs ${emailEntryError!=null ? " input-error":""}`}
                         value={emailEntryText}
                         onChange={(event) => {
                             setEmailEntryText(event.target.value)
-                        }} />
+                        }}
+                        onKeyDown={handleEnterPressed} />
                     <label className="label -m-1">
                         <span></span>
-                        <span className="text-xs text-error" onClick={nextOnClick}>{emailEntryError != null? emailEntryError : ""}</span>
+                        <span className="text-xs text-error">{emailEntryError != null? emailEntryError : ""}</span>
                     </label>
                 </div>
 
                 {/* Password Entry */}
-                <div className="form-control w-full max-w-xs p-3">
-                    <input type="password" placeholder="Password" className={`input input-bordered w-full max-w-xs ${pwEntryError!=null ? " input-error":""}`}
-                        value={pwEntryText}
-                        onChange={(event) => {
-                            setPwEntryText(event.target.value)
-                        }} />
-                        <label className="label -m-1">
-                            <span className="link link-primary link-hover text-xs" onClick={forgotPasswordOnClick}>{(!isOnAccountCreation)? "Forgot password?" : ""}</span>
-                            <span className="text-xs text-error">{pwEntryError != null? pwEntryError : ""}</span>
-                        </label>
-                </div>
+                {
+                    formState!=='resetPassword' && (
+                        <div className="form-control w-full max-w-xs p-3">
+                            <input type="password" placeholder="Password" className={`input input-bordered w-full max-w-xs ${pwEntryError!=null ? " input-error":""}`}
+                                value={pwEntryText}
+                                onChange={(event) => {
+                                    setPwEntryText(event.target.value)
+                                }}
+                                onKeyDown={handleEnterPressed} />
+                                <label className="label -m-1">
+                                    <span className='link link-primary link-hover text-xs' onClick={forgotPasswordOnClick}>{(formState==='signIn'? 'Forgot password?' : '')}</span>
+                                    <span className="text-xs text-error">{pwEntryError != null? pwEntryError : ""}</span>
+                                </label>
+                        </div>
+                    )
+                }
 
                 {/* Password Confirmation */}
                 {
-                    isOnAccountCreation && (
+                    formState==='signUp' && (
                         <div className="collapse form-control w-full max-w-xs p-3 error">
                             <input type="password" placeholder="Confirm Password" className={`input input-bordered w-full max-w-xs ${pwConfirmError!=null ? " input-error":""}`}
                                 value={pwConfirmText}
                                 onChange={(event) => {
                                     setPwConfirmText(event.target.value)
-                                }} />
+                                }}
+                                onKeyDown={handleEnterPressed} />
                             <label className="label -m-1">
                                 <span></span>
-                                <span className="text-xs text-error" onClick={nextOnClick}>{pwConfirmError != null? pwConfirmError : ""}</span>
+                                <span className="text-xs text-error">{pwConfirmError != null? pwConfirmError : ""}</span>
                             </label>
                         </div>
                     )
@@ -136,7 +167,7 @@ const SignInFormComponent = () => {
 
                 {/* Create Account/Sign In Toggle and Submit Button*/}
                 <div className="flex items-center w-full max-w-xs pb-5 pt-3 px-3">
-                    <span className="link link-primary link-hover text-xs" onClick={toggleIsOnAccountCreation}>{(isOnAccountCreation) ? 'Already have an account? Sign in instead' : 'Don\'t have an account? Create one instead'}</span>
+                    <span className="link link-primary link-hover text-xs" onClick={toggleFormFunc}>{toggleFormFuncText}</span>
                     <span className="btn btn-primary btn-sm ml-auto" onClick={nextOnClick}>Next</span>
                 </div>
 

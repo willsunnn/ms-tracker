@@ -2,6 +2,7 @@ import { BiErrorCircle, BiInfoCircle, BiCheckCircle, BiMinusCircle } from 'react
 
 export type Alert = {
     text: string
+    uid?: string
     expireAt?: Date
     alertLevel: AlertLevel
 };
@@ -38,7 +39,7 @@ export const AlertList = (props: {alerts: Alert[]}) => {
         <div className="toast whitespace-normal">
             {
                 props.alerts.map((alert) => {
-                    return (<AlertComponent alert={alert}/>)
+                    return (<AlertComponent alert={alert} key={alert.uid}/>)
                 })
             }
         </div>

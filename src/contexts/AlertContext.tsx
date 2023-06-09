@@ -1,6 +1,7 @@
 import React, { useContext, useState, ReactNode, useEffect, useRef } from 'react';
 import { Alert, AlertList } from '../components/AlertList';
 import { Queue } from 'queue-typescript';
+import { uuidv4 } from '@firebase/util';
 
 type AlertCallback = (alert: Alert | string) => void;
 
@@ -52,6 +53,7 @@ export const AddAlertCallbackProvider = (props: { children: ReactNode }) => {
     }, [lastCheckedTime])
     
     const addAlert: AlertCallback = (alert) => {
+        const uuid = uuidv4();
         if (typeof alert === 'string') {
             alert = {
                 text: alert,
@@ -60,6 +62,7 @@ export const AddAlertCallbackProvider = (props: { children: ReactNode }) => {
         }
         const currTime = new Date().valueOf();
         alert.expireAt = new Date(currTime + ALERT_DISPLAY_TIME_MS);
+        alert.uid = uuid;
         alertQueueRef.current.append(alert);
         setAlertList(alertQueueRef.current.toArray());
     }
