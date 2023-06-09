@@ -10,7 +10,7 @@ export const useAddAlertCallback =  () => {
     return useContext(AddAlertCallbackContext);
 }
 
-const ALERT_EXPIRY_REFRESH_INTERVAL_MS = 1000   // remove expired alerts every second
+const ALERT_EXPIRY_REFRESH_INTERVAL_MS = 50   // remove expired alerts every second
 const ALERT_DISPLAY_TIME_MS = 10000;            // show alert for 10 seconds
 
 const shouldPopFromQueue = (alertQueue: Queue<Alert>) => {

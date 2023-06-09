@@ -1,5 +1,4 @@
 import React from "react";
-import { Persistence } from '../persistence/firebase';
 import { FirebaseError } from "firebase/app";
 import { BsGoogle } from 'react-icons/bs';
 import { useAddAlertCallback } from "../contexts/AlertContext";
