@@ -1,6 +1,8 @@
 import React, { useContext, useState, ReactNode, useEffect } from 'react';
+import Cookies from 'js-cookie';
 
-type Theme = 'light' | 'dark';
+const availableThemes = ['light', 'dark'];
+type Theme = 'light' | 'dark'
 
 type ThemeWrapper = {
     theme: Theme,
@@ -10,27 +12,41 @@ type ThemeWrapper = {
 
 const ThemeContext = React.createContext<ThemeWrapper|undefined>(undefined);
 
+const ThemeCookieKey = 'theme';
+
 export const useTheme = () => {
     return useContext(ThemeContext)!;
 }
 
 export const ThemeContextProvider = (props: { children: ReactNode }) => {
-    const [theme, setTheme] = useState<Theme>('light');
 
-    useEffect(()=> {
+    const cookieValue = Cookies.get(ThemeCookieKey);
+    let defaultValue: Theme = 'light'
+    if (cookieValue && (cookieValue==='light' || cookieValue==='dark')) {
+        defaultValue = cookieValue;
+    }
+
+    const [theme, setTheme] = useState<Theme>(defaultValue);
+
+    useEffect(() => {
         document.documentElement.setAttribute('data-theme', theme);
     }, [theme])
+
+    const setThemeAndCookie = (theme: Theme) => {
+        Cookies.set(ThemeCookieKey, theme, {sameSite: 'strict'});
+        setTheme(theme);
+    }
     
     const toggleTheme = () => {
-        setTheme((currTheme) => 
-            (currTheme === 'light') ? 'dark' : 'light'
+        setThemeAndCookie(
+            (theme === 'light') ? 'dark' : 'light'
         );
     }
 
     const value = {
         theme,
         toggleTheme,
-        setTheme
+        setTheme: setThemeAndCookie
     }
 
     return (

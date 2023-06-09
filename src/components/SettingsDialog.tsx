@@ -20,9 +20,9 @@ const SettingsComponent = () => {
     return ( 
         <>
             <h2 className="text-lg font-semibold my-3">Theme: </h2>
-            <select className="select select-accent" onChange={onSelectChange}>
-                <option value="dark" selected={theme==='dark'}>Dark mode</option>
-                <option value="light" selected={theme==='light'}>Light mode</option>
+            <select className="select select-accent" onChange={onSelectChange} defaultValue={theme}>
+                <option value="dark">Dark mode</option>
+                <option value="light">Light mode</option>
             </select>
         </>
     );
