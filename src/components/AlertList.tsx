@@ -2,19 +2,14 @@ import { BiErrorCircle, BiInfoCircle, BiCheckCircle, BiMinusCircle } from 'react
 
 export type Alert = {
     text: string
-    autoDismissAt?: Date
+    expireAt?: Date
     alertLevel: AlertLevel
 };
 
-type AlertLevel = "info"|"warning"|"error"|"success";
+export type AlertLevel = "info"|"warning"|"error"|"success";
 export type AlertCallback = (alert: Alert) => void;
 
-
-type AlertComponentIconProps = {
-    alertLevel: AlertLevel
-}
-
-const AlertComponentIcon = (props: AlertComponentIconProps) => {
+const AlertComponentIcon = (props: {alertLevel: AlertLevel}) => {
     const { alertLevel } = props;
     if (alertLevel === "success") {
         return (<BiCheckCircle/>);
@@ -27,11 +22,7 @@ const AlertComponentIcon = (props: AlertComponentIconProps) => {
     }
 }
 
-type AlertComponentProps = {
-    alert: Alert
-}
-
-const AlertComponent = (props: AlertComponentProps) => {
+const AlertComponent = (props: {alert: Alert}) => {
     const { alert } = props;
     return (
         <div className={`alert alert-${alert.alertLevel} w-64 flex-wrap`}>
@@ -41,17 +32,11 @@ const AlertComponent = (props: AlertComponentProps) => {
     );
 }
 
-export type AlertListProps = {
-    alerts: Alert[]
-}
-
-
-export const AlertList = (props: AlertListProps) => {
-    const { alerts } = props;
+export const AlertList = (props: {alerts: Alert[]}) => {
     return (
         <div className="toast whitespace-normal">
             {
-                alerts.map((alert) => {
+                props.alerts.map((alert) => {
                     return (<AlertComponent alert={alert}/>)
                 })
             }

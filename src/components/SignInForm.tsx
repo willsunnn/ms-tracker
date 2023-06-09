@@ -25,11 +25,8 @@ const SignInFormComponent = () => {
         } else {
             errMessage = error;
         }
-        const dateToDismissAt = new Date();
-        dateToDismissAt.setSeconds(dateToDismissAt.getSeconds() + 10);
         alert({
             text: `Failed to ${operation}: ${errMessage}`,
-            autoDismissAt: dateToDismissAt,
             alertLevel: "error"
         });
     }
