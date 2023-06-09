@@ -7,7 +7,7 @@ import { useAuth } from "../contexts/AuthContext";
 
 const SignInFormComponent = () => {
     const { signIn, signUp, signInWithGoogle } = useAuth();
-    const alertCallback = useAddAlertCallback();
+    const alert = useAddAlertCallback();
 
     const [isOnAccountCreation, setIsOnAccountCreation] = React.useState<boolean>(false);
     const [emailEntryText, setEmailEntryText] = React.useState<string>("");
@@ -27,7 +27,7 @@ const SignInFormComponent = () => {
         }
         const dateToDismissAt = new Date();
         dateToDismissAt.setSeconds(dateToDismissAt.getSeconds() + 10);
-        alertCallback({
+        alert({
             text: `Failed to ${operation}: ${errMessage}`,
             autoDismissAt: dateToDismissAt,
             alertLevel: "error"
