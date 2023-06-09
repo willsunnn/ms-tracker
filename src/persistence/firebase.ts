@@ -1,42 +1,8 @@
-import { initializeApp } from 'firebase/app';
 import * as Firestore from 'firebase/firestore';
-import * as Auth from 'firebase/auth';
-import FirebaseConfig from '../config/FirebaseConfig';
+import { db } from '../config/FirebaseConfig';
 import { UserData } from './types';
 
-const app = initializeApp(FirebaseConfig);
-const auth = Auth.getAuth(app);
-const db: Firestore.Firestore = Firestore.getFirestore(app);
-
 const userCollection = "UserData"
-
-const createUser = async (email: string, password: string): Promise<Auth.User> => {
-    const userCredential = await Auth.createUserWithEmailAndPassword(auth, email, password);
-    return userCredential.user
-}
-
-const signInUser = async (email: string, password: string): Promise<Auth.User> => {
-    const userCredential = await Auth.signInWithEmailAndPassword(auth, email, password);
-    return userCredential.user
-}
-
-const forgotPassword = async(email: string) => {
-    await Auth.sendPasswordResetEmail(auth, email);
-}
-
-const signInWithGoogle = async () => {
-    const provider = new Auth.GoogleAuthProvider();
-    const userCredential = await Auth.signInWithPopup(auth, provider);
-    return userCredential.user;
-}
-
-const signOut = async() => {
-    await Auth.signOut(auth);
-}
-
-const onUserChange = (handler: (_: Auth.User|null) => void) => {
-    Auth.onAuthStateChanged(auth, handler);
-}
 
 const storeData = async (userData: UserData): Promise<String> => {
     try {
@@ -64,12 +30,6 @@ const getData = async (): Promise<UserData> => {
 }
 
 export const Persistence = {
-    createUser,
-    signInUser,
-    signInWithGoogle,
-    signOut,
-    onUserChange,
-    forgotPassword,
     storeData,
     getData,
 }

@@ -4,6 +4,7 @@ import './index.css';
 import App from './App';
 import { ThemeContextProvider } from './contexts/ThemeContext';
 import { AddAlertCallbackProvider } from './contexts/AlertContext';
+import { AuthContextProvider } from './contexts/AuthContext';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
@@ -11,9 +12,11 @@ const root = ReactDOM.createRoot(
 root.render(
   <React.StrictMode>
     <ThemeContextProvider>
-      <AddAlertCallbackProvider>
-        <App />
-      </AddAlertCallbackProvider>
+      <AuthContextProvider>
+        <AddAlertCallbackProvider>
+          <App />
+        </AddAlertCallbackProvider>
+      </AuthContextProvider>
     </ThemeContextProvider>
   </React.StrictMode>
 );

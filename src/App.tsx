@@ -1,17 +1,10 @@
-import React, { useEffect } from 'react';
 import './App.css';
 import NavBar from './components/NavBar';
-import * as Auth from 'firebase/auth';
-import { Persistence } from './persistence/firebase';
 import SignInFormComponent from './components/SignInForm';
+import { useAuth } from './contexts/AuthContext';
 
 const App = () => {
-
-  // Handle user change
-  const [user, setUser] = React.useState<Auth.User|null>(null);
-  useEffect(() => {
-    Persistence.onUserChange(setUser)
-  }, []);
+  const { user } = useAuth();
 
   return (
     <>
