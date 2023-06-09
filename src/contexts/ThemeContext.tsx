@@ -2,20 +2,16 @@ import React, { useContext, useState, ReactNode, useEffect } from 'react';
 
 type Theme = 'light' | 'dark';
 
-const ThemeContext = React.createContext<Theme>('light');
-const ToggleThemeContext = React.createContext<()=>void>(()=>{});
-const SetThemeContext = React.createContext<(_: Theme)=>void>(()=>{});
+type ThemeWrapper = {
+    theme: Theme,
+    toggleTheme: ()=>void,
+    setTheme: (_:Theme)=>void,
+}
+
+const ThemeContext = React.createContext<ThemeWrapper|undefined>(undefined);
 
 export const useTheme = () => {
-    return useContext(ThemeContext);
-}
-
-export const useToggleTheme = () => {
-    return useContext(ToggleThemeContext);
-}
-
-export const useSetTheme = () => {
-    return useContext(SetThemeContext);
+    return useContext(ThemeContext)!;
 }
 
 export const ThemeContextProvider = (props: { children: ReactNode }) => {
@@ -31,13 +27,15 @@ export const ThemeContextProvider = (props: { children: ReactNode }) => {
         );
     }
 
+    const value = {
+        theme,
+        toggleTheme,
+        setTheme
+    }
+
     return (
-        <ThemeContext.Provider value={theme}>
-            <ToggleThemeContext.Provider value={toggleTheme}>
-                <SetThemeContext.Provider value={setTheme}>
-                    {props.children}
-                </SetThemeContext.Provider>
-            </ToggleThemeContext.Provider>
+        <ThemeContext.Provider value={value}>
+            {props.children}
         </ThemeContext.Provider>
     );
 };
