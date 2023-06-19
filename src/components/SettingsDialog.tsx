@@ -1,9 +1,9 @@
-import { useAddAlertCallback } from "../contexts/AlertContext";
+import { useAlertCallback } from "../contexts/AlertContext";
 import { useTheme } from "../contexts/ThemeContext";
 
 const SettingsComponent = () => {
     const { theme, setTheme } = useTheme();
-    const addAlertCallback = useAddAlertCallback();
+    const addAlertCallback = useAlertCallback();
 
     const onSelectChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
         const { value } = event.target;

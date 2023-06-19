@@ -5,10 +5,10 @@ import { uuidv4 } from '@firebase/util';
 
 type AlertCallback = (alert: Alert | string) => void;
 
-const AddAlertCallbackContext = React.createContext<AlertCallback>(console.log);
+const AlertCallbackContext = React.createContext<AlertCallback>(console.log);
 
-export const useAddAlertCallback =  () => {
-    return useContext(AddAlertCallbackContext);
+export const useAlertCallback =  () => {
+    return useContext(AlertCallbackContext);
 }
 
 const ALERT_EXPIRY_REFRESH_INTERVAL_MS = 50   // remove expired alerts every second
@@ -68,9 +68,9 @@ export const AddAlertCallbackProvider = (props: { children: ReactNode }) => {
     }
 
     return (
-        <AddAlertCallbackContext.Provider value={addAlert}>
+        <AlertCallbackContext.Provider value={addAlert}>
             {props.children}
             <AlertList alerts={alertList}/>
-        </AddAlertCallbackContext.Provider>
+        </AlertCallbackContext.Provider>
     )
 };

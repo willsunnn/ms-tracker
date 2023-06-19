@@ -1,4 +1,5 @@
 import './App.css';
+import HomePageComponent from './components/HomePageComponent';
 import NavBar from './components/NavBar';
 import SignInFormComponent from './components/SignInForm';
 import { useAuth } from './contexts/AuthContext';
@@ -14,9 +15,7 @@ const App = () => {
           <SignInFormComponent/>
         </div> }
       { user && (
-        <h1 className="text-3xl font-bold underline text-red-600">
-          {`userId=${(user!=null)? user.uid : 'null'}`}
-        </h1>
+        <HomePageComponent user={user}/>
       )}
     </>
   );  

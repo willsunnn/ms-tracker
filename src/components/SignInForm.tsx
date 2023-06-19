@@ -1,14 +1,14 @@
 import React, { KeyboardEventHandler } from "react";
 import { FirebaseError } from "firebase/app";
 import { BsGoogle } from 'react-icons/bs';
-import { useAddAlertCallback } from "../contexts/AlertContext";
+import { useAlertCallback } from "../contexts/AlertContext";
 import { useAuth } from "../contexts/AuthContext";
 
 type FormFunction = 'signIn' | 'signUp' | 'resetPassword';
 
 const SignInFormComponent = () => {
     const { signIn, signUp, signInWithGoogle, forgotPassword } = useAuth();
-    const alert = useAddAlertCallback();
+    const alert = useAlertCallback();
 
     const [formState, setFormState] = React.useState<FormFunction>('signIn');
     const [emailEntryText, setEmailEntryText] = React.useState<string>("");
