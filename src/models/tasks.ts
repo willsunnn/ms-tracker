@@ -1,3 +1,5 @@
+/*eslint @typescript-eslint/no-redeclare: "off" */ // linter conflicts with zod usage documentation
+
 import AllTasksJson from './tasks.json';
 import { z } from 'zod';
 
@@ -34,7 +36,7 @@ const Task = z.object({
     taskType: TaskType,
 })
 export type Task = z.infer<typeof Task>
-export const AllTasks = AllTasksJson.map((json) => Task.parse(json));
+export const ALL_TASKS = AllTasksJson.map((json) => Task.parse(json));
 
 // TaskStatus
 export const TaskStatus = z.object({
@@ -43,38 +45,34 @@ export const TaskStatus = z.object({
     isPriority: z.boolean(),
 })
 export type TaskStatus = z.infer<typeof TaskStatus>;
+export const defaultTaskStatus: (_:string)=>TaskStatus = (taskId: string) => {
+    return {
+        taskId,
+        clearTimes: [],
+        isPriority: false
+    }
+}
 
 // TaskAndStatus
 export const TaskAndStatus = z.intersection(Task, TaskStatus);
 export type TaskAndStatus = z.infer<typeof TaskAndStatus>
 
-// TaskStatusesForCharacter and TaskAndStatusesForCharacter
-export const TaskStatusesForCharacter = z.object({
-    taskStatuses: z.array(TaskStatus),
+// TaskStatusForCharacter
+export const TaskStatusForCharacter = z.object({
+    taskStatus: z.map(z.string(), TaskStatus),
     characterName: z.string(),
 })
-export type TaskStatusesForCharacter = z.infer<typeof TaskStatusesForCharacter>;
-export const TaskAndStatusesForCharacter = z.object({
-    taskStatuses: z.array(TaskAndStatus),
-    characterName: z.string(),
-})
-export type TaskAndStatusesForCharacter = z.infer<typeof TaskAndStatusesForCharacter>;
-
-// TaskStatusesForAccount and TaskAndStatusesForAccount
-export const TaskStatusesForAccount = z.object({
-    characters: z.array(TaskStatusesForCharacter)
-});
-export type TaskStatusesForAccount = z.infer<typeof TaskStatusesForAccount>;
-export const TaskAndStatusesForAccount = z.object({
-    characters: z.array(TaskAndStatusesForCharacter)
-});
-export type TaskAndStatusesForAccount = z.infer<typeof TaskAndStatusesForAccount>;
-
-// TaskAndStatus
-export type TaskAndStatusForCharacter = {
-    tasks: TaskAndStatus[],
-    characterName: string,
+export type TaskStatusForCharacter = z.infer<typeof TaskStatusForCharacter>;
+export const defaultTaskStatusForCharacter: (_:string)=>TaskStatusForCharacter = (characterName: string) => {
+    return {
+        characterName,
+        taskStatus: new Map<string, TaskStatus>()
+    }
 }
-export type TaskAndStatusForAccount = {
-    characters: TaskAndStatusForCharacter[]
+
+// TaskStatusForAccount
+export const TaskStatusForAccount = z.map(z.string(), TaskStatusForCharacter);
+export type TaskStatusForAccount = z.infer<typeof TaskStatusForAccount>;
+export const defaultTaskStatusForAccount: ()=>TaskStatusForAccount = () => {
+    return new Map<string, TaskStatusForCharacter>();
 }

@@ -1,7 +1,7 @@
 import './App.css';
-import HomePageComponent from './components/HomePageComponent';
 import NavBar from './components/navbar/NavBar';
 import SignInFormComponent from './components/SignInForm';
+import { TaskViewPage } from './components/taskview/TaskViewPage';
 import { useAuth } from './contexts/AuthContext';
 
 const App = () => {
@@ -15,7 +15,7 @@ const App = () => {
           <SignInFormComponent/>
         </div> }
       { user && (
-        <HomePageComponent user={user}/>
+        <TaskViewPage user={user}/>
       )}
     </>
   );  
