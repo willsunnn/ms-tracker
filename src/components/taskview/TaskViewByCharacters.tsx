@@ -1,5 +1,6 @@
 import { Character } from "../../models/character";
 import { Task, TaskAndStatus, TaskStatus, TaskStatusForAccount, TaskStatusForCharacter, defaultTaskStatusForCharacter } from "../../models/tasks";
+import { AddCharacterButton } from "./AddCharacterComponent";
 import { TaskViewProps } from "./TaskViewPage";
 
 const joinTasksAndStatuses = (tasks: Task[], statuses: TaskStatusForCharacter): TaskAndStatus[] => {
@@ -23,7 +24,7 @@ const TaskViewSingleCharacter = (props: {tasks: Task[], taskStatus: TaskStatusFo
     const { tasks, taskStatus, character } = props
     const tasksAndStatuses = joinTasksAndStatuses(tasks, taskStatus);
     return (
-        <div className="card card-side bg-base-100 shadow-xl m-5">
+        <div className="card card-side bg-base-100 shadow-xl my-5">
             <figure><img src="https://msavatar1.nexon.net/Character/JMOLMEJGJLPMEFANEAELCGBPAMNJFFLHGOGEJMJNOHFENDCLADFDMGOBHPOJOOEJKKEHCAOKPGMGOJCBJOKBIGNOFBPNGFKPNKMDCJICBEBOFBEEMOEHOOHGLHPNPFCHMJALCOAMNLBDGHCCDEJHFJBDCOECOIBEDIHHMOFAJPPPOJFCGOAHCGCHAIALNDFCAEPCFNLJGLJDEDBBENOBMFCBOCNJLGGBAFFMPNPJAAHBHCDAAFNDJKKLDFNJMPBD.png" alt="Album"/></figure>
             <div className="card-body">
                 <h2 className="card-title">{taskStatus.characterName}</h2>
@@ -35,11 +36,6 @@ const TaskViewSingleCharacter = (props: {tasks: Task[], taskStatus: TaskStatusFo
     )
 }
 
-const AddCharacterButton = () => {
-    return (
-        <button className="btn btn-primary">Add Character</button>
-    )
-}
 export const TaskViewByCharacter = (props: {taskViewAttrs: TaskViewProps}) => {
     const { tasks, taskStatus, characters } = props.taskViewAttrs;
     return (<> 

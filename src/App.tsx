@@ -9,14 +9,18 @@ const App = () => {
 
   return (
     <>
-      <NavBar user={user}/>
-      { !user && 
-        <div className="flex items-center justify-center h-[calc(100vh-64px)]">
-          <SignInFormComponent/>
-        </div> }
-      { user && (
-        <TaskViewPage user={user}/>
-      )}
+      <div className="z-40">
+        <NavBar user={user}/>
+      </div>
+      <div className="z-0">
+        { !user && 
+          <div className="flex items-center justify-center h-[calc(100vh-64px)]">
+            <SignInFormComponent/>
+          </div> }
+        { user && (
+          <TaskViewPage user={user}/>
+        )}
+      </div>
     </>
   );  
 }

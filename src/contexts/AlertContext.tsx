@@ -24,7 +24,6 @@ const shouldPopFromQueue = (alertQueue: Queue<Alert>) => {
     }
     const currTime = new Date().valueOf();
     return currTime > expireAt.valueOf();
-    ;
 }
 
 export const AddAlertCallbackProvider = (props: { children: ReactNode }) => {

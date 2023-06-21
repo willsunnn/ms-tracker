@@ -1,18 +1,14 @@
-import { useState } from "react";
 import defaultUserIcon from '../../resources/default-user-icon.jpg';
-import SettingsDialog from "./SettingsDialog";
 import { useAuth } from "../../contexts/AuthContext";
+import { useOpenInDialogCallback } from "../../contexts/DialogContext";
+import { SettingsComponent } from "./SettingsButton";
 
 const UserIcon = () => {
     const { user, signOut } = useAuth();
-    const [dialogIsOpen, setDialogIsOpen] = useState(false);
-
+    
+    const openDialog = useOpenInDialogCallback()
     const openSettingsDialog = () => {
-        setDialogIsOpen(true);
-    }
-
-    const closeSettingsDialog = () => {
-        setDialogIsOpen(false);
+        openDialog((<SettingsComponent/>))
     }
 
     const photoUrl = user?.photoURL == null? defaultUserIcon : user.photoURL;
@@ -31,7 +27,6 @@ const UserIcon = () => {
                     <li onClick={signOut}><a>Logout</a></li>
                 </ul>
             </div>
-            <SettingsDialog open={dialogIsOpen} closeDialog={closeSettingsDialog}/>
         </>
     );
 }
