@@ -1,6 +1,6 @@
 import './App.css';
 import HomePageComponent from './components/HomePageComponent';
-import NavBar from './components/NavBar';
+import NavBar from './components/navbar/NavBar';
 import SignInFormComponent from './components/SignInForm';
 import { useAuth } from './contexts/AuthContext';
 

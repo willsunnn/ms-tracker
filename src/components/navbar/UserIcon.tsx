@@ -1,7 +1,7 @@
 import { useState } from "react";
-import defaultUserIcon from '../resources/default-user-icon.jpg';
+import defaultUserIcon from '../../resources/default-user-icon.jpg';
 import SettingsDialog from "./SettingsDialog";
-import { useAuth } from "../contexts/AuthContext";
+import { useAuth } from "../../contexts/AuthContext";
 
 const UserIcon = () => {
     const { user, signOut } = useAuth();

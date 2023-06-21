@@ -1,5 +1,5 @@
-import { useAlertCallback } from "../contexts/AlertContext";
-import { useTheme } from "../contexts/ThemeContext";
+import { useAlertCallback } from "../../contexts/AlertContext";
+import { useTheme } from "../../contexts/ThemeContext";
 
 const SettingsComponent = () => {
     const { theme, setTheme } = useTheme();

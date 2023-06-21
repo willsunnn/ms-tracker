@@ -3,7 +3,7 @@ import { Alert, AlertList } from '../components/AlertList';
 import { Queue } from 'queue-typescript';
 import { uuidv4 } from '@firebase/util';
 
-type AlertCallback = (alert: Alert | string) => void;
+type AlertCallback = (alert: Alert | string | Error ) => void;
 
 const AlertCallbackContext = React.createContext<AlertCallback>(console.log);
 
@@ -11,7 +11,7 @@ export const useAlertCallback =  () => {
     return useContext(AlertCallbackContext);
 }
 
-const ALERT_EXPIRY_REFRESH_INTERVAL_MS = 50   // remove expired alerts every second
+const ALERT_EXPIRY_REFRESH_INTERVAL_MS = 50    // remove expired alerts every second
 const ALERT_DISPLAY_TIME_MS = 5000;            // show alert for 10 seconds
 
 const shouldPopFromQueue = (alertQueue: Queue<Alert>) => {
@@ -57,6 +57,11 @@ export const AddAlertCallbackProvider = (props: { children: ReactNode }) => {
         if (typeof alert === 'string') {
             alert = {
                 text: alert,
+                alertLevel: 'error'
+            }
+        } else if (alert instanceof Error) {
+            alert = {
+                text: alert.message,
                 alertLevel: 'error'
             }
         }
