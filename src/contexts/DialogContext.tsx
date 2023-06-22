@@ -1,10 +1,16 @@
 import React from 'react';
 
-type OpenInDialog = (children: React.ReactNode) => void;
+type DialogContext = {
+    openDialog: (children: React.ReactNode) => void
+    closeDialog: () => void
+}
 
-const OpenInDialogContext = React.createContext<OpenInDialog>(console.log);
+const OpenInDialogContext = React.createContext<DialogContext>({
+    openDialog: (c)=>{console.log('No DialogContext: cannot open dialog')},
+    closeDialog: ()=>{console.log('No DialogContext: cannot close dialog')}
+});
 
-export const useOpenInDialogCallback =  () => {
+export const useDialogContext = () => {
     return React.useContext(OpenInDialogContext);
 }
 
@@ -19,7 +25,9 @@ const GenericDialog = (props: {open: boolean, closeDialog: (()=>void), children:
             {/* This Button allows us to close the modal by clicking the x */}
             <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2" onClick={props.closeDialog}>✕</button>
             {/* This is the body of the modal */}
-            {props.children}
+            <div className="pt-3">
+                {props.children}
+            </div>
         </form>
     </dialog>
     )
@@ -29,7 +37,7 @@ export const OpenInDialogContextProvider = (props: { children: React.ReactNode }
     const [dialogIsOpen, setDialogIsOpen] = React.useState(false);
     const [dialogChildren, setDialogChildren] = React.useState<React.ReactNode>();
 
-    const openDialog: OpenInDialog = (children: React.ReactNode) => {
+    const openDialog: (children: React.ReactNode) => void = (children: React.ReactNode) => {
         setDialogChildren(children)
         setDialogIsOpen(true);
     }
@@ -42,8 +50,13 @@ export const OpenInDialogContextProvider = (props: { children: React.ReactNode }
         setTimeout(()=>{setDialogChildren(null)}, 200);
     }
 
+    const value = {
+        openDialog,
+        closeDialog
+    }
+
     return (
-        <OpenInDialogContext.Provider value={openDialog}>
+        <OpenInDialogContext.Provider value={value}>
             {props.children}
             <GenericDialog open={dialogIsOpen} closeDialog={closeDialog}>
                 {dialogChildren}

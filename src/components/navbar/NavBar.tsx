@@ -1,13 +1,8 @@
-import * as Auth from 'firebase/auth'
 import UserIcon from "./UserIcon";
 import { SettingsButton } from './SettingsButton';
 import { useAuth } from '../../contexts/AuthContext';
 
-type NavBarProps = {
-    user: Auth.User|null
-}
-
-const NavBar = (props: NavBarProps) => {
+const NavBar = () => {
     const { user } = useAuth();
     return (
         <div className="navbar bg-base-300">

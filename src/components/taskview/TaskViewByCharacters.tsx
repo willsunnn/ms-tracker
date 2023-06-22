@@ -1,7 +1,8 @@
 import { Character } from "../../models/character";
 import { Task, TaskAndStatus, TaskStatus, TaskStatusForAccount, TaskStatusForCharacter, defaultTaskStatusForCharacter } from "../../models/tasks";
-import { AddCharacterButton } from "./AddCharacterComponent";
+import { AddCharacterButton } from "./AddCharacterButton";
 import { TaskViewProps } from "./TaskViewPage";
+import DefaultCharacter from "../../resources/blank-character.png"
 
 const joinTasksAndStatuses = (tasks: Task[], statuses: TaskStatusForCharacter): TaskAndStatus[] => {
     return tasks.map((task) => {
@@ -23,9 +24,10 @@ const SingleTaskView = (props: {task: TaskAndStatus}) => {
 const TaskViewSingleCharacter = (props: {tasks: Task[], taskStatus: TaskStatusForCharacter, character: Character}) => {
     const { tasks, taskStatus, character } = props
     const tasksAndStatuses = joinTasksAndStatuses(tasks, taskStatus);
+    const characterImage = character.image ?? DefaultCharacter;
     return (
-        <div className="card card-side bg-base-100 shadow-xl my-5">
-            <figure><img src="https://msavatar1.nexon.net/Character/JMOLMEJGJLPMEFANEAELCGBPAMNJFFLHGOGEJMJNOHFENDCLADFDMGOBHPOJOOEJKKEHCAOKPGMGOJCBJOKBIGNOFBPNGFKPNKMDCJICBEBOFBEEMOEHOOHGLHPNPFCHMJALCOAMNLBDGHCCDEJHFJBDCOECOIBEDIHHMOFAJPPPOJFCGOAHCGCHAIALNDFCAEPCFNLJGLJDEDBBENOBMFCBOCNJLGGBAFFMPNPJAAHBHCDAAFNDJKKLDFNJMPBD.png" alt="Album"/></figure>
+        <div className="card card-side static bg-base-100 shadow-xl my-5">
+            <figure><img src={characterImage} alt="Album"/></figure>
             <div className="card-body">
                 <h2 className="card-title">{taskStatus.characterName}</h2>
                 {

@@ -28,6 +28,24 @@ const set = async <T extends Storable>(user: User, collectionName: string, data:
 
 // Fetching Methods
 
+const get = async <T extends Storable>(user: User, collectionName: string, defaultValue:()=>T, parse:(_:Firestore.DocumentData)=>T): Promise<T> => {
+    try {
+        const docRef = getDocRef(user, collectionName);
+        const data = (await Firestore.getDoc(docRef)).data();
+        if (data === undefined) {
+            console.log(`could not find document for user ${user.uid}. Returning default value`);
+            return defaultValue();
+        } else {
+            console.log(`found document with data=${JSON.stringify(data)}`)
+            return parse(data);
+        }
+    } catch (e) {
+        console.error(`Error fetching document error=${e}`)
+        throw e;
+    }
+
+}
+
 const listen = <T extends Storable>(user: User, collectionName: string, callback:(_:T)=>void, errCallback:(_:any)=>void, defaultValue:()=>T, parse:(_:Firestore.DocumentData)=>T) => {
     try {
         const docRef = getDocRef(user, collectionName);
@@ -54,5 +72,6 @@ const listen = <T extends Storable>(user: User, collectionName: string, callback
 
 export const FireBaseApiHelper = {
     set,
+    get,
     listen
 }

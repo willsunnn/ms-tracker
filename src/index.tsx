@@ -14,11 +14,11 @@ root.render(
   <React.StrictMode>
     <ThemeContextProvider>
       <AuthContextProvider>
-        <OpenInDialogContextProvider>
-          <AddAlertCallbackProvider>
+        <AddAlertCallbackProvider>
+          <OpenInDialogContextProvider>
             <App />
-          </AddAlertCallbackProvider>
-        </OpenInDialogContextProvider>
+          </OpenInDialogContextProvider>
+        </AddAlertCallbackProvider>
       </AuthContextProvider>
     </ThemeContextProvider>
   </React.StrictMode>

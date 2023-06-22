@@ -1,12 +1,12 @@
 import defaultUserIcon from '../../resources/default-user-icon.jpg';
 import { useAuth } from "../../contexts/AuthContext";
-import { useOpenInDialogCallback } from "../../contexts/DialogContext";
+import { useDialogContext } from "../../contexts/DialogContext";
 import { SettingsComponent } from "./SettingsButton";
 
 const UserIcon = () => {
     const { user, signOut } = useAuth();
     
-    const openDialog = useOpenInDialogCallback()
+    const { openDialog } = useDialogContext()
     const openSettingsDialog = () => {
         openDialog((<SettingsComponent/>))
     }

@@ -10,7 +10,7 @@ const App = () => {
   return (
     <>
       <div className="z-40">
-        <NavBar user={user}/>
+        <NavBar/>
       </div>
       <div className="z-0">
         { !user && 
