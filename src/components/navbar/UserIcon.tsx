@@ -20,7 +20,7 @@ const UserIcon = () => {
                     <img src={photoUrl} />
                     </div>
                 </label>
-                <ul tabIndex={0} className="mt-3 p-2 shadow menu menu-sm dropdown-content rounded-box min-w-36">
+                <ul tabIndex={0} className="mt-3 p-2 shadow menu menu-sm dropdown-content rounded-box min-w-36 bg-base-300">
                     { user?.displayName && (<li className="px-3 py-1">{user.displayName}</li>)}
                     { user?.email && (<li className="px-3 py-1">{user.email}</li>)}
                     <li onClick={openSettingsDialog}><a>Settings</a></li>

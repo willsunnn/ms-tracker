@@ -3,11 +3,12 @@ import { TaskViewByCharacter } from "./TaskViewByCharacters";
 import { TaskViewByReset } from "./TaskViewByReset";
 import { TaskViewCompact } from "./TaskViewCompact";
 import { User } from "firebase/auth";
-import { ALL_TASKS, Task, TaskStatusForAccount, TaskStatusForCharacter, defaultTaskStatusForAccount } from "../../models/tasks";
+import { Task, TaskStatusForAccount, TaskStatusForCharacter, defaultTaskStatusForAccount } from "../../models/tasks";
 import { AccountCharacters, defaultAccountCharacters } from "../../models/character";
 import { TaskStatusApi } from "../../api/TaskStatusApi";
 import { useAlertCallback } from "../../contexts/AlertContext";
 import { CharacterApi } from "../../api/CharacterApi";
+import { ALL_TASKS } from "../../models/PredefinedTasks";
 
 type Tabs = "BY_CHARACTER" | "BY_RESET_DATE" | "COMPACT";
 

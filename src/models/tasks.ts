@@ -1,6 +1,5 @@
 /*eslint @typescript-eslint/no-redeclare: "off" */ // linter conflicts with zod usage documentation
 
-import AllTasksJson from './tasks.json';
 import { z } from 'zod';
 
 // ResetType
@@ -16,6 +15,16 @@ const ResetType = z.enum([
     "Weekly_Sunday",
 ]);
 export type ResetType = z.infer<typeof ResetType>
+
+export const lastReset: (_:ResetType)=>Date = (resetType: ResetType) => {
+    const now = new Date();
+    return now;
+}
+
+export const nextReset: (_:ResetType)=>Date = (resetType: ResetType) => {
+    const now = new Date();
+    return now;
+}
 
 // TaskType
 const TaskType = z.enum([
@@ -34,9 +43,9 @@ const Task = z.object({
     maxClearCount: z.number(),
     resetType: ResetType,
     taskType: TaskType,
+    imageIcon: z.string().optional(),
 })
 export type Task = z.infer<typeof Task>
-export const ALL_TASKS = AllTasksJson.map((json) => Task.parse(json));
 
 // TaskStatus
 export const TaskStatus = z.object({
