@@ -1,12 +1,13 @@
 import { Character } from "../../models/character";
-import { Task, TaskAndStatus, TaskStatus, TaskStatusForAccount, TaskStatusForCharacter, defaultTaskStatusForCharacter, nextReset } from "../../models/tasks";
+import { Task, TaskAndStatus, TaskStatusForCharacter, nextReset } from "../../models/tasks";
 import { AddCharacterButton } from "./AddCharacterButton";
 import { TaskViewProps } from "./TaskViewPage";
-import DefaultCharacter from "../../resources/blank-character.png"
+import { EditPrioritizedTasksButton } from "./EditPrioritizedTasksButton";
+import { CharacterView } from "./CharacterView";
 
 const joinTasksAndStatuses = (tasks: Task[], statuses: TaskStatusForCharacter): TaskAndStatus[] => {
     return tasks.map((task) => {
-        const status = statuses.taskStatus.get(task.taskId) ?? {clearTimes:[], isPriority: false};
+        const status = statuses[task.taskId] ?? {clearTimes:[], isPriority: false};
         return {
             ...task,
             ...status
@@ -17,28 +18,23 @@ const joinTasksAndStatuses = (tasks: Task[], statuses: TaskStatusForCharacter): 
 const TaskViewSingleCharacter = (props: {tasks: Task[], taskStatus: TaskStatusForCharacter, character: Character}) => {
     const { tasks, taskStatus, character } = props
     const tasksAndStatuses = joinTasksAndStatuses(tasks, taskStatus);
-    const characterImage = character.image ?? DefaultCharacter;
 
     return (
-        <div className="card lg:card-side static bg-base-200 shadow-xl my-5">
-            <figure className="min-w-l">
-                <img src={characterImage} alt="Album"/>
-                <h2 className="card-title">{taskStatus.characterName}</h2>
-            </figure>
-            <div className="card-body">
-                <table className="table">
+        <div className="card bg-base-200 shadow-xl my-2 p-3 w-full min-w-200">
+            <div className="join join-horizontal">
+                <CharacterView character={character}/>
+                <table className="table w-full">
                     <tbody>
-                    
                     {
                         tasksAndStatuses.map((task) => {
-                            const { name, imageIcon, resetType } = task; 
+                            const { name, imageIcon, resetType } = task;
                             const resetsAt = nextReset(resetType);
                             return (<tr>
                                 <td>
                                     <div className="flex items-center space-x-3">
                                         { imageIcon && 
                                             (<div className="avatar">
-                                                <div className="mask mask-squircle w-12 h-12">
+                                                <div className="mask mask-squircle w-10 h-10">
                                                     <img src={imageIcon} alt={name} />
                                                 </div>
                                             </div>)
@@ -59,13 +55,10 @@ const TaskViewSingleCharacter = (props: {tasks: Task[], taskStatus: TaskStatusFo
                             </tr>)
                         })
                     }
-                    {/* row 1 */}
-                    
                     </tbody>
-                    <tfoot></tfoot>
-                    
-                </table>
+                </table>                
             </div>
+            <EditPrioritizedTasksButton character={character} tasks={tasksAndStatuses}/>
         </div>
     )
 }
@@ -75,8 +68,8 @@ export const TaskViewByCharacter = (props: {taskViewAttrs: TaskViewProps}) => {
     return (<> 
         {
             characters.characters.map((character) => {
-                const taskStatusForCharacter = taskStatus.get(character.name) ?? defaultTaskStatusForCharacter(character.name);
-                return (<TaskViewSingleCharacter tasks={tasks} taskStatus={taskStatusForCharacter} character={character}/>);
+                const taskStatusForCharacter = taskStatus.characterTasks[character.name] ?? {};
+                return (<TaskViewSingleCharacter tasks={tasks} taskStatus={taskStatusForCharacter} character={character} key={`taskview-${character.name}`}/>);
             })
         }
         <AddCharacterButton/>

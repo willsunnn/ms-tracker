@@ -9,7 +9,7 @@ const NavBar = () => {
             <div className="navbar-start">
             </div>
             <div className="navbar-center">
-                <a className="btn btn-ghost normal-case text-xl">MS-tracker</a>
+                <a className="normal-case text-xl">MS-tracker</a>
             </div>
             <div className="navbar-end">
                 {!user && <SettingsButton/>}

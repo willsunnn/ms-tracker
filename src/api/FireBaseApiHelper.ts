@@ -18,10 +18,10 @@ const set = async <T extends Storable>(user: User, collectionName: string, data:
     try {
         const docRef = getDocRef(user, collectionName);
         await Firestore.setDoc(docRef, data);
-        console.log(`Document written with ID ${docRef.id}`)
+        console.log(`Document written in ${collectionName} with ID ${docRef.id}`)
         return docRef.id;
     } catch (e) {
-        console.error(`Error writing document ${JSON.stringify(data)} error=${e}`)
+        console.error(`Error writing document to ${collectionName} ${JSON.stringify(data)} error=${e}`)
         throw e;
     }
 }
@@ -33,14 +33,14 @@ const get = async <T extends Storable>(user: User, collectionName: string, defau
         const docRef = getDocRef(user, collectionName);
         const data = (await Firestore.getDoc(docRef)).data();
         if (data === undefined) {
-            console.log(`could not find document for user ${user.uid}. Returning default value`);
+            console.log(`could not find document in ${collectionName} for user ${user.uid}. Returning default value`);
             return defaultValue();
         } else {
-            console.log(`found document with data=${JSON.stringify(data)}`)
+            console.log(`found document in ${collectionName} with data=${JSON.stringify(data)}`)
             return parse(data);
         }
     } catch (e) {
-        console.error(`Error fetching document error=${e}`)
+        console.error(`Error fetching document from ${collectionName} error=${e}`)
         throw e;
     }
 
@@ -53,10 +53,10 @@ const listen = <T extends Storable>(user: User, collectionName: string, callback
             try {
                 const data = doc.data();
                 if (data === undefined) {
-                    console.log(`could not find document for user ${user.uid}. Returning default value`);
+                    console.log(`could not find document in ${collectionName} for user ${user.uid}. Returning default value`);
                     callback(defaultValue());
                 } else {
-                    console.log(`found document with data=${JSON.stringify(data)}`)
+                    console.log(`found document in ${collectionName} with data=${JSON.stringify(data)}`)
                     callback(parse(data));
                 }
             } catch (err) {
@@ -65,7 +65,7 @@ const listen = <T extends Storable>(user: User, collectionName: string, callback
         });
         return unsubFunc
     } catch (e) {
-        console.error(`Error fetching document error=${e}`)
+        console.error(`Error fetching document from ${collectionName} error=${e}`)
         throw e;
     }
 }

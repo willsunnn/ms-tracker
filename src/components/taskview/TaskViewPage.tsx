@@ -3,12 +3,12 @@ import { TaskViewByCharacter } from "./TaskViewByCharacters";
 import { TaskViewByReset } from "./TaskViewByReset";
 import { TaskViewCompact } from "./TaskViewCompact";
 import { User } from "firebase/auth";
-import { Task, TaskStatusForAccount, TaskStatusForCharacter, defaultTaskStatusForAccount } from "../../models/tasks";
+import { Task, TaskStatusForAccount, defaultTaskStatusForAccount } from "../../models/tasks";
 import { AccountCharacters, defaultAccountCharacters } from "../../models/character";
 import { TaskStatusApi } from "../../api/TaskStatusApi";
 import { useAlertCallback } from "../../contexts/AlertContext";
 import { CharacterApi } from "../../api/CharacterApi";
-import { ALL_TASKS } from "../../models/PredefinedTasks";
+import { TASK_LIST } from "../../models/PredefinedTasks";
 
 type Tabs = "BY_CHARACTER" | "BY_RESET_DATE" | "COMPACT";
 
@@ -51,7 +51,7 @@ export const TaskViewPage = (props: { user: User}) => {
 
     const taskViewProps = {
         taskStatus,
-        tasks: ALL_TASKS,
+        tasks: TASK_LIST,
         characters,
         addClear: async (characterName: string, taskId: string, clearTime: Date) => {
             console.log(`adding clear for ${characterName} ${taskId} ${clearTime}`)
