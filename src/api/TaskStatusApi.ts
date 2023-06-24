@@ -11,9 +11,14 @@ const set = async (user: User, data: TaskStatusForAccount): Promise<String> => {
     return await FireBaseApiHelper.set(user, TASK_STATUS_COLLECTION, data)
 }
 
-const updatePriority = async (user: User, characterName: string, taskId: string, isPriority: boolean): Promise<String> => {
+const updatePriorities = async (user: User, characterName: string, tasksToPrioritize: string[], tasksToDeprioritize: string[]): Promise<String> => {
     const accountStatuses: TaskStatusForAccount = await get(user);
-    setPriority(accountStatuses, characterName, taskId, isPriority);
+    tasksToPrioritize.forEach((taskId) => {
+        setPriority(accountStatuses, characterName, taskId, true);
+    })
+    tasksToDeprioritize.forEach((taskId) => {
+        setPriority(accountStatuses, characterName, taskId, false);
+    })
     return await set(user, accountStatuses);
 }
 
@@ -29,6 +34,6 @@ const listen = (user: User, callback:(_:TaskStatusForAccount)=>void, errCallback
 
 export const TaskStatusApi = {
     set,
-    updatePriority,
+    updatePriorities,
     listen,
 }

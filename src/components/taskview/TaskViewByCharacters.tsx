@@ -21,12 +21,14 @@ const TaskViewSingleCharacter = (props: {tasks: Task[], taskStatus: TaskStatusFo
 
     return (
         <div className="card bg-base-200 shadow-xl my-2 p-3 w-full min-w-200">
-            <div className="join join-horizontal">
+            <div className="join join-horizontal pb-3">
                 <CharacterView character={character}/>
                 <table className="table w-full">
                     <tbody>
                     {
-                        tasksAndStatuses.map((task) => {
+                        tasksAndStatuses
+                            .filter((task) => task.isPriority)
+                            .map((task) => {
                             const { name, imageIcon, resetType } = task;
                             const resetsAt = nextReset(resetType);
                             return (<tr>
@@ -58,7 +60,10 @@ const TaskViewSingleCharacter = (props: {tasks: Task[], taskStatus: TaskStatusFo
                     </tbody>
                 </table>                
             </div>
-            <EditPrioritizedTasksButton character={character} tasks={tasksAndStatuses}/>
+            <div className="flex-row-reverse justify-end w-full">
+
+                <EditPrioritizedTasksButton character={character} tasks={tasksAndStatuses}/>
+            </div>
         </div>
     )
 }
@@ -66,12 +71,14 @@ const TaskViewSingleCharacter = (props: {tasks: Task[], taskStatus: TaskStatusFo
 export const TaskViewByCharacter = (props: {taskViewAttrs: TaskViewProps}) => {
     const { tasks, taskStatus, characters } = props.taskViewAttrs;
     return (<> 
+        <div>
         {
             characters.characters.map((character) => {
                 const taskStatusForCharacter = taskStatus.characterTasks[character.name] ?? {};
                 return (<TaskViewSingleCharacter tasks={tasks} taskStatus={taskStatusForCharacter} character={character} key={`taskview-${character.name}`}/>);
             })
         }
+        </div>
         <AddCharacterButton/>
     </>)
 }

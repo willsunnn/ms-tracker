@@ -1,22 +1,53 @@
+import React from "react";
 import { useDialogContext } from "../../contexts/DialogContext";
 import { useAuth } from "../../contexts/AuthContext";
 import { useAlertCallback } from "../../contexts/AlertContext";
-import { TaskAndStatus } from "../../models/tasks";
+import { TaskAndStatus, getReadableResetText, getReadableTaskType } from "../../models/tasks";
 import { Character } from "../../models/character";
 import { TaskStatusApi } from "../../api/TaskStatusApi";
+
 export const EditPrioritizedTasksComponent = (props: {character: Character, tasks: TaskAndStatus[]}) => {
     const { character, tasks } = props;
     const { user } = useAuth();
     const alert = useAlertCallback();
+    const { closeDialog } = useDialogContext();
 
-    const prioritizeTask = (taskId: string) => {
-        console.log(`prioritizing ${taskId}`);
+    const [priorities, setPriorities] = React.useState<boolean[]>(tasks.map((t)=>t.isPriority))
+
+    const toggleTaskPriorityCurriedFunc = (task: TaskAndStatus, index: number) => {
+        return () => {
+            priorities[index] = !priorities[index]
+            console.log(priorities)
+            setPriorities([...priorities]);
+        }
     }
 
-    const toggleTaskPriority = (task: TaskAndStatus) => {
-        return () => {
-            user && TaskStatusApi.updatePriority(user, character.name, task.taskId, !(task.isPriority)).catch(alert)
-        }
+    const submit = () => {
+        if (!user) {
+            alert('Failed to save: user was undefined')
+            return;
+        };
+
+        const tasksToPrioritize: string[] = []
+        const tasksToDeprioritize: string[] = []
+        priorities.forEach((shouldPrioritize, index) => {
+            const arr = (shouldPrioritize)? tasksToPrioritize : tasksToDeprioritize
+            const taskId = tasks[index].taskId
+            arr.push(taskId);
+        })
+
+        TaskStatusApi.updatePriorities(user, character.name, tasksToPrioritize, tasksToDeprioritize)
+            .then(() => {
+                alert({
+                    text: `Successfully updated ${character.name}'s prioritized tasks`,
+                    alertLevel: 'info'
+                })
+                closeDialog();
+            })
+            .catch((err) => {
+                alert(err);
+                closeDialog();
+            });
     }
 
     return ( 
@@ -26,7 +57,8 @@ export const EditPrioritizedTasksComponent = (props: {character: Character, task
             <tbody>
             {
                 tasks.map((task, index) => {
-                    const { name, resetType, isPriority } = task;
+                    const { name, resetType, taskType } = task;
+                    const isPriority = priorities[index]
                     return (<tr>
                         <td>
                             <div className="flex items-center space-x-3 font-bold">
@@ -35,17 +67,24 @@ export const EditPrioritizedTasksComponent = (props: {character: Character, task
                         </td>
                         
                         <td>
-                            {resetType}
+                            {getReadableResetText(resetType)}
+                        </td>
+                        
+                        <td>
+                            {getReadableTaskType(taskType)}
                         </td>
 
                         <td>
-                            <input type="checkbox" className="checkbox" checked={task.isPriority} onClick={toggleTaskPriority(task)}/>
+                            <input type="checkbox" className="checkbox" checked={isPriority} onChange={toggleTaskPriorityCurriedFunc(task, index)}/>
                         </td>
                     </tr>)
                 })
             }
             </tbody>
+            </div>
 
+            <div className="flex items-center w-full max-w-xs pb-5 pt-3 px-3">
+                <span className="btn btn-primary btn-sm ml-auto" onClick={submit}>Save</span>
             </div>
         </>
     );

@@ -136,6 +136,36 @@ export const nextReset = (resetType: ResetType): Date => {
     }
 }
 
+export const getReadableResetText = (resetType: ResetType): string => {
+    switch (resetType) {
+        case 'Daily':
+        case 'Monthly':
+            return resetType.toString();
+        case 'Weekly_Monday':
+        case 'Weekly_Tuesday':
+        case 'Weekly_Wednesday':
+        case 'Weekly_Thursday':
+        case 'Weekly_Friday':
+        case 'Weekly_Saturday':
+        case 'Weekly_Sunday':
+            return 'Weekly'
+    }
+}
+
+export const getReadableTaskType = (taskType: TaskType): string => {
+    switch (taskType) {
+        case 'Boss':
+        case 'Ursus':
+        case 'Guild':
+        case 'Other':
+            return taskType.toString();
+        case 'ArcaneSymbol':
+            return 'Arcane Symbol';
+        case 'SacredSymbol':
+            return 'Sacred Symbol';
+    }
+}
+
 export const trimTaskStatus = (status: TaskStatus, resetType: ResetType) => {
     const lastResetTime = lastReset(resetType);
     status.clearTimes = status.clearTimes.filter((clearTime) => clearTime.getTime() > lastResetTime.getTime());
