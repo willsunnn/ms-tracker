@@ -1,4 +1,3 @@
-import { User } from "firebase/auth";
 import * as Firestore from "firebase/firestore";
 import { db } from "../config/FirebaseConfig";
 
@@ -6,17 +5,17 @@ type Storable = {
     [x: string]: any;
 }
 
-const getDocRef = (user: User, collectionName: string) => {
+const getDocRef = (key: string, collectionName: string) => {
     const collectionRef = Firestore.collection(db, collectionName);
-    const docRef = Firestore.doc(collectionRef, user.uid);
+    const docRef = Firestore.doc(collectionRef, key);
     return docRef
 }
 
 // Storing Methods
 
-const set = async <T extends Storable>(user: User, collectionName: string, data: T): Promise<String> => {
+const set = async <T extends Storable>(key: string, collectionName: string, data: T): Promise<String> => {
     try {
-        const docRef = getDocRef(user, collectionName);
+        const docRef = getDocRef(key, collectionName);
         await Firestore.setDoc(docRef, data);
         console.log(`Document written in ${collectionName} with ID ${docRef.id}`)
         return docRef.id;
@@ -28,12 +27,12 @@ const set = async <T extends Storable>(user: User, collectionName: string, data:
 
 // Fetching Methods
 
-const get = async <T extends Storable>(user: User, collectionName: string, defaultValue:()=>T, parse:(_:Firestore.DocumentData)=>T): Promise<T> => {
+const get = async <T extends Storable>(key: string, collectionName: string, defaultValue:()=>T, parse:(_:Firestore.DocumentData)=>T): Promise<T> => {
     try {
-        const docRef = getDocRef(user, collectionName);
+        const docRef = getDocRef(key, collectionName);
         const data = (await Firestore.getDoc(docRef)).data();
         if (data === undefined) {
-            console.log(`could not find document in ${collectionName} for user ${user.uid}. Returning default value`);
+            console.log(`could not find document in ${collectionName} for key ${key}. Returning default value`);
             return defaultValue();
         } else {
             console.log(`found document in ${collectionName} with data=${JSON.stringify(data)}`)
@@ -46,14 +45,14 @@ const get = async <T extends Storable>(user: User, collectionName: string, defau
 
 }
 
-const listen = <T extends Storable>(user: User, collectionName: string, callback:(_:T)=>void, errCallback:(_:any)=>void, defaultValue:()=>T, parse:(_:Firestore.DocumentData)=>T) => {
+const listen = <T extends Storable>(key: string, collectionName: string, callback:(_:T)=>void, errCallback:(_:any)=>void, defaultValue:()=>T, parse:(_:Firestore.DocumentData)=>T) => {
     try {
-        const docRef = getDocRef(user, collectionName);
+        const docRef = getDocRef(key, collectionName);
         const unsubFunc = Firestore.onSnapshot(docRef, (doc)=>{
             try {
                 const data = doc.data();
                 if (data === undefined) {
-                    console.log(`could not find document in ${collectionName} for user ${user.uid}. Returning default value`);
+                    console.log(`could not find document in ${collectionName} for key ${key}. Returning default value`);
                     callback(defaultValue());
                 } else {
                     console.log(`found document in ${collectionName} with data=${JSON.stringify(data)}`)

@@ -8,7 +8,7 @@ const TASK_STATUS_COLLECTION = "TaskStatus"
 
 const set = async (user: User, data: TaskStatusForAccount): Promise<String> => {
     trimTaskStatusForAccount(data);
-    return await FireBaseApiHelper.set(user, TASK_STATUS_COLLECTION, data)
+    return await FireBaseApiHelper.set(user.uid, TASK_STATUS_COLLECTION, data)
 }
 
 const updatePriorities = async (user: User, characterName: string, tasksToPrioritize: string[], tasksToDeprioritize: string[]): Promise<String> => {
@@ -25,11 +25,11 @@ const updatePriorities = async (user: User, characterName: string, tasksToPriori
 // Fetching Methods
 
 const get = async (user: User): Promise<TaskStatusForAccount> => {
-    return await FireBaseApiHelper.get(user, TASK_STATUS_COLLECTION, defaultTaskStatusForAccount, TaskStatusForAccount.parse)
+    return await FireBaseApiHelper.get(user.uid, TASK_STATUS_COLLECTION, defaultTaskStatusForAccount, TaskStatusForAccount.parse)
 }
 
 const listen = (user: User, callback:(_:TaskStatusForAccount)=>void, errCallback:(_:any)=>void) => {
-    return FireBaseApiHelper.listen(user, TASK_STATUS_COLLECTION, callback, errCallback, defaultTaskStatusForAccount, TaskStatusForAccount.parse)
+    return FireBaseApiHelper.listen(user.uid, TASK_STATUS_COLLECTION, callback, errCallback, defaultTaskStatusForAccount, TaskStatusForAccount.parse)
 }
 
 export const TaskStatusApi = {

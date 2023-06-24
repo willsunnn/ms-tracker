@@ -6,8 +6,12 @@ const CHARACTER_COLLECTION = "Character"
 
 // Storing Methods
 
+const setUsingUid = async (uid: string, data: AccountCharacters): Promise<String> => {
+    return await FireBaseApiHelper.set(uid, CHARACTER_COLLECTION, data)
+}
+
 const set = async (user: User, data: AccountCharacters): Promise<String> => {
-    return await FireBaseApiHelper.set(user, CHARACTER_COLLECTION, data)
+    return await setUsingUid(user.uid, data);
 }
 
 const addCharacter = async (user: User, newCharacter: Character): Promise<AccountCharacters> => {
@@ -26,16 +30,24 @@ const addCharacter = async (user: User, newCharacter: Character): Promise<Accoun
 
 // Fetching Methods
 
+const getUsingUid = async (uid: string): Promise<AccountCharacters> => {
+    return await FireBaseApiHelper.get(uid, CHARACTER_COLLECTION, defaultAccountCharacters, AccountCharacters.parse)
+}
+
 const get = async (user: User): Promise<AccountCharacters> => {
-    return await FireBaseApiHelper.get(user, CHARACTER_COLLECTION, defaultAccountCharacters, AccountCharacters.parse)
+    return await getUsingUid(user.uid);
 }
 
 const listen = (user: User, callback:(_:AccountCharacters)=>void, errCallback:(_:any)=>void) => {
-    return FireBaseApiHelper.listen(user, CHARACTER_COLLECTION, callback, errCallback, defaultAccountCharacters, AccountCharacters.parse)
+    return FireBaseApiHelper.listen(user.uid, CHARACTER_COLLECTION, callback, errCallback, defaultAccountCharacters, AccountCharacters.parse)
 }
 
 export const CharacterApi = {
     set,
     addCharacter,
     listen,
+
+    // these two are neede by the CloudFunction
+    setUsingUid,
+    getUsingUid,
 }
