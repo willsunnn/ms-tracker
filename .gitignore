@@ -9,10 +9,13 @@
 # testing
 **/coverage
 
-# frontend production
+# library build
+library/lib
+
+# frontend build
 **/build
 
-# cloud functions production
+# cloud functions build
 functions/lib
 
 # misc

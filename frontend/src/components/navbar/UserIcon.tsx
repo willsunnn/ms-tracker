@@ -20,21 +20,21 @@ const UserIcon = () => {
   const displayName = user?.displayName
   const email = user?.email
   return (
-        <>
-            <div className="dropdown dropdown-end">
-                <label tabIndex={0} className="btn btn-ghost btn-circle avatar">
-                    <div className="w-10 rounded-full">
-                    <img src={photoUrl} />
-                    </div>
-                </label>
-                <ul tabIndex={0} className="mt-3 p-2 shadow menu menu-sm dropdown-content rounded-box min-w-36 bg-base-300">
-                    { displayName && (<li className="px-3 py-1">{displayName}</li>)}
-                    { email && (<li className="px-3 py-1">{email}</li>)}
-                    <li onClick={openSettingsDialog}><a>Settings</a></li>
-                    <li onClick={signOutClicked}><a>Logout</a></li>
-                </ul>
-            </div>
-        </>
+    <>
+      <div className="dropdown dropdown-end">
+        <label tabIndex={0} className="btn btn-ghost btn-circle avatar">
+          <div className="w-10 rounded-full">
+            <img src={photoUrl} />
+          </div>
+        </label>
+        <ul tabIndex={0} className="mt-3 p-2 shadow menu menu-sm dropdown-content rounded-box min-w-36 bg-base-300">
+          { displayName && (<li className="px-3 py-1">{displayName}</li>)}
+          { email && (<li className="px-3 py-1">{email}</li>)}
+          <li onClick={openSettingsDialog}><a>Settings</a></li>
+          <li onClick={signOutClicked}><a>Logout</a></li>
+        </ul>
+      </div>
+    </>
   )
 }
 

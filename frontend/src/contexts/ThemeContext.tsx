@@ -52,8 +52,8 @@ export const ThemeContextProvider = (props: { children: ReactNode }) => {
   }
 
   return (
-        <ThemeContext.Provider value={value}>
-            {props.children}
-        </ThemeContext.Provider>
+    <ThemeContext.Provider value={value}>
+      {props.children}
+    </ThemeContext.Provider>
   )
 }

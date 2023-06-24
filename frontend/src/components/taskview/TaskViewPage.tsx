@@ -3,12 +3,9 @@ import { TaskViewByCharacter } from './TaskViewByCharacters'
 import { TaskViewByReset } from './TaskViewByReset'
 import { TaskViewCompact } from './TaskViewCompact'
 import { type User } from 'firebase/auth'
-import { type Task, type TaskStatusForAccount, defaultTaskStatusForAccount } from '../../models/tasks'
-import { type AccountCharacters, defaultAccountCharacters } from '../../models/character'
-import { TaskStatusApi } from '../../api/TaskStatusApi'
 import { useAlertCallback } from '../../contexts/AlertContext'
-import { CharacterApi } from '../../api/CharacterApi'
 import { TASK_LIST } from '../../models/PredefinedTasks'
+import { type TaskStatusForAccount, type Task, type AccountCharacters, defaultTaskStatusForAccount, defaultAccountCharacters, TaskStatusApi, CharacterApi } from 'ms-tracker-library'
 
 type Tabs = 'BY_CHARACTER' | 'BY_RESET_DATE' | 'COMPACT'
 
@@ -18,7 +15,7 @@ const TabLabel = (props: { tabText: string, tabTag: Tabs, selectedTab: Tabs, set
     props.setTab(tabTag)
   }
   return (
-        <a className={`tab tab-lifted ${tabTag === selectedTab ? 'tab-active' : ''}`} onClick={onClick}>{tabText}</a>
+    <a className={`tab tab-lifted ${tabTag === selectedTab ? 'tab-active' : ''}`} onClick={onClick}>{tabText}</a>
   )
 }
 
@@ -62,15 +59,15 @@ export const TaskViewPage = (props: { user: User }) => {
   }
 
   return (
-        <div className="p-5 w-full">
-            <div className="tabs mb-3 w-full">
-                <TabLabel tabText="Characters" tabTag="BY_CHARACTER" selectedTab={tab} setTab={setTab}/>
-                <TabLabel tabText="Tasks by Reset Time" tabTag="BY_RESET_DATE" selectedTab={tab} setTab={setTab}/>
-                <TabLabel tabText="Compact" tabTag="COMPACT" selectedTab={tab} setTab={setTab}/>
-            </div>
-            { tab === 'BY_CHARACTER' && <TaskViewByCharacter taskViewAttrs={taskViewProps}/>}
-            { tab === 'BY_RESET_DATE' && <TaskViewByReset taskViewAttrs={taskViewProps}/>}
-            { tab === 'COMPACT' && <TaskViewCompact taskViewAttrs={taskViewProps}/>}
-        </div>
+    <div className="p-5 w-full">
+      <div className="tabs mb-3 w-full">
+        <TabLabel tabText="Characters" tabTag="BY_CHARACTER" selectedTab={tab} setTab={setTab}/>
+        <TabLabel tabText="Tasks by Reset Time" tabTag="BY_RESET_DATE" selectedTab={tab} setTab={setTab}/>
+        <TabLabel tabText="Compact" tabTag="COMPACT" selectedTab={tab} setTab={setTab}/>
+      </div>
+      { tab === 'BY_CHARACTER' && <TaskViewByCharacter taskViewAttrs={taskViewProps}/>}
+      { tab === 'BY_RESET_DATE' && <TaskViewByReset taskViewAttrs={taskViewProps}/>}
+      { tab === 'COMPACT' && <TaskViewCompact taskViewAttrs={taskViewProps}/>}
+    </div>
   )
 }

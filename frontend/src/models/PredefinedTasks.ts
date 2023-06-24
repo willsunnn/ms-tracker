@@ -1,4 +1,4 @@
-import { type Task } from './tasks'
+import { type Task } from 'ms-tracker-library'
 import HardHillaIcon from '../resources/tasks/hard-hilla.gif'
 
 export const TASK_LIST: Task[] = [

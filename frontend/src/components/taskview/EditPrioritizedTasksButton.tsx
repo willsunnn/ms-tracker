@@ -2,9 +2,7 @@ import React from 'react'
 import { useDialogContext } from '../../contexts/DialogContext'
 import { useAuth } from '../../contexts/AuthContext'
 import { useAlertCallback } from '../../contexts/AlertContext'
-import { type TaskAndStatus, getReadableResetText, getReadableTaskType } from '../../models/tasks'
-import { type Character } from '../../models/character'
-import { TaskStatusApi } from '../../api/TaskStatusApi'
+import { TaskStatusApi, Model, type Character, type TaskAndStatus } from 'ms-tracker-library'
 
 export const EditPrioritizedTasksComponent = (props: { character: Character, tasks: TaskAndStatus[] }) => {
   const { character, tasks } = props
@@ -51,42 +49,42 @@ export const EditPrioritizedTasksComponent = (props: { character: Character, tas
   }
 
   return (
-        <>
-            <div className="text-lg font-bold pb-3 text-center">Editing tasks for {character.name}</div>
-            <div className="max-h-120 min-h-80 overflow-y-scroll">
-            <tbody>
-            {
-                tasks.map((task, index) => {
-                  const { name, resetType, taskType } = task
-                  const isPriority = priorities[index]
-                  return (<tr key={`EditPrioritizedTasksRow-${character.name}-${name}`}>
-                        <td>
-                            <div className="flex items-center space-x-3 font-bold">
-                                { name }
-                            </div>
-                        </td>
+    <>
+      <div className="text-lg font-bold pb-3 text-center">Editing tasks for {character.name}</div>
+      <div className="max-h-120 min-h-80 overflow-y-scroll">
+        <tbody>
+          {
+            tasks.map((task, index) => {
+              const { name, resetType, taskType } = task
+              const isPriority = priorities[index]
+              return (<tr key={`EditPrioritizedTasksRow-${character.name}-${name}`}>
+                <td>
+                  <div className="flex items-center space-x-3 font-bold">
+                    { name }
+                  </div>
+                </td>
 
-                        <td>
-                            {getReadableResetText(resetType)}
-                        </td>
+                <td>
+                  {Model.getReadableResetText(resetType)}
+                </td>
 
-                        <td>
-                            {getReadableTaskType(taskType)}
-                        </td>
+                <td>
+                  {Model.getReadableTaskType(taskType)}
+                </td>
 
-                        <td>
-                            <input type="checkbox" className="checkbox" checked={isPriority} onChange={toggleTaskPriorityCurriedFunc(task, index)}/>
-                        </td>
-                    </tr>)
-                })
-            }
-            </tbody>
-            </div>
+                <td>
+                  <input type="checkbox" className="checkbox" checked={isPriority} onChange={toggleTaskPriorityCurriedFunc(task, index)}/>
+                </td>
+              </tr>)
+            })
+          }
+        </tbody>
+      </div>
 
-            <div className="flex items-center w-full max-w-xs pb-5 pt-3 px-3">
-                <span className="btn btn-primary btn-sm ml-auto" onClick={submit}>Save</span>
-            </div>
-        </>
+      <div className="flex items-center w-full max-w-xs pb-5 pt-3 px-3">
+        <span className="btn btn-primary btn-sm ml-auto" onClick={submit}>Save</span>
+      </div>
+    </>
   )
 }
 
@@ -97,8 +95,8 @@ export const EditPrioritizedTasksButton = (props: { character: Character, tasks:
     openDialog((<EditPrioritizedTasksComponent character={character} tasks={tasks}/>))
   }
   return (
-        <button className="btn btn-primary" onClick={onClick}>
+    <button className="btn btn-primary" onClick={onClick}>
             Edit Tasks
-        </button>
+    </button>
   )
 }

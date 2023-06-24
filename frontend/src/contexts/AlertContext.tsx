@@ -1,9 +1,9 @@
 import React, { useContext, useState, useEffect, useRef } from 'react'
-import { type Alert, AlertList } from '../components/AlertList'
+import { type Alert, AlertList, instanceOfAlert } from '../components/AlertList'
 import { Queue } from 'queue-typescript'
 import { uuidv4 } from '@firebase/util'
 
-type AlertCallback = (alert: Alert | string | Error) => void
+type AlertCallback = (alert: unknown | Alert) => void
 
 const AlertCallbackContext = React.createContext<AlertCallback>(console.log)
 
@@ -50,16 +50,24 @@ export const AddAlertCallbackProvider = (props: { children: React.ReactNode }) =
     }, ALERT_EXPIRY_REFRESH_INTERVAL_MS)
   }, [lastCheckedTime])
 
-  const addAlert: AlertCallback = (alert) => {
+  const addAlert: AlertCallback = (obj) => {
     const uuid = uuidv4()
-    if (typeof alert === 'string') {
+    let alert: Alert
+    if (instanceOfAlert(obj)) {
+      alert = obj as Alert
+    } else if (typeof obj === 'string') {
       alert = {
-        text: alert,
+        text: obj,
         alertLevel: 'error'
       }
-    } else if (alert instanceof Error) {
+    } else if (obj instanceof Error) {
       alert = {
-        text: alert.message,
+        text: obj.message,
+        alertLevel: 'error'
+      }
+    } else {
+      alert = {
+        text: JSON.stringify(obj),
         alertLevel: 'error'
       }
     }
@@ -71,9 +79,9 @@ export const AddAlertCallbackProvider = (props: { children: React.ReactNode }) =
   }
 
   return (
-        <AlertCallbackContext.Provider value={addAlert}>
-            {props.children}
-            <AlertList alerts={alertList}/>
-        </AlertCallbackContext.Provider>
+    <AlertCallbackContext.Provider value={addAlert}>
+      {props.children}
+      <AlertList alerts={alertList}/>
+    </AlertCallbackContext.Provider>
   )
 }

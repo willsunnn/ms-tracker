@@ -29,8 +29,8 @@ const SignInFormComponent = () => {
     const operation = (formState === 'signIn')
       ? 'sign in'
       : (formState === 'signUp')
-          ? 'sign up'
-          : 'reset password'
+        ? 'sign up'
+        : 'reset password'
     alert({
       text: `Failed to ${operation}: ${JSON.stringify(errMessage)}`,
       alertLevel: 'error'
@@ -84,8 +84,8 @@ const SignInFormComponent = () => {
     const submitFunc = (formState === 'signIn')
       ? validateAndSignIn
       : (formState === 'signUp')
-          ? validateAndSignUp
-          : validateAndResetPassword
+        ? validateAndSignUp
+        : validateAndResetPassword
     submitFunc()
   }
 
@@ -106,92 +106,92 @@ const SignInFormComponent = () => {
   const formTitle = (formState === 'signIn')
     ? 'Sign In'
     : (formState === 'signUp')
-        ? 'Sign Up'
-        : 'Reset Password'
+      ? 'Sign Up'
+      : 'Reset Password'
   const toggleFormFuncText = (formState === 'signIn')
     ? 'Don\'t have an account? Create one instead'
     : (formState === 'signUp')
-        ? 'Already have an account? Sign in instead'
-        : 'Return to sign in'
+      ? 'Already have an account? Sign in instead'
+      : 'Return to sign in'
   const toggleFormFunc = () => {
     setFormState((formState === 'signIn')
       ? 'signUp'
       : (formState === 'signUp')
-          ? 'signIn'
-          : 'signIn')
+        ? 'signIn'
+        : 'signIn')
   }
 
   return (
-        <div className="card w-96 bg-base-200 p-5">
-            {/* Regular Sign in Section */}
-            <div className="grid card bg-base-300 rounded-box place-items-center">
-                <h3 className="font-semibold text-2xl w-full max-w-xs px-3 pt-5 pb-3">{formTitle}</h3>
-                {/* Email Entry */}
-                <div className="form-control w-full max-w-xs p-3">
-                    <input type="text" placeholder="Email Address" className={`input input-bordered w-full max-w-xs ${emailEntryError ? ' input-error' : ''}`}
-                        value={emailEntryText}
-                        onChange={(event) => {
-                          setEmailEntryText(event.target.value)
-                        }}
-                        onKeyDown={handleEnterPressed} />
-                    <label className="label -m-1">
-                        <span></span>
-                        <span className="text-xs text-error">{emailEntryError ?? ''}</span>
-                    </label>
-                </div>
-
-                {/* Password Entry */}
-                {
-                    formState !== 'resetPassword' && (
-                        <div className="form-control w-full max-w-xs p-3">
-                            <input type="password" placeholder="Password" className={`input input-bordered w-full max-w-xs ${pwEntryError ? ' input-error' : ''}`}
-                                value={pwEntryText}
-                                onChange={(event) => {
-                                  setPwEntryText(event.target.value)
-                                }}
-                                onKeyDown={handleEnterPressed} />
-                                <label className="label -m-1">
-                                    <span className='link link-primary link-hover text-xs' onClick={forgotPasswordOnClick}>{(formState === 'signIn' ? 'Forgot password?' : '')}</span>
-                                    <span className="text-xs text-error">{pwEntryError ?? ''}</span>
-                                </label>
-                        </div>
-                    )
-                }
-
-                {/* Password Confirmation */}
-                {
-                    formState === 'signUp' && (
-                        <div className="collapse form-control w-full max-w-xs p-3 error">
-                            <input type="password" placeholder="Confirm Password" className={`input input-bordered w-full max-w-xs ${pwConfirmError ? ' input-error' : ''}`}
-                                value={pwConfirmText}
-                                onChange={(event) => {
-                                  setPwConfirmText(event.target.value)
-                                }}
-                                onKeyDown={handleEnterPressed} />
-                            <label className="label -m-1">
-                                <span></span>
-                                <span className="text-xs text-error">{pwConfirmError ?? ''}</span>
-                            </label>
-                        </div>
-                    )
-                }
-
-                {/* Create Account/Sign In Toggle and Submit Button */}
-                <div className="flex items-center w-full max-w-xs pb-5 pt-3 px-3">
-                    <span className="link link-primary link-hover text-xs" onClick={toggleFormFunc}>{toggleFormFuncText}</span>
-                    <span className="btn btn-primary btn-sm ml-auto" onClick={nextOnClick}>Next</span>
-                </div>
-
-            </div>
-
-            <div className="divider mx-3">OR</div>
-
-            {/* Show signInWithGoogle */}
-            <button className="btn btn-primary" onClick={signInWithGoogleWithErrorHandler}>
-                <BsGoogle/>
-                Sign in with Google
-            </button>
+    <div className="card w-96 bg-base-200 p-5">
+      {/* Regular Sign in Section */}
+      <div className="grid card bg-base-300 rounded-box place-items-center">
+        <h3 className="font-semibold text-2xl w-full max-w-xs px-3 pt-5 pb-3">{formTitle}</h3>
+        {/* Email Entry */}
+        <div className="form-control w-full max-w-xs p-3">
+          <input type="text" placeholder="Email Address" className={`input input-bordered w-full max-w-xs ${emailEntryError ? ' input-error' : ''}`}
+            value={emailEntryText}
+            onChange={(event) => {
+              setEmailEntryText(event.target.value)
+            }}
+            onKeyDown={handleEnterPressed} />
+          <label className="label -m-1">
+            <span></span>
+            <span className="text-xs text-error">{emailEntryError ?? ''}</span>
+          </label>
         </div>
+
+        {/* Password Entry */}
+        {
+          formState !== 'resetPassword' && (
+            <div className="form-control w-full max-w-xs p-3">
+              <input type="password" placeholder="Password" className={`input input-bordered w-full max-w-xs ${pwEntryError ? ' input-error' : ''}`}
+                value={pwEntryText}
+                onChange={(event) => {
+                  setPwEntryText(event.target.value)
+                }}
+                onKeyDown={handleEnterPressed} />
+              <label className="label -m-1">
+                <span className='link link-primary link-hover text-xs' onClick={forgotPasswordOnClick}>{(formState === 'signIn' ? 'Forgot password?' : '')}</span>
+                <span className="text-xs text-error">{pwEntryError ?? ''}</span>
+              </label>
+            </div>
+          )
+        }
+
+        {/* Password Confirmation */}
+        {
+          formState === 'signUp' && (
+            <div className="collapse form-control w-full max-w-xs p-3 error">
+              <input type="password" placeholder="Confirm Password" className={`input input-bordered w-full max-w-xs ${pwConfirmError ? ' input-error' : ''}`}
+                value={pwConfirmText}
+                onChange={(event) => {
+                  setPwConfirmText(event.target.value)
+                }}
+                onKeyDown={handleEnterPressed} />
+              <label className="label -m-1">
+                <span></span>
+                <span className="text-xs text-error">{pwConfirmError ?? ''}</span>
+              </label>
+            </div>
+          )
+        }
+
+        {/* Create Account/Sign In Toggle and Submit Button */}
+        <div className="flex items-center w-full max-w-xs pb-5 pt-3 px-3">
+          <span className="link link-primary link-hover text-xs" onClick={toggleFormFunc}>{toggleFormFuncText}</span>
+          <span className="btn btn-primary btn-sm ml-auto" onClick={nextOnClick}>Next</span>
+        </div>
+
+      </div>
+
+      <div className="divider mx-3">OR</div>
+
+      {/* Show signInWithGoogle */}
+      <button className="btn btn-primary" onClick={signInWithGoogleWithErrorHandler}>
+        <BsGoogle/>
+                Sign in with Google
+      </button>
+    </div>
   )
 }
 

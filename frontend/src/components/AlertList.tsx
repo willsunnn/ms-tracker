@@ -8,6 +8,9 @@ export interface Alert {
   expireAt?: Date
   alertLevel: AlertLevel
 }
+export const instanceOfAlert = (obj: any) => {
+  return 'text' in obj && 'alertLevel' in obj
+}
 
 export type AlertLevel = 'info' | 'warning' | 'error' | 'success'
 export type AlertCallback = (alert: Alert) => void
@@ -29,22 +32,22 @@ const AlertComponent = (props: { alert: Alert }) => {
   const { alert } = props
   const className = `alert alert-${alert.alertLevel} w-64 flex-wrap`
   return (
-        <div className={className}>
-            <AlertComponentIcon alertLevel={alert.alertLevel}/>
-            <span className='flex-wrap text-s' style={{ wordWrap: 'normal' }}>{alert.text}</span>
-        </div>
+    <div className={className}>
+      <AlertComponentIcon alertLevel={alert.alertLevel}/>
+      <span className='flex-wrap text-s' style={{ wordWrap: 'normal' }}>{alert.text}</span>
+    </div>
   )
 }
 
 export const AlertList = (props: { alerts: Alert[] }) => {
   return (
-        <div className="toast whitespace-normal">
-            {
-                props.alerts.map((alert) => {
-                  const uid = alert.uid ?? uuid()
-                  return (<AlertComponent alert={alert} key={`AlertComponent-${uid}`}/>)
-                })
-            }
-        </div>
+    <div className="toast whitespace-normal">
+      {
+        props.alerts.map((alert) => {
+          const uid = alert.uid ?? uuid()
+          return (<AlertComponent alert={alert} key={`AlertComponent-${uid}`}/>)
+        })
+      }
+    </div>
   )
 }

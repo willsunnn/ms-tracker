@@ -21,13 +21,13 @@ export const SettingsComponent = () => {
   }
 
   return (
-        <>
-            <h2 className="text-lg font-semibold">Theme: </h2>
-            <select className="select select-accent mt-2" onChange={onSelectChange} defaultValue={theme}>
-                <option value="dark">Dark mode</option>
-                <option value="light">Light mode</option>
-            </select>
-        </>
+    <>
+      <h2 className="text-lg font-semibold">Theme: </h2>
+      <select className="select select-accent mt-2" onChange={onSelectChange} defaultValue={theme}>
+        <option value="dark">Dark mode</option>
+        <option value="light">Light mode</option>
+      </select>
+    </>
   )
 }
 
@@ -37,8 +37,8 @@ export const SettingsButton = () => {
     openDialog((<SettingsComponent/>))
   }
   return (
-        <button className="btn btn-circle text-xl bg-base-300" onClick={onClick}>
-            <MdSettings className="w-max"/>
-        </button>
+    <button className="btn btn-circle text-xl bg-base-300" onClick={onClick}>
+      <MdSettings className="w-max"/>
+    </button>
   )
 }
