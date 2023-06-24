@@ -27,6 +27,7 @@
     "preinstall": "npm link ms-tracker-library",
     "lint": "eslint --ext .js,.ts,.jsx,.tsx .",
     "lint-fix": "eslint --ext .js,.ts,.jsx,.tsx . --fix",
+    "predeploy": "npm run build",
     "deploy": "firebase deploy --only hosting",
     "start": "react-scripts start",
     "build": "react-scripts build",
