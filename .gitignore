@@ -1,5 +1,5 @@
 # Project Secrets
-**/firebase.config.json
+**/firebase.db.config.json
 
 # dependencies
 **/node_modules
@@ -9,8 +9,11 @@
 # testing
 **/coverage
 
-# production
+# frontend production
 **/build
+
+# cloud functions production
+functions/lib
 
 # misc
 .DS_Store
@@ -19,6 +22,6 @@
 .env.test.local
 .env.production.local
 
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
+# firebase deploy artifacts
+.firebase/
+**/*.log
