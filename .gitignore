@@ -1,6 +1,3 @@
-# Project Secrets
-**/firebase.db.config.json
-
 # dependencies
 **/node_modules
 **/.pnp
