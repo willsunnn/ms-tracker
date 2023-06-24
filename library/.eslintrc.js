@@ -29,6 +29,7 @@ module.exports = {
     "import/no-unresolved": 0,
     "indent": ["error", 2],
     "max-len": 0,
+    "require-jsdoc": 0,
     "linebreak-style": 0, // this is managed by git
   },
 };

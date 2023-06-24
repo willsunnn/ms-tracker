@@ -1,8 +1,8 @@
 import React from 'react'
 import { useDialogContext } from '../../contexts/DialogContext'
-import { CharacterApi } from 'ms-tracker-library'
 import { useAuth } from '../../contexts/AuthContext'
 import { useAlertCallback } from '../../contexts/AlertContext'
+import { characterApi } from '../api'
 
 export const AddCharacterComponent = () => {
   const [nameEntryText, setNameEntryText] = React.useState<string>('')
@@ -22,7 +22,7 @@ export const AddCharacterComponent = () => {
       alert('Unknown Error could not find User')
       return
     }
-    CharacterApi.addCharacter(user, {
+    characterApi.addCharacter(user, {
       name: text
     }).then(() => {
       alert({
@@ -30,7 +30,7 @@ export const AddCharacterComponent = () => {
         text: `${text} successfully added`
       })
       closeDialog()
-    }).catch((err) => {
+    }).catch((err: any) => {
       alert(err)
       closeDialog()
     })

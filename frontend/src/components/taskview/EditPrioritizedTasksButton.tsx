@@ -2,7 +2,8 @@ import React from 'react'
 import { useDialogContext } from '../../contexts/DialogContext'
 import { useAuth } from '../../contexts/AuthContext'
 import { useAlertCallback } from '../../contexts/AlertContext'
-import { TaskStatusApi, Model, type Character, type TaskAndStatus } from 'ms-tracker-library'
+import { Model, type Character, type TaskAndStatus } from 'ms-tracker-library'
+import { taskStatusApi } from '../api'
 
 export const EditPrioritizedTasksComponent = (props: { character: Character, tasks: TaskAndStatus[] }) => {
   const { character, tasks } = props
@@ -34,7 +35,7 @@ export const EditPrioritizedTasksComponent = (props: { character: Character, tas
       arr.push(taskId)
     })
 
-    TaskStatusApi.updatePriorities(user, character.name, tasksToPrioritize, tasksToDeprioritize)
+    taskStatusApi.updatePriorities(user, character.name, tasksToPrioritize, tasksToDeprioritize)
       .then(() => {
         alert({
           text: `Successfully updated ${character.name}'s prioritized tasks`,

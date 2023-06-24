@@ -1,39 +1,44 @@
 import {type User} from "firebase/auth";
 import {TaskStatusForAccount, defaultTaskStatusForAccount, Model} from "../models";
-import {FireBaseApiHelper} from "./FireBaseApiHelper";
+import {FirebaseApiHelper} from "./FirebaseApiHelper";
 import {Unsubscribe} from "firebase/firestore";
+import {FirebaseOptions} from "firebase/app";
 
 const TASK_STATUS_COLLECTION = "TaskStatus";
 
-// Storing Methods
+export class TaskStatusApi {
+  api: FirebaseApiHelper;
 
-const set = async (user: User, data: TaskStatusForAccount): Promise<string> => {
-  return await FireBaseApiHelper.set(user.uid, TASK_STATUS_COLLECTION, data);
-};
+  constructor(config: FirebaseOptions) {
+    this.api = new FirebaseApiHelper(config, TASK_STATUS_COLLECTION);
+  }
 
-const updatePriorities = async (user: User, characterName: string, tasksToPrioritize: string[], tasksToDeprioritize: string[]): Promise<string> => {
-  const accountStatuses: TaskStatusForAccount = await get(user);
-  tasksToPrioritize.forEach((taskId) => {
-    Model.setPriority(accountStatuses, characterName, taskId, true);
-  });
-  tasksToDeprioritize.forEach((taskId) => {
-    Model.setPriority(accountStatuses, characterName, taskId, false);
-  });
-  return await set(user, accountStatuses);
-};
+  // Storing Methods
 
-// Fetching Methods
+  public set = async (user: User, data: TaskStatusForAccount): Promise<string> => {
+    return await this.api.set(user.uid, data);
+  };
 
-const get = async (user: User): Promise<TaskStatusForAccount> => {
-  return await FireBaseApiHelper.get(user.uid, TASK_STATUS_COLLECTION, defaultTaskStatusForAccount, TaskStatusForAccount.parse);
-};
+  // Fetching Methods
 
-const listen = (user: User, callback: (_: TaskStatusForAccount) => void, errCallback: (_: unknown) => void): Unsubscribe => {
-  return FireBaseApiHelper.listen(user.uid, TASK_STATUS_COLLECTION, callback, errCallback, defaultTaskStatusForAccount, TaskStatusForAccount.parse);
-};
+  public get = async (user: User): Promise<TaskStatusForAccount> => {
+    return await this.api.get(user.uid, defaultTaskStatusForAccount, TaskStatusForAccount.parse);
+  };
 
-export const TaskStatusApi = {
-  set,
-  updatePriorities,
-  listen,
-};
+  public listen = (user: User, callback: (_: TaskStatusForAccount) => void, errCallback: (_: unknown) => void): Unsubscribe => {
+    return this.api.listen(user.uid, callback, errCallback, defaultTaskStatusForAccount, TaskStatusForAccount.parse);
+  };
+
+  // Modify Helper Methods (these should be transactional)
+
+  public updatePriorities = async (user: User, characterName: string, tasksToPrioritize: string[], tasksToDeprioritize: string[]): Promise<string> => {
+    const accountStatuses: TaskStatusForAccount = await this.get(user);
+    tasksToPrioritize.forEach((taskId) => {
+      Model.setPriority(accountStatuses, characterName, taskId, true);
+    });
+    tasksToDeprioritize.forEach((taskId) => {
+      Model.setPriority(accountStatuses, characterName, taskId, false);
+    });
+    return await this.set(user, accountStatuses);
+  };
+}

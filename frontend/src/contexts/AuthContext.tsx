@@ -1,6 +1,6 @@
 import type * as FirebaseAuth from 'firebase/auth'
 import React from 'react'
-import { AuthenticationApi } from 'ms-tracker-library'
+import { authenticationApi } from '../components/api'
 
 interface Auth {
   user: FirebaseAuth.User | null
@@ -13,7 +13,7 @@ interface Auth {
 
 const AuthContext = React.createContext<Auth>({
   user: null,
-  ...AuthenticationApi
+  ...authenticationApi
 })
 
 export const useAuth = () => {
@@ -24,12 +24,12 @@ export const AuthContextProvider = (props: { children: React.ReactNode }) => {
   const [currentUser, setCurrentUser] = React.useState<FirebaseAuth.User | null>(null)
 
   React.useEffect(() => {
-    return AuthenticationApi.onAuthStateChanged(setCurrentUser)
+    return authenticationApi.onAuthStateChanged(setCurrentUser)
   }, [])
 
   const value: Auth = {
     user: currentUser,
-    ...AuthenticationApi
+    ...authenticationApi
   }
 
   return (

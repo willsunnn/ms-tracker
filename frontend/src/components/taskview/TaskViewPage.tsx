@@ -5,7 +5,8 @@ import { TaskViewCompact } from './TaskViewCompact'
 import { type User } from 'firebase/auth'
 import { useAlertCallback } from '../../contexts/AlertContext'
 import { TASK_LIST } from '../../models/PredefinedTasks'
-import { type TaskStatusForAccount, type Task, type AccountCharacters, defaultTaskStatusForAccount, defaultAccountCharacters, TaskStatusApi, CharacterApi } from 'ms-tracker-library'
+import { type TaskStatusForAccount, type Task, type AccountCharacters, defaultTaskStatusForAccount, defaultAccountCharacters } from 'ms-tracker-library'
+import { characterApi, mapleGgFirebaseApi, taskStatusApi } from '../api'
 
 type Tabs = 'BY_CHARACTER' | 'BY_RESET_DATE' | 'COMPACT'
 
@@ -31,14 +32,18 @@ export const TaskViewPage = (props: { user: User }) => {
   const { user } = props
   const alert = useAlertCallback()
 
+  React.useEffect(() => {
+    mapleGgFirebaseApi.get(user.uid).then(alert).catch(alert)
+  }, [])
+
   // React States
   const [tab, setTab] = React.useState<Tabs>('BY_CHARACTER')
   const [taskStatus, setTaskStatus] = React.useState<TaskStatusForAccount>(defaultTaskStatusForAccount)
   const [characters, setCharacters] = React.useState<AccountCharacters>(defaultAccountCharacters)
 
   React.useEffect(() => {
-    const stopTaskListen = TaskStatusApi.listen(user, setTaskStatus, alert)
-    const stopCharListen = CharacterApi.listen(user, setCharacters, alert)
+    const stopTaskListen = taskStatusApi.listen(user, setTaskStatus, alert)
+    const stopCharListen = characterApi.listen(user, setCharacters, alert)
 
     return () => {
       stopTaskListen()

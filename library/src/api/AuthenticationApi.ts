@@ -1,40 +1,41 @@
-import {auth} from "../config";
+import {FirebaseOptions, initializeApp} from "firebase/app";
+import {Auth, getAuth} from "firebase/auth";
 import * as FirebaseAuth from "firebase/auth";
 
-const onAuthStateChanged = (callback: (_:FirebaseAuth.User|null)=>void) => {
-  const firebaseUnsubscribeCallback = auth.onAuthStateChanged(callback);
-  return firebaseUnsubscribeCallback;
-};
+export class AuthenticationApi {
+  auth: Auth;
 
-const signUp = async (email: string, password: string): Promise<FirebaseAuth.User> => {
-  const userCredential = await FirebaseAuth.createUserWithEmailAndPassword(auth, email, password);
-  return userCredential.user;
-};
+  constructor(config: FirebaseOptions) {
+    const app = initializeApp(config);
+    this.auth = getAuth(app);
+  }
 
-const signIn = async (email: string, password: string): Promise<FirebaseAuth.User> => {
-  const userCredential = await FirebaseAuth.signInWithEmailAndPassword(auth, email, password);
-  return userCredential.user;
-};
+  public onAuthStateChanged = (callback: (_:FirebaseAuth.User|null)=>void) => {
+    const firebaseUnsubscribeCallback = this.auth.onAuthStateChanged(callback);
+    return firebaseUnsubscribeCallback;
+  };
 
-const forgotPassword = async (email: string) => {
-  await FirebaseAuth.sendPasswordResetEmail(auth, email);
-};
+  public signUp = async (email: string, password: string): Promise<FirebaseAuth.User> => {
+    const userCredential = await FirebaseAuth.createUserWithEmailAndPassword(this.auth, email, password);
+    return userCredential.user;
+  };
 
-const signInWithGoogle = async () => {
-  const provider = new FirebaseAuth.GoogleAuthProvider();
-  const userCredential = await FirebaseAuth.signInWithPopup(auth, provider);
-  return userCredential.user;
-};
+  public signIn = async (email: string, password: string): Promise<FirebaseAuth.User> => {
+    const userCredential = await FirebaseAuth.signInWithEmailAndPassword(this.auth, email, password);
+    return userCredential.user;
+  };
 
-const signOut = async () => {
-  await FirebaseAuth.signOut(auth);
-};
+  public forgotPassword = async (email: string) => {
+    await FirebaseAuth.sendPasswordResetEmail(this.auth, email);
+  };
 
-export const AuthenticationApi = {
-  onAuthStateChanged,
-  signUp,
-  signIn,
-  forgotPassword,
-  signInWithGoogle,
-  signOut,
-};
+  public signInWithGoogle = async () => {
+    const provider = new FirebaseAuth.GoogleAuthProvider();
+    const userCredential = await FirebaseAuth.signInWithPopup(this.auth, provider);
+    return userCredential.user;
+  };
+
+  public signOut = async () => {
+    await FirebaseAuth.signOut(this.auth);
+  };
+}

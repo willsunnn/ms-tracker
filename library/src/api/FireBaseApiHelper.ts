@@ -1,73 +1,85 @@
-import * as Firestore from "firebase/firestore";
-import {db} from "../config";
+import {FirebaseOptions, initializeApp} from "firebase/app";
+import {Auth, getAuth} from "firebase/auth";
+import {Functions, getFunctions} from "firebase/functions";
+import {Firestore, getFirestore, collection, doc, setDoc, getDoc, DocumentData, onSnapshot} from "firebase/firestore";
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 type Storable = Record<string, any>
 
-const getDocRef = (key: string, collectionName: string) => {
-  const collectionRef = Firestore.collection(db, collectionName);
-  const docRef = Firestore.doc(collectionRef, key);
-  return docRef;
-};
+export class FirebaseApiHelper {
+  auth: Auth;
+  db: Firestore;
+  functions: Functions;
+  collectionName: string;
 
-// Storing Methods
-
-const set = async <T extends Storable>(key: string, collectionName: string, data: T): Promise<string> => {
-  try {
-    const docRef = getDocRef(key, collectionName);
-    await Firestore.setDoc(docRef, data);
-    console.log(`Document written in ${collectionName} with ID ${docRef.id}`);
-    return docRef.id;
-  } catch (e) {
-    console.error(`Error writing document to ${collectionName} ${JSON.stringify(data)} error=${JSON.stringify(e)}`);
-    throw e;
+  constructor(config: FirebaseOptions, collectionName: string) {
+    const app = initializeApp(config);
+    this.auth = getAuth(app);
+    this.db = getFirestore(app);
+    this.functions = getFunctions(app);
+    this.collectionName = collectionName;
   }
-};
 
-// Fetching Methods
+  private getDocRef = (key: string) => {
+    const collectionRef = collection(this.db, this.collectionName);
+    const docRef = doc(collectionRef, key);
+    return docRef;
+  };
 
-const get = async <T extends Storable>(key: string, collectionName: string, defaultValue: () => T, parse: (_: Firestore.DocumentData) => T): Promise<T> => {
-  try {
-    const docRef = getDocRef(key, collectionName);
-    const data = (await Firestore.getDoc(docRef)).data();
-    if (data === undefined) {
-      console.log(`could not find document in ${collectionName} for key ${key}. Returning default value`);
-      return defaultValue();
-    } else {
-      console.log(`found document in ${collectionName} with data=${JSON.stringify(data)}`);
-      return parse(data);
+  // Storing Methods
+
+  public set = async <T extends Storable>(key: string, data: T): Promise<string> => {
+    try {
+      const docRef = this.getDocRef(key);
+      await setDoc(docRef, data);
+      console.log(`Document written in ${this.collectionName} with ID ${docRef.id}`);
+      return docRef.id;
+    } catch (e) {
+      console.error(`Error writing document to ${this.collectionName} ${JSON.stringify(data)} error=${JSON.stringify(e)}`);
+      throw e;
     }
-  } catch (e) {
-    console.error(`Error fetching document from ${collectionName} error=${JSON.stringify(e)}`);
-    throw e;
-  }
-};
+  };
 
-const listen = <T extends Storable>(key: string, collectionName: string, callback: (_: T) => void, errCallback: (_: unknown) => void, defaultValue: () => T, parse: (_: Firestore.DocumentData) => T) => {
-  try {
-    const docRef = getDocRef(key, collectionName);
-    const unsubFunc = Firestore.onSnapshot(docRef, (doc) => {
-      try {
-        const data = doc.data();
-        if (data === undefined) {
-          console.log(`could not find document in ${collectionName} for key ${key}. Returning default value`);
-          callback(defaultValue());
-        } else {
-          console.log(`found document in ${collectionName} with data=${JSON.stringify(data)}`);
-          callback(parse(data));
-        }
-      } catch (err) {
-        errCallback(err);
+  // Fetching Methods
+
+  public get = async <T extends Storable>(key: string, defaultValue: () => T, parse: (_: DocumentData) => T): Promise<T> => {
+    try {
+      const docRef = this.getDocRef(key);
+      const data = (await getDoc(docRef)).data();
+      if (data === undefined) {
+        console.log(`could not find document in ${this.collectionName} for key ${key}. Returning default value`);
+        return defaultValue();
+      } else {
+        console.log(`found document in ${this.collectionName} with data=${JSON.stringify(data)}`);
+        return parse(data);
       }
-    });
-    return unsubFunc;
-  } catch (e) {
-    console.error(`Error fetching document from ${collectionName} error=${JSON.stringify(e)}`);
-    throw e;
-  }
-};
+    } catch (e) {
+      console.error(`Error fetching document from ${this.collectionName} error=${JSON.stringify(e)}`);
+      throw e;
+    }
+  };
 
-export const FireBaseApiHelper = {
-  set,
-  get,
-  listen,
-};
+  public listen = <T extends Storable>(key: string, callback: (_: T) => void, errCallback: (_: unknown) => void, defaultValue: () => T, parse: (_: DocumentData) => T) => {
+    try {
+      const docRef = this.getDocRef(key);
+      const unsubFunc = onSnapshot(docRef, (doc) => {
+        try {
+          const data = doc.data();
+          if (data === undefined) {
+            console.log(`could not find document in ${this.collectionName} for key ${key}. Returning default value`);
+            callback(defaultValue());
+          } else {
+            console.log(`found document in ${this.collectionName} with data=${JSON.stringify(data)}`);
+            callback(parse(data));
+          }
+        } catch (err) {
+          errCallback(err);
+        }
+      });
+      return unsubFunc;
+    } catch (e) {
+      console.error(`Error fetching document from ${this.collectionName} error=${JSON.stringify(e)}`);
+      throw e;
+    }
+  };
+}
