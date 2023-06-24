@@ -1,15 +1,15 @@
 import {type User} from "firebase/auth";
 import {AccountCharacters, type Character, defaultAccountCharacters} from "../models";
 import {FirebaseOptions} from "firebase/app";
-import {FirebaseApiHelper} from "./FirebaseApiHelper";
+import {FirestoreApiHelper} from "./FirestoreApiHelper";
 
 const CHARACTER_COLLECTION = "Character";
 
 export class CharacterApi {
-  api: FirebaseApiHelper;
+  api: FirestoreApiHelper;
 
   constructor(config: FirebaseOptions) {
-    this.api = new FirebaseApiHelper(config, CHARACTER_COLLECTION);
+    this.api = new FirestoreApiHelper(config, CHARACTER_COLLECTION);
   }
 
   // Set Methods

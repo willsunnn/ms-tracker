@@ -1,22 +1,19 @@
 import {FirebaseOptions, initializeApp} from "firebase/app";
 import {Auth, getAuth} from "firebase/auth";
-import {Functions, getFunctions} from "firebase/functions";
 import {Firestore, getFirestore, collection, doc, setDoc, getDoc, DocumentData, onSnapshot} from "firebase/firestore";
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 type Storable = Record<string, any>
 
-export class FirebaseApiHelper {
+export class FirestoreApiHelper {
   auth: Auth;
   db: Firestore;
-  functions: Functions;
   collectionName: string;
 
   constructor(config: FirebaseOptions, collectionName: string) {
     const app = initializeApp(config);
     this.auth = getAuth(app);
     this.db = getFirestore(app);
-    this.functions = getFunctions(app);
     this.collectionName = collectionName;
   }
 
