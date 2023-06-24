@@ -1,47 +1,50 @@
-import { BiErrorCircle, BiInfoCircle, BiCheckCircle, BiMinusCircle } from 'react-icons/bi';
+import React from 'react'
+import { v4 as uuid } from 'uuid'
+import { BiErrorCircle, BiInfoCircle, BiCheckCircle, BiMinusCircle } from 'react-icons/bi'
 
-export type Alert = {
-    text: string
-    uid?: string
-    expireAt?: Date
-    alertLevel: AlertLevel
-};
-
-export type AlertLevel = "info"|"warning"|"error"|"success";
-export type AlertCallback = (alert: Alert) => void;
-
-const AlertComponentIcon = (props: {alertLevel: AlertLevel}) => {
-    const { alertLevel } = props;
-    if (alertLevel === "success") {
-        return (<BiCheckCircle/>);
-    } else if (alertLevel === "warning") {
-        return (<BiMinusCircle/>);
-    } else if (alertLevel === "error") {
-        return (<BiErrorCircle/>)
-    } else {
-        return (<BiInfoCircle/>);
-    }
+export interface Alert {
+  text: string
+  uid?: string
+  expireAt?: Date
+  alertLevel: AlertLevel
 }
 
-const AlertComponent = (props: {alert: Alert}) => {
-    const { alert } = props;
-    const className = `alert alert-${alert.alertLevel} w-64 flex-wrap`
-    return (
+export type AlertLevel = 'info' | 'warning' | 'error' | 'success'
+export type AlertCallback = (alert: Alert) => void
+
+const AlertComponentIcon = (props: { alertLevel: AlertLevel }) => {
+  const { alertLevel } = props
+  if (alertLevel === 'success') {
+    return (<BiCheckCircle/>)
+  } else if (alertLevel === 'warning') {
+    return (<BiMinusCircle/>)
+  } else if (alertLevel === 'error') {
+    return (<BiErrorCircle/>)
+  } else {
+    return (<BiInfoCircle/>)
+  }
+}
+
+const AlertComponent = (props: { alert: Alert }) => {
+  const { alert } = props
+  const className = `alert alert-${alert.alertLevel} w-64 flex-wrap`
+  return (
         <div className={className}>
             <AlertComponentIcon alertLevel={alert.alertLevel}/>
-            <span className='flex-wrap text-s' style={{wordWrap: 'normal'}}>{alert.text}</span>
+            <span className='flex-wrap text-s' style={{ wordWrap: 'normal' }}>{alert.text}</span>
         </div>
-    );
+  )
 }
 
-export const AlertList = (props: {alerts: Alert[]}) => {
-    return (
+export const AlertList = (props: { alerts: Alert[] }) => {
+  return (
         <div className="toast whitespace-normal">
             {
                 props.alerts.map((alert) => {
-                    return (<AlertComponent alert={alert} key={alert.uid}/>)
+                  const uid = alert.uid ?? uuid()
+                  return (<AlertComponent alert={alert} key={`AlertComponent-${uid}`}/>)
                 })
             }
         </div>
-    )
+  )
 }

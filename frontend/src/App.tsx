@@ -1,11 +1,12 @@
-import './App.css';
-import NavBar from './components/navbar/NavBar';
-import SignInFormComponent from './components/SignInForm';
-import { TaskViewPage } from './components/taskview/TaskViewPage';
-import { useAuth } from './contexts/AuthContext';
+import './App.css'
+import React from 'react'
+import NavBar from './components/navbar/NavBar'
+import SignInFormComponent from './components/SignInForm'
+import { TaskViewPage } from './components/taskview/TaskViewPage'
+import { useAuth } from './contexts/AuthContext'
 
 const App = () => {
-  const { user } = useAuth();
+  const { user } = useAuth()
 
   return (
     <>
@@ -13,7 +14,7 @@ const App = () => {
         <NavBar/>
       </div>
       <div className="z-0">
-        { !user && 
+        { !user &&
           <div className="flex items-center justify-center h-[calc(100vh-64px)]">
             <SignInFormComponent/>
           </div> }
@@ -22,7 +23,7 @@ const App = () => {
         )}
       </div>
     </>
-  );  
+  )
 }
 
-export default App;
+export default App
