@@ -10,8 +10,7 @@ import * as functions from "firebase-functions";
 // import * as admin from 'firebase-admin'
 // import {onRequest} from "firebase-functions/v2/https";
 import * as logger from "firebase-functions/logger";
-import {CharacterApi} from "../../frontend/src/api/CharacterApi";
-import {AccountCharacters} from "../../frontend/src/models/character";
+import {CharacterApi, AccountCharacters} from "ms-tracker-library";
 
 // Start writing functions
 // https://firebase.google.com/docs/functions/typescript

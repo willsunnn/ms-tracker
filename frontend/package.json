@@ -21,10 +21,9 @@
     "uuid": "^9.0.0",
     "web-vitals": "^2.1.4",
     "zod": "^3.21.4",
-    "ms-tracker-library": "^0.1.0"
+    "ms-tracker-library": "file:../library"
   },
   "scripts": {
-    "preinstall": "npm link ms-tracker-library",
     "lint": "eslint --ext .js,.ts,.jsx,.tsx .",
     "lint-fix": "eslint --ext .js,.ts,.jsx,.tsx . --fix",
     "predeploy": "npm run build",
