@@ -12,6 +12,7 @@
     "crypto-browserify": "^3.12.0",
     "firebase": "^9.22.1",
     "js-cookie": "^3.0.5",
+    "ms-tracker-library": "file:../library",
     "node-fetch": "^2.6.11",
     "queue-typescript": "^1.0.1",
     "react": "^18.2.0",
@@ -20,8 +21,7 @@
     "react-scripts": "5.0.1",
     "uuid": "^9.0.0",
     "web-vitals": "^2.1.4",
-    "zod": "^3.21.4",
-    "ms-tracker-library": "file:../library"
+    "zod": "^3.21.4"
   },
   "scripts": {
     "lint": "eslint --ext .js,.ts,.jsx,.tsx .",
@@ -46,6 +46,7 @@
     ]
   },
   "devDependencies": {
+    "@types/firebase": "^3.2.1",
     "@types/js-cookie": "^3.0.3",
     "@types/node": "^20.3.1",
     "@types/node-fetch": "^2.6.4",
@@ -60,7 +61,6 @@
     "eslint-plugin-n": "^15.7.0",
     "eslint-plugin-promise": "^6.1.1",
     "eslint-plugin-react": "^7.32.2",
-    "firebase-tools": "^12.4.0",
     "postcss": "^8.4.24",
     "tailwindcss": "^3.3.2",
     "typescript": "^4.9.5"

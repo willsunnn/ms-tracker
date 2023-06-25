@@ -1,25 +1,22 @@
+import {collection, doc, setDoc, getDoc, DocumentData, onSnapshot, CollectionReference, getFirestore} from "firebase/firestore";
 import {FirebaseOptions, initializeApp} from "firebase/app";
-import {Auth, getAuth} from "firebase/auth";
-import {Firestore, getFirestore, collection, doc, setDoc, getDoc, DocumentData, onSnapshot} from "firebase/firestore";
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 type Storable = Record<string, any>
 
 export class FirestoreApiHelper {
-  auth: Auth;
-  db: Firestore;
+  collection: CollectionReference;
   collectionName: string;
 
   constructor(config: FirebaseOptions, collectionName: string) {
     const app = initializeApp(config);
-    this.auth = getAuth(app);
-    this.db = getFirestore(app);
+    const firestore = getFirestore(app);
+    this.collection = collection(firestore, collectionName);
     this.collectionName = collectionName;
   }
 
   private getDocRef = (key: string) => {
-    const collectionRef = collection(this.db, this.collectionName);
-    const docRef = doc(collectionRef, key);
+    const docRef = doc(this.collection, key);
     return docRef;
   };
 

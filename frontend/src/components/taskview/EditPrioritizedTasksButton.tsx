@@ -3,9 +3,11 @@ import { useDialogContext } from '../../contexts/DialogContext'
 import { useAuth } from '../../contexts/AuthContext'
 import { useAlertCallback } from '../../contexts/AlertContext'
 import { Model, type Character, type TaskAndStatus } from 'ms-tracker-library'
-import { taskStatusApi } from '../api'
+import { useApi } from '../../contexts/ApiContext'
 
 export const EditPrioritizedTasksComponent = (props: { character: Character, tasks: TaskAndStatus[] }) => {
+  const { taskStatusApi } = useApi()
+
   const { character, tasks } = props
   const { user } = useAuth()
   const alert = useAlertCallback()

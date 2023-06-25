@@ -12,11 +12,12 @@
     "postbuild": "npm link"
   },
   "dependencies": {
-    "firebase": "^9.22.1",
+    "firebase": "^9.23.0",
     "node-fetch": "^2.6.11",
     "zod": "^3.21.4"
   },
   "devDependencies": {
+    "@types/firebase": "^3.2.1",
     "@typescript-eslint/eslint-plugin": "^5.60.0",
     "eslint": "^8.9.0",
     "eslint-config-google": "^0.14.0",

@@ -6,7 +6,8 @@ export class MapleGgFirebaseApi {
 
   constructor(config: FirebaseOptions) {
     const app = initializeApp(config);
-    this.functions = getFunctions(app);
+    const functions = getFunctions(app);
+    this.functions = functions;
   }
 
   public get = async (uid: string) => {

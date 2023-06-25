@@ -1,7 +1,7 @@
 import {type User} from "firebase/auth";
 import {AccountCharacters, type Character, defaultAccountCharacters} from "../models";
-import {FirebaseOptions} from "firebase/app";
 import {FirestoreApiHelper} from "./FirestoreApiHelper";
+import {FirebaseOptions} from "firebase/app";
 
 const CHARACTER_COLLECTION = "Character";
 

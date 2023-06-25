@@ -6,8 +6,9 @@ export class AuthenticationApi {
   auth: Auth;
 
   constructor(config: FirebaseOptions) {
-    const app = initializeApp(config);
-    this.auth = getAuth(app);
+    const app = initializeApp(config as FirebaseOptions);
+    const auth = getAuth(app);
+    this.auth = auth;
   }
 
   public onAuthStateChanged = (callback: (_:FirebaseAuth.User|null)=>void) => {

@@ -2,9 +2,11 @@ import React from 'react'
 import { useDialogContext } from '../../contexts/DialogContext'
 import { useAuth } from '../../contexts/AuthContext'
 import { useAlertCallback } from '../../contexts/AlertContext'
-import { characterApi } from '../api'
+import { useApi } from '../../contexts/ApiContext'
 
 export const AddCharacterComponent = () => {
+  const { characterApi } = useApi()
+
   const [nameEntryText, setNameEntryText] = React.useState<string>('')
   const [nameEntryError, setNameEntryError] = React.useState<string | null>(null)
 

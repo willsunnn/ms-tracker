@@ -1,6 +1,6 @@
 import type * as FirebaseAuth from 'firebase/auth'
 import React from 'react'
-import { authenticationApi } from '../components/api'
+import { useApi } from './ApiContext'
 
 interface Auth {
   user: FirebaseAuth.User | null
@@ -11,9 +11,14 @@ interface Auth {
   signOut: () => Promise<void>
 }
 
+const throwErr = () => { throw new Error('Not implemented yet') }
 const AuthContext = React.createContext<Auth>({
   user: null,
-  ...authenticationApi
+  signUp: throwErr,
+  signIn: throwErr,
+  forgotPassword: throwErr,
+  signInWithGoogle: throwErr,
+  signOut: throwErr
 })
 
 export const useAuth = () => {
@@ -22,6 +27,7 @@ export const useAuth = () => {
 
 export const AuthContextProvider = (props: { children: React.ReactNode }) => {
   const [currentUser, setCurrentUser] = React.useState<FirebaseAuth.User | null>(null)
+  const { authenticationApi } = useApi()
 
   React.useEffect(() => {
     return authenticationApi.onAuthStateChanged(setCurrentUser)

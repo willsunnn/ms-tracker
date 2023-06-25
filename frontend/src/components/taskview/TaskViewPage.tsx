@@ -6,7 +6,7 @@ import { type User } from 'firebase/auth'
 import { useAlertCallback } from '../../contexts/AlertContext'
 import { TASK_LIST } from '../../models/PredefinedTasks'
 import { type TaskStatusForAccount, type Task, type AccountCharacters, defaultTaskStatusForAccount, defaultAccountCharacters } from 'ms-tracker-library'
-import { characterApi, mapleGgFirebaseApi, taskStatusApi } from '../api'
+import { useApi } from '../../contexts/ApiContext'
 
 type Tabs = 'BY_CHARACTER' | 'BY_RESET_DATE' | 'COMPACT'
 
@@ -31,6 +31,8 @@ export interface TaskViewProps {
 export const TaskViewPage = (props: { user: User }) => {
   const { user } = props
   const alert = useAlertCallback()
+
+  const { mapleGgFirebaseApi, taskStatusApi, characterApi } = useApi()
 
   React.useEffect(() => {
     mapleGgFirebaseApi.get(user.uid).then(alert).catch(alert)
