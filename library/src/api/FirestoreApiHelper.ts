@@ -1,15 +1,12 @@
 import {collection, doc, setDoc, getDoc, DocumentData, onSnapshot, CollectionReference, Firestore} from "firebase/firestore";
+import {FirestoreApiHelperBase, Storable} from "./FirestoreApiHelperBase";
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-type Storable = Record<string, any>
-
-export class FirestoreApiHelper {
+export class FirestoreApiHelper extends FirestoreApiHelperBase {
   collection: CollectionReference;
-  collectionName: string;
 
   constructor(firestore: Firestore, collectionName: string) {
+    super(collectionName);
     this.collection = collection(firestore, collectionName);
-    this.collectionName = collectionName;
   }
 
   private getDocRef = (key: string) => {
@@ -17,38 +14,18 @@ export class FirestoreApiHelper {
     return docRef;
   };
 
-  // Storing Methods
+  // Override methods
 
-  public set = async <T extends Storable>(key: string, data: T): Promise<string> => {
-    try {
-      const docRef = this.getDocRef(key);
-      await setDoc(docRef, data);
-      console.log(`Document written in ${this.collectionName} with ID ${docRef.id}`);
-      return docRef.id;
-    } catch (e) {
-      console.error(`Error writing document to ${this.collectionName} ${JSON.stringify(data)} error=${JSON.stringify(e)}`);
-      throw e;
-    }
-  };
+  protected async write(id: string, data: Storable): Promise<void> {
+    const docRef = this.getDocRef(id);
+    await setDoc(docRef, data);
+  }
 
-  // Fetching Methods
-
-  public get = async <T extends Storable>(key: string, defaultValue: () => T, parse: (_: DocumentData) => T): Promise<T> => {
-    try {
-      const docRef = this.getDocRef(key);
-      const data = (await getDoc(docRef)).data();
-      if (data === undefined) {
-        console.log(`could not find document in ${this.collectionName} for key ${key}. Returning default value`);
-        return defaultValue();
-      } else {
-        console.log(`found document in ${this.collectionName} with data=${JSON.stringify(data)}`);
-        return parse(data);
-      }
-    } catch (e) {
-      console.error(`Error fetching document from ${this.collectionName} error=${JSON.stringify(e)}`);
-      throw e;
-    }
-  };
+  protected async read(id: string): Promise<Storable | undefined> {
+    const docRef = this.getDocRef(id);
+    const data = (await getDoc(docRef)).data();
+    return data;
+  }
 
   public listen = <T extends Storable>(key: string, callback: (_: T) => void, errCallback: (_: unknown) => void, defaultValue: () => T, parse: (_: DocumentData) => T) => {
     try {

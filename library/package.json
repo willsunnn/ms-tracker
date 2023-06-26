@@ -13,6 +13,7 @@
   },
   "dependencies": {
     "firebase": "^9.23.0",
+    "firebase-admin": "^11.9.0",
     "node-fetch": "^2.6.11",
     "zod": "^3.21.4"
   },
