@@ -4,9 +4,7 @@ import {Functions, getFunctions, httpsCallable} from "firebase/functions";
 export class MapleGgFirebaseApi {
   functions: Functions;
 
-  constructor(config: FirebaseOptions) {
-    const app = initializeApp(config);
-    const functions = getFunctions(app);
+  constructor(functions: Functions) {
     this.functions = functions;
   }
 
@@ -16,10 +14,15 @@ export class MapleGgFirebaseApi {
   };
 }
 
-export const getFromMapleGg = async (username: string) => {
-  // const response = await fetch(`https://api.maplestory.gg/v2/public/character/gms/${username}`)
-  // return await response.json()
-  return {};
+export const mapleGgFirebaseApi = (config: FirebaseOptions) => {
+  const app = initializeApp(config as FirebaseOptions);
+  const functions = getFunctions(app);
+  return new MapleGgFirebaseApi(functions);
+};
+
+export const fetchFromMapleGg = async (username: string) => {
+  const response = await fetch(`https://api.maplestory.gg/v2/public/character/gms/${username}`);
+  return await response.json();
 
   // const mapleGgData = MapleGgApi.get('nùms').then((data) => {
   //     console.log(data);

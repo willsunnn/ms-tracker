@@ -5,9 +5,7 @@ import * as FirebaseAuth from "firebase/auth";
 export class AuthenticationApi {
   auth: Auth;
 
-  constructor(config: FirebaseOptions) {
-    const app = initializeApp(config as FirebaseOptions);
-    const auth = getAuth(app);
+  constructor(auth: Auth) {
     this.auth = auth;
   }
 
@@ -40,3 +38,9 @@ export class AuthenticationApi {
     await FirebaseAuth.signOut(this.auth);
   };
 }
+
+export const authenticationApi = (config: FirebaseOptions) => {
+  const app = initializeApp(config as FirebaseOptions);
+  const auth = getAuth(app);
+  return new AuthenticationApi(auth);
+};

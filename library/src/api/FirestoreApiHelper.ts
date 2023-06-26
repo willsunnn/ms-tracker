@@ -1,5 +1,4 @@
-import {collection, doc, setDoc, getDoc, DocumentData, onSnapshot, CollectionReference, getFirestore} from "firebase/firestore";
-import {FirebaseOptions, initializeApp} from "firebase/app";
+import {collection, doc, setDoc, getDoc, DocumentData, onSnapshot, CollectionReference, Firestore} from "firebase/firestore";
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 type Storable = Record<string, any>
@@ -8,9 +7,7 @@ export class FirestoreApiHelper {
   collection: CollectionReference;
   collectionName: string;
 
-  constructor(config: FirebaseOptions, collectionName: string) {
-    const app = initializeApp(config);
-    const firestore = getFirestore(app);
+  constructor(firestore: Firestore, collectionName: string) {
     this.collection = collection(firestore, collectionName);
     this.collectionName = collectionName;
   }

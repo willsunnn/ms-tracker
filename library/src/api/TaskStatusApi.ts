@@ -1,16 +1,16 @@
 import {type User} from "firebase/auth";
 import {TaskStatusForAccount, defaultTaskStatusForAccount, Model} from "../models";
 import {FirestoreApiHelper} from "./FirestoreApiHelper";
-import {Unsubscribe} from "firebase/firestore";
-import {FirebaseOptions} from "firebase/app";
+import {Firestore, Unsubscribe, getFirestore} from "firebase/firestore";
+import {FirebaseOptions, initializeApp} from "firebase/app";
 
 const TASK_STATUS_COLLECTION = "TaskStatus";
 
 export class TaskStatusApi {
   api: FirestoreApiHelper;
 
-  constructor(config: FirebaseOptions) {
-    this.api = new FirestoreApiHelper(config, TASK_STATUS_COLLECTION);
+  constructor(firestore: Firestore) {
+    this.api = new FirestoreApiHelper(firestore, TASK_STATUS_COLLECTION);
   }
 
   // Storing Methods
@@ -42,3 +42,9 @@ export class TaskStatusApi {
     return await this.set(user, accountStatuses);
   };
 }
+
+export const taskStatusApi = (config: FirebaseOptions) => {
+  const app = initializeApp(config);
+  const firestore = getFirestore(app);
+  return new TaskStatusApi(firestore);
+};
