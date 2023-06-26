@@ -29,7 +29,7 @@ export class CharacterApi {
   // Get Methods
 
   public getUsingUid = async (uid: string): Promise<AccountCharacters> => {
-    return await this.api.get(uid, defaultAccountCharacters, AccountCharacters.parse);
+    return await this.api.getOrDefault(uid, defaultAccountCharacters, AccountCharacters.parse);
   };
 
   public get = async (user: User): Promise<AccountCharacters> => {

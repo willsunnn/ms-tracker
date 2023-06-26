@@ -23,7 +23,7 @@ export class TaskStatusApi {
   // Fetching Methods
 
   public get = async (user: User): Promise<TaskStatusForAccount> => {
-    return await this.api.get(user.uid, defaultTaskStatusForAccount, TaskStatusForAccount.parse);
+    return await this.api.getOrDefault(user.uid, defaultTaskStatusForAccount, TaskStatusForAccount.parse);
   };
 
   public listen = (user: User, callback: (_: TaskStatusForAccount) => void, errCallback: (_: unknown) => void): Unsubscribe => {

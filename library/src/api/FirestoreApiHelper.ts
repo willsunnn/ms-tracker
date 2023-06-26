@@ -1,17 +1,24 @@
-import {collection, doc, setDoc, getDoc, DocumentData, onSnapshot, CollectionReference, Firestore} from "firebase/firestore";
-import {FirestoreApiHelperBase, Storable} from "./FirestoreApiHelperBase";
+import {collection, doc, setDoc, getDoc, getDocs, DocumentData, onSnapshot, CollectionReference, Firestore, query, where} from "firebase/firestore";
+import {FirestoreApiHelperBase, QueryParam, Storable} from "./FirestoreApiHelperBase";
 
 export class FirestoreApiHelper extends FirestoreApiHelperBase {
   collection: CollectionReference;
+  firestore: Firestore;
 
   constructor(firestore: Firestore, collectionName: string) {
     super(collectionName);
+    this.firestore = firestore;
     this.collection = collection(firestore, collectionName);
   }
 
   private getDocRef = (key: string) => {
     const docRef = doc(this.collection, key);
     return docRef;
+  };
+
+  private getQuery = (conditions: QueryParam[]) => {
+    const whereClauses = conditions.map((condition) => where(condition.property, condition.op, condition.value));
+    return query(this.collection, ...whereClauses);
   };
 
   // Override methods
@@ -25,6 +32,16 @@ export class FirestoreApiHelper extends FirestoreApiHelperBase {
     const docRef = this.getDocRef(id);
     const data = (await getDoc(docRef)).data();
     return data;
+  }
+
+  protected async find(conditions: QueryParam[]): Promise<Storable[]> {
+    const query = this.getQuery(conditions);
+    const snapshot = await getDocs(query);
+    const results: Storable[] = [];
+    snapshot.forEach((doc) => {
+      results.push(doc.data());
+    });
+    return results;
   }
 
   public listen = <T extends Storable>(key: string, callback: (_: T) => void, errCallback: (_: unknown) => void, defaultValue: () => T, parse: (_: DocumentData) => T) => {
