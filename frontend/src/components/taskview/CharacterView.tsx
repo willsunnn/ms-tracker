@@ -5,7 +5,7 @@ import { type Character } from 'ms-tracker-library'
 export const CharacterView = (props: { character: Character }) => {
   const { character } = props
   const name = character.name
-  const image = character.image ?? DefaultCharacter
+  const image = character.mapleGgData?.image ?? DefaultCharacter
 
   return (<div className="join join-vertical w-32">
     <img className="object-contain w-32 h-32" src={image} alt="Album"/>

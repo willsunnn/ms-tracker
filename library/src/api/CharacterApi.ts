@@ -46,7 +46,7 @@ export class CharacterApi {
     if (newCharacter.name.trim().length === 0) throw new Error("Character name is invalid");
     const characters = await this.get(user);
     const alrHasCharacter = characters.characters.find((c) => c.name === newCharacter.name);
-    if (!alrHasCharacter) {
+    if (alrHasCharacter) {
       throw new Error(`cannot add ${newCharacter.name} as ${newCharacter.name} already exists`);
     } else {
       characters.characters.push(newCharacter);

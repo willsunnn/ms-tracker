@@ -2,9 +2,19 @@
 
 import {z} from "zod";
 
+export const MapleGgCachedData = z.object({
+  image: z.string().optional(),
+  class: z.string().optional(),
+  classRank: z.number().optional(),
+  level: z.number().optional(),
+  server: z.string().optional(),
+});
+export type MapleGgCachedData = z.infer<typeof MapleGgCachedData>;
+
 export const Character = z.object({
   name: z.string(),
-  image: z.string().optional(),
+  mapleGgData: MapleGgCachedData.optional(),
+  mapleGgLastUpdated: z.number().optional(),
 });
 export type Character = z.infer<typeof Character>
 
