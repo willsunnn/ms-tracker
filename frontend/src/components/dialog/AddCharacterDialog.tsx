@@ -33,11 +33,10 @@ export const AddCharacterComponent = () => {
         alertLevel: 'success',
         text: `${text} successfully added`
       })
-      closeDialog()
     }).catch((err: any) => {
       alert(err)
-      closeDialog()
     })
+    closeDialog()
   }
 
   return (
