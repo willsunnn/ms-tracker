@@ -1,5 +1,5 @@
 import React from 'react'
-import DefaultCharacter from '../../resources/blank-character.png'
+import DefaultCharacter from '../resources/blank-character.png'
 import { type CharacterWithMapleGgData } from 'ms-tracker-library'
 
 export const CharacterView = (props: { character: CharacterWithMapleGgData }) => {
