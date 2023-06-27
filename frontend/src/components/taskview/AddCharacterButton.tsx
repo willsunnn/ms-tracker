@@ -3,6 +3,7 @@ import { useDialogContext } from '../../contexts/DialogContext'
 import { useAuth } from '../../contexts/AuthContext'
 import { useAlertCallback } from '../../contexts/AlertContext'
 import { useApi } from '../../contexts/ApiContext'
+import { uuidv4 } from '@firebase/util'
 
 export const AddCharacterComponent = () => {
   const { characterApi } = useApi()
@@ -25,7 +26,8 @@ export const AddCharacterComponent = () => {
       return
     }
     characterApi.addCharacter(user, {
-      name: text
+      name: text,
+      id: uuidv4()
     }).then(() => {
       alert({
         alertLevel: 'success',

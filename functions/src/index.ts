@@ -35,12 +35,11 @@ export const updateCharacter = functions.https.onCall(async (data, context) => {
 
   // find which ones are already stored in Firebase
   const cachedCharacters = await mapleGgFirebaseApi.search(characterNames);
-  const cachedCharactersMap = new Map(cachedCharacters.map((char) => [char.name, char]));
 
   // only update characters that havent been retrieved or that havent been updated
   // in over a day
   const characterNamesToUpdate = characterNames.filter((name) => {
-    const cachedCharacter = cachedCharactersMap.get(name);
+    const cachedCharacter = cachedCharacters.get(name);
     const lastFetched = cachedCharacter?.lastRetrievedTimestamp;
     return (!lastFetched) || ((now - lastFetched) > millisInADay);
   });

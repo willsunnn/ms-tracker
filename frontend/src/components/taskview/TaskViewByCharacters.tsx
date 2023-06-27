@@ -3,7 +3,7 @@ import { AddCharacterButton } from './AddCharacterButton'
 import { type TaskViewProps } from './TaskViewPage'
 import { EditPrioritizedTasksButton } from './EditPrioritizedTasksButton'
 import { CharacterView } from './CharacterView'
-import { type Character, type Task, type TaskAndStatus, type TaskStatusForCharacter, Model } from 'ms-tracker-library'
+import { type Character, type Task, type TaskAndStatus, type TaskStatusForCharacter, Model, type CharacterWithMapleGgData } from 'ms-tracker-library'
 
 const joinTasksAndStatuses = (tasks: Task[], statuses: TaskStatusForCharacter): TaskAndStatus[] => {
   return tasks.map((task) => {
@@ -74,7 +74,7 @@ export const TaskViewByCharacter = (props: { taskViewAttrs: TaskViewProps }) => 
   return (<>
     <div>
       {
-        characters.characters.map((character: Character) => {
+        characters.map((character: CharacterWithMapleGgData) => {
           const taskStatusForCharacter = taskStatus.characterTasks[character.name] ?? {}
           return (<TaskViewSingleCharacter tasks={tasks} taskStatus={taskStatusForCharacter} character={character} key={`CharacterTaskView-${character.name}`}/>)
         })

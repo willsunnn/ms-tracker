@@ -26,3 +26,7 @@ export type AccountCharacters = z.infer<typeof AccountCharacters>
 export const defaultAccountCharacters: () => AccountCharacters = () => {
   return {characters: []};
 };
+
+export type CharacterWithMapleGgData = Character & {
+  mapleGgData?: MapleGgCachedData
+}

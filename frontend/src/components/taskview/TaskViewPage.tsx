@@ -5,7 +5,7 @@ import { TaskViewCompact } from './TaskViewCompact'
 import { type User } from 'firebase/auth'
 import { useAlertCallback } from '../../contexts/AlertContext'
 import { TASK_LIST } from '../../models/PredefinedTasks'
-import { type TaskStatusForAccount, type Task, type AccountCharacters, defaultTaskStatusForAccount, defaultAccountCharacters } from 'ms-tracker-library'
+import { type TaskStatusForAccount, type Task, type AccountCharacters, defaultTaskStatusForAccount, defaultAccountCharacters, type MapleGgCachedData, type CharacterWithMapleGgData } from 'ms-tracker-library'
 import { useApi } from '../../contexts/ApiContext'
 
 type Tabs = 'BY_CHARACTER' | 'BY_RESET_DATE' | 'COMPACT'
@@ -23,7 +23,7 @@ const TabLabel = (props: { tabText: string, tabTag: Tabs, selectedTab: Tabs, set
 export interface TaskViewProps {
   taskStatus: TaskStatusForAccount
   tasks: Task[]
-  characters: AccountCharacters
+  characters: CharacterWithMapleGgData[]
   removeClear: (characterName: string, taskId: string) => Promise<void>
   addClear: (characterName: string, taskId: string, clearTime: Date) => Promise<void>
 }
@@ -34,14 +34,11 @@ export const TaskViewPage = (props: { user: User }) => {
 
   const { mapleGgFirebaseApi, taskStatusApi, characterApi } = useApi()
 
-  React.useEffect(() => {
-    mapleGgFirebaseApi.get(user.uid).then(alert).catch(alert)
-  }, [])
-
   // React States
   const [tab, setTab] = React.useState<Tabs>('BY_CHARACTER')
   const [taskStatus, setTaskStatus] = React.useState<TaskStatusForAccount>(defaultTaskStatusForAccount)
   const [characters, setCharacters] = React.useState<AccountCharacters>(defaultAccountCharacters)
+  const [mapleGgCharacters, setMapleGgCharacters] = React.useState<Map<string, MapleGgCachedData>>(new Map<string, MapleGgCachedData>())
 
   React.useEffect(() => {
     const stopTaskListen = taskStatusApi.listen(user, setTaskStatus, alert)
@@ -53,10 +50,24 @@ export const TaskViewPage = (props: { user: User }) => {
     }
   }, [])
 
+  React.useEffect(() => {
+    const characterNames = characters.characters.map((char) => char.name)
+    mapleGgFirebaseApi.search(characterNames).then((mapleGgData) => {
+      setMapleGgCharacters(mapleGgData)
+    }).catch(alert)
+  }, [characters])
+
+  const charactersWithMapleGgData: CharacterWithMapleGgData[] = characters.characters.map((character) => {
+    return {
+      ...character,
+      mapleGgData: mapleGgCharacters.get(character.name)
+    }
+  })
+
   const taskViewProps = {
     taskStatus,
     tasks: TASK_LIST,
-    characters,
+    characters: charactersWithMapleGgData,
     addClear: async (characterName: string, taskId: string, clearTime: Date) => {
       console.log(`adding clear for ${characterName} ${taskId} ${clearTime.toLocaleDateString()}`)
     },

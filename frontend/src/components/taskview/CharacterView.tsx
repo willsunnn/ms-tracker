@@ -1,8 +1,8 @@
 import React from 'react'
 import DefaultCharacter from '../../resources/blank-character.png'
-import { type Character } from 'ms-tracker-library'
+import { type CharacterWithMapleGgData } from 'ms-tracker-library'
 
-export const CharacterView = (props: { character: Character }) => {
+export const CharacterView = (props: { character: CharacterWithMapleGgData }) => {
   const { character } = props
   const name = character.name
   const image = character.mapleGgData?.image ?? DefaultCharacter

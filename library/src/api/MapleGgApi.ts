@@ -18,12 +18,21 @@ export class MapleGgFirebaseApi {
     this.api = api(MAPLE_GG_COLLECTION);
   }
 
-  public search = async (characterNames: string[]) => {
-    return this.api.search([{
+  public search = async (characterNames: string[]): Promise<Map<string, MapleGgCachedData>> => {
+    // firebase throws an error if in clause has 0 entries
+    if (characterNames.length == 0) {
+      return new Map();
+    }
+
+    // get list of results
+    const retrieved = await this.api.search([{
       property: "name",
       op: "in",
       value: characterNames,
     }], MapleGgCachedData.parse);
+
+    // convert it to a map for easier reading
+    return new Map(retrieved.map((char) => [char.name, char]));
   };
 
   public set = async (character: MapleGgCachedData) => {
