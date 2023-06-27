@@ -13,8 +13,8 @@ export class FirestoreAdminApiHelper extends FirestoreApiHelperBase {
     return this.firestore.doc(`${this.collectionName}/${key}`);
   };
 
-  private getQuery = (params: QueryParam[]) => {
-    let query: CollectionReference<DocumentData> | Query<DocumentData> = this.firestore.collection(this.collectionName);
+  private getQuery = (subpath: string, params: QueryParam[]) => {
+    let query: CollectionReference<DocumentData> | Query<DocumentData> = this.firestore.collection(`${this.collectionName}${subpath}`);
     params.forEach((param) => {
       query = query.where(param.property, param.op, param.value);
     });
@@ -33,8 +33,8 @@ export class FirestoreAdminApiHelper extends FirestoreApiHelperBase {
     return (await docRef.get()).data();
   }
 
-  protected async _search(params: QueryParam[]): Promise<QuerySnapshot<DocumentData>> {
-    const query = this.getQuery(params);
+  protected async _search(subpath: string, params: QueryParam[]): Promise<QuerySnapshot<DocumentData>> {
+    const query = this.getQuery(subpath, params);
     const snapshot = await query.get();
     return snapshot;
   }

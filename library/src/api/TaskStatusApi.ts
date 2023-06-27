@@ -7,7 +7,7 @@ import {FirestoreApiHelper} from "./FirestoreApiHelper";
 import {defaultTaskStatus} from "../models/helper";
 
 export class TaskStatusApi {
-  public static readonly TASK_STATUS_COLLECTION = "TaskStatus";
+  public static readonly TASK_STATUS_COLLECTION = "Task";
 
   api: FirestoreApiHelperBase;
 
@@ -16,7 +16,7 @@ export class TaskStatusApi {
   }
 
   private getKey = (userId: string, characterId: string|null, taskId: string) => {
-    return `${userId}-${characterId}-${taskId}`;
+    return `${userId}/status/${characterId}-${taskId}`;
   };
 
   // Storing Methods
@@ -37,6 +37,7 @@ export class TaskStatusApi {
 
   public searchAndListen = (user: User, handler: (_: TaskStatusForAccount)=>void, errHandler: (_:unknown)=>void): Unsubscribe => {
     return this.api.searchAndListen(
+      `/${user.uid}/status`,
       [{
         property: "userId",
         op: "==",
@@ -56,7 +57,7 @@ export class TaskStatusApi {
     );
   };
 
-  // Modify Helper Methods (these should be transactional)
+  // Modify Helper Methods
 
   public updatePriority = async (user: User, character: Character, taskId: string, prioritize: boolean): Promise<void> => {
     const taskStatus = await this.get(user, character.id, taskId);

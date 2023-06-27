@@ -26,6 +26,7 @@ export class MapleGgFirebaseApi {
     }
 
     return this.api.searchAndListen(
+      "",
       [{
         property: "name",
         op: "in",

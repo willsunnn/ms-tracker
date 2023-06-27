@@ -1,24 +1,24 @@
-import {collection, doc, setDoc, getDoc, getDocs, DocumentData, onSnapshot, CollectionReference, Firestore, query, where, QuerySnapshot} from "firebase/firestore";
+import {collection, doc, setDoc, getDoc, getDocs, DocumentData, onSnapshot, Firestore, query, where, QuerySnapshot} from "firebase/firestore";
 import {FirestoreApiHelperBase, QueryParam, Storable} from "./FirestoreApiHelperBase";
 
 export class FirestoreApiHelper extends FirestoreApiHelperBase {
-  collection: CollectionReference;
   firestore: Firestore;
 
   constructor(firestore: Firestore, collectionName: string) {
     super(collectionName);
     this.firestore = firestore;
-    this.collection = collection(firestore, collectionName);
   }
 
   private getDocRef = (key: string) => {
-    const docRef = doc(this.collection, key);
+    const collectionRef = collection(this.firestore, this.collectionName);
+    const docRef = doc(collectionRef, key);
     return docRef;
   };
 
-  private getQuery = (params: QueryParam[]) => {
+  private getQuery = (subpath: string, params: QueryParam[]) => {
     const whereClauses = params.map((param) => where(param.property, param.op, param.value));
-    return query(this.collection, ...whereClauses);
+    const collectionRef = collection(this.firestore, `${this.collectionName}${subpath}`);
+    return query(collectionRef, ...whereClauses);
   };
 
   // Override methods
@@ -34,15 +34,15 @@ export class FirestoreApiHelper extends FirestoreApiHelperBase {
     return data;
   }
 
-  protected async _search(params: QueryParam[]): Promise<QuerySnapshot<DocumentData>> {
-    const query = this.getQuery(params);
+  protected async _search(subpath: string, params: QueryParam[]): Promise<QuerySnapshot<DocumentData>> {
+    const query = this.getQuery(subpath, params);
     const snapshot = await getDocs(query);
     return snapshot;
   }
 
-  public searchAndListen = <T extends Storable>(params: QueryParam[], callback: (_:T[]) => void, errCallback: (_: unknown) => void, parse: (_: DocumentData) => T) => {
+  public searchAndListen = <T extends Storable>(subpath: string, params: QueryParam[], callback: (_:T[]) => void, errCallback: (_: unknown) => void, parse: (_: DocumentData) => T) => {
     try {
-      const query = this.getQuery(params);
+      const query = this.getQuery(subpath, params);
       const unsubFunc = onSnapshot(query, (docs) => {
         try {
           const retValue: T[] = [];

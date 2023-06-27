@@ -28,9 +28,9 @@ export abstract class FirestoreApiHelperBase {
     }
   };
 
-  public search = async <T extends Storable>(params: QueryParam[], parse: (_: DocumentData) => T): Promise<T[]> => {
+  public search = async <T extends Storable>(subpath: string, params: QueryParam[], parse: (_: DocumentData) => T): Promise<T[]> => {
     try {
-      const snapshot = await this._search(params);
+      const snapshot = await this._search(subpath, params);
       const data: T[] = snapshot.docs.map((doc) => parse(doc.data()));
       return data;
     } catch (e) {
@@ -59,9 +59,9 @@ export abstract class FirestoreApiHelperBase {
   };
 
   abstract listen: <T extends Storable>(key: string, callback: (_: T) => void, errCallback: (_: unknown) => void, defaultValue: () => T, parse: (_: DocumentData) => T) => Unsubscribe
-  abstract searchAndListen: <T extends Storable>(params: QueryParam[], callback: (_:T[]) => void, errCallback: (_: unknown) => void, parse: (_: DocumentData) => T) => Unsubscribe
+  abstract searchAndListen: <T extends Storable>(subpath: string, params: QueryParam[], callback: (_:T[]) => void, errCallback: (_: unknown) => void, parse: (_: DocumentData) => T) => Unsubscribe
 
   protected abstract _set(id: string, data: Storable): Promise<void>
   protected abstract _get(id: string): Promise<Storable | undefined>
-  protected abstract _search(params: QueryParam[]): Promise<QuerySnapshot<DocumentData>|QuerySnapshotAdmin<DocumentData>>
+  protected abstract _search(subpath: string, params: QueryParam[]): Promise<QuerySnapshot<DocumentData>|QuerySnapshotAdmin<DocumentData>>
 }
