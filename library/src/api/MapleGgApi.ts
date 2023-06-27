@@ -1,32 +1,42 @@
 import {FirebaseOptions, initializeApp} from "firebase/app";
 import {getFirestore} from "firebase/firestore";
+import {Firestore as FirestoreAdmin} from "firebase-admin/firestore";
 import {Functions, getFunctions, httpsCallable} from "firebase/functions";
 import {MapleGgCachedData} from "../models";
 import {FirestoreApiHelper} from "./FirestoreApiHelper";
 import {FirestoreApiHelperBase} from "./FirestoreApiHelperBase";
+import {FirestoreAdminApiHelper} from "./FirestoreAdminApiHelper";
 
 const MAPLE_GG_COLLECTION = "MapleGgCharacter";
 
 export class MapleGgFirebaseApi {
-  functions: Functions;
+  functions: Functions | undefined;
   api: FirestoreApiHelperBase;
 
-  constructor(functions: Functions, api: (collectionName: string) => FirestoreApiHelperBase) {
+  constructor(functions: Functions | undefined, api: (collectionName: string) => FirestoreApiHelperBase) {
     this.functions = functions;
     this.api = api(MAPLE_GG_COLLECTION);
   }
 
-  public get = async (characterNames: string[]) => {
-    this.api.search([{
+  public search = async (characterNames: string[]) => {
+    return this.api.search([{
       property: "name",
       op: "in",
       value: characterNames,
     }], MapleGgCachedData.parse);
   };
 
+  public set = async (character: MapleGgCachedData) => {
+    return this.api.set(character.name, character);
+  };
+
   public updateCharacter = async (uid: string) => {
-    const func = httpsCallable(this.functions, "updateCharacter");
-    return await func({});
+    if (this.functions) {
+      const func = httpsCallable(this.functions, "updateCharacter");
+      return await func({});
+    } else {
+      throw new Error("MapleGgFirebaseApi.functions is undefined");
+    }
   };
 }
 
@@ -35,6 +45,10 @@ export const mapleGgFirebaseApi = (config: FirebaseOptions) => {
   const functions = getFunctions(app);
   const firestore = getFirestore(app);
   return new MapleGgFirebaseApi(functions, (collectionName) => new FirestoreApiHelper(firestore, collectionName));
+};
+
+export const mapleGgFirebaseApiAdmin = (firestore: FirestoreAdmin) => {
+  return new MapleGgFirebaseApi(undefined, (collectionName) => new FirestoreAdminApiHelper(firestore, collectionName));
 };
 
 // For Calling Maple GG Api directly
