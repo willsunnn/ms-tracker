@@ -45,8 +45,26 @@ export class FirestoreApiHelper extends FirestoreApiHelperBase {
   }
 
   public searchAndListen = <T extends Storable>(params: QueryParam[], callback: (_:T[]) => void, errCallback: (_: unknown) => void, parse: (_: DocumentData) => T) => {
-    return () => {};
-  }
+    try {
+      const query = this.getQuery(params);
+      const unsubFunc = onSnapshot(query, (docs) => {
+        try {
+          const retValue: T[] = [];
+          docs.forEach((doc) => {
+            const data = parse(doc.data());
+            retValue.push(data);
+          });
+          callback(retValue);
+        } catch (err) {
+          errCallback(err);
+        }
+      });
+      return unsubFunc;
+    } catch (e) {
+      console.error(`Error searching and listening to documents from ${this.collectionName} params=${JSON.stringify(params)} error=${JSON.stringify(e)}`);
+      throw e;
+    }
+  };
 
   public listen = <T extends Storable>(key: string, callback: (_: T) => void, errCallback: (_: unknown) => void, defaultValue: () => T, parse: (_: DocumentData) => T) => {
     try {
@@ -54,20 +72,15 @@ export class FirestoreApiHelper extends FirestoreApiHelperBase {
       const unsubFunc = onSnapshot(docRef, (doc) => {
         try {
           const data = doc.data();
-          if (data === undefined) {
-            console.log(`could not find document in ${this.collectionName} for key ${key}. Returning default value`);
-            callback(defaultValue());
-          } else {
-            console.log(`found document in ${this.collectionName} with data=${JSON.stringify(data)}`);
-            callback(parse(data));
-          }
+          const retValue = (data) ? parse(data) : defaultValue();
+          callback(retValue);
         } catch (err) {
           errCallback(err);
         }
       });
       return unsubFunc;
     } catch (e) {
-      console.error(`Error fetching document from ${this.collectionName} error=${JSON.stringify(e)}`);
+      console.error(`Error initializing listening to document from ${this.collectionName} key=${key} error=${JSON.stringify(e)}`);
       throw e;
     }
   };

@@ -1,5 +1,5 @@
 import {FirebaseOptions, initializeApp} from "firebase/app";
-import {getFirestore} from "firebase/firestore";
+import {Unsubscribe, getFirestore} from "firebase/firestore";
 import {Firestore as FirestoreAdmin} from "firebase-admin/firestore";
 import {Functions, getFunctions, httpsCallable} from "firebase/functions";
 import {MapleGgCachedData} from "../models";
@@ -18,21 +18,26 @@ export class MapleGgFirebaseApi {
     this.api = api(MapleGgFirebaseApi.MAPLE_GG_COLLECTION);
   }
 
-  public search = async (characterNames: string[]): Promise<Map<string, MapleGgCachedData>> => {
+  public searchAndListen = (characterNames: string[], handler: (_: Map<string, MapleGgCachedData>)=>void, errHandler: (_:unknown)=>void): Unsubscribe => {
     // firebase throws an error if in clause has 0 entries
     if (characterNames.length == 0) {
-      return new Map();
+      handler(new Map<string, MapleGgCachedData>());
+      return ()=>{};
     }
 
-    // get list of results
-    const retrieved = await this.api.search([{
-      property: "name",
-      op: "in",
-      value: characterNames,
-    }], MapleGgCachedData.parse);
-
-    // convert it to a map for easier reading
-    return new Map(retrieved.map((char) => [char.name, char]));
+    return this.api.searchAndListen(
+      [{
+        property: "name",
+        op: "in",
+        value: characterNames,
+      }],
+      (data) => {
+        const map = new Map(data.map((char) => [char.name, char]));
+        handler(map);
+      },
+      errHandler,
+      MapleGgCachedData.parse
+    );
   };
 
   public set = async (character: MapleGgCachedData) => {

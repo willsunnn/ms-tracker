@@ -52,9 +52,11 @@ export const TaskViewPage = (props: { user: User }) => {
 
   React.useEffect(() => {
     const characterNames = characters.characters.map((char) => char.name)
-    mapleGgFirebaseApi.search(characterNames).then((mapleGgData) => {
-      setMapleGgCharacters(mapleGgData)
-    }).catch(alert)
+    const unsubFunc = mapleGgFirebaseApi.searchAndListen(
+      characterNames,
+      setMapleGgCharacters,
+      alert)
+    return unsubFunc
   }, [characters])
 
   const charactersWithMapleGgData: CharacterWithMapleGgData[] = characters.characters.map((character) => {
