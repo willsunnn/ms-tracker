@@ -3,11 +3,13 @@ import { AddCharacterButton } from './AddCharacterButton'
 import { type TaskViewProps } from './TaskViewPage'
 import { EditPrioritizedTasksButton } from './EditPrioritizedTasksButton'
 import { CharacterView } from './CharacterView'
-import { type Character, type Task, type TaskAndStatus, type TaskStatusForCharacter, Model, type CharacterWithMapleGgData } from 'ms-tracker-library'
+import { type Character, type Task, type TaskAndStatus, type TaskStatusForCharacter, Model, type CharacterWithMapleGgData, emptyTaskStatusForCharacter } from 'ms-tracker-library'
+import { defaultTaskStatus } from 'ms-tracker-library/lib/models/helper'
+import { type User } from 'firebase/auth'
 
-const joinTasksAndStatuses = (tasks: Task[], statuses: TaskStatusForCharacter): TaskAndStatus[] => {
+const joinTasksAndStatuses = (user: User, character: CharacterWithMapleGgData, tasks: Task[], statuses: TaskStatusForCharacter): TaskAndStatus[] => {
   return tasks.map((task) => {
-    const status = statuses[task.taskId] ?? { clearTimes: [], isPriority: false }
+    const status = statuses.get(task.taskId) ?? defaultTaskStatus(user.uid, character.id, task.taskId)
     return {
       ...task,
       ...status
@@ -15,9 +17,9 @@ const joinTasksAndStatuses = (tasks: Task[], statuses: TaskStatusForCharacter): 
   })
 }
 
-const TaskViewSingleCharacter = (props: { tasks: Task[], taskStatus: TaskStatusForCharacter, character: Character }) => {
-  const { tasks, taskStatus, character } = props
-  const tasksAndStatuses = joinTasksAndStatuses(tasks, taskStatus)
+const TaskViewSingleCharacter = (props: { user: User, tasks: Task[], taskStatus: TaskStatusForCharacter, character: Character }) => {
+  const { user, tasks, taskStatus, character } = props
+  const tasksAndStatuses = joinTasksAndStatuses(user, character, tasks, taskStatus)
 
   return (
     <div className="card bg-base-200 shadow-xl my-2 p-3 w-full min-w-200">
@@ -70,13 +72,13 @@ const TaskViewSingleCharacter = (props: { tasks: Task[], taskStatus: TaskStatusF
 }
 
 export const TaskViewByCharacter = (props: { taskViewAttrs: TaskViewProps }) => {
-  const { tasks, taskStatus, characters } = props.taskViewAttrs
+  const { user, tasks, taskStatus, characters } = props.taskViewAttrs
   return (<>
     <div>
       {
         characters.map((character: CharacterWithMapleGgData) => {
-          const taskStatusForCharacter = taskStatus.characterTasks[character.name] ?? {}
-          return (<TaskViewSingleCharacter tasks={tasks} taskStatus={taskStatusForCharacter} character={character} key={`CharacterTaskView-${character.name}`}/>)
+          const taskStatusForCharacter = taskStatus.get(character.id) ?? emptyTaskStatusForCharacter()
+          return (<TaskViewSingleCharacter user={user} tasks={tasks} taskStatus={taskStatusForCharacter} character={character} key={`CharacterTaskView-${character.name}`}/>)
         })
       }
     </div>

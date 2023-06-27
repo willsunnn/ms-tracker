@@ -41,6 +41,8 @@ export type Task = z.infer<typeof Task>
 
 // TaskStatus
 export const TaskStatus = z.object({
+  userId: z.string(),
+  characterId: z.string().nullable(),
   taskId: z.string(),
   clearTimes: z.array(z.date()),
   isPriority: z.boolean(),
@@ -51,17 +53,14 @@ export type TaskStatus = z.infer<typeof TaskStatus>
 export const TaskAndStatus = z.intersection(Task, TaskStatus);
 export type TaskAndStatus = z.infer<typeof TaskAndStatus>
 
-export type TaskStatusForCharacter = Record<string, TaskStatus>
+// TaskStatusForCharacter
+export type TaskStatusForCharacter = Map<string, TaskStatus>;
+export const emptyTaskStatusForCharacter = () => {
+  return new Map<string, TaskStatus>();
+};
 
 // TaskStatusForAccount
-export const TaskStatusForAccount = z.object({
-  accountTasks: z.record(TaskStatus),
-  characterTasks: z.record(z.record(TaskStatus)),
-});
-export type TaskStatusForAccount = z.infer<typeof TaskStatusForAccount>
-export const defaultTaskStatusForAccount: () => TaskStatusForAccount = () => {
-  return {
-    accountTasks: {},
-    characterTasks: {},
-  };
+export type TaskStatusForAccount = Map<string | null, TaskStatusForCharacter>;
+export const emptyTaskStatusForAcccount = () => {
+  return new Map<string | null, TaskStatusForCharacter>();
 };

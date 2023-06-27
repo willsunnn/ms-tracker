@@ -1,4 +1,5 @@
-import {DocumentData, Unsubscribe, WhereFilterOp} from "firebase/firestore";
+import {DocumentData, QuerySnapshot, Unsubscribe, WhereFilterOp} from "firebase/firestore";
+import {QuerySnapshot as QuerySnapshotAdmin} from "firebase-admin/firestore";
 
 /* eslint @typescript-eslint/no-explicit-any: 0 */
 
@@ -29,8 +30,8 @@ export abstract class FirestoreApiHelperBase {
 
   public search = async <T extends Storable>(params: QueryParam[], parse: (_: DocumentData) => T): Promise<T[]> => {
     try {
-      const documents = await this._search(params);
-      const data = documents.map((storable) => parse(storable));
+      const snapshot = await this._search(params);
+      const data: T[] = snapshot.docs.map((doc) => parse(doc.data()));
       return data;
     } catch (e) {
       console.error(`Error fetching document from ${this.collectionName} error=${JSON.stringify(e)}`);
@@ -62,5 +63,5 @@ export abstract class FirestoreApiHelperBase {
 
   protected abstract _set(id: string, data: Storable): Promise<void>
   protected abstract _get(id: string): Promise<Storable | undefined>
-  protected abstract _search(params: QueryParam[]): Promise<Storable[]>
+  protected abstract _search(params: QueryParam[]): Promise<QuerySnapshot<DocumentData>|QuerySnapshotAdmin<DocumentData>>
 }

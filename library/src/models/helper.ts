@@ -1,4 +1,4 @@
-import {ResetType, Task, TaskStatus, TaskStatusForAccount, TaskType} from "./tasks";
+import {ResetType, TaskStatus, TaskType} from "./tasks";
 
 
 // Task Helper Functions
@@ -93,8 +93,10 @@ export const getReadableTaskType = (taskType: TaskType): string => {
   }
 };
 
-export const defaultTaskStatus: (taskId: string) => TaskStatus = (taskId: string) => {
+export const defaultTaskStatus = (userId: string, characterId: string|null, taskId: string): TaskStatus => {
   return {
+    userId,
+    characterId,
     taskId,
     clearTimes: [],
     isPriority: false,
@@ -104,40 +106,4 @@ export const defaultTaskStatus: (taskId: string) => TaskStatus = (taskId: string
 export const trimTaskStatus = (status: TaskStatus, resetType: ResetType) => {
   const lastResetTime = lastReset(resetType);
   status.clearTimes = status.clearTimes.filter((clearTime) => clearTime.getTime() > lastResetTime.getTime());
-};
-
-const trimTaskStatusMap = (data: Record<string, TaskStatus>, taskMap: Map<string, Task>) => {
-  Object.entries(data).forEach((entry) => {
-    const [taskId, status] = entry;
-    const task = taskMap.get(status.taskId);
-    trimTaskStatus(status, task?.resetType ?? "Monthly");
-
-    // since clearTimes=0 and isPriority=false is default we can just remove them
-    if (status.clearTimes.length === 0 && !status.isPriority) {
-      delete data[taskId];
-    }
-  });
-};
-
-export const trimTaskStatusForAccount = (data: TaskStatusForAccount, taskMap: Map<string, Task>) => {
-  trimTaskStatusMap(data.accountTasks, taskMap);
-  Object.entries(data.characterTasks).forEach((entry) => {
-    const charStatuses = entry[1];
-    trimTaskStatusMap(charStatuses, taskMap);
-  });
-};
-
-export const setPriority = (accountStatuses: TaskStatusForAccount, characterName: string | undefined, taskId: string, isPriority: boolean) => {
-  let statuses: Record<string, TaskStatus>;
-  if (!characterName) {
-    statuses = accountStatuses.accountTasks;
-  } else {
-    const charStatus = accountStatuses.characterTasks[characterName] ?? {};
-    accountStatuses.characterTasks[characterName] = charStatus;
-    statuses = charStatus;
-  }
-
-  const status = statuses[taskId] ?? defaultTaskStatus(taskId);
-  status.isPriority = isPriority;
-  statuses[taskId] = status;
 };

@@ -1,4 +1,4 @@
-import {CollectionReference, DocumentData, Firestore, Query} from "firebase-admin/firestore";
+import {CollectionReference, DocumentData, Firestore, Query, QuerySnapshot} from "firebase-admin/firestore";
 import {FirestoreApiHelperBase, QueryParam, Storable} from "./FirestoreApiHelperBase";
 
 export class FirestoreAdminApiHelper extends FirestoreApiHelperBase {
@@ -33,11 +33,10 @@ export class FirestoreAdminApiHelper extends FirestoreApiHelperBase {
     return (await docRef.get()).data();
   }
 
-  protected async _search(params: QueryParam[]): Promise<Storable[]> {
+  protected async _search(params: QueryParam[]): Promise<QuerySnapshot<DocumentData>> {
     const query = this.getQuery(params);
     const snapshot = await query.get();
-    const data = snapshot.docs.map((doc) => doc.data());
-    return data;
+    return snapshot;
   }
 
   public searchAndListen = () => {

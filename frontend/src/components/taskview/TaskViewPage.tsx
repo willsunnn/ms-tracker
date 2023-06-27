@@ -5,7 +5,7 @@ import { TaskViewCompact } from './TaskViewCompact'
 import { type User } from 'firebase/auth'
 import { useAlertCallback } from '../../contexts/AlertContext'
 import { TASK_LIST } from '../../models/PredefinedTasks'
-import { type TaskStatusForAccount, type Task, type AccountCharacters, defaultTaskStatusForAccount, defaultAccountCharacters, type MapleGgCachedData, type CharacterWithMapleGgData } from 'ms-tracker-library'
+import { type Task, type AccountCharacters, defaultAccountCharacters, type MapleGgCachedData, type CharacterWithMapleGgData, type TaskStatusForAccount, emptyTaskStatusForAcccount } from 'ms-tracker-library'
 import { useApi } from '../../contexts/ApiContext'
 
 type Tabs = 'BY_CHARACTER' | 'BY_RESET_DATE' | 'COMPACT'
@@ -21,6 +21,7 @@ const TabLabel = (props: { tabText: string, tabTag: Tabs, selectedTab: Tabs, set
 }
 
 export interface TaskViewProps {
+  user: User
   taskStatus: TaskStatusForAccount
   tasks: Task[]
   characters: CharacterWithMapleGgData[]
@@ -36,13 +37,13 @@ export const TaskViewPage = (props: { user: User }) => {
 
   // React States
   const [tab, setTab] = React.useState<Tabs>('BY_CHARACTER')
-  const [taskStatus, setTaskStatus] = React.useState<TaskStatusForAccount>(defaultTaskStatusForAccount)
+  const [taskStatus, setTaskStatus] = React.useState<TaskStatusForAccount>(emptyTaskStatusForAcccount())
   const [characters, setCharacters] = React.useState<AccountCharacters>(defaultAccountCharacters)
   const [mapleGgCharacters, setMapleGgCharacters] = React.useState<Map<string, MapleGgCachedData>>(new Map<string, MapleGgCachedData>())
 
   // Listen to the TaskStatuses and the Characters
   React.useEffect(() => {
-    const stopTaskListen = taskStatusApi.listen(user, setTaskStatus, alert)
+    const stopTaskListen = taskStatusApi.searchAndListen(user, setTaskStatus, alert)
     const stopCharListen = characterApi.listen(user, setCharacters, alert)
 
     return () => {
@@ -66,7 +67,7 @@ export const TaskViewPage = (props: { user: User }) => {
       }
     })
     if (!charactersAreUpToDate) {
-      mapleGgFirebaseApi.updateCharacter(user.uid).then(console.log).catch(alert)
+      mapleGgFirebaseApi.updateCharacter().then(console.log).catch(alert)
     }
     setMapleGgCharacters(data)
   }
@@ -91,6 +92,7 @@ export const TaskViewPage = (props: { user: User }) => {
   })
 
   const taskViewProps = {
+    user,
     taskStatus,
     tasks: TASK_LIST,
     characters: charactersWithMapleGgData,

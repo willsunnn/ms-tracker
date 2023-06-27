@@ -44,7 +44,7 @@ export class MapleGgFirebaseApi {
     return this.api.set(character.name, character);
   };
 
-  public updateCharacter = async (uid: string) => {
+  public updateCharacter = async () => {
     if (this.functions) {
       const func = httpsCallable(this.functions, "updateCharacterHttpCall");
       return await func({});

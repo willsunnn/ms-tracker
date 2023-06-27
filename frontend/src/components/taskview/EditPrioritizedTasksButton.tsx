@@ -37,7 +37,7 @@ export const EditPrioritizedTasksComponent = (props: { character: Character, tas
       arr.push(taskId)
     })
 
-    taskStatusApi.updatePriorities(user, character.name, tasksToPrioritize, tasksToDeprioritize)
+    taskStatusApi.updatePriorities(user, character, tasksToPrioritize, tasksToDeprioritize)
       .then(() => {
         alert({
           text: `Successfully updated ${character.name}'s prioritized tasks`,

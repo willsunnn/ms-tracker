@@ -1,4 +1,4 @@
-import {collection, doc, setDoc, getDoc, getDocs, DocumentData, onSnapshot, CollectionReference, Firestore, query, where} from "firebase/firestore";
+import {collection, doc, setDoc, getDoc, getDocs, DocumentData, onSnapshot, CollectionReference, Firestore, query, where, QuerySnapshot} from "firebase/firestore";
 import {FirestoreApiHelperBase, QueryParam, Storable} from "./FirestoreApiHelperBase";
 
 export class FirestoreApiHelper extends FirestoreApiHelperBase {
@@ -34,14 +34,10 @@ export class FirestoreApiHelper extends FirestoreApiHelperBase {
     return data;
   }
 
-  protected async _search(params: QueryParam[]): Promise<Storable[]> {
+  protected async _search(params: QueryParam[]): Promise<QuerySnapshot<DocumentData>> {
     const query = this.getQuery(params);
     const snapshot = await getDocs(query);
-    const results: Storable[] = [];
-    snapshot.forEach((doc) => {
-      results.push(doc.data());
-    });
-    return results;
+    return snapshot;
   }
 
   public searchAndListen = <T extends Storable>(params: QueryParam[], callback: (_:T[]) => void, errCallback: (_: unknown) => void, parse: (_: DocumentData) => T) => {
