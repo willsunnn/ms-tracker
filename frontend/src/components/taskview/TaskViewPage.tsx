@@ -30,8 +30,8 @@ export interface TaskViewProps {
 
 export const TaskViewPage = (props: { user: User }) => {
   const { user } = props
-  const alert = useAlertCallback()
 
+  const alert = useAlertCallback()
   const { mapleGgFirebaseApi, taskStatusApi, characterApi } = useApi()
 
   // React States
@@ -40,6 +40,7 @@ export const TaskViewPage = (props: { user: User }) => {
   const [characters, setCharacters] = React.useState<AccountCharacters>(defaultAccountCharacters)
   const [mapleGgCharacters, setMapleGgCharacters] = React.useState<Map<string, MapleGgCachedData>>(new Map<string, MapleGgCachedData>())
 
+  // Listen to the TaskStatuses and the Characters
   React.useEffect(() => {
     const stopTaskListen = taskStatusApi.listen(user, setTaskStatus, alert)
     const stopCharListen = characterApi.listen(user, setCharacters, alert)
@@ -50,15 +51,38 @@ export const TaskViewPage = (props: { user: User }) => {
     }
   }, [])
 
+  // If the cached data of any of the characters is more than a day old, we
+  // call the endpoint to refresh the data. The data will be returned
+  // asynchronously
+  const mapleGgCharactersUpdated = (data: Map<string, MapleGgCachedData>) => {
+    let charactersAreUpToDate = true
+    data.forEach((character) => {
+      const now = new Date().getTime()
+      const millisInADay = 1000 * 60 * 60 * 24
+      const lastFetch = character.lastRetrievedTimestamp
+      const lastFetchIsRecent = (lastFetch && ((now - lastFetch) < millisInADay))
+      if (!lastFetchIsRecent) {
+        charactersAreUpToDate = false
+      }
+    })
+    if (!charactersAreUpToDate) {
+      mapleGgFirebaseApi.updateCharacter(user.uid).then(console.log).catch(alert)
+    }
+    setMapleGgCharacters(data)
+  }
+
+  // When we have all the character names loaded in, we need to perform a
+  // second query to get the image data
   React.useEffect(() => {
     const characterNames = characters.characters.map((char) => char.name)
     const unsubFunc = mapleGgFirebaseApi.searchAndListen(
       characterNames,
-      setMapleGgCharacters,
+      mapleGgCharactersUpdated,
       alert)
     return unsubFunc
   }, [characters])
 
+  // Join the data etc. and pass it to the views
   const charactersWithMapleGgData: CharacterWithMapleGgData[] = characters.characters.map((character) => {
     return {
       ...character,
