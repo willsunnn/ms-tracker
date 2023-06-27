@@ -16,32 +16,36 @@ export class FirestoreApiHelper extends FirestoreApiHelperBase {
     return docRef;
   };
 
-  private getQuery = (conditions: QueryParam[]) => {
-    const whereClauses = conditions.map((condition) => where(condition.property, condition.op, condition.value));
+  private getQuery = (params: QueryParam[]) => {
+    const whereClauses = params.map((param) => where(param.property, param.op, param.value));
     return query(this.collection, ...whereClauses);
   };
 
   // Override methods
 
-  protected async write(id: string, data: Storable): Promise<void> {
+  protected async _set(id: string, data: Storable): Promise<void> {
     const docRef = this.getDocRef(id);
     await setDoc(docRef, data);
   }
 
-  protected async read(id: string): Promise<Storable | undefined> {
+  protected async _get(id: string): Promise<Storable | undefined> {
     const docRef = this.getDocRef(id);
     const data = (await getDoc(docRef)).data();
     return data;
   }
 
-  protected async find(conditions: QueryParam[]): Promise<Storable[]> {
-    const query = this.getQuery(conditions);
+  protected async _search(params: QueryParam[]): Promise<Storable[]> {
+    const query = this.getQuery(params);
     const snapshot = await getDocs(query);
     const results: Storable[] = [];
     snapshot.forEach((doc) => {
       results.push(doc.data());
     });
     return results;
+  }
+
+  public searchAndListen = <T extends Storable>(params: QueryParam[], callback: (_:T[]) => void, errCallback: (_: unknown) => void, parse: (_: DocumentData) => T) => {
+    return () => {};
   }
 
   public listen = <T extends Storable>(key: string, callback: (_: T) => void, errCallback: (_: unknown) => void, defaultValue: () => T, parse: (_: DocumentData) => T) => {

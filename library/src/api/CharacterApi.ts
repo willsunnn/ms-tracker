@@ -7,13 +7,13 @@ import {FirestoreApiHelper} from "./FirestoreApiHelper";
 import {Firestore as FirestoreAdmin} from "firebase-admin/firestore";
 import {FirestoreAdminApiHelper} from "./FirestoreAdminApiHelper";
 
-const CHARACTER_COLLECTION = "Character";
-
 export class CharacterApi {
+  public static readonly CHARACTER_COLLECTION = "Character";
+
   api: FirestoreApiHelperBase;
 
   constructor(api: (collectionName: string) => FirestoreApiHelperBase) {
-    this.api = api(CHARACTER_COLLECTION);
+    this.api = api(CharacterApi.CHARACTER_COLLECTION);
   }
 
   // Set Methods

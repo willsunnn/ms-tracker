@@ -23,25 +23,28 @@ export class FirestoreAdminApiHelper extends FirestoreApiHelperBase {
 
   // Override methods
 
-  protected async write(id: string, data: Storable): Promise<void> {
+  protected async _set(id: string, data: Storable): Promise<void> {
     const docRef = this.getDocRef(id);
     await docRef.set(data);
   }
 
-  protected async read(id: string): Promise<Storable | undefined> {
+  protected async _get(id: string): Promise<Storable | undefined> {
     const docRef = this.getDocRef(id);
     return (await docRef.get()).data();
   }
 
-  protected async find(params: QueryParam[]): Promise<Storable[]> {
+  protected async _search(params: QueryParam[]): Promise<Storable[]> {
     const query = this.getQuery(params);
     const snapshot = await query.get();
     const data = snapshot.docs.map((doc) => doc.data());
     return data;
   }
 
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  public listen = <T extends Storable>(key: string, callback: (_: T) => void, errCallback: (_: unknown) => void, defaultValue: () => T, parse: (_: DocumentData) => T) => {
+  public searchAndListen = () => {
+    throw new Error("function not implemented yet for FirestoreAdminApiHelper");
+  };
+
+  public listen = () => {
     throw new Error("function not implemented yet for FirestoreAdminApiHelper");
   };
 }

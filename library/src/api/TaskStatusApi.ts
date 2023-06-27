@@ -5,13 +5,13 @@ import {FirebaseOptions, initializeApp} from "firebase/app";
 import {FirestoreApiHelperBase} from "./FirestoreApiHelperBase";
 import {FirestoreApiHelper} from "./FirestoreApiHelper";
 
-const TASK_STATUS_COLLECTION = "TaskStatus";
-
 export class TaskStatusApi {
+  public static readonly TASK_STATUS_COLLECTION = "TaskStatus";
+
   api: FirestoreApiHelperBase;
 
   constructor(api: (collectionName: string) => FirestoreApiHelperBase) {
-    this.api = api(TASK_STATUS_COLLECTION);
+    this.api = api(TaskStatusApi.TASK_STATUS_COLLECTION);
   }
 
   // Storing Methods

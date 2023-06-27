@@ -19,7 +19,7 @@ export abstract class FirestoreApiHelperBase {
 
   public set = async <T extends Storable>(key: string, data: T): Promise<string> => {
     try {
-      await this.write(key, data);
+      await this._set(key, data);
       return key;
     } catch (e) {
       console.error(`Error writing document to ${this.collectionName} ${JSON.stringify(data)} error=${JSON.stringify(e)}`);
@@ -29,7 +29,7 @@ export abstract class FirestoreApiHelperBase {
 
   public search = async <T extends Storable>(params: QueryParam[], parse: (_: DocumentData) => T): Promise<T[]> => {
     try {
-      const documents = await this.find(params);
+      const documents = await this._search(params);
       const data = documents.map((storable) => parse(storable));
       return data;
     } catch (e) {
@@ -40,7 +40,7 @@ export abstract class FirestoreApiHelperBase {
 
   public get = async <T extends Storable>(key: string, parse: (_: DocumentData) => T): Promise<T|undefined> => {
     try {
-      const data = await this.read(key);
+      const data = await this._get(key);
       if (data === undefined) {
         return undefined;
       } else {
@@ -58,8 +58,9 @@ export abstract class FirestoreApiHelperBase {
   };
 
   abstract listen: <T extends Storable>(key: string, callback: (_: T) => void, errCallback: (_: unknown) => void, defaultValue: () => T, parse: (_: DocumentData) => T) => Unsubscribe
+  abstract searchAndListen: <T extends Storable>(params: QueryParam[], callback: (_:T[]) => void, errCallback: (_: unknown) => void, parse: (_: DocumentData) => T) => Unsubscribe
 
-  protected abstract write(id: string, data: Storable): Promise<void>
-  protected abstract read(id: string): Promise<Storable | undefined>
-  protected abstract find(params: QueryParam[]): Promise<Storable[]>
+  protected abstract _set(id: string, data: Storable): Promise<void>
+  protected abstract _get(id: string): Promise<Storable | undefined>
+  protected abstract _search(params: QueryParam[]): Promise<Storable[]>
 }

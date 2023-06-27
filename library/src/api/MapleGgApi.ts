@@ -7,15 +7,15 @@ import {FirestoreApiHelper} from "./FirestoreApiHelper";
 import {FirestoreApiHelperBase} from "./FirestoreApiHelperBase";
 import {FirestoreAdminApiHelper} from "./FirestoreAdminApiHelper";
 
-const MAPLE_GG_COLLECTION = "MapleGgCharacter";
-
 export class MapleGgFirebaseApi {
+  public static readonly MAPLE_GG_COLLECTION = "MapleGgCharacter";
+
   functions: Functions | undefined;
   api: FirestoreApiHelperBase;
 
   constructor(functions: Functions | undefined, api: (collectionName: string) => FirestoreApiHelperBase) {
     this.functions = functions;
-    this.api = api(MAPLE_GG_COLLECTION);
+    this.api = api(MapleGgFirebaseApi.MAPLE_GG_COLLECTION);
   }
 
   public search = async (characterNames: string[]): Promise<Map<string, MapleGgCachedData>> => {
@@ -41,7 +41,7 @@ export class MapleGgFirebaseApi {
 
   public updateCharacter = async (uid: string) => {
     if (this.functions) {
-      const func = httpsCallable(this.functions, "updateCharacter");
+      const func = httpsCallable(this.functions, "updateCharacterHttpCall");
       return await func({});
     } else {
       throw new Error("MapleGgFirebaseApi.functions is undefined");
