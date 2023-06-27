@@ -50,7 +50,7 @@ export const EditPrioritizedTasksComponent = (props: { character: CharacterWithM
   return (
     <>
       <div className="text-lg font-bold pb-3 text-center">Editing tasks for {characterName}</div>
-      <div className="max-h-120 min-h-80 overflow-y-scroll">
+      <table className="max-h-120 min-h-80 overflow-y-scroll">
         <tbody>
           {
             tasks.map((task, index) => {
@@ -78,7 +78,7 @@ export const EditPrioritizedTasksComponent = (props: { character: CharacterWithM
             })
           }
         </tbody>
-      </div>
+      </table>
 
       <div className="flex items-center w-full max-w-xs pb-5 pt-3 px-3">
         <span className="btn btn-primary btn-sm ml-auto" onClick={submit}>Save</span>
