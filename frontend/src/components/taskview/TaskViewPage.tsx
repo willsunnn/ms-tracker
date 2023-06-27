@@ -87,7 +87,7 @@ export const TaskViewPage = (props: { user: User }) => {
   const charactersWithMapleGgData: CharacterWithMapleGgData[] = characters.characters.map((character) => {
     return {
       ...character,
-      mapleGgData: mapleGgCharacters.get(character.name)
+      mapleGgData: mapleGgCharacters.get(character.name.toLowerCase())
     }
   })
 

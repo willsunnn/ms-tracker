@@ -4,7 +4,8 @@ import { type CharacterWithMapleGgData } from 'ms-tracker-library'
 
 export const CharacterView = (props: { character: CharacterWithMapleGgData }) => {
   const { character } = props
-  const name = character.name
+  // mapleGgs name is then right case whereas character.name is user input
+  const name = character.mapleGgData?.name ?? character.name
   const image = character.mapleGgData?.image ?? DefaultCharacter
 
   return (<div className="join join-vertical w-32">

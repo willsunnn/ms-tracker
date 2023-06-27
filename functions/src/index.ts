@@ -30,7 +30,7 @@ const updateAccountCharacters = async (account: AccountCharacters) => {
   // only update characters that havent been retrieved or that havent been updated
   // in over a day
   const characterNamesToUpdate = characterNames.filter((name) => {
-    const cachedCharacter = cachedCharacters.get(name);
+    const cachedCharacter = cachedCharacters.get(name.toLowerCase());
     const lastFetched = cachedCharacter?.lastRetrievedTimestamp;
     return (!lastFetched) || ((now - lastFetched) > millisInADay);
   });
@@ -44,7 +44,8 @@ const updateAccountCharacters = async (account: AccountCharacters) => {
 
       const data = response.CharacterData;
       const formattedData: MapleGgCachedData = {
-        name,
+        name: data.Name,
+        loweredName: data.Name.toLowerCase(),
         lastRetrievedTimestamp: now,
         image: data.CharacterImageURL,
         class: data.Class,
@@ -60,6 +61,7 @@ const updateAccountCharacters = async (account: AccountCharacters) => {
       logger.error(`api.maplestory.gg Failed to fetch character ${name} e=${err}`);
       return {
         name,
+        loweredName: name.toLowerCase(),
         lastRetrievedTimestamp: now,
       };
     }

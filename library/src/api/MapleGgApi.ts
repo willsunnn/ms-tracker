@@ -4,7 +4,7 @@ import {Firestore as FirestoreAdmin} from "firebase-admin/firestore";
 import {Functions, getFunctions, httpsCallable} from "firebase/functions";
 import {MapleGgCachedData} from "../models";
 import {FirestoreApiHelper} from "./FirestoreApiHelper";
-import {FirestoreApiHelperBase} from "./FirestoreApiHelperBase";
+import {FirestoreApiHelperBase, QueryParam} from "./FirestoreApiHelperBase";
 import {FirestoreAdminApiHelper} from "./FirestoreAdminApiHelper";
 
 export class MapleGgFirebaseApi {
@@ -18,6 +18,34 @@ export class MapleGgFirebaseApi {
     this.api = api(MapleGgFirebaseApi.MAPLE_GG_COLLECTION);
   }
 
+  private resultToMap = (results: MapleGgCachedData[]) => {
+    return new Map(results.map((char) => [char.name.toLowerCase(), char]));
+  };
+
+  private searchQuery = (characterNames: string[]) => {
+    const lowerCased = characterNames.map((name) => name.toLowerCase());
+    const params: QueryParam[] = [{
+      property: "loweredName",
+      op: "in",
+      value: lowerCased,
+    }];
+    return params;
+  };
+
+  public search = async (characterNames: string[]) => {
+    // firebase throws an error if in clause has 0 entries
+    if (characterNames.length == 0) {
+      return new Map<string, MapleGgCachedData>();
+    }
+
+    const results = await this.api.search(
+      "",
+      this.searchQuery(characterNames),
+      MapleGgCachedData.parse
+    );
+    return this.resultToMap(results);
+  };
+
   public searchAndListen = (characterNames: string[], handler: (_: Map<string, MapleGgCachedData>)=>void, errHandler: (_:unknown)=>void): Unsubscribe => {
     // firebase throws an error if in clause has 0 entries
     if (characterNames.length == 0) {
@@ -27,13 +55,9 @@ export class MapleGgFirebaseApi {
 
     return this.api.searchAndListen(
       "",
-      [{
-        property: "name",
-        op: "in",
-        value: characterNames,
-      }],
+      this.searchQuery(characterNames),
       (data) => {
-        const map = new Map(data.map((char) => [char.name, char]));
+        const map = this.resultToMap(data);
         handler(map);
       },
       errHandler,
@@ -42,7 +66,8 @@ export class MapleGgFirebaseApi {
   };
 
   public set = async (character: MapleGgCachedData) => {
-    return this.api.set(character.name, character);
+    character.loweredName = character.name.toLowerCase();
+    return this.api.set(character.name.toLowerCase(), character);
   };
 
   public updateCharacter = async () => {
@@ -73,6 +98,7 @@ export interface MapleGgCharacterData {
   CharacterImageURL: string
   Class: string
   Server: string
+  Name: string
 
   // Character Stats
   Level: number

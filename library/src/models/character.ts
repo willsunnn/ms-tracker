@@ -4,6 +4,7 @@ import {z} from "zod";
 
 export const MapleGgCachedData = z.object({
   name: z.string(),
+  loweredName: z.string(),
   lastRetrievedTimestamp: z.number().optional(),
   image: z.string().optional(),
   class: z.string().optional(),
