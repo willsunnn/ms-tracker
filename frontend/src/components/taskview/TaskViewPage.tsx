@@ -25,8 +25,6 @@ export interface TaskViewProps {
   taskStatus: TaskStatusForAccount
   tasks: Task[]
   characters: CharacterWithMapleGgData[]
-  removeClear: (characterName: string, taskId: string) => Promise<void>
-  addClear: (characterName: string, taskId: string, clearTime: Date) => Promise<void>
 }
 
 export const TaskViewPage = (props: { user: User }) => {
@@ -95,13 +93,7 @@ export const TaskViewPage = (props: { user: User }) => {
     user,
     taskStatus,
     tasks: TASK_LIST,
-    characters: charactersWithMapleGgData,
-    addClear: async (characterName: string, taskId: string, clearTime: Date) => {
-      console.log(`adding clear for ${characterName} ${taskId} ${clearTime.toLocaleDateString()}`)
-    },
-    removeClear: async (characterName: string, taskId: string) => {
-      console.log(`removing clear for ${characterName} ${taskId}`)
-    }
+    characters: charactersWithMapleGgData
   }
 
   return (

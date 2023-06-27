@@ -65,13 +65,12 @@ export class TaskStatusApi {
     await this.set(taskStatus);
   };
 
-  public updatePriorities = async (user: User, character: Character, tasksToPrioritize: string[], tasksToDeprioritize: string[]): Promise<void> => {
-    await Promise.all(tasksToPrioritize.map((taskId) => {
-      return this.updatePriority(user, character, taskId, true);
-    }));
-    await Promise.all(tasksToDeprioritize.map((taskId) => {
-      return this.updatePriority(user, character, taskId, false);
-    }));
+  public updatePriorities = async (user: User, character: Character, tasks: Map<string, boolean>): Promise<void> => {
+    const updates: Promise<void>[] = [];
+    tasks.forEach((priority, taskId) => {
+      updates.push(this.updatePriority(user, character, taskId, priority));
+    });
+    await Promise.all(updates);
   };
 }
 
