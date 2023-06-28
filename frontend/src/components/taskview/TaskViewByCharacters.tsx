@@ -3,13 +3,16 @@ import { AddCharacterButton } from '../dialog/AddCharacterDialog'
 import { type TaskViewProps } from './TaskViewPage'
 import { EditPrioritizedTasksComponent } from '../dialog/EditPrioritizedTasksDialog'
 import { CharacterView } from '../CharacterView'
-import { type Character, type Task, type TaskAndStatus, type TaskStatusForCharacter, Model, type CharacterWithMapleGgData, emptyTaskStatusForCharacter } from 'ms-tracker-library'
+import { type Character, type Task, type TaskAndStatus, type TaskStatusForCharacter, Model, type CharacterWithMapleGgData, emptyTaskStatusForCharacter, taskStatusApi } from 'ms-tracker-library'
 import { defaultTaskStatus } from 'ms-tracker-library/lib/models/helper'
 import { type User } from 'firebase/auth'
 import { useDialogContext } from '../../contexts/DialogContext'
 import { BsFillGearFill } from 'react-icons/bs'
 import { FaArrowTurnUp } from 'react-icons/fa6'
 import { DeleteCharacterComponent } from '../dialog/DeleteCharacterDialog'
+import { useApi } from '../../contexts/ApiContext'
+import { Alert } from '../AlertList'
+import { useAlertCallback } from '../../contexts/AlertContext'
 
 const joinTasksAndStatuses = (user: User, character: CharacterWithMapleGgData, tasks: Task[], statuses: TaskStatusForCharacter): TaskAndStatus[] => {
   return tasks.map((task) => {
@@ -30,13 +33,34 @@ interface TaskViewSingleCharacterProps {
 
 const TaskViewSingleCharacter = (props: TaskViewSingleCharacterProps) => {
   const { tasks, character, openEditPrioritizedTasksComponent, openDeleteCharacterComponent } = props
-  const prioritizedTasks = tasks.filter((task) => task.isPriority)
+  const alert = useAlertCallback()
+  const { taskStatusApi } = useApi()
+
   const onEditClicked = () => {
     openEditPrioritizedTasksComponent(character, tasks)
   }
+
   const onDeleteClicked = () => {
     openDeleteCharacterComponent(character, tasks)
   }
+
+  const checkBoxOnClickCurryFunc = (task: TaskAndStatus) => {
+    return () => {
+      const numClears = task.clearTimes.length
+      const isComplete = numClears >= task.maxClearCount
+      if (isComplete) {
+        task.clearTimes = []
+      } else {
+        const now = new Date().getTime()
+        while (task.clearTimes.length < task.maxClearCount) {
+          task.clearTimes.push(now)
+        }
+      }
+      taskStatusApi.set(task).then(() => {}).catch(alert)
+    }
+  }
+
+  const prioritizedTasks = tasks.filter((task) => task.isPriority)
   return (
     <div className="card bg-base-200 shadow-xl my-2 p-3 w-full min-w-200">
       <div className="join join-horizontal pb-3">
@@ -54,6 +78,7 @@ const TaskViewSingleCharacter = (props: TaskViewSingleCharacterProps) => {
                 const { name, imageIcon, resetType } = task
                 const resetsAt = Model.nextReset(resetType)
                 const key = `CharacterTaskViewRow-${character.name}-${task.taskId}}`
+                const isComplete = task.clearTimes.length >= task.maxClearCount
                 return (<tr key={key}>
                   <td>
                     <div className="flex items-center space-x-3">
@@ -75,7 +100,7 @@ const TaskViewSingleCharacter = (props: TaskViewSingleCharacterProps) => {
                   </td>
 
                   <td>
-                    <input type="checkbox" className="checkbox" />
+                    <input type="checkbox" className="checkbox" checked={isComplete} onClick={checkBoxOnClickCurryFunc(task)}/>
                   </td>
                 </tr>)
               })

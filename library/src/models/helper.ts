@@ -105,5 +105,5 @@ export const defaultTaskStatus = (userId: string, characterId: string|null, task
 
 export const trimTaskStatus = (status: TaskStatus, resetType: ResetType) => {
   const lastResetTime = lastReset(resetType);
-  status.clearTimes = status.clearTimes.filter((clearTime) => clearTime.getTime() > lastResetTime.getTime());
+  status.clearTimes = status.clearTimes.filter((clearTime) => clearTime > lastResetTime.getTime());
 };

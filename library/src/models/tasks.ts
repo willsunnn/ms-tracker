@@ -44,7 +44,7 @@ export const TaskStatus = z.object({
   userId: z.string(),
   characterId: z.string().nullable(),
   taskId: z.string(),
-  clearTimes: z.array(z.date()),
+  clearTimes: z.array(z.number()),
   isPriority: z.boolean(),
 });
 export type TaskStatus = z.infer<typeof TaskStatus>
