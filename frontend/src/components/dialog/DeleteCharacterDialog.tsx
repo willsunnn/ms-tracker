@@ -2,8 +2,9 @@ import React from 'react'
 import { useDialogContext } from '../../contexts/DialogContext'
 import { useAuth } from '../../contexts/AuthContext'
 import { useAlertCallback } from '../../contexts/AlertContext'
-import { Model, type CharacterWithMapleGgData, type TaskAndStatus, Character } from 'ms-tracker-library'
+import { type CharacterWithMapleGgData } from 'ms-tracker-library'
 import { useApi } from '../../contexts/ApiContext'
+import { type Alert } from '../AlertList'
 
 export const DeleteCharacterComponent = (props: { character: CharacterWithMapleGgData }) => {
   const { character } = props
@@ -13,11 +14,30 @@ export const DeleteCharacterComponent = (props: { character: CharacterWithMapleG
   const { closeDialog } = useDialogContext()
   const { taskStatusApi, characterApi } = useApi()
 
+  const name = character.mapleGgData?.name ?? character.name
+
   const deleteConfirmed = () => {
-    closeDialog()
+    if (!user) {
+      alert('Could not find user')
+      return
+    }
+
+    Promise.all([
+      characterApi.deleteCharacter(user, character),
+      taskStatusApi.deleteTasksByCharacter(user, character)
+    ]).then(() => {
+      const msg: Alert = {
+        text: `${name} was deleted`,
+        alertLevel: 'info'
+      }
+      alert(msg)
+      closeDialog()
+    }).catch((err) => {
+      alert(err)
+      closeDialog()
+    })
   }
 
-  const name = character.mapleGgData?.name ?? character.name
   return (
     <>
       <div className="text-lg font-bold text-center">Are you sure you want to delete {name}?</div>

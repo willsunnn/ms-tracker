@@ -57,6 +57,18 @@ export class TaskStatusApi {
     );
   };
 
+  // Delete Methods
+  public deleteTasksByCharacter = async (user: User, character: Character): Promise<number> => {
+    return await this.api.delete(
+      `/${user.uid}/status`,
+      [{
+        property: "characterId",
+        op: "==",
+        value: character.id,
+      }]
+    );
+  };
+
   // Modify Helper Methods
 
   public updatePriority = async (user: User, character: Character, taskId: string, prioritize: boolean): Promise<void> => {

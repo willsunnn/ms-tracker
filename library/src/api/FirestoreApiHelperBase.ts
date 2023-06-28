@@ -1,5 +1,5 @@
-import {DocumentData, QuerySnapshot, Unsubscribe, WhereFilterOp} from "firebase/firestore";
-import {QuerySnapshot as QuerySnapshotAdmin} from "firebase-admin/firestore";
+import {DocumentData, QueryDocumentSnapshot, QuerySnapshot, Unsubscribe, WhereFilterOp, deleteDoc} from "firebase/firestore";
+import {QuerySnapshot as QuerySnapshotAdmin, QueryDocumentSnapshot as QueryDocumentSnapshotAdmin} from "firebase-admin/firestore";
 
 /* eslint @typescript-eslint/no-explicit-any: 0 */
 
@@ -49,6 +49,24 @@ export abstract class FirestoreApiHelperBase {
       }
     } catch (e) {
       console.error(`Error fetching document from ${this.collectionName} error=${JSON.stringify(e)}`);
+      throw e;
+    }
+  };
+
+  public delete = async (subpath: string, params: QueryParam[]): Promise<number> => {
+    try {
+      const snapshot = await this._search(subpath, params);
+      const updates = snapshot.docs.map(async (doc) => {
+        if (doc instanceof QueryDocumentSnapshot) {
+          return await deleteDoc((doc as QueryDocumentSnapshot).ref);
+        } else {
+          return await (doc as QueryDocumentSnapshotAdmin).ref.delete();
+        }
+      });
+      await Promise.all(updates);
+      return snapshot.docs.length;
+    } catch (e) {
+      console.error(`Error deleting documents where ${JSON.stringify(params)}`);
       throw e;
     }
   };

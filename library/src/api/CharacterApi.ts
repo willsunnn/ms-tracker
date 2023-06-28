@@ -40,7 +40,8 @@ export class CharacterApi {
     return this.api.listen(user.uid, callback, errCallback, defaultAccountCharacters, AccountCharacters.parse);
   };
 
-  // Modify Helper Methods (these should be transactional)
+  // Update Helper Methods (in a perfect world, these are transactional)
+  // But updates to this collection dont happen often, and we'll always be in a consistent state
 
   public addCharacter = async (user: User, newCharacter: Character): Promise<AccountCharacters> => {
     if (newCharacter.name.trim().length === 0) throw new Error("Character name is invalid");
@@ -53,6 +54,12 @@ export class CharacterApi {
       await this.set(user, characters);
       return characters;
     }
+  };
+
+  public deleteCharacter = async (user: User, characterToDelete: Character): Promise<void> => {
+    const characters = await this.get(user);
+    characters.characters = characters.characters.filter((char) => char.id !== characterToDelete.id);
+    await this.set(user, characters);
   };
 }
 
