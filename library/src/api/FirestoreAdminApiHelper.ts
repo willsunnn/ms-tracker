@@ -23,21 +23,33 @@ export class FirestoreAdminApiHelper extends FirestoreApiHelperBase {
 
   // Override methods
 
-  protected async _set(id: string, data: Storable): Promise<void> {
-    const docRef = this.getDocRef(id);
+  protected _set = async (key: string, data: Storable): Promise<void> => {
+    const docRef = this.getDocRef(key);
     await docRef.set(data);
-  }
+  };
 
-  protected async _get(id: string): Promise<Storable | undefined> {
-    const docRef = this.getDocRef(id);
+  protected _get = async (key: string): Promise<Storable | undefined> => {
+    const docRef = this.getDocRef(key);
     return (await docRef.get()).data();
-  }
+  };
 
-  protected async _search(subpath: string, params: QueryParam[]): Promise<QuerySnapshot<DocumentData>> {
+  protected _search = async (subpath: string, params: QueryParam[]): Promise<QuerySnapshot<DocumentData>> => {
     const query = this.getQuery(subpath, params);
     const snapshot = await query.get();
     return snapshot;
-  }
+  };
+
+  public delete = async (key: string) => {
+    const docRef = this.getDocRef(key);
+    await docRef.delete();
+  };
+
+  public searchAndDelete = async (subpath: string, params: QueryParam[]): Promise<number> => {
+    const snapshot = await this._search(subpath, params);
+    const updates = snapshot.docs.map((doc) => doc.ref.delete());
+    await Promise.all(updates);
+    return snapshot.docs.length;
+  };
 
   public searchAndListen = () => {
     throw new Error("function not implemented yet for FirestoreAdminApiHelper");

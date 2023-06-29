@@ -23,6 +23,11 @@ export class TaskStatusApi {
 
   public set = async (taskStatus: TaskStatus) => {
     const key = this.getKey(taskStatus.userId, taskStatus.characterId, taskStatus.taskId);
+    if (taskStatus.clearTimes.length === 0 && !taskStatus.isPriority) {
+      // this is the default data, so setting it to this is equivalent to deleting the task
+      await this.delete(taskStatus);
+      return key;
+    }
     return this.api.set(key, taskStatus);
   };
 
@@ -58,8 +63,14 @@ export class TaskStatusApi {
   };
 
   // Delete Methods
+
+  public delete = async (taskStatus: TaskStatus): Promise<void> => {
+    const key = this.getKey(taskStatus.userId, taskStatus.characterId, taskStatus.taskId);
+    return this.api.delete(key);
+  };
+
   public deleteTasksByCharacter = async (user: User, character: Character): Promise<number> => {
-    return await this.api.delete(
+    return await this.api.searchAndDelete(
       `/${user.uid}/status`,
       [{
         property: "characterId",

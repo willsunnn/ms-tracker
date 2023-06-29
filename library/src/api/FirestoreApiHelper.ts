@@ -1,4 +1,4 @@
-import {collection, doc, setDoc, getDoc, getDocs, DocumentData, onSnapshot, Firestore, query, where, QuerySnapshot} from "firebase/firestore";
+import {collection, doc, setDoc, getDoc, getDocs, DocumentData, onSnapshot, Firestore, query, where, QuerySnapshot, deleteDoc} from "firebase/firestore";
 import {FirestoreApiHelperBase, QueryParam, Storable} from "./FirestoreApiHelperBase";
 
 export class FirestoreApiHelper extends FirestoreApiHelperBase {
@@ -23,22 +23,41 @@ export class FirestoreApiHelper extends FirestoreApiHelperBase {
 
   // Override methods
 
-  protected async _set(id: string, data: Storable): Promise<void> {
+  protected _set = async (id: string, data: Storable): Promise<void> => {
     const docRef = this.getDocRef(id);
     await setDoc(docRef, data);
-  }
+  };
 
-  protected async _get(id: string): Promise<Storable | undefined> {
+  protected _get = async (id: string): Promise<Storable | undefined> => {
     const docRef = this.getDocRef(id);
     const data = (await getDoc(docRef)).data();
     return data;
-  }
+  };
 
-  protected async _search(subpath: string, params: QueryParam[]): Promise<QuerySnapshot<DocumentData>> {
+  protected _search = async (subpath: string, params: QueryParam[]): Promise<QuerySnapshot<DocumentData>> => {
     const query = this.getQuery(subpath, params);
     const snapshot = await getDocs(query);
     return snapshot;
-  }
+  };
+
+  public delete = async (id: string): Promise<void> => {
+    const docRef = this.getDocRef(id);
+    await deleteDoc(docRef);
+  };
+
+  public searchAndDelete = async (subpath: string, params: QueryParam[]): Promise<number> => {
+    try {
+      const snapshot = await this._search(subpath, params);
+      const updates = snapshot.docs.map(async (doc) => {
+        return await deleteDoc(doc.ref);
+      });
+      await Promise.all(updates);
+      return snapshot.docs.length;
+    } catch (e) {
+      console.error(`Error deleting documents where ${JSON.stringify(params)}`);
+      throw e;
+    }
+  };
 
   public searchAndListen = <T extends Storable>(subpath: string, params: QueryParam[], callback: (_:T[]) => void, errCallback: (_: unknown) => void, parse: (_: DocumentData) => T) => {
     try {
