@@ -42,8 +42,8 @@ export const DeleteCharacterComponent = (props: { character: CharacterWithMapleG
     <>
       <div className="text-lg font-bold text-center">Are you sure you want to delete {name}?</div>
       <div className="flex justify-center py-3">
-        <button className="btn btn-md btn-error mx-1" onClick={deleteConfirmed}>Delete</button>
         <button className="btn btn-md btn-success mx-1" onClick={closeDialog}>Cancel</button>
+        <button className="btn btn-md btn-error mx-1" onClick={deleteConfirmed}>Delete</button>
       </div>
     </>
   )
