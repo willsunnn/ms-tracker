@@ -10,12 +10,12 @@ const App = () => {
 
   return (
     <>
-      <div className="z-40">
+      <div className="z-[100] top-bar w-full fixed">
         <NavBar/>
       </div>
       <div className="z-0">
         { !user &&
-          <div className="flex items-center justify-center h-[calc(100vh-64px)]">
+          <div className="flex items-center justify-center h-[calc(100vh)]">
             <SignInFormComponent/>
           </div> }
         { user && (

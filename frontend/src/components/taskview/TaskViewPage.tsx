@@ -97,7 +97,7 @@ export const TaskViewPage = (props: { user: User }) => {
   }
 
   return (
-    <div className="p-5 w-full">
+    <div className="pt-20 p-5 w-full">
       <div className="tabs mb-3 w-full">
         <TabLabel tabText="Characters" tabTag="BY_CHARACTER" selectedTab={tab} setTab={setTab}/>
         <TabLabel tabText="Tasks by Reset Time" tabTag="BY_RESET_DATE" selectedTab={tab} setTab={setTab}/>
