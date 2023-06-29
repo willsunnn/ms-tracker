@@ -1,7 +1,7 @@
-import {ResetType, TaskStatus, TaskType} from "./tasks";
+import {User} from "firebase/auth";
+import {Character} from "./character";
+import {ResetType, Task, TaskStatus, TaskType} from "./tasks";
 
-
-// Task Helper Functions
 const midnight = (date: Date): Date => {
   date.setUTCHours(0, 0, 0, 0);
   return date;
@@ -106,4 +106,14 @@ export const defaultTaskStatus = (userId: string, characterId: string|null, task
 export const trimTaskStatus = (status: TaskStatus, resetType: ResetType) => {
   const lastResetTime = lastReset(resetType);
   status.clearTimes = status.clearTimes.filter((clearTime) => clearTime > lastResetTime.getTime());
+};
+
+export const joinTasksAndStatuses = (user: User, character: Character, tasks: Task[], statuses: Map<string, TaskStatus>) => {
+  return tasks.map((task) => {
+    const status = statuses.get(task.taskId) ?? defaultTaskStatus(user.uid, character.id, task.taskId);
+    return {
+      ...task,
+      ...status,
+    };
+  });
 };
