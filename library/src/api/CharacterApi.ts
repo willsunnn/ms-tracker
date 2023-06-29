@@ -23,6 +23,13 @@ export class CharacterApi {
   };
 
   public set = async (user: User, data: AccountCharacters): Promise<string> => {
+    // Strip extra properties from characters before storing in Document
+    data.characters = data.characters.map((char) => {
+      return {
+        name: char.name,
+        id: char.id,
+      };
+    });
     return await this.setUsingUid(user.uid, data);
   };
 
