@@ -52,10 +52,11 @@ export const TaskViewSingleCharacter = (props: TaskViewSingleCharacterProps) => 
           This and the hint div are rendered absolute from the top right */}
       <div className="absolute right-4 top-4">
         <div className="dropdown absolute right-0 top-0">
-          <button tabIndex={0}><MdSettings className="w-max button w-6 h-6 pointer-events-none"/>
+          <button tabIndex={0}>
+            <MdSettings className="w-max button w-6 h-6 pointer-events-none"/>
           </button>
           <ul tabIndex={0} className="mt-3 p-2 menu menu-sm disabled dropdown-content rounded-box min-w-36 bg-base-300 z-[100]">
-            <li onClick={(onEditClicked)}><a>Edit Tasks</a></li>
+            <li onClick={onEditClicked}><a>Edit Tasks</a></li>
             <li onClick={onDeleteClicked}><a>Delete</a></li>
           </ul>
         </div>
