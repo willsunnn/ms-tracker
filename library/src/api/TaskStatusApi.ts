@@ -22,13 +22,20 @@ export class TaskStatusApi {
   // Storing Methods
 
   public set = async (taskStatus: TaskStatus) => {
-    const key = this.getKey(taskStatus.userId, taskStatus.characterId, taskStatus.taskId);
-    if (taskStatus.clearTimes.length === 0 && !taskStatus.isPriority) {
+    const {userId, characterId, taskId, clearTimes, isPriority} = taskStatus;
+    const key = this.getKey(userId, characterId, taskId);
+    if (taskStatus.clearTimes.length === 0 && !isPriority) {
       // this is the default data, so setting it to this is equivalent to deleting the task
       await this.delete(taskStatus);
       return key;
     }
-    return this.api.set(key, taskStatus);
+    return this.api.set(key, {
+      userId,
+      characterId,
+      taskId,
+      clearTimes,
+      isPriority,
+    });
   };
 
   // Fetching Methods
