@@ -30,9 +30,8 @@ const AlertComponentIcon = (props: { alertLevel: AlertLevel }) => {
 
 const AlertComponent = (props: { alert: Alert }) => {
   const { alert } = props
-  const className = `alert alert-${alert.alertLevel} w-64 flex-wrap`
   return (
-    <div className={className}>
+    <div className={`alert alert-${alert.alertLevel} w-64 flex-wrap`}>
       <AlertComponentIcon alertLevel={alert.alertLevel}/>
       <span className='flex-wrap text-s' style={{ wordWrap: 'normal' }}>{alert.text}</span>
     </div>

@@ -62,7 +62,7 @@ export const TaskViewSingleCharacter = (props: TaskViewSingleCharacterProps) => 
         </div>
         {/* This renders the hint for the dropdown button */}
         {prioritizedTasks.length === 0 && (
-          <div className="flex flex-row-reverse w-max absolute right-1 top-8">
+          <div className="flex flex-row-reverse w-max absolute -right-1 top-8">
             <FaArrowTurnUp className="w-4 h-4"/>
             <div className="font-bold mr-1">
                 Add some tasks!

@@ -37,7 +37,7 @@ export const SettingsButton = () => {
     openDialog((<SettingsComponent/>))
   }
   return (
-    <button className="btn btn-circle text-xl bg-base-300" onClick={onClick}>
+    <button className="btn btn-circle text-xl" onClick={onClick}>
       <MdSettings className="w-max"/>
     </button>
   )
