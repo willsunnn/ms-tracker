@@ -53,9 +53,9 @@ export const TaskViewSingleCharacter = (props: TaskViewSingleCharacterProps) => 
       <div className="absolute right-4 top-4">
         <div className="dropdown absolute right-0 top-0">
           <button tabIndex={0}>
-            <MdSettings className="w-max button w-6 h-6 pointer-events-none"/>
+            <MdSettings className="w-max button h-6 pointer-events-none"/>
           </button>
-          <ul tabIndex={0} className="mt-3 p-2 menu menu-sm disabled dropdown-content rounded-box min-w-36 bg-base-300 z-[50]">
+          <ul tabIndex={0} className="mt-3 p-2 menu menu-sm disabled dropdown-content rounded-box min-w-36 bg-base-100 z-[50]">
             <li onClick={onEditClicked}><a>Edit Tasks</a></li>
             <li onClick={onDeleteClicked}><a>Delete</a></li>
           </ul>

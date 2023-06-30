@@ -21,7 +21,7 @@ const GenericDialog = (props: { open: boolean, closeDialog: () => void, children
       <form method="dialog" className="modal-backdrop">
         <button onClick={props.closeDialog}>close</button>
       </form>
-      <form method="dialog" className="modal-box">
+      <form method="dialog" className="modal-box bg-base-100">
         {/* This Button allows us to close the modal by clicking the x */}
         <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2" onClick={props.closeDialog}>✕</button>
         {/* This is the body of the modal */}

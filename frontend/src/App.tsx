@@ -9,8 +9,8 @@ const App = () => {
   const { user } = useAuth()
 
   return (
-    <>
-      <div className="z-[100] top-bar w-full fixed">
+    <div className="bg-base-300 w-full h-full min-h-screen">
+      <div className="top-bar w-full fixed p-2 z-[100]">
         <NavBar/>
       </div>
       <div className="z-0">
@@ -22,7 +22,7 @@ const App = () => {
           <TaskViewPage user={user}/>
         )}
       </div>
-    </>
+    </div>
   )
 }
 

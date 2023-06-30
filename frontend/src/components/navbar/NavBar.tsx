@@ -7,7 +7,7 @@ import { ExternalLinksButton } from './ExternalLinksButton'
 const NavBar = () => {
   const { user } = useAuth()
   return (
-    <div className="navbar bg-base-200">
+    <div className="navbar bg-base-200 shadow-md rounded-xl">
       <div className="navbar-start">
         <ExternalLinksButton/>
       </div>
