@@ -1,19 +1,15 @@
 import React from 'react'
 import { AddCharacterButton } from '../../dialog/AddCharacterDialog'
 import { type TaskViewProps } from '../TaskViewPage'
-import { EditPrioritizedTasksComponent } from '../../dialog/EditPrioritizedTasksDialog'
-import { type TaskAndStatus, type CharacterWithMapleGgData, emptyTaskStatusForCharacter, Model } from 'ms-tracker-library'
-import { useDialogContext } from '../../../contexts/DialogContext'
-import { DeleteCharacterComponent } from '../../dialog/DeleteCharacterDialog'
+import { type CharacterWithMapleGgData, emptyTaskStatusForCharacter, Model } from 'ms-tracker-library'
 import { DragDropContext, Draggable, type DropResult } from 'react-beautiful-dnd'
 import { StrictModeDroppable } from '../../helper/StrictModeDroppable'
-import { TaskViewSingleCharacter } from './TaskViewSingleCharacter'
 import { useApi } from '../../../contexts/ApiContext'
 import { useAlertCallback } from '../../../contexts/AlertContext'
+import { CharacterTaskView } from './CharacterTaskView'
 
 export const TaskViewByCharacter = (props: { taskViewAttrs: TaskViewProps }) => {
   const { user, tasks, taskStatus } = props.taskViewAttrs
-  const { openDialog } = useDialogContext()
   const { characterApi } = useApi()
   const alert = useAlertCallback()
 
@@ -22,14 +18,6 @@ export const TaskViewByCharacter = (props: { taskViewAttrs: TaskViewProps }) => 
   }, [props])
 
   const [characters, setCharacters] = React.useState<CharacterWithMapleGgData[]>(props.taskViewAttrs.characters)
-
-  const openEditTasksDialog = (character: CharacterWithMapleGgData, tasks: TaskAndStatus[]) => {
-    openDialog((<EditPrioritizedTasksComponent character={character} tasks={tasks}/>))
-  }
-
-  const openDeleteCharacterDialog = (charcter: CharacterWithMapleGgData, tasks: TaskAndStatus[]) => {
-    openDialog((<DeleteCharacterComponent character={charcter}/>))
-  }
 
   const onDragEnd = (result: DropResult) => {
     if (!result.destination) {
@@ -67,10 +55,8 @@ export const TaskViewByCharacter = (props: { taskViewAttrs: TaskViewProps }) => 
                   <Draggable draggableId={character.id} index={index} key={`TaskViewSingleCharacter-${character.name}`}>
                     {provided => (
                       <div ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps} className="max-w-full">
-                        <TaskViewSingleCharacter
-                          tasks={tasksAndStatuses} character={character}
-                          openEditTasksDialog={openEditTasksDialog}
-                          openDeleteCharacterDialog={openDeleteCharacterDialog}/>
+                        <CharacterTaskView
+                          tasks={tasksAndStatuses} character={character}/>
                       </div>
                     )}
                   </Draggable>
