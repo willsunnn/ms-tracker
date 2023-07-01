@@ -1,5 +1,5 @@
 import React from 'react'
-import { TaskViewByCharacter } from './ViewByCharacter/TaskViewByCharacters'
+import { TaskViewByCharacter } from './characters/TaskViewByCharacters'
 import { TaskViewByReset } from './TaskViewByReset'
 import { TaskViewCompact } from './TaskViewCompact'
 import { type User } from 'firebase/auth'
