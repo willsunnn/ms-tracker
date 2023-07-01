@@ -2,7 +2,7 @@ import './App.css'
 import NavBar from './components/navbar/NavBar'
 import { SignInPage } from './components/SignInForm'
 import { TaskViewPage } from './components/taskview/TaskViewPage'
-import { BrowserRouter, Routes, Route, Outlet } from 'react-router-dom'
+import { BrowserRouter, Routes, Route, Outlet, Navigate } from 'react-router-dom'
 
 const App = () => {
   return (<BrowserRouter>
@@ -28,6 +28,11 @@ const App = () => {
         {/* Else, let's render the TaskViewPage */}
         <Route path="*" element={(
           <TaskViewPage/>
+        )}/>
+
+        {/* If there was no path redirect to TaskViewPage */}
+        <Route path="" element={(
+          <Navigate to="characters"/>
         )}/>
       </Route>
     </Routes>
