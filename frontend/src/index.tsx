@@ -2,7 +2,7 @@ import React from 'react'
 import ReactDOM from 'react-dom/client'
 import './index.css'
 import App from './App'
-import { ThemeContextProvider } from './contexts/ThemeContext'
+import { SettingsContextProvider } from './contexts/SettingsContext'
 import { AddAlertCallbackProvider } from './contexts/AlertContext'
 import { AuthContextProvider } from './contexts/AuthContext'
 import { OpenInDialogContextProvider } from './contexts/DialogContext'
@@ -13,7 +13,7 @@ const root = ReactDOM.createRoot(
 )
 root.render(
   <React.StrictMode>
-    <ThemeContextProvider>
+    <SettingsContextProvider>
       <ApiContextProvider>
         <AuthContextProvider>
           <AddAlertCallbackProvider>
@@ -23,6 +23,6 @@ root.render(
           </AddAlertCallbackProvider>
         </AuthContextProvider>
       </ApiContextProvider>
-    </ThemeContextProvider>
+    </SettingsContextProvider>
   </React.StrictMode>
 )

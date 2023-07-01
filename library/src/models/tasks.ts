@@ -64,3 +64,6 @@ export type TaskStatusForAccount = Map<string | null, TaskStatusForCharacter>;
 export const emptyTaskStatusForAcccount = () => {
   return new Map<string | null, TaskStatusForCharacter>();
 };
+
+// DateFormat
+export type DateFormat = "absolute" | "relative";

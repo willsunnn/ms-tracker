@@ -1,6 +1,7 @@
 import { type TaskAndStatus, Model } from 'ms-tracker-library'
 import { useAlertCallback } from '../../../contexts/AlertContext'
 import { useApi } from '../../../contexts/ApiContext'
+import { useSettings } from '../../../contexts/SettingsContext'
 
 interface CharacterTaskListProps {
   tasks: TaskAndStatus[]
@@ -10,6 +11,7 @@ export const CharacterTaskList = (props: CharacterTaskListProps) => {
   const { tasks } = props
   const alert = useAlertCallback()
   const { taskStatusApi } = useApi()
+  const { dateFormat } = useSettings()
 
   // define event handlers
   const checkBoxOnChangeCurryFunc = (task: TaskAndStatus) => {
@@ -42,7 +44,7 @@ export const CharacterTaskList = (props: CharacterTaskListProps) => {
             </td>
 
             <td className="p-0">
-              {resetsAt.toLocaleString()}
+              {Model.getReadableTime(resetsAt, dateFormat)}
             </td>
 
             <td className="p-0">

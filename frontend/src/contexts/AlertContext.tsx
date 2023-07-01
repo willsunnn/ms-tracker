@@ -53,13 +53,13 @@ export const AddAlertCallbackProvider = (props: { children: React.ReactNode }) =
   const addAlert: AlertCallback = (obj) => {
     const uuid = uuidv4()
     let alert: Alert
-    if (instanceOfAlert(obj)) {
-      alert = obj as Alert
-    } else if (typeof obj === 'string') {
+    if (typeof obj === 'string') {
       alert = {
         text: obj,
         alertLevel: 'error'
       }
+    } else if (instanceOfAlert(obj)) {
+      alert = obj as Alert
     } else if (obj instanceof Error) {
       alert = {
         text: obj.message,

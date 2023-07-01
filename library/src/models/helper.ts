@@ -1,6 +1,6 @@
 import {User} from "firebase/auth";
 import {Character} from "./character";
-import {ResetType, Task, TaskStatus, TaskType} from "./tasks";
+import {DateFormat, ResetType, Task, TaskStatus, TaskType} from "./tasks";
 
 const midnight = (date: Date): Date => {
   date.setUTCHours(0, 0, 0, 0);
@@ -76,6 +76,29 @@ export const getReadableResetText = (resetType: ResetType): string => {
   case "Weekly_Saturday":
   case "Weekly_Sunday":
     return "Weekly";
+  }
+};
+
+export const getReadableTime = (date: Date, format: DateFormat): string => {
+  if (format === "absolute") {
+    return date.toLocaleString();
+  } else {
+    const now = new Date().getTime();
+    const diff = Math.abs(date.getTime() - now);
+
+    const seconds = diff / 1000;
+    const minutes = seconds / 60;
+    const hours = minutes / 60;
+    const days = hours / 24;
+    if (days >= 1) {
+      return `In ${Math.floor(days)} days`;
+    } else if (hours >= 1) {
+      return `In ${Math.floor(hours)} hours`;
+    } else if (minutes >= 1) {
+      return `In ${Math.floor(minutes)} minutes`;
+    } else {
+      return `In ${Math.floor(seconds)} seconds`;
+    }
   }
 };
 

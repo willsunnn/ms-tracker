@@ -2,10 +2,12 @@ import { Model, type TaskAndStatus } from 'ms-tracker-library'
 import { type TaskViewProps } from '../TaskViewPage'
 import { defaultTaskStatus } from 'ms-tracker-library/lib/models/helper'
 import { useApi } from '../../../contexts/ApiContext'
+import { useSettings } from '../../../contexts/SettingsContext'
 
 export const TaskViewCompact = (props: { taskViewAttrs: TaskViewProps }) => {
   const { user, characters } = props.taskViewAttrs
   const { taskStatusApi } = useApi()
+  const { dateFormat } = useSettings()
 
   const tasksAndStatuses = props.taskViewAttrs.tasks.map((task) => {
     const statuses = characters.map((character) => {
@@ -69,7 +71,7 @@ export const TaskViewCompact = (props: { taskViewAttrs: TaskViewProps }) => {
             </td>
 
             <td className="p-0">
-              {resetsAt.toLocaleString()}
+              {Model.getReadableTime(resetsAt, dateFormat)}
             </td>
 
             {
