@@ -73,15 +73,15 @@ export const TaskViewPage = () => {
     }
   }, [mapleGgCharacters])
 
-  // if user data hasn't loaded in yet display a loader
-  if ((user === undefined) || (taskStatus === undefined) || (characters === undefined)) {
-    return <FullScreenLoader/>
-  }
-
   // if user is not logged in, navigate to the signin page
   if (user === null) {
     navigate('signin')
     return <></>
+  }
+
+  // if user data hasn't loaded in yet display a loader
+  if ((user === undefined) || (taskStatus === undefined) || (characters === undefined)) {
+    return <FullScreenLoader/>
   }
 
   // Now we know the user is signed in, we can render all the other components
