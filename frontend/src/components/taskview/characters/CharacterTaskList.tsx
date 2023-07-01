@@ -12,7 +12,7 @@ export const CharacterTaskList = (props: CharacterTaskListProps) => {
   const { taskStatusApi } = useApi()
 
   // define event handlers
-  const checkBoxOnClickCurryFunc = (task: TaskAndStatus) => {
+  const checkBoxOnChangeCurryFunc = (task: TaskAndStatus) => {
     return () => {
       const numClears = task.clearTimes.length
       const isComplete = numClears >= task.maxClearCount
@@ -46,7 +46,7 @@ export const CharacterTaskList = (props: CharacterTaskListProps) => {
             </td>
 
             <td className="p-0">
-              <input type="checkbox" className="checkbox" checked={isComplete} onClick={checkBoxOnClickCurryFunc(task)}/>
+              <input type="checkbox" className="checkbox" checked={isComplete} onChange={checkBoxOnChangeCurryFunc(task)}/>
             </td>
           </tr>)
         })
