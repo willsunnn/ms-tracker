@@ -3,7 +3,7 @@ import React from 'react'
 import { useApi } from './ApiContext'
 
 interface Auth {
-  user: FirebaseAuth.User | null
+  user: FirebaseAuth.User | null | undefined
   signUp: (email: string, password: string) => Promise<FirebaseAuth.User>
   signIn: (email: string, password: string) => Promise<FirebaseAuth.User>
   forgotPassword: (email: string) => Promise<void>
@@ -13,7 +13,7 @@ interface Auth {
 
 const throwErr = () => { throw new Error('Not implemented yet') }
 const AuthContext = React.createContext<Auth>({
-  user: null,
+  user: undefined,
   signUp: throwErr,
   signIn: throwErr,
   forgotPassword: throwErr,
@@ -26,7 +26,7 @@ export const useAuth = () => {
 }
 
 export const AuthContextProvider = (props: { children: React.ReactNode }) => {
-  const [currentUser, setCurrentUser] = React.useState<FirebaseAuth.User | null>(null)
+  const [currentUser, setCurrentUser] = React.useState<FirebaseAuth.User | null>()
   const { authenticationApi } = useApi()
 
   React.useEffect(() => {

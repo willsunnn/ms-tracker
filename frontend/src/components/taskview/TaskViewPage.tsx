@@ -5,20 +5,11 @@ import { TaskViewCompact } from './TaskViewCompact'
 import { type User } from 'firebase/auth'
 import { useAlertCallback } from '../../contexts/AlertContext'
 import { TASK_LIST } from '../../models/PredefinedTasks'
-import { type Task, type AccountCharacters, defaultAccountCharacters, type MapleGgCachedData, type CharacterWithMapleGgData, type TaskStatusForAccount, emptyTaskStatusForAcccount } from 'ms-tracker-library'
+import { type Task, type AccountCharacters, type MapleGgCachedData, type CharacterWithMapleGgData, type TaskStatusForAccount, emptyTaskStatusForAcccount } from 'ms-tracker-library'
 import { useApi } from '../../contexts/ApiContext'
-
-type Tabs = 'BY_CHARACTER' | 'BY_RESET_DATE' | 'COMPACT'
-
-const TabLabel = (props: { tabText: string, tabTag: Tabs, selectedTab: Tabs, setTab: (_: Tabs) => void }) => {
-  const { tabText, tabTag, selectedTab } = props
-  const onClick = () => {
-    props.setTab(tabTag)
-  }
-  return (
-    <a className={`tab tab-lifted ${tabTag === selectedTab ? 'tab-active' : ''}`} onClick={onClick}>{tabText}</a>
-  )
-}
+import { Navigate, Outlet, Route, Routes, useNavigate } from 'react-router-dom'
+import { useAuth } from '../../contexts/AuthContext'
+import { FullScreenLoader } from '../helper/Loader'
 
 export interface TaskViewProps {
   user: User
@@ -27,35 +18,48 @@ export interface TaskViewProps {
   characters: CharacterWithMapleGgData[]
 }
 
-export const TaskViewPage = (props: { user: User }) => {
-  const { user } = props
-
+export const TaskViewPage = () => {
+  const { user } = useAuth()
+  const navigate = useNavigate()
   const alert = useAlertCallback()
   const { mapleGgFirebaseApi, taskStatusApi, characterApi } = useApi()
 
   // React States
-  const [tab, setTab] = React.useState<Tabs>('BY_CHARACTER')
-  const [taskStatus, setTaskStatus] = React.useState<TaskStatusForAccount>(emptyTaskStatusForAcccount())
-  const [characters, setCharacters] = React.useState<AccountCharacters>(defaultAccountCharacters)
+  const [taskStatus, setTaskStatus] = React.useState<TaskStatusForAccount>()
+  const [characters, setCharacters] = React.useState<AccountCharacters>()
   const [mapleGgCharacters, setMapleGgCharacters] = React.useState<Map<string, MapleGgCachedData>>(new Map<string, MapleGgCachedData>())
 
-  // Listen to the TaskStatuses and the Characters
+  // Fetch & Listen for TaskStatuses and Characters
   React.useEffect(() => {
-    const stopTaskListen = taskStatusApi.searchAndListen(user, setTaskStatus, alert)
-    const stopCharListen = characterApi.listen(user, setCharacters, alert)
-
-    return () => {
-      stopTaskListen()
-      stopCharListen()
+    if (user) {
+      const stopTaskListen = taskStatusApi.searchAndListen(user, setTaskStatus, alert)
+      const stopCharListen = characterApi.listen(user, setCharacters, alert)
+      return () => {
+        stopTaskListen()
+        stopCharListen()
+      }
     }
-  }, [])
+  }, [user])
+
+  // When we have all the character names loaded in, we need to perform a
+  // second query to get the image data
+  React.useEffect(() => {
+    if (characters !== undefined) {
+      const characterNames = characters.characters.map((char) => char.name)
+      const unsubFunc = mapleGgFirebaseApi.searchAndListen(
+        characterNames,
+        setMapleGgCharacters,
+        alert)
+      return unsubFunc
+    }
+  }, [characters])
 
   // If the cached data of any of the characters is more than a day old, we
   // call the endpoint to refresh the data. The data will be returned
-  // asynchronously
-  const mapleGgCharactersUpdated = (data: Map<string, MapleGgCachedData>) => {
+  // asynchronously through the listen hook
+  React.useEffect(() => {
     let charactersAreUpToDate = true
-    data.forEach((character) => {
+    mapleGgCharacters.forEach((character) => {
       const now = new Date().getTime()
       const millisInADay = 1000 * 60 * 60 * 24
       const lastFetch = character.lastRetrievedTimestamp
@@ -67,45 +71,53 @@ export const TaskViewPage = (props: { user: User }) => {
     if (!charactersAreUpToDate) {
       mapleGgFirebaseApi.updateCharacter().then(console.log).catch(alert)
     }
-    setMapleGgCharacters(data)
+  }, [mapleGgCharacters])
+
+  // if user data hasn't loaded in yet display a loader
+  if ((user === undefined) || (taskStatus === undefined) || (characters === undefined)) {
+    return <FullScreenLoader/>
   }
 
-  // When we have all the character names loaded in, we need to perform a
-  // second query to get the image data
-  React.useEffect(() => {
-    const characterNames = characters.characters.map((char) => char.name)
-    const unsubFunc = mapleGgFirebaseApi.searchAndListen(
-      characterNames,
-      mapleGgCharactersUpdated,
-      alert)
-    return unsubFunc
-  }, [characters])
+  // if user is not logged in, navigate to the signin page
+  if (user === null) {
+    navigate('signin')
+    return <></>
+  }
 
-  // Join the data etc. and pass it to the views
-  const charactersWithMapleGgData: CharacterWithMapleGgData[] = characters.characters.map((character) => {
-    return {
-      ...character,
-      mapleGgData: mapleGgCharacters.get(character.name.toLowerCase())
-    }
-  })
-
-  const taskViewProps = {
+  // Now we know the user is signed in, we can render all the other components
+  const taskViewProps: TaskViewProps = {
     user,
     taskStatus,
     tasks: TASK_LIST,
-    characters: charactersWithMapleGgData
+    characters: characters.characters.map((character) => ({
+      ...character,
+      mapleGgData: mapleGgCharacters.get(character.name.toLowerCase())
+    }))
   }
 
   return (
-    <div className="pt-24 p-5 w-full">
-      <div className="tabs mb-3 w-full">
-        <TabLabel tabText="Characters" tabTag="BY_CHARACTER" selectedTab={tab} setTab={setTab}/>
-        <TabLabel tabText="Tasks by Reset Time" tabTag="BY_RESET_DATE" selectedTab={tab} setTab={setTab}/>
-        <TabLabel tabText="Compact" tabTag="COMPACT" selectedTab={tab} setTab={setTab}/>
-      </div>
-      { tab === 'BY_CHARACTER' && <TaskViewByCharacter taskViewAttrs={taskViewProps}/>}
-      { tab === 'BY_RESET_DATE' && <TaskViewByReset taskViewAttrs={taskViewProps}/>}
-      { tab === 'COMPACT' && <TaskViewCompact taskViewAttrs={taskViewProps}/>}
-    </div>
+    <Routes>
+      <Route path="" element={(
+        <div className="pt-24 p-5 w-full">
+          <Outlet/>
+        </div>)}>
+        <Route path="characters" element={(
+          <TaskViewByCharacter taskViewAttrs={taskViewProps}/>
+        )}/>
+        <Route path="todo" element={(
+          <TaskViewByReset taskViewAttrs={taskViewProps}/>
+        )}/>
+        <Route path="overview" element={(
+          <TaskViewCompact taskViewAttrs={taskViewProps}/>
+        )}/>
+        {/* If path is blank or unknown navigate to characters page */}
+        <Route path="*" element={(
+          <Navigate to="characters" replace={true}/>
+        )}/>
+        <Route path="" element={(
+          <Navigate to="characters" replace={true}/>
+        )}/>
+      </Route>
+    </Routes>
   )
 }

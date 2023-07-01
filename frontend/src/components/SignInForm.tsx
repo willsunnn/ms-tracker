@@ -3,11 +3,12 @@ import { FirebaseError } from 'firebase/app'
 import { BsGoogle } from 'react-icons/bs'
 import { useAlertCallback } from '../contexts/AlertContext'
 import { useAuth } from '../contexts/AuthContext'
+import { Navigate } from 'react-router-dom'
 
 type FormFunction = 'signIn' | 'signUp' | 'resetPassword'
 
-const SignInFormComponent = () => {
-  const { signIn, signUp, signInWithGoogle, forgotPassword } = useAuth()
+export const SignInFormComponent = () => {
+  const { user, signIn, signUp, signInWithGoogle, forgotPassword } = useAuth()
   const alert = useAlertCallback()
 
   const [formState, setFormState] = React.useState<FormFunction>('signIn')
@@ -18,6 +19,10 @@ const SignInFormComponent = () => {
   const [emailEntryError, setEmailEntryError] = React.useState<string | null>(null)
   const [pwEntryError, setPwEntryError] = React.useState<string | null>(null)
   const [pwConfirmError, setPwConfirmError] = React.useState<string | null>(null)
+
+  if (user) {
+    return (<Navigate to="/characters" replace={true} />)
+  }
 
   const handleError = (error: any) => {
     let errMessage
@@ -195,4 +200,8 @@ const SignInFormComponent = () => {
   )
 }
 
-export default SignInFormComponent
+export const SignInPage = () => {
+  return (<div className="flex items-center justify-center h-[calc(100vh)]">
+    <SignInFormComponent/>
+  </div>)
+}
