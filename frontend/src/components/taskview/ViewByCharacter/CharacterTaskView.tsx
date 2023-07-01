@@ -28,7 +28,7 @@ export const CharacterTaskView = (props: CharacterTaskViewProps) => {
       {/* This div contains the content for the card
           This means the CharacterView and the grid of prioritized tasks */}
       <div className="flex flex-row pr-10">
-        <CharacterView character={character}/>
+        <CharacterView character={character} showName={true}/>
         <CharacterTaskList tasks={prioritizedTasks}/>
       </div>
     </div>

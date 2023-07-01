@@ -86,16 +86,3 @@ export const EditPrioritizedTasksComponent = (props: { character: CharacterWithM
     </>
   )
 }
-
-export const EditPrioritizedTasksButton = (props: { character: CharacterWithMapleGgData, tasks: TaskAndStatus[] }) => {
-  const { character, tasks } = props
-  const { openDialog } = useDialogContext()
-  const onClick = () => {
-    openDialog((<EditPrioritizedTasksComponent character={character} tasks={tasks}/>))
-  }
-  return (
-    <button className="btn btn-primary" onClick={onClick}>
-            Edit Tasks
-    </button>
-  )
-}

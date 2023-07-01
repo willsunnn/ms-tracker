@@ -5,6 +5,7 @@ import { useAlertCallback } from '../../contexts/AlertContext'
 import { type CharacterWithMapleGgData } from 'ms-tracker-library'
 import { useApi } from '../../contexts/ApiContext'
 import { type Alert } from '../AlertList'
+import { CharacterView } from '../CharacterView'
 
 export const DeleteCharacterComponent = (props: { character: CharacterWithMapleGgData }) => {
   const { character } = props
@@ -39,25 +40,14 @@ export const DeleteCharacterComponent = (props: { character: CharacterWithMapleG
   }
 
   return (
-    <>
-      <div className="text-lg font-bold text-center">Are you sure you want to delete {name}?</div>
-      <div className="flex justify-center py-3">
-        <button className="btn btn-md btn-success mx-1" onClick={closeDialog}>Cancel</button>
-        <button className="btn btn-md btn-error mx-1" onClick={deleteConfirmed}>Delete</button>
+    <div className="flex flex-col items-center">
+      <div className="text-xl font-bold text-center mb-8">Are you sure?</div>
+      <CharacterView character={character} showName={false}/>
+      <div className="text-md text-center mx-20 mt-8 mb-4">Do you really want to delete {name} and all of the characters tasks?</div>
+      <div className="flex flex-row items-center py-3">
+        <button className="btn btn-sm btn-outline mx-2 w-16" onClick={closeDialog}>Cancel</button>
+        <button className="btn btn-sm btn-error mx-2 w-16" onClick={deleteConfirmed}>Delete</button>
       </div>
-    </>
-  )
-}
-
-export const DeleteCharacterButton = (props: { character: CharacterWithMapleGgData }) => {
-  const { character } = props
-  const { openDialog } = useDialogContext()
-  const onClick = () => {
-    openDialog((<DeleteCharacterComponent character={character}/>))
-  }
-  return (
-    <button className="btn btn-primary" onClick={onClick}>
-      Delete Character
-    </button>
+    </div>
   )
 }

@@ -32,7 +32,7 @@ export const CharacterTaskList = (props: CharacterTaskListProps) => {
     <table className="table w-full"><tbody>
       {
         tasks.map((task) => {
-          const { name, imageIcon, resetType } = task
+          const { name, resetType } = task
           const resetsAt = Model.nextReset(resetType)
           const key = `TaskViewRow-${task.characterId ?? ''}-${task.taskId}}`
           const isComplete = task.clearTimes.length >= task.maxClearCount
