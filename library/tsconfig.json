@@ -13,6 +13,6 @@
   },
   "include": [
     "./src",
-    ".eslintrc.js"
-, "../frontend/src/components/api/config"  ]
+    ".eslintrc.js",
+  ]
 }

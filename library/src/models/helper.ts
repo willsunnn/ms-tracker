@@ -12,38 +12,43 @@ const firstDayOfMonth = (date: Date): Date => {
   return date;
 };
 
+// % is remainder and not modulo in js
+const modulo = (a: number, b: number) => {
+  return ((a % b) + b) % b;
+};
+
 const setDayOfWeek = (day: number, date: Date): Date => {
-  const daysToSubtract = (date.getUTCDay() - day) % 7;
+  const daysToSubtract = modulo(date.getUTCDay() - day, 7);
   date.setUTCDate(date.getUTCDate() - daysToSubtract);
   return date;
 };
 
-export const lastReset = (resetType: ResetType): Date => {
-  const now = new Date();
+export const lastReset = (date: Date, resetType: ResetType): Date => {
+  const dateCopy = new Date(date.getTime());
   switch (resetType) {
   case "Daily":
-    return midnight(now);
+    return midnight(dateCopy);
   case "Monthly":
-    return firstDayOfMonth(midnight(now));
+    return firstDayOfMonth(midnight(dateCopy));
   case "Weekly_Monday":
-    return setDayOfWeek(1, midnight(now));
+    return setDayOfWeek(1, midnight(dateCopy));
   case "Weekly_Tuesday":
-    return setDayOfWeek(2, midnight(now));
+    return setDayOfWeek(2, midnight(dateCopy));
   case "Weekly_Wednesday":
-    return setDayOfWeek(3, midnight(now));
+    return setDayOfWeek(3, midnight(dateCopy));
   case "Weekly_Thursday":
-    return setDayOfWeek(4, midnight(now));
+    return setDayOfWeek(4, midnight(dateCopy));
   case "Weekly_Friday":
-    return setDayOfWeek(5, midnight(now));
+    return setDayOfWeek(5, midnight(dateCopy));
   case "Weekly_Saturday":
-    return setDayOfWeek(6, midnight(now));
+    return setDayOfWeek(6, midnight(dateCopy));
   case "Weekly_Sunday":
-    return setDayOfWeek(0, midnight(now));
+    return setDayOfWeek(0, midnight(dateCopy));
   }
 };
 
-export const nextReset = (resetType: ResetType): Date => {
-  const lastResetTime = lastReset(resetType);
+export const nextReset = (date: Date, resetType: ResetType): Date => {
+  const lastResetTime = lastReset(date, resetType);
   switch (resetType) {
   case "Daily":
     lastResetTime.setUTCDate(lastResetTime.getUTCDate() + 1);
@@ -127,7 +132,8 @@ export const defaultTaskStatus = (userId: string, characterId: string|null, task
 };
 
 export const trimTaskStatus = (status: TaskStatus, resetType: ResetType) => {
-  const lastResetTime = lastReset(resetType);
+  const now = new Date();
+  const lastResetTime = lastReset(now, resetType);
   status.clearTimes = status.clearTimes.filter((clearTime) => clearTime > lastResetTime.getTime());
 };
 

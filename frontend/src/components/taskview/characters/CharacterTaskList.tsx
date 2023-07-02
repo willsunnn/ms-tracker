@@ -14,6 +14,14 @@ export const CharacterTaskList = (props: CharacterTaskListProps) => {
   const { dateFormat } = useSettings()
 
   // define event handlers
+  const trimTaskStatusClearTimes = (task: TaskAndStatus) => {
+    task.clearTimes = task.clearTimes.filter((time) => {
+      const lastReset = Model.lastReset(new Date(), task.resetType).getTime()
+      return time > lastReset
+    })
+    return task
+  }
+
   const checkBoxOnChangeCurryFunc = (task: TaskAndStatus) => {
     return () => {
       const numClears = task.clearTimes.length
@@ -34,8 +42,9 @@ export const CharacterTaskList = (props: CharacterTaskListProps) => {
     <table className="table w-full"><tbody>
       {
         tasks.map((task) => {
+          task = trimTaskStatusClearTimes(task)
           const { name, resetType } = task
-          const resetsAt = Model.nextReset(resetType)
+          const resetsAt = Model.nextReset(new Date(), resetType)
           const key = `TaskViewRow-${task.characterId ?? ''}-${task.taskId}}`
           const isComplete = task.clearTimes.length >= task.maxClearCount
           return (<tr key={key}>

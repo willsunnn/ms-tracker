@@ -27,7 +27,7 @@ export const SettingsComponent = () => {
     }
   }
 
-  const nextReset = Model.nextReset('Daily')
+  const nextReset = Model.nextReset(new Date(), 'Daily')
   const resetText = Model.getReadableTime(nextReset, dateFormat)
 
   return (

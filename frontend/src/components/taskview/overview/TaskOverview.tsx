@@ -63,7 +63,7 @@ export const TaskViewCompact = (props: { taskViewAttrs: TaskViewProps }) => {
       {
         prioritizedTasksAndStatuses.map((task) => {
           const { name, resetType } = task
-          const resetsAt = Model.nextReset(resetType)
+          const resetsAt = Model.nextReset(new Date(), resetType)
           const key = `TaskOverviewRow-${task.taskId}}`
           return (<tr key={key}>
             <td className="p-0">
