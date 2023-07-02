@@ -16,7 +16,7 @@ export const TaskViewCompact = (props: { taskViewAttrs: TaskViewProps }) => {
         ...task,
         ...status
       }
-      return taskAndStatus
+      return Model.trimClearTimes(taskAndStatus)
     })
     const hasAnyCharacterThatPrioritizes = statuses.filter((status) => status.isPriority).length > 0
 
@@ -47,47 +47,47 @@ export const TaskViewCompact = (props: { taskViewAttrs: TaskViewProps }) => {
 
   return (
     <div className="card bg-base-200 shadow-xl my-2 p-3">
-    <table className="table w-full"><tbody>
-      <tr>
-        <th/>
-        <th/>
+      <table className="table w-full"><tbody>
+        <tr>
+          <th/>
+          <th/>
+          {
+            characters.map((character) => {
+              const name = character.mapleGgData?.name ?? character.name
+              return (
+                <th key={`header-${name}`}>{name}</th>
+              )
+            })
+          }
+        </tr>
         {
-          characters.map((character) => {
-            const name = character.mapleGgData?.name ?? character.name
-            return (
-              <th key={`header-${name}`}>{name}</th>
-            )
+          prioritizedTasksAndStatuses.map((task) => {
+            const { name, resetType } = task
+            const resetsAt = Model.nextReset(new Date(), resetType)
+            const key = `TaskOverviewRow-${task.taskId}}`
+            return (<tr key={key}>
+              <td className="p-0">
+                <div className="font-bold">{name}</div>
+              </td>
+
+              <td className="p-0">
+                {Model.getReadableTime(resetsAt, dateFormat)}
+              </td>
+
+              {
+                task.statuses.map((status) => {
+                  const isComplete = status.clearTimes.length >= status.maxClearCount
+                  return (
+                    <td className="p-0" key={`TaskOverviewCell-${task.taskId}-${status.characterId ?? ''}`}>
+                      <input type="checkbox" className="checkbox checkbox-sm" checked={isComplete} onChange={checkBoxOnClickCurryFunc(status)}/>
+                    </td>
+                  )
+                })
+              }
+            </tr>)
           })
         }
-      </tr>
-      {
-        prioritizedTasksAndStatuses.map((task) => {
-          const { name, resetType } = task
-          const resetsAt = Model.nextReset(new Date(), resetType)
-          const key = `TaskOverviewRow-${task.taskId}}`
-          return (<tr key={key}>
-            <td className="p-0">
-              <div className="font-bold">{name}</div>
-            </td>
-
-            <td className="p-0">
-              {Model.getReadableTime(resetsAt, dateFormat)}
-            </td>
-
-            {
-              task.statuses.map((status) => {
-                const isComplete = status.clearTimes.length >= status.maxClearCount
-                return (
-                  <td className="p-0" key={`TaskOverviewCell-${task.taskId}-${status.characterId ?? ''}`}>
-                    <input type="checkbox" className="checkbox checkbox-sm" checked={isComplete} onChange={checkBoxOnClickCurryFunc(status)}/>
-                  </td>
-                )
-              })
-            }
-          </tr>)
-        })
-      }
-    </tbody></table>
+      </tbody></table>
     </div>
   )
 }

@@ -1,6 +1,6 @@
 import {User} from "firebase/auth";
 import {Character} from "./character";
-import {DateFormat, ResetType, Task, TaskStatus, TaskType} from "./tasks";
+import {DateFormat, ResetType, Task, TaskAndStatus, TaskStatus, TaskType} from "./tasks";
 
 const midnight = (date: Date): Date => {
   date.setUTCHours(0, 0, 0, 0);
@@ -145,4 +145,12 @@ export const joinTasksAndStatuses = (user: User, character: Character, tasks: Ta
       ...status,
     };
   });
+};
+
+export const trimClearTimes = (task: TaskAndStatus): TaskAndStatus => {
+  task.clearTimes = task.clearTimes.filter((time) => {
+    const reset = lastReset(new Date(), task.resetType).getTime();
+    return time > reset;
+  });
+  return task;
 };
