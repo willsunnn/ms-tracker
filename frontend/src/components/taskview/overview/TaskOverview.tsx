@@ -55,7 +55,7 @@ export const TaskViewCompact = (props: { taskViewAttrs: TaskViewProps }) => {
             characters.map((character) => {
               const name = character.mapleGgData?.name ?? character.name
               return (
-                <th key={`header-${name}`}>{name}</th>
+                <th key={`header-${name}`} className="-rotate-45 h-24 w-2 relative left-0 bottom-0 p-0">{name}</th>
               )
             })
           }

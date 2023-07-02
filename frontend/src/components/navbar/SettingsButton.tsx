@@ -40,14 +40,12 @@ export const SettingsComponent = () => {
 
       <div className="divider lg:divider"/>
 
-      <div className="flex flex-col w-full my-4">
-        <h2 className="text-lg font-semibold">Date Format: </h2>
-        <select className="select select-accent mt-2" onChange={onDateFormatSelectChange} defaultValue={dateFormat}>
-          <option value="absolute">Absolute</option>
-          <option value="relative">Relative</option>
-        </select>
-        <h3 className="text-sm mt-2 ml-2">Example: {resetText}</h3>
-      </div>
+      <h2 className="text-lg font-semibold">Date Format: </h2>
+      <select className="select select-accent mt-2" onChange={onDateFormatSelectChange} defaultValue={dateFormat}>
+        <option value="absolute">Absolute</option>
+        <option value="relative">Relative</option>
+      </select>
+      <h3 className="text-sm mt-2 ml-2">Example: {resetText}</h3>
     </>
   )
 }

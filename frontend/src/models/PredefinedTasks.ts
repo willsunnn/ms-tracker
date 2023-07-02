@@ -163,6 +163,41 @@ const SACRED_SYMBOL_DAILIES: Task[] = [
   }
 })
 
+const OTHER_DAILIES: Task[] = [
+  {
+    taskId: 'gollux',
+    name: 'Gollux',
+    maxClearCount: 1
+  },
+  {
+    taskId: 'monster-park',
+    name: 'Monster Park',
+    maxClearCount: 7
+  },
+  {
+    taskId: 'monster-park-extreme',
+    name: 'Monster Park Extreme',
+    maxClearCount: 1
+  },
+  {
+    taskId: 'commerci-voyages',
+    name: 'Commerci Voyages',
+    maxClearCount: 1
+  },
+  {
+    taskId: 'commerci-pq',
+    name: 'Commerci Party Quest',
+    maxClearCount: 3
+  }
+].map((t) => {
+  return {
+    ...t,
+    resetType: 'Daily',
+    taskType: 'Other',
+    isPerAccount: false
+  }
+})
+
 const ARCANE_SYMBOL_WEEKLIES: Task[] = [
   {
     taskId: 'arcane-vj-weekly',
@@ -229,11 +264,12 @@ const MONTHLY_BLACK_MAGE: Task[] = [
 ]
 
 export const TASK_LIST = [
-  ARCANE_SYMBOL_DAILIES,
-  ARCANE_SYMBOL_WEEKLIES,
   SACRED_SYMBOL_DAILIES,
+  ARCANE_SYMBOL_DAILIES,
+  OTHER_DAILIES,
   WEEKLY_BOSSES,
   MONTHLY_BLACK_MAGE,
+  ARCANE_SYMBOL_WEEKLIES,
   GUILD_WEEKLIES
 ].flat(1)
 export const TASK_MAP = new Map(TASK_LIST.map((task) => [task.taskId, task]))
