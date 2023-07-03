@@ -14,7 +14,7 @@ export const CharacterTaskView = (props: CharacterTaskViewProps) => {
   // render data
   const prioritizedTasks = tasks.filter((task) => task.isPriority)
   return (
-    <div className="card bg-base-200 shadow-xl my-2 p-3">
+    <div className="card bg-base-200 shadow-xl my-2 p-3 min-h-fit h-full">
 
       {/* This div contains the dropdown button that has the Edit and Delete Options
           This and the hint div are rendered absolute from the top right */}

@@ -44,8 +44,7 @@ export const TaskViewByCharacter = (props: { taskViewAttrs: TaskViewProps }) => 
     <DragDropContext onDragEnd={onDragEnd}>
       <StrictModeDroppable droppableId={'character-list'}>
         {provided => (
-          <div ref={provided.innerRef} {...provided.droppableProps} className="flex flex-col items-center w-full">
-            <div className="flex flex-col">
+          <div ref={provided.innerRef} {...provided.droppableProps} className="grid grid-cols-1 w-full gap-8 lg:grid-cols-2 xl:grid-cols-3">
               {characters.map((character: CharacterWithMapleGgData, index: number) => {
               // For each character we return a card that is draggable
               // that contains the TaskViewSingleCharacter
@@ -62,7 +61,6 @@ export const TaskViewByCharacter = (props: { taskViewAttrs: TaskViewProps }) => 
                   </Draggable>
                 )
               })}
-            </div>
             { provided.placeholder }
           </div>
         )}

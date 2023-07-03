@@ -1,6 +1,6 @@
 import React from 'react'
 import UserIcon from './UserIcon'
-import { SettingsButton } from './SettingsButton'
+import { SettingsButton } from '../dialog/SettingsDialog'
 import { useAuth } from '../../contexts/AuthContext'
 import { useNavigate } from 'react-router-dom'
 import { ExternalLinksButton } from './ExternalLinksButton'

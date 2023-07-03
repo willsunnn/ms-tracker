@@ -66,4 +66,4 @@ export const emptyTaskStatusForAcccount = () => {
 };
 
 // DateFormat
-export type DateFormat = "absolute" | "relative";
+export type DateFormat = "absolute" | "relative" | "relative-short";

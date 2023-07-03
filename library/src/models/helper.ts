@@ -99,12 +99,25 @@ export const getReadableTime = (date: Date, format: DateFormat): string => {
     minutes = minutes % 60;
     seconds = seconds % 60;
 
-    if (days === 0 && hours === 0) {
-      return `${minutes}m ${seconds}s`;
-    } else if (days === 0) {
-      return `${hours}h ${minutes}m`;
+    if (format === "relative") {
+      if (days === 0 && hours === 0) {
+        return `${minutes}m ${seconds}s`;
+      } else if (days === 0) {
+        return `${hours}h ${minutes}m`;
+      } else {
+        return `${days}d ${hours}h`;
+      }
     } else {
-      return `${days}d ${hours}h`;
+      // relative-short
+      if (days === 0 && hours === 0 && minutes === 0) {
+        return `${seconds}s`;
+      } else if (days === 0 && hours === 0) {
+        return `${minutes}m`;
+      } else if (days === 0) {
+        return `${hours}h`;
+      } else {
+        return `${days}d`;
+      }
     }
   }
 };

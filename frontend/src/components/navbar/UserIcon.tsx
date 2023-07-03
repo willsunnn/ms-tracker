@@ -2,7 +2,7 @@ import React from 'react'
 import defaultUserIcon from '../../resources/default-user-icon.jpg'
 import { useAuth } from '../../contexts/AuthContext'
 import { useDialogContext } from '../../contexts/DialogContext'
-import { SettingsComponent } from './SettingsButton'
+import { SettingsComponent } from '../dialog/SettingsDialog'
 
 const UserIcon = () => {
   const { user, signOut } = useAuth()

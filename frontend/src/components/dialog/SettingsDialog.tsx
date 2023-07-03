@@ -20,7 +20,7 @@ export const SettingsComponent = () => {
 
   const onDateFormatSelectChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     const { value } = event.target
-    if (value === 'absolute' || value === 'relative') {
+    if (value === 'absolute' || value === 'relative' || value === 'relative-short') {
       setDateFormat(value)
     } else {
       alert(`Date format ${value} is not supported`)
@@ -44,6 +44,7 @@ export const SettingsComponent = () => {
       <select className="select select-accent mt-2" onChange={onDateFormatSelectChange} defaultValue={dateFormat}>
         <option value="absolute">Absolute</option>
         <option value="relative">Relative</option>
+        <option value="relative-short">Relative (short)</option>
       </select>
       <h3 className="text-sm mt-2 ml-2">Example: {resetText}</h3>
     </>
