@@ -10,7 +10,9 @@ export const FloatingActionButton = () => {
   return (
     <div className='flex flex-col items-end space-y-2'>
       {
-        isOpen && (<AddCharacterButton/>)
+        isOpen && (<>
+          <AddCharacterButton/>
+        </>)
       }
       <button className={`btn btn-circle btn-neutral ${isOpen ? '-rotate-180' : ''}`} onClick={toggleOpen}>
         <BsChevronUp size={18}/>

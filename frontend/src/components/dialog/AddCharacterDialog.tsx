@@ -53,8 +53,6 @@ export const AddCharacterComponent = () => {
         </label>
       </div>
 
-      <p className="my-3">Optional:</p>
-
       <div className="flex items-center w-full max-w-xs pb-5 pt-3 px-3">
         <span className="btn btn-primary btn-sm ml-auto" onClick={submit}>Next</span>
       </div>
