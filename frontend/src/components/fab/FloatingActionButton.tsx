@@ -1,8 +1,8 @@
 import React from 'react'
 import { BsChevronUp } from 'react-icons/bs'
-import { AddCharacterButton } from '../dialog/AddCharacterDialog'
 import { useFabContext } from '../../contexts/FabContext'
-import { EditCharacterOrderButton } from '../dialog/EditCharacterOrderDialog'
+import { EditCharacterOrderButton } from './EditCharacterOrderActionButton'
+import { AddCharacterButton } from './AddCharacterActionButton'
 
 export const FloatingActionButton = () => {
   const [isOpen, setIsOpen] = React.useState(false)

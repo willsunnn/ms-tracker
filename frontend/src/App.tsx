@@ -1,5 +1,4 @@
 import './App.css'
-import { AddCharacterButton } from './components/dialog/AddCharacterDialog'
 import { FloatingActionButton } from './components/fab/FloatingActionButton'
 import NavBar from './components/navbar/NavBar'
 import { SignInPage } from './components/SignInForm'

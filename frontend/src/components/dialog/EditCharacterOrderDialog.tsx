@@ -1,5 +1,4 @@
 import React from 'react'
-import { useDialogContext } from '../../contexts/DialogContext'
 import { useAuth } from '../../contexts/AuthContext'
 import { useAlertCallback } from '../../contexts/AlertContext'
 import { useApi } from '../../contexts/ApiContext'
@@ -65,21 +64,5 @@ export const EditCharacterOrderComponent = (props: { characters: CharacterWithMa
       )}
     </StrictModeDroppable>
   </DragDropContext>
-  )
-}
-
-export const EditCharacterOrderButton = (props: { characters: CharacterWithMapleGgData[], additionalOnClick?: () => void }) => {
-  const { openDialog } = useDialogContext()
-  const { additionalOnClick } = props
-  const onClick = () => {
-    openDialog((<EditCharacterOrderComponent characters={props.characters}/>))
-    if (additionalOnClick) {
-      additionalOnClick()
-    }
-  }
-  return (
-    <button className="btn btn-primary" onClick={onClick}>
-      Edit Character Order
-    </button>
   )
 }

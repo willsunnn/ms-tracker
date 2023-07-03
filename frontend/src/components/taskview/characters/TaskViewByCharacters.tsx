@@ -1,7 +1,6 @@
 import { type TaskViewProps } from '../TaskViewPage'
 import { type CharacterWithMapleGgData, emptyTaskStatusForCharacter, Model } from 'ms-tracker-library'
 import { CharacterTaskView } from './CharacterTaskView'
-import { EditCharacterOrderButton } from '../../dialog/EditCharacterOrderDialog'
 
 export const TaskViewByCharacter = (props: { taskViewAttrs: TaskViewProps }) => {
   const { user, tasks, taskStatus, characters } = props.taskViewAttrs
@@ -13,13 +12,13 @@ export const TaskViewByCharacter = (props: { taskViewAttrs: TaskViewProps }) => 
         const taskStatusForCharacter = taskStatus.get(character.id) ?? emptyTaskStatusForCharacter()
         const tasksAndStatuses = Model.joinTasksAndStatuses(user, character, tasks, taskStatusForCharacter)
         return (
-              <div className="max-w-full" key={`TaskViewByCharacter-character-${character.id}`}>
-                <CharacterTaskView
-                  tasks={tasksAndStatuses} character={character}/>
-              </div>
-            )
-          }
+          <div className="max-w-full" key={`TaskViewByCharacter-character-${character.id}`}>
+            <CharacterTaskView
+              tasks={tasksAndStatuses} character={character}/>
+          </div>
         )
+      }
+      )
       }
     </div>
   )
