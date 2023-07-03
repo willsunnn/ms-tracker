@@ -5,11 +5,12 @@ import { TaskViewCompact } from './overview/TaskOverview'
 import { type User } from 'firebase/auth'
 import { useAlertCallback } from '../../contexts/AlertContext'
 import { TASK_LIST } from '../../models/PredefinedTasks'
-import { type Task, type AccountCharacters, type MapleGgCachedData, type CharacterWithMapleGgData, type TaskStatusForAccount, emptyTaskStatusForAcccount } from 'ms-tracker-library'
+import { type Task, type AccountCharacters, type MapleGgCachedData, type CharacterWithMapleGgData, type TaskStatusForAccount } from 'ms-tracker-library'
 import { useApi } from '../../contexts/ApiContext'
 import { Navigate, Outlet, Route, Routes, useNavigate } from 'react-router-dom'
 import { useAuth } from '../../contexts/AuthContext'
 import { FullScreenLoader } from '../helper/Loader'
+import { useFabContext } from '../../contexts/FabContext'
 
 export interface TaskViewProps {
   user: User
@@ -23,6 +24,7 @@ export const TaskViewPage = () => {
   const navigate = useNavigate()
   const alert = useAlertCallback()
   const { mapleGgFirebaseApi, taskStatusApi, characterApi } = useApi()
+  const { updateFab } = useFabContext()
 
   // React States
   const [taskStatus, setTaskStatus] = React.useState<TaskStatusForAccount>()
@@ -73,6 +75,22 @@ export const TaskViewPage = () => {
     }
   }, [mapleGgCharacters])
 
+  // Join the character data with the mapleGgData
+  const characterAndMapleGgData = characters?.characters.map((character) => ({
+    ...character,
+    mapleGgData: mapleGgCharacters.get(character.name.toLowerCase())
+  }))
+
+  // Add the character to the FloationActionButton
+  // so that it knows we are on a character view screen
+  // and that it should render the AddCharacter and EditCharacterOrder
+  React.useEffect(() => {
+    updateFab(characterAndMapleGgData)
+    return () => {
+      updateFab(undefined)
+    }
+  }, [characters, mapleGgCharacters])
+
   // if user is not logged in, navigate to the signin page
   if (user === null) {
     navigate('signin')
@@ -80,7 +98,7 @@ export const TaskViewPage = () => {
   }
 
   // if user data hasn't loaded in yet display a loader
-  if ((user === undefined) || (taskStatus === undefined) || (characters === undefined)) {
+  if ((user === undefined) || (taskStatus === undefined) || (characters === undefined) || (characterAndMapleGgData === undefined)) {
     return <FullScreenLoader/>
   }
 
@@ -89,10 +107,7 @@ export const TaskViewPage = () => {
     user,
     taskStatus,
     tasks: TASK_LIST,
-    characters: characters.characters.map((character) => ({
-      ...character,
-      mapleGgData: mapleGgCharacters.get(character.name.toLowerCase())
-    }))
+    characters: characterAndMapleGgData
   }
 
   return (

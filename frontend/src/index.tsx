@@ -7,6 +7,7 @@ import { AddAlertCallbackProvider } from './contexts/AlertContext'
 import { AuthContextProvider } from './contexts/AuthContext'
 import { OpenInDialogContextProvider } from './contexts/DialogContext'
 import { ApiContextProvider } from './contexts/ApiContext'
+import { FabContextProvider } from './contexts/FabContext'
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
@@ -18,7 +19,9 @@ root.render(
         <AuthContextProvider>
           <AddAlertCallbackProvider>
             <OpenInDialogContextProvider>
-              <App />
+              <FabContextProvider>
+                <App />
+              </FabContextProvider>
             </OpenInDialogContextProvider>
           </AddAlertCallbackProvider>
         </AuthContextProvider>

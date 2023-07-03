@@ -68,10 +68,14 @@ export const EditCharacterOrderComponent = (props: { characters: CharacterWithMa
   )
 }
 
-export const EditCharacterOrderButton = (props: { characters: CharacterWithMapleGgData[] }) => {
+export const EditCharacterOrderButton = (props: { characters: CharacterWithMapleGgData[], additionalOnClick?: () => void }) => {
   const { openDialog } = useDialogContext()
+  const { additionalOnClick } = props
   const onClick = () => {
     openDialog((<EditCharacterOrderComponent characters={props.characters}/>))
+    if (additionalOnClick) {
+      additionalOnClick()
+    }
   }
   return (
     <button className="btn btn-primary" onClick={onClick}>

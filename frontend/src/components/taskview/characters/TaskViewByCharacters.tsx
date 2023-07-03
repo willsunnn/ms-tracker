@@ -21,7 +21,6 @@ export const TaskViewByCharacter = (props: { taskViewAttrs: TaskViewProps }) => 
           }
         )
       }
-      <EditCharacterOrderButton characters={characters}/>
     </div>
   )
 }
