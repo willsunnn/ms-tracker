@@ -10,7 +10,7 @@
     "test": "jest",
     "prebuild": "npm run lint",
     "build": "tsc",
-    "postbuild": "npm run test && npm link"
+    "postbuild": "npm run test"
   },
   "dependencies": {
     "firebase": "^9.23.0",

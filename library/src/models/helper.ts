@@ -91,18 +91,20 @@ export const getReadableTime = (date: Date, format: DateFormat): string => {
     const now = new Date().getTime();
     const diff = Math.abs(date.getTime() - now);
 
-    const seconds = diff / 1000;
-    const minutes = seconds / 60;
-    const hours = minutes / 60;
-    const days = hours / 24;
-    if (days >= 1) {
-      return `In ${Math.floor(days)} days`;
-    } else if (hours >= 1) {
-      return `In ${Math.floor(hours)} hours`;
-    } else if (minutes >= 1) {
-      return `In ${Math.floor(minutes)} minutes`;
+    let seconds = Math.floor(diff / 1000);
+    let minutes = Math.floor(seconds / 60);
+    let hours = Math.floor(minutes / 60);
+    const days = Math.floor(hours / 24);
+    hours = hours % 24;
+    minutes = minutes % 60;
+    seconds = seconds % 60;
+
+    if (days === 0 && hours === 0) {
+      return `${minutes}m ${seconds}s`;
+    } else if (days === 0) {
+      return `${hours}h ${minutes}m`;
     } else {
-      return `In ${Math.floor(seconds)} seconds`;
+      return `${days}d ${hours}h`;
     }
   }
 };
