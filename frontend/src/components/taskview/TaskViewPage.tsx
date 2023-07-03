@@ -98,7 +98,7 @@ export const TaskViewPage = () => {
   return (
     <Routes>
       <Route path="" element={(
-        <div className="pt-24 p-5 w-full">
+        <div className="w-full">
           <Outlet/>
         </div>)}>
         <Route path="characters" element={(

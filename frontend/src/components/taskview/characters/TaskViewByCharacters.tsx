@@ -68,6 +68,5 @@ export const TaskViewByCharacter = (props: { taskViewAttrs: TaskViewProps }) => 
         )}
       </StrictModeDroppable>
     </DragDropContext>
-    <AddCharacterButton/>
   </>)
 }

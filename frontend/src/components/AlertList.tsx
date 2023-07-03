@@ -40,7 +40,7 @@ const AlertComponent = (props: { alert: Alert }) => {
 
 export const AlertList = (props: { alerts: Alert[] }) => {
   return (
-    <div className="toast whitespace-normal">
+    <div className="toast toast-start toast-bottom whitespace-normal">
       {
         props.alerts.map((alert) => {
           const uid = alert.uid ?? uuid()

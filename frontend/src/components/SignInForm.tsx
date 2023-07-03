@@ -201,7 +201,7 @@ export const SignInFormComponent = () => {
 }
 
 export const SignInPage = () => {
-  return (<div className="flex items-center justify-center h-[calc(100vh)]">
+  return (<div className="flex items-center justify-center h-full">
     <SignInFormComponent/>
   </div>)
 }
