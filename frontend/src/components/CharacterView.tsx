@@ -1,5 +1,4 @@
-import React from 'react'
-import DefaultCharacter from '../resources/blank-character.png'
+import DefaultCharacter from '../resources/blank-character-square.png'
 import { type CharacterWithMapleGgData } from 'ms-tracker-library'
 
 export const CharacterView = (props: { character: CharacterWithMapleGgData, showName: boolean }) => {
@@ -8,8 +7,8 @@ export const CharacterView = (props: { character: CharacterWithMapleGgData, show
   const name = character.mapleGgData?.name ?? character.name
   const image = character.mapleGgData?.image ?? DefaultCharacter
 
-  return (<div className="join join-vertical w-32">
-    <img className="object-contain w-32 h-32" src={image} alt="Album"/>
-    { showName && <h2 className="w-32 text-center text-lg font-semibold truncate">{name}</h2> }
+  return (<div className="flex flex-col max-w-md h-full object-contain overflow-clip">
+    <img className="object-contain min-w-full min-h-fit max-h-full" src={image} alt="Album"/>
+    { showName && <div className="w-full text-center text-lg font-semibold truncate">{name}</div> }
   </div>)
 }

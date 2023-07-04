@@ -52,7 +52,7 @@ export const EditCharacterOrderComponent = (props: { characters: CharacterWithMa
               return (
                 <Draggable draggableId={character.id} index={index} key={`TaskViewSingleCharacter-${character.name}`}>
                   {provided => (
-                    <div ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps} className="w-fit">
+                    <div ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps} className="w-1/3">
                       <CharacterView character={character} showName={true}/>
                     </div>
                   )}
