@@ -1,18 +1,17 @@
 import { useDialogContext } from '../../contexts/DialogContext'
 import { AddCharacterComponent } from '../dialog/AddCharacterDialog'
+import { AiOutlinePlus } from 'react-icons/ai'
+import { FabButtonWithLabel } from './FabButtonWithLabel'
 
-export const AddCharacterButton = (props: { additionalOnClick?: () => void }) => {
+export const AddCharacterButton = () => {
   const { openDialog } = useDialogContext()
-  const { additionalOnClick } = props
   const onClick = () => {
     openDialog((<AddCharacterComponent/>))
-    if (additionalOnClick) {
-      additionalOnClick()
-    }
   }
   return (
-    <button className='btn btn-primary' onClick={onClick}>
-            Add Character
-    </button>
+    <FabButtonWithLabel
+      label={'Add Character'}
+      icon={(<AiOutlinePlus size={18}/>)}
+      onClick={onClick}/>
   )
 }
