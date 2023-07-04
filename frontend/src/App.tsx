@@ -14,10 +14,10 @@ const App = () => {
             <div className="top-bar w-full fixed p-2 z-[100]">
               <NavBar/>
             </div>
-            <div className="absolute bottom-5 right-5 z-[100]">
+            <div className="fixed bottom-5 right-5 z-[100]">
               <FloatingActionButton/>
             </div>
-            <div className="z-0 overflow-scroll h-full py-20 px-5">
+            <div className="w-screen min-h-screen h-full z-0 overflow-scroll py-20 px-5 max-w-screen ma ">
               {/* This is where the content (SignInPage/TaskViewPage) will go */}
               <Outlet/>
             </div>

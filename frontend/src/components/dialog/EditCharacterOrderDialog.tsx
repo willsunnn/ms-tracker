@@ -7,6 +7,28 @@ import { type CharacterWithMapleGgData } from 'ms-tracker-library'
 import { StrictModeDroppable } from '../helper/StrictModeDroppable'
 import { CharacterView } from '../CharacterView'
 
+const CharacterCard = (props: { character: CharacterWithMapleGgData }) => {
+  const { character } = props
+  const name = character.mapleGgData?.name ?? character.name
+  const className = character.mapleGgData?.class ?? ''
+  const level = character.mapleGgData?.level ? `Lvl ${character.mapleGgData.level}` : ''
+
+  return (<div className='w-full card card-body bg-base-200 shadow-sm gap-y-1 p-2 items-center'>
+    <div className='w-2/3 grid grid-cols-2'>
+
+    <div className='h-24 w-24 row-span-5'>
+      <CharacterView character={character} showName={false}/>
+    </div>
+    <div/>
+    <div className='text-lg font-bold -mb-2 truncate mr-4'>{name}</div>
+    <div className='text-sm mr-4'>{className}</div>
+    <div className='text-sm -mt-3 mr-4'>{level}</div>
+    <div/>
+
+    </div>
+  </div>)
+}
+
 export const EditCharacterOrderComponent = (props: { characters: CharacterWithMapleGgData[] }) => {
   const { characterApi } = useApi()
   const { user } = useAuth()
@@ -45,15 +67,16 @@ export const EditCharacterOrderComponent = (props: { characters: CharacterWithMa
   <DragDropContext onDragEnd={onDragEnd}>
     <StrictModeDroppable droppableId={'character-list'}>
       {provided => (
-        <div ref={provided.innerRef} {...provided.droppableProps} className="w-full">
+        <div ref={provided.innerRef} {...provided.droppableProps} className="grid grid-cols-1 gap-8 px-4 pt-2 pb-4">
+            <div className='w-full text-center font-semibold'>Drag and drop characters to reorder them</div>
             {characters.map((character: CharacterWithMapleGgData, index: number) => {
             // For each character we return a card that is draggable
             // that contains the TaskViewSingleCharacter
               return (
                 <Draggable draggableId={character.id} index={index} key={`TaskViewSingleCharacter-${character.name}`}>
                   {provided => (
-                    <div ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps} className="w-1/3">
-                      <CharacterView character={character} showName={true}/>
+                    <div ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps} className="w-full">
+                      <CharacterCard character={character}/>
                     </div>
                   )}
                 </Draggable>
