@@ -32,7 +32,7 @@ export const CharacterContextActionsDropdown = (props: CharacterContextActionsDr
 
   return (
     <div>
-      <div className="dropdown absolute right-0 top-0">
+      <div className="dropdown dropdown-bottom dropdown-end absolute right-0 top-0">
         <button tabIndex={0}>
           <MdSettings className="w-max button h-6 pointer-events-none"/>
         </button>
