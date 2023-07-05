@@ -86,7 +86,14 @@ export const getReadableResetText = (resetType: ResetType): string => {
 
 export const getReadableTime = (date: Date, format: DateFormat): string => {
   if (format === "absolute") {
-    return date.toLocaleString();
+    return date.toLocaleString(undefined, {
+      year: "2-digit",
+      month: "numeric",
+      day: "numeric",
+      hour: "numeric",
+      minute: undefined,
+      second: undefined,
+    });
   } else {
     const now = new Date().getTime();
     const diff = Math.abs(date.getTime() - now);
