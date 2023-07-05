@@ -28,10 +28,26 @@ const AlertComponentIcon = (props: { alertLevel: AlertLevel }) => {
   }
 }
 
+const getAlertClass = (level: AlertLevel): string => {
+  // Cannot just return `alert-${level}` because
+  // tailwind does some static analysis to find
+  // classnames in our code to know which css to include
+  switch (level) {
+    case 'info':
+      return 'alert-info'
+    case 'warning':
+      return 'alert-warning'
+    case 'error':
+      return 'alert-error'
+    case 'success':
+      return 'alert-success'
+  }
+}
+
 const AlertComponent = (props: { alert: Alert }) => {
   const { alert } = props
   return (
-    <div className={`alert alert-${alert.alertLevel} w-64 flex-wrap`}>
+    <div className={`alert ${getAlertClass(alert.alertLevel)} w-64 flex-wrap`}>
       <AlertComponentIcon alertLevel={alert.alertLevel}/>
       <span className='flex-wrap text-s' style={{ wordWrap: 'normal' }}>{alert.text}</span>
     </div>
