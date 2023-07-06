@@ -13,6 +13,10 @@ export const CharacterTaskList = (props: CharacterTaskListProps) => {
   const { taskStatusApi } = useApi()
   const { dateFormat } = useSettings()
 
+  const gridStyle = {
+    gridTemplateColumns: '1fr 1fr 2em'
+  }
+
   // define event handlers
   const checkBoxOnChangeCurryFunc = (task: TaskAndStatus) => {
     return () => {
@@ -31,29 +35,25 @@ export const CharacterTaskList = (props: CharacterTaskListProps) => {
   }
 
   return (
-    <table className="table w-full"><tbody>
+    <div className="grid grid-cols-3 gap-x-2 grow auto-cols-fr" style={gridStyle}>
       {
-        tasks.map((task) => {
+        tasks.map((task, index) => {
           task = Model.trimClearTimes(task)
           const { name, resetType } = task
           const resetsAt = Model.nextReset(new Date(), resetType)
-          const key = `TaskViewRow-${task.characterId ?? ''}-${task.taskId}}`
           const isComplete = task.clearTimes.length >= task.maxClearCount
-          return (<tr key={key}>
-            <td className="p-0">
-              <div className="font-bold">{name}</div>
-            </td>
+          return (<>
+            { (index !== 0) && <div className="divider col-span-3 -my-1.5 w-[1fr]"></div>}
+            <div key={`name-${name}`} className="font-bold grow text-sm">{name}</div>
 
-            <td className="p-0">
+            <div key={`time-${name}`} className="text-sm">
               {Model.getReadableTime(resetsAt, dateFormat)}
-            </td>
+            </div>
 
-            <td className="p-0">
-              <input type="checkbox" className="checkbox" checked={isComplete} onChange={checkBoxOnChangeCurryFunc(task)}/>
-            </td>
-          </tr>)
+            <input key={`status-${name}`} type="checkbox" className="checkbox" checked={isComplete} onChange={checkBoxOnChangeCurryFunc(task)}/>
+          </>)
         })
       }
-    </tbody></table>
+    </div>
   )
 }

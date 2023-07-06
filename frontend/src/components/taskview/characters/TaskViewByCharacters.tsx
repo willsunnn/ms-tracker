@@ -5,7 +5,7 @@ import { CharacterTaskView } from './CharacterTaskView'
 export const TaskViewByCharacter = (props: { taskViewAttrs: TaskViewProps }) => {
   const { user, tasks, taskStatus, characters } = props.taskViewAttrs
   return (
-    <div className="grid grid-cols-1 w-full gap-8 lg:grid-cols-2 xl:grid-cols-3 pb-4">
+    <div className="grid grid-cols-1 w-full gap-8 lg:grid-cols-2 2xl:grid-cols-3 pb-4">
       {characters.map((character: CharacterWithMapleGgData) => {
       // For each character we return a card that is draggable
       // that contains the TaskViewSingleCharacter
@@ -17,9 +17,7 @@ export const TaskViewByCharacter = (props: { taskViewAttrs: TaskViewProps }) => 
               tasks={tasksAndStatuses} character={character}/>
           </div>
         )
-      }
-      )
-      }
+      })}
     </div>
   )
 }

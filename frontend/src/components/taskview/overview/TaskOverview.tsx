@@ -1,6 +1,5 @@
 import { Model, type TaskAndStatus } from 'ms-tracker-library'
 import { type TaskViewProps } from '../TaskViewPage'
-import { defaultTaskStatus } from 'ms-tracker-library/lib/models/helper'
 import { useApi } from '../../../contexts/ApiContext'
 import { useSettings } from '../../../contexts/SettingsContext'
 
@@ -11,7 +10,7 @@ export const TaskViewCompact = (props: { taskViewAttrs: TaskViewProps }) => {
 
   const tasksAndStatuses = props.taskViewAttrs.tasks.map((task) => {
     const statuses = characters.map((character) => {
-      const status = props.taskViewAttrs.taskStatus.get(character.id)?.get(task.taskId) ?? defaultTaskStatus(user.uid, character.id, task.taskId)
+      const status = props.taskViewAttrs.taskStatus.get(character.id)?.get(task.taskId) ?? Model.defaultTaskStatus(user.uid, character.id, task.taskId)
       const taskAndStatus: TaskAndStatus = {
         ...task,
         ...status
