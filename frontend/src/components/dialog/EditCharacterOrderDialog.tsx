@@ -39,7 +39,7 @@ const CharacterDraggableCard = (props: { character: CharacterWithMapleGgData }) 
 }
 
 const CharacterDroppable = (props: { children?: React.ReactNode }) => {
-  const { isOver, setNodeRef } = useDroppable({ id: 'character-list-droppable' })
+  const { setNodeRef } = useDroppable({ id: 'character-list-droppable' })
   return (
     <div ref={setNodeRef} className="flex flex-col space-y-3 items-center px-4 pt-2 pb-4">
       <div className='w-full text-center font-semibold'>Drag and drop characters to reorder them</div>

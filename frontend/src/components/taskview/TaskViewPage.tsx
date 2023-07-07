@@ -1,6 +1,6 @@
 import React from 'react'
 import { TaskViewByCharacter } from './characters/TaskViewByCharacters'
-import { TaskViewByReset } from './TaskViewByReset'
+import { TaskViewByReset } from './todo/TaskTodo'
 import { TaskViewCompact } from './overview/TaskOverview'
 import { type User } from 'firebase/auth'
 import { useAlertCallback } from '../../contexts/AlertContext'
