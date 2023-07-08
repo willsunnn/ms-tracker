@@ -59,11 +59,20 @@ const updateAccountCharacters = async (account: AccountCharacters) => {
       // Error fetching the data probably
       // Lets log it, and then update the time so we dont keep making failed requests
       logger.error(`api.maplestory.gg Failed to fetch character ${name} e=${err}`);
-      return {
-        name,
-        loweredName: name.toLowerCase(),
-        lastRetrievedTimestamp: now,
-      };
+      const existingCharacter = cachedCharacters.get(name.toLowerCase());
+      if (existingCharacter) {
+        // if there already is an entry, just update the lastRetrievedTimestamp
+        logger.error(`character not found - updating lastRetrievedTimestamp for ${name}`);
+        existingCharacter.lastRetrievedTimestamp = now;
+        return existingCharacter;
+      } else {
+        logger.error(`character not found - inserting empty entry for ${name}`);
+        return {
+          name,
+          loweredName: name.toLowerCase(),
+          lastRetrievedTimestamp: now,
+        };
+      }
     }
   }));
 
