@@ -1,7 +1,8 @@
 import { type TaskAndStatus, Model, type CharacterWithMapleGgData } from 'ms-tracker-library'
-import { useApi } from '../../../contexts/ApiContext'
 import { useSettings } from '../../../contexts/SettingsContext'
 import { type TaskViewProps } from '../TaskViewPage'
+import { CharacterTaskView } from './CharacterTaskView'
+import { ResetTaskView } from './ResetTaskView'
 
 interface TaskAndStatusAndCharacter {
   status: TaskAndStatus
@@ -11,16 +12,19 @@ interface TaskAndStatusAndCharacter {
   resetDate: Date
 }
 
+export interface TasksGroupedByDateAndCharacter {
+  resetDate: Date
+  characters: Array<{
+    character: CharacterWithMapleGgData
+    tasks: TaskAndStatus[]
+  }>
+}
+
 export const TaskViewByReset = (props: { taskViewAttrs: TaskViewProps }) => {
-  const { user, characters, taskStatus, tasks } = props.taskViewAttrs
-  const { taskStatusApi } = useApi()
-  const { dateFormat } = useSettings()
-
-  // Data here will be ordered by (resetDate, characterIndex, taskIndex)
-
-  const allTaskStatusCharacters: TaskAndStatusAndCharacter[] = tasks.flatMap((task, taskIndex) => {
-    return characters.map((character, characterIndex) => {
-      const status = taskStatus.get(character.id)?.get(task.taskId) ?? Model.defaultTaskStatus(user.uid, character.id, task.taskId)
+  // Join all the data that the child views will need
+  const allTaskStatusCharacters: TaskAndStatusAndCharacter[] = props.taskViewAttrs.tasks.flatMap((task, taskIndex) => {
+    return props.taskViewAttrs.characters.map((character, characterIndex) => {
+      const status = props.taskViewAttrs.taskStatus.get(character.id)?.get(task.taskId) ?? Model.defaultTaskStatus(props.taskViewAttrs.user.uid, character.id, task.taskId)
       const taskAndStatus: TaskAndStatus = Model.trimClearTimes({
         ...status,
         ...task
@@ -36,59 +40,40 @@ export const TaskViewByReset = (props: { taskViewAttrs: TaskViewProps }) => {
     })
   })
 
-  const todo = allTaskStatusCharacters.filter((task) => task.status.isPriority)
+  // Only show tasks that are prioritized but havent been finished
+  // Sort them by (resetDate, characterIndex, taskIndex)
+  // Group them by (resetDate, character
+  const groupedTasks: TasksGroupedByDateAndCharacter[] = []
+  allTaskStatusCharacters.filter((task) => task.status.isPriority)
     .filter((task) => task.status.clearTimes.length < task.status.maxClearCount)
-  todo.sort((a, b) => (a.resetDate.getTime() - b.resetDate.getTime()) || (a.characterIndex - b.characterIndex) || (a.taskIndex - b.taskIndex))
-
-  const groupedTasks: Array<{ resetDate: Date, tasks: TaskAndStatusAndCharacter[] }> = []
-  let lastTime: number | null = null
-  todo.forEach((task) => {
-    if (task.resetDate.getTime() !== lastTime) {
-      lastTime = task.resetDate.getTime()
-      groupedTasks.push({
-        resetDate: task.resetDate,
-        tasks: []
-      })
-    }
-    groupedTasks[groupedTasks.length - 1].tasks.push(task)
-  })
-
-  const checkBoxOnClickCurryFunc = (task: TaskAndStatus) => {
-    return () => {
-      const numClears = task.clearTimes.length
-      const isComplete = numClears >= task.maxClearCount
-      if (isComplete) {
-        task.clearTimes = []
-      } else {
-        const now = new Date().getTime()
-        while (task.clearTimes.length < task.maxClearCount) {
-          task.clearTimes.push(now)
-        }
+    .sort((a, b) => (a.resetDate.getTime() - b.resetDate.getTime()) || (a.characterIndex - b.characterIndex) || (a.taskIndex - b.taskIndex))
+    .forEach((task) => {
+      const lastTime = groupedTasks.length > 0 ? (groupedTasks[groupedTasks.length - 1].resetDate.getTime()) : undefined
+      if (lastTime !== task.resetDate.getTime()) {
+        groupedTasks.push({ resetDate: task.resetDate, characters: [] })
       }
-      taskStatusApi.set(task).then(() => {}).catch(alert)
-    }
-  }
+
+      const characters = groupedTasks[groupedTasks.length - 1].characters
+      const lastCharacterId = characters.length > 0 ? (characters[characters.length - 1].character.id) : undefined
+      if (lastCharacterId !== task.character.id) {
+        characters.push({ character: task.character, tasks: [] })
+      }
+
+      characters[characters.length - 1].tasks.push(task.status)
+    })
 
   return (
-    <div className='flex flex-col'>
-      {
-        groupedTasks.map((groupedTasks) => {
-          return (<div className='flex flex-col' key={`todoview-${groupedTasks.resetDate.getTime()}`}>
-            <p>{Model.getReadableTime(groupedTasks.resetDate, dateFormat)}</p>
-            {
-              groupedTasks.tasks.map((task) => {
-                return (
-                  <div className='flex flex-row' key={`todoview-${groupedTasks.resetDate.getTime()}-${task.status.name}-${task.character.id}`}>
-                    <p>{task.character.name}</p>
-                    <p>{task.status.name}</p>
-                    <input type="checkbox" key={`todoview-${groupedTasks.resetDate.getTime()}-${task.status.name}-${task.character.id}`} className="checkbox checkbox-sm" checked={task.status.clearTimes.length >= task.status.maxClearCount} onChange={checkBoxOnClickCurryFunc(task.status)}/>
-                  </div>
-                )
-              })
-            }
-          </div>)
-        })
-      }
+    <div className="flex flex-col w-full h-fit items-center">
+      <div className="flex flex-col max-w-lg w-full">
+        {
+          groupedTasks.map(({ resetDate, characters }) => (
+            // <div className="" key={`TaskTodo-ResetTaskView-${resetDate.getTime()}`}>
+              <ResetTaskView key={`TaskTodo-ResetTaskView-${resetDate.getTime()}`} resetDate={resetDate} characters={characters} />
+            // </div>
+          ))
+        }
+      </div>
+
     </div>
   )
 }

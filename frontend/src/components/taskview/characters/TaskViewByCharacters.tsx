@@ -7,8 +7,7 @@ export const TaskViewByCharacter = (props: { taskViewAttrs: TaskViewProps }) => 
   return (
     <div className="grid grid-cols-1 w-full gap-8 lg:grid-cols-2 2xl:grid-cols-3 pb-4">
       {characters.map((character: CharacterWithMapleGgData) => {
-      // For each character we return a card that is draggable
-      // that contains the TaskViewSingleCharacter
+        // For each character we return a card that contains the CharacterTaskView
         const taskStatusForCharacter = taskStatus.get(character.id) ?? emptyTaskStatusForCharacter()
         const tasksAndStatuses = Model.joinTasksAndStatuses(user, character, tasks, taskStatusForCharacter)
         return (
