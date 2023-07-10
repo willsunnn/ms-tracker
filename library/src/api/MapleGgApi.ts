@@ -32,6 +32,11 @@ export class MapleGgFirebaseApi {
     return params;
   };
 
+  public getFromCache = async (name: string) => {
+    const loweredName = name.toLowerCase();
+    return await this.api.getOrDefault(loweredName, () => ({name, loweredName, lastRetrievedTimestamp: undefined} as MapleGgCachedData), MapleGgCachedData.parse);
+  };
+
   public search = async (characterNames: string[]) => {
     // firebase throws an error if in clause has 0 entries
     if (characterNames.length == 0) {
@@ -74,6 +79,17 @@ export class MapleGgFirebaseApi {
     if (this.functions) {
       const func = httpsCallable(this.functions, "updateCharacterHttpCall");
       return await func({});
+    } else {
+      throw new Error("MapleGgFirebaseApi.functions is undefined");
+    }
+  };
+
+  public get = async (name: string) => {
+    if (this.functions) {
+      const func = httpsCallable(this.functions, "getCharacterHttpCall");
+      const result = await func({name});
+      const data = MapleGgCachedData.parse(result.data);
+      return data;
     } else {
       throw new Error("MapleGgFirebaseApi.functions is undefined");
     }
