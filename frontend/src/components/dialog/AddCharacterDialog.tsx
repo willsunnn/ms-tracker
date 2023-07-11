@@ -32,8 +32,9 @@ export const AddCharacterComponent = () => {
   // If the text has not changed for TIME_AFTER_TYPING_END_BEFORE_CHECKING_IMAGE ms
   // then we make the firebase cloud function request to get the Character
   // Image information
-  const onChange = (newValue: string) => {
+  const onChange = (newValue: string, region: Region) => {
     name.current = newValue
+    setRegion(region)
     lastTypedTime.current = new Date().getTime()
 
     if (name.current.trim().length === 0) {
@@ -70,6 +71,15 @@ export const AddCharacterComponent = () => {
     }
   }
 
+  const onRegionSelectChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+    const { value } = event.target
+    if (value === 'gms' || value === 'eu') {
+      onChange(name.current, value)
+    } else {
+      alert(`Region ${value} is not supported`)
+    }
+  }
+
   const submit = () => {
     const text = name.current.trim()
     if (text === '') {
@@ -97,16 +107,21 @@ export const AddCharacterComponent = () => {
 
   return (
     <div className='flex flex-col items-center w-full h-full space-y-3 pt-3'>
-      <div className="items-center w-full h-full">
-        <input type="text" placeholder="Character Name" className={`input input-bordered w-full ${nameEntryError ? ' input-error' : ''}`}
-          onChange={(event) => {
-            onChange(event.target.value)
-          }}
-          onKeyDown={handleInputKeyDown}/>
-        <label className="label">
-          <span></span>
-          <span className="text-xs text-error">{nameEntryError ?? ''}</span>
-        </label>
+      <div className='flex flex-row space-x-2'>
+        <div className="items-center flex-grow">
+          <input type="text" placeholder="Character Name" className={`input input-bordered w-full ${nameEntryError ? ' input-error' : ''}`}
+            onChange={(event) => {
+              onChange(event.target.value, region)
+            }}
+            onKeyDown={handleInputKeyDown}/>
+          <label className="label">
+            <span className="text-xs text-error">{nameEntryError ?? ''}</span>
+          </label>
+        </div>
+        <select className="select select-accent" onChange={onRegionSelectChange} defaultValue={'gms'}>
+          <option value="gms">NA</option>
+          <option value="eu">EU</option>
+        </select>
       </div>
 
       <div className='flex flex-col min-w-[10rem] min-h-[10rem] max-w-[16rem] max-h-[16rem] h-32 w-32 items-center'>
