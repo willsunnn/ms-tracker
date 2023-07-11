@@ -1,11 +1,12 @@
 import DefaultCharacter from '../resources/blank-character-square.png'
-import { type CharacterWithMapleGgData } from 'ms-tracker-library'
+import { type MapleGgCachedData } from 'ms-tracker-library'
 
-export const CharacterView = (props: { character: CharacterWithMapleGgData, showName: boolean }) => {
-  const { character, showName } = props
-  // mapleGgs name is then right case whereas character.name is user input
-  const name = character.mapleGgData?.name ?? character.name
-  const image = character.mapleGgData?.image ?? DefaultCharacter
+export const CharacterView = (props: { name: string, mapleGgData?: MapleGgCachedData, showName: boolean }) => {
+  const { mapleGgData, showName } = props
+
+  // mapleGgs name is the right case whereas character.name is user input
+  const name = mapleGgData?.name ?? props.name
+  const image = mapleGgData?.image ?? DefaultCharacter
 
   return (<div className="flex flex-col max-w-md h-full object-contain overflow-clip">
     <img className="object-contain min-w-full min-h-fit max-h-full" src={image} alt="Album"/>

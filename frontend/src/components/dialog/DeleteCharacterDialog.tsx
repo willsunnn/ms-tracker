@@ -43,7 +43,7 @@ export const DeleteCharacterComponent = (props: { character: CharacterWithMapleG
     <div className="flex flex-col items-center">
       <div className="text-xl font-bold text-center mb-8">Are you sure?</div>
       <div className="w-full h-48">
-        <CharacterView character={character} showName={false}/>
+        <CharacterView name={character.name} mapleGgData={character.mapleGgData} showName={false}/>
       </div>
       <div className="text-md text-center mx-20 mt-8 mb-4">Do you really want to delete {name} and all of the characters tasks?</div>
       <div className="flex flex-row items-center py-3">

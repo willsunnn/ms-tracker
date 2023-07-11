@@ -13,7 +13,8 @@
         "project": ["./tsconfig.json"]
     },
     "ignorePatterns": [
-        "/build/**/*"
+        "/build/**/*",
+        "**/tailwind.config.js"
     ],
     "plugins": [
         "react"

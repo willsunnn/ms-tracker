@@ -1,11 +1,9 @@
 import { Model } from 'ms-tracker-library'
-import { useSettings } from '../../../contexts/SettingsContext'
 import { type TasksGroupedByDateAndCharacter } from './TaskTodo'
 import { CharacterTaskView } from './CharacterTaskView'
 
 export const ResetTaskView = (props: TasksGroupedByDateAndCharacter) => {
   const { resetDate, characters } = props
-  const { dateFormat } = useSettings()
 
   return (
     <div className='flex flex-col card bg-base-200 shadow-xl my-2 p-5 h-fit w-full' key={`todoview-${resetDate.getTime()}`}>

@@ -1,7 +1,5 @@
 import { type TaskAndStatus, Model, type CharacterWithMapleGgData } from 'ms-tracker-library'
-import { useSettings } from '../../../contexts/SettingsContext'
 import { type TaskViewProps } from '../TaskViewPage'
-import { CharacterTaskView } from './CharacterTaskView'
 import { ResetTaskView } from './ResetTaskView'
 
 interface TaskAndStatusAndCharacter {
@@ -68,7 +66,7 @@ export const TaskViewByReset = (props: { taskViewAttrs: TaskViewProps }) => {
         {
           groupedTasks.map(({ resetDate, characters }) => (
             // <div className="" key={`TaskTodo-ResetTaskView-${resetDate.getTime()}`}>
-              <ResetTaskView key={`TaskTodo-ResetTaskView-${resetDate.getTime()}`} resetDate={resetDate} characters={characters} />
+            <ResetTaskView key={`TaskTodo-ResetTaskView-${resetDate.getTime()}`} resetDate={resetDate} characters={characters} />
             // </div>
           ))
         }

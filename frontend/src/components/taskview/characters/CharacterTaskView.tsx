@@ -1,10 +1,10 @@
 import { CharacterView } from '../../CharacterView'
-import { type Character, type TaskAndStatus } from 'ms-tracker-library'
+import { type CharacterWithMapleGgData, type TaskAndStatus } from 'ms-tracker-library'
 import { CharacterContextActionsDropdown } from './CharacterContextActionsDropdown'
 import { CharacterTaskList } from './CharacterTaskList'
 
 interface CharacterTaskViewProps {
-  character: Character
+  character: CharacterWithMapleGgData
   tasks: TaskAndStatus[]
 }
 
@@ -29,7 +29,7 @@ export const CharacterTaskView = (props: CharacterTaskViewProps) => {
           This means the CharacterView and the grid of prioritized tasks */}
       <div className="flex flex-row pr-10">
         <div className='min-w-[8rem] max-w-[8rem] min-h-fit '>
-          <CharacterView character={character} showName={true}/>
+          <CharacterView name={character.name} mapleGgData={character.mapleGgData} showName={true}/>
         </div>
         <CharacterTaskList tasks={prioritizedTasks}/>
       </div>

@@ -26,7 +26,7 @@ const CharacterDraggableCard = (props: { character: CharacterWithMapleGgData }) 
     <div ref={setNodeRef} style={style} {...attributes} {...listeners}>
       <div className='h-28 w-96 card card-body bg-base-200 shadow-sm gap-y-1 p-2 grid grid-cols-2'>
         <div className='h-24 w-48 row-span-5'>
-          <CharacterView character={character} showName={false}/>
+          <CharacterView name={character.name} mapleGgData={character.mapleGgData} showName={false}/>
         </div>
         <div/>
         <div className='text-lg font-bold -mb-2 truncate mr-4'>{name}</div>
