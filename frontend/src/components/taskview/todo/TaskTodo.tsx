@@ -1,6 +1,8 @@
 import { type TaskAndStatus, Model, type CharacterWithMapleGgData } from 'ms-tracker-library'
 import { type TaskViewProps } from '../TaskViewPage'
 import { ResetTaskView } from './ResetTaskView'
+import { NoTaskRenavigateFullPageSpread } from '../../pagespread/NoTasksRenavigateFullPageSpread'
+import { TouchGrassFullPageSpread } from '../../pagespread/TouchGrassFullPageSpread'
 
 interface TaskAndStatusAndCharacter {
   status: TaskAndStatus
@@ -60,18 +62,25 @@ export const TaskViewByReset = (props: { taskViewAttrs: TaskViewProps }) => {
       characters[characters.length - 1].tasks.push(task.status)
     })
 
+  const hasTasks = allTaskStatusCharacters.length > 0
+  const hasPendingTasks = groupedTasks.length > 0
+
+  if (!hasTasks) {
+    return <NoTaskRenavigateFullPageSpread/>
+  }
+  if (hasTasks && !hasPendingTasks) {
+    return <TouchGrassFullPageSpread/>
+  }
+
   return (
     <div className="flex flex-col w-full h-fit items-center">
       <div className="flex flex-col max-w-lg w-full">
         {
           groupedTasks.map(({ resetDate, characters }) => (
-            // <div className="" key={`TaskTodo-ResetTaskView-${resetDate.getTime()}`}>
             <ResetTaskView key={`TaskTodo-ResetTaskView-${resetDate.getTime()}`} resetDate={resetDate} characters={characters} />
-            // </div>
           ))
         }
       </div>
-
     </div>
   )
 }

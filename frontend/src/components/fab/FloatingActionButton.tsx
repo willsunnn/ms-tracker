@@ -6,10 +6,21 @@ import { AddCharacterButton } from './AddCharacterActionButton'
 export const FloatingActionButton = () => {
   const { isOpen, toggleFab, characters } = useFabContext()
 
+  // You can only reorder characters if there are multiple
+  const showEditCharacters = characters && characters.length > 1
+
+  // At 0 characters, we show the character modal on screen, so we want
+  // to hid the addcharacter button
+  const showAddCharacter = characters && characters.length > 0
+
   return (
     <div className='flex flex-col items-end space-y-2'>
-      { isOpen && characters && characters.length > 1 && <EditCharacterOrderButton characters={characters}/> }
-      { isOpen && characters && <AddCharacterButton/> }
+      { isOpen && (
+        <>
+          { showEditCharacters && <EditCharacterOrderButton characters={characters}/> }
+          { showAddCharacter && <AddCharacterButton/> }
+        </>
+      )}
       <button className={`btn btn-circle btn-primary ${isOpen ? '-rotate-180' : ''}`} onClick={toggleFab}>
         <BsChevronUp size={18}/>
       </button>

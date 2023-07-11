@@ -2,6 +2,7 @@ import { Model, type TaskAndStatus } from 'ms-tracker-library'
 import { type TaskViewProps } from '../TaskViewPage'
 import { useApi } from '../../../contexts/ApiContext'
 import { useSettings } from '../../../contexts/SettingsContext'
+import { NoTaskRenavigateFullPageSpread } from '../../pagespread/NoTasksRenavigateFullPageSpread'
 
 export const TaskViewCompact = (props: { taskViewAttrs: TaskViewProps }) => {
   const { user, characters } = props.taskViewAttrs
@@ -27,6 +28,7 @@ export const TaskViewCompact = (props: { taskViewAttrs: TaskViewProps }) => {
   })
 
   const prioritizedTasksAndStatuses = tasksAndStatuses.filter((task) => task.isAnyPriority)
+  const hasTasks = prioritizedTasksAndStatuses.length > 0
 
   const checkBoxOnClickCurryFunc = (task: TaskAndStatus) => {
     return () => {
@@ -42,6 +44,10 @@ export const TaskViewCompact = (props: { taskViewAttrs: TaskViewProps }) => {
       }
       taskStatusApi.set(task).then(() => {}).catch(alert)
     }
+  }
+
+  if (!hasTasks) {
+    return <NoTaskRenavigateFullPageSpread/>
   }
 
   return (

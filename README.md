@@ -27,6 +27,7 @@ To emulate the cloud function locally, run `npm run import`, `npm install`, `npm
   - ~~Character Preview~~
   - Upload own image (in case player is not in rankings)
   - ~~Region Selection (API url is different based on region)~~
+- ~~Improve initial workflow UI~~
 - Account-wide dailies
 - In Each Display window, option to show dropdowns for groups of tasks
   - ex: checking Arcane Symbol Dailies would check - VJ through Esfera
