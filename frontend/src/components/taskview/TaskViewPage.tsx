@@ -5,7 +5,7 @@ import { TaskViewCompact } from './overview/TaskOverview'
 import { type User } from 'firebase/auth'
 import { useAlertCallback } from '../../contexts/AlertContext'
 import { TASK_LIST } from '../../models/PredefinedTasks'
-import { type Task, type AccountCharacters, type MapleGgCachedData, type CharacterWithMapleGgData, type TaskStatusForAccount } from 'ms-tracker-library'
+import { type Task, type AccountCharacters, type MapleGgCachedData, type CharacterWithMapleGgData, type TaskStatusForAccount, cacheKeyToString, getMapleGgCacheKey } from 'ms-tracker-library'
 import { useApi } from '../../contexts/ApiContext'
 import { Navigate, Outlet, Route, Routes, useNavigate } from 'react-router-dom'
 import { useAuth } from '../../contexts/AuthContext'
@@ -47,9 +47,9 @@ export const TaskViewPage = () => {
   // second query to get the image data
   React.useEffect(() => {
     if (characters !== undefined) {
-      const characterNames = characters.characters.map((char) => char.name)
+      const characterKeys = characters.characters.map((char) => ({ name: char.name, region: char.region }))
       const unsubFunc = mapleGgFirebaseApi.searchAndListen(
-        characterNames,
+        characterKeys,
         setMapleGgCharacters,
         alert)
       return unsubFunc
@@ -78,7 +78,7 @@ export const TaskViewPage = () => {
   // Join the character data with the mapleGgData
   const characterAndMapleGgData = characters?.characters.map((character) => ({
     ...character,
-    mapleGgData: mapleGgCharacters.get(character.name.toLowerCase())
+    mapleGgData: mapleGgCharacters.get(cacheKeyToString(getMapleGgCacheKey(character.name, character.region)))
   }))
 
   // Add the character to the FloationActionButton

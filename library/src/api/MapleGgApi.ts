@@ -2,7 +2,7 @@ import {FirebaseOptions, initializeApp} from "firebase/app";
 import {Unsubscribe, getFirestore} from "firebase/firestore";
 import {Firestore as FirestoreAdmin} from "firebase-admin/firestore";
 import {Functions, getFunctions, httpsCallable} from "firebase/functions";
-import {MapleGgCachedData} from "../models";
+import {MapleGgCacheKey, MapleGgCachedData, Region, cacheKeyToString, defaultMapleGgCachedData} from "../models";
 import {FirestoreApiHelper} from "./FirestoreApiHelper";
 import {FirestoreApiHelperBase, QueryParam} from "./FirestoreApiHelperBase";
 import {FirestoreAdminApiHelper} from "./FirestoreAdminApiHelper";
@@ -19,48 +19,48 @@ export class MapleGgFirebaseApi {
   }
 
   private resultToMap = (results: MapleGgCachedData[]) => {
-    return new Map(results.map((char) => [char.name.toLowerCase(), char]));
+    return new Map(results.map((char) => [char.key, char]));
   };
 
-  private searchQuery = (characterNames: string[]) => {
-    const lowerCased = characterNames.map((name) => name.toLowerCase());
+  private searchQuery = (characters: MapleGgCacheKey[]) => {
+    const keys = characters.map(cacheKeyToString);
     const params: QueryParam[] = [{
-      property: "loweredName",
+      property: "key",
       op: "in",
-      value: lowerCased,
+      value: keys,
     }];
     return params;
   };
 
-  public getFromCache = async (name: string) => {
-    const loweredName = name.toLowerCase();
-    return await this.api.getOrDefault(loweredName, () => ({name, loweredName, lastRetrievedTimestamp: undefined} as MapleGgCachedData), MapleGgCachedData.parse);
+  public getFromCache = async (char: MapleGgCacheKey) => {
+    const key = cacheKeyToString(char);
+    return await this.api.getOrDefault(key, () => defaultMapleGgCachedData(char), MapleGgCachedData.parse);
   };
 
-  public search = async (characterNames: string[]) => {
+  public search = async (characters: MapleGgCacheKey[]) => {
     // firebase throws an error if in clause has 0 entries
-    if (characterNames.length == 0) {
+    if (characters.length == 0) {
       return new Map<string, MapleGgCachedData>();
     }
 
     const results = await this.api.search(
       "",
-      this.searchQuery(characterNames),
+      this.searchQuery(characters),
       MapleGgCachedData.parse
     );
     return this.resultToMap(results);
   };
 
-  public searchAndListen = (characterNames: string[], handler: (_: Map<string, MapleGgCachedData>)=>void, errHandler: (_:unknown)=>void): Unsubscribe => {
+  public searchAndListen = (characters: MapleGgCacheKey[], handler: (_: Map<string, MapleGgCachedData>)=>void, errHandler: (_:unknown)=>void): Unsubscribe => {
     // firebase throws an error if in clause has 0 entries
-    if (characterNames.length == 0) {
+    if (characters.length == 0) {
       handler(new Map<string, MapleGgCachedData>());
       return ()=>{};
     }
 
     return this.api.searchAndListen(
       "",
-      this.searchQuery(characterNames),
+      this.searchQuery(characters),
       (data) => {
         const map = this.resultToMap(data);
         handler(map);
@@ -71,8 +71,11 @@ export class MapleGgFirebaseApi {
   };
 
   public set = async (character: MapleGgCachedData) => {
-    character.loweredName = character.name.toLowerCase();
-    return this.api.set(character.name.toLowerCase(), character);
+    if (character.name !== undefined) {
+      character.loweredName = character.name.toLowerCase();
+    }
+    character.key = cacheKeyToString({region: character.region, name: character.loweredName});
+    return this.api.set(character.key, character);
   };
 
   public updateCharacter = async () => {
@@ -84,10 +87,10 @@ export class MapleGgFirebaseApi {
     }
   };
 
-  public get = async (name: string) => {
+  public get = async (name: string, region: Region) => {
     if (this.functions) {
       const func = httpsCallable(this.functions, "getCharacterHttpCall");
-      const result = await func({name});
+      const result = await func({name, region});
       const data = MapleGgCachedData.parse(result.data);
       return data;
     } else {
@@ -131,7 +134,7 @@ export interface MapleGgApiResponse {
   CharacterData: MapleGgCharacterData
 }
 
-export const fetchFromMapleGg = async (username: string) => {
-  const response = await fetch(`https://api.maplestory.gg/v2/public/character/gms/${username}`);
+export const fetchFromMapleGg = async (username: string, region: Region) => {
+  const response = await fetch(`https://api.maplestory.gg/v2/public/character/${region}/${username}`);
   return await response.json() as MapleGgApiResponse;
 };

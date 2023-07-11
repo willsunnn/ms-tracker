@@ -5,7 +5,7 @@ import { useAlertCallback } from '../../contexts/AlertContext'
 import { useApi } from '../../contexts/ApiContext'
 import { uuidv4 } from '@firebase/util'
 import { CharacterView } from '../CharacterView'
-import { type MapleGgCachedData } from 'ms-tracker-library'
+import { type Region, type MapleGgCachedData } from 'ms-tracker-library'
 
 const TIME_AFTER_TYPING_END_BEFORE_CHECKING_IMAGE = 300
 
@@ -13,6 +13,7 @@ export const AddCharacterComponent = () => {
   const name = React.useRef<string>('')
   const [nameEntryError, setNameEntryError] = React.useState<string | null>(null)
   const [character, setCharacter] = React.useState<MapleGgCachedData | undefined>(undefined)
+  const [region, setRegion] = React.useState<Region>('gms')
   const lastTypedTime = React.useRef<number>(0)
   const [isLoading, setLoading] = React.useState(false)
 
@@ -52,8 +53,8 @@ export const AddCharacterComponent = () => {
       // At this point, the user has stopped typing and the input is valid
       // so lets make the request and update the image view
       setLoading(true)
-      mapleGgFirebaseApi.get(name.current).then((data) => {
-        if (name.current.trim().toLowerCase() === data.name.toLowerCase()) {
+      mapleGgFirebaseApi.get(name.current, region).then((data) => {
+        if (name.current.trim().toLowerCase() === data.loweredName) {
           setLoading(false)
           setCharacter(data)
         }
@@ -81,7 +82,8 @@ export const AddCharacterComponent = () => {
     }
     characterApi.addCharacter(user, {
       name: text,
-      id: uuidv4()
+      id: uuidv4(),
+      region
     }).then(() => {
       alert({
         alertLevel: 'success',

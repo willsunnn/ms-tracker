@@ -9,7 +9,7 @@
 import * as functions from "firebase-functions";
 import * as admin from "firebase-admin";
 import * as logger from "firebase-functions/logger";
-import {AccountCharacters, CharacterApi, MapleGgCachedData, characterApiAdmin, fetchFromMapleGg, mapleGgFirebaseApiAdmin} from "ms-tracker-library";
+import {AccountCharacters, CharacterApi, MapleGgCacheKey, MapleGgCachedData, cacheKeyToString, characterApiAdmin, fetchFromMapleGg, mapleGgFirebaseApiAdmin} from "ms-tracker-library";
 
 // Initialize the app
 const app = admin.initializeApp(functions.config().firebase);
@@ -17,8 +17,8 @@ const firestore = app.firestore();
 const characterApi = characterApiAdmin(firestore);
 const mapleGgFirebaseApi = mapleGgFirebaseApiAdmin(firestore);
 
-const updateAndSave = async (name: string): Promise<MapleGgCachedData> => {
-  const char = await mapleGgFirebaseApi.getFromCache(name);
+const updateAndSave = async (key: MapleGgCacheKey): Promise<MapleGgCachedData> => {
+  const char = await mapleGgFirebaseApi.getFromCache(key);
 
   // Don't refresh if we have a cached version less than a day old
   const lastFetched = char?.lastRetrievedTimestamp;
@@ -33,15 +33,18 @@ const updateAndSave = async (name: string): Promise<MapleGgCachedData> => {
   // Either we do not have a cached version or we need to update it
   let newData: MapleGgCachedData;
   try {
-    const response = await fetchFromMapleGg(char.name);
+    const response = await fetchFromMapleGg(key.name, key.region);
     const data = response.CharacterData;
     logger.info(`api.maplestory.gg Fetched character ${char.name} in ${new Date().getTime() - now} ms`);
-    logger.debug(`api.maplestory.gg Data for ${char.name} data=${data}`)
+    logger.debug(`api.maplestory.gg Data for ${char.name} data=${data}`);
 
     const formattedData: MapleGgCachedData = {
-      name: data.Name,
+      key: cacheKeyToString(key),
+      region: key.region,
       loweredName: data.Name.toLowerCase(),
       lastRetrievedTimestamp: now,
+
+      name: data.Name,
       image: data.CharacterImageURL,
       class: data.Class,
       classRank: data.ClassRank,
@@ -71,8 +74,8 @@ const updateAndSave = async (name: string): Promise<MapleGgCachedData> => {
 
 // Helper Function
 const updateAccountCharacters = async (account: AccountCharacters) => {
-  const characterNames = account.characters.map((char) => char.name);
-  const characters = await Promise.all(characterNames.map(updateAndSave));
+  const keys = account.characters.map((char) => ({name: char.name.toLowerCase(), region: char.region}));
+  const characters = await Promise.all(keys.map(updateAndSave));
   return characters;
 };
 
@@ -117,5 +120,5 @@ export const getCharacterHttpCall = functions.https.onCall(async (data, context)
   }
 
   // Get Return the value
-  return await updateAndSave(data["name"]);
+  return await updateAndSave(data);
 });

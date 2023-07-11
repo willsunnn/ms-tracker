@@ -27,6 +27,7 @@ export class CharacterApi {
     data.characters = data.characters.map((char) => {
       return {
         name: char.name,
+        region: char.region,
         id: char.id,
       };
     });
