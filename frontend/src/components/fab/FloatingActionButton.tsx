@@ -2,6 +2,8 @@ import { BsChevronUp } from 'react-icons/bs'
 import { useFabContext } from '../../contexts/FabContext'
 import { EditCharacterOrderButton } from './EditCharacterOrderActionButton'
 import { AddCharacterButton } from './AddCharacterActionButton'
+import { BugReportActionButton } from './BugReportActionButton'
+import { FeatureRequestActionButton } from './FeatureRequestButton'
 
 export const FloatingActionButton = () => {
   const { isOpen, toggleFab, characters } = useFabContext()
@@ -19,6 +21,8 @@ export const FloatingActionButton = () => {
         <>
           { showEditCharacters && <EditCharacterOrderButton characters={characters}/> }
           { showAddCharacter && <AddCharacterButton/> }
+          <FeatureRequestActionButton/>
+          <BugReportActionButton/>
         </>
       )}
       <button className={`btn btn-circle btn-primary ${isOpen ? '-rotate-180' : ''}`} onClick={toggleFab}>
