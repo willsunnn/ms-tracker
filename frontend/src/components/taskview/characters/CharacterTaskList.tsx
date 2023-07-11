@@ -35,7 +35,7 @@ export const CharacterTaskList = (props: CharacterTaskListProps) => {
   }
 
   return (
-    <div className="grid grid-cols-3 gap-x-2 grow auto-cols-fr" style={gridStyle}>
+    <div className="grid grid-cols-3 gap-x-2 grow auto-cols-fr h-fit" style={gridStyle}>
       {
         tasks.map((task, index) => {
           task = Model.trimClearTimes(task)
