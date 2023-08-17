@@ -125,6 +125,10 @@ const ARCANE_SYMBOL_DAILIES: Task[] = [
   {
     taskId: 'arcane-esfera',
     name: 'Esfera'
+  },
+  {
+    taskId: 'arcane-tenebris',
+    name: 'Tenebris'
   }
 ].map((t) => {
   return {
@@ -163,12 +167,27 @@ const SACRED_SYMBOL_DAILIES: Task[] = [
   }
 })
 
-const OTHER_DAILIES: Task[] = [
+const DAILY_BOSSES: Task[] = [
   {
     taskId: 'gollux',
     name: 'Gollux',
     maxClearCount: 1
   },
+  {
+    taskId: 'arkarium',
+    name: 'Arkarium',
+    maxClearCount: 1
+  }
+].map((t) => {
+  return {
+    ...t,
+    resetType: 'Daily',
+    taskType: 'Boss',
+    isPerAccount: false
+  }
+})
+
+const OTHER_DAILIES: Task[] = [
   {
     taskId: 'monster-park',
     name: 'Monster Park',
@@ -267,6 +286,7 @@ export const TASK_LIST = [
   SACRED_SYMBOL_DAILIES,
   ARCANE_SYMBOL_DAILIES,
   OTHER_DAILIES,
+  DAILY_BOSSES,
   WEEKLY_BOSSES,
   MONTHLY_BLACK_MAGE,
   ARCANE_SYMBOL_WEEKLIES,
