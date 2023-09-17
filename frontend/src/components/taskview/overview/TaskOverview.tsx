@@ -64,60 +64,66 @@ export const TaskViewCompact = (props: { taskViewAttrs: TaskViewProps }) => {
     return <NoTaskRenavigateFullPageSpread/>
   }
 
+  const tableHeaderHeight = 'h-32'
+  const columnWidthStyle = 'w-8'
+  const rowHeightStyle = 'h-8'
+
   return (
-    <div className="absolute w-screen h-screen left-0 top-0 right-0 py-20 px-5">
-      <table className="table w-full h-full">
-        <thead>
-          <tr>
-            <th/>
-            <th/>
-            {
-              characters.map((character) => {
-                const name = character.mapleGgData?.name ?? character.name
-                return (
-                  <th key={`header-${name}`} className='w-[32px] h-[120px]'>
-                    <div className="-translate-x-1/4 -rotate-45 w-[30px]">
-                      {name}
-                    </div>
-                  </th>
-                )
-              })
-            }
-          </tr>
-        </thead>
-        <tbody className='overflow-scroll'>
-        {
-          prioritizedTasksAndStatuses.map((task) => {
-            const { name, resetType } = task
-            const resetsAt = Model.nextReset(new Date(), resetType)
-            const key = `TaskOverviewRow-${task.taskId}}`
-            const backgroundColor = task.groupIndex % 2 === 0 ? 'bg-primary bg-opacity-5' : 'bg-secondary bg-opacity-5'
-            const focusedBackgroundColor = task.groupIndex % 2 === 0 ? 'bg-primary bg-opacity-20' : 'bg-secondary bg-opacity-20'
-            const contentColor = task.groupIndex % 2 === 0 ? 'primary-content' : 'secondary-content'
-            return (<tr key={key} className={`${backgroundColor}`}>
-              <td className={`p-0 ${contentColor}`}>
-                <div className="font-bold">{name}</div>
-              </td>
-
-              <td className="p-0">
-                {Model.getReadableTime(resetsAt, dateFormat)}
-              </td>
-
-              {
-                task.statuses.map((status) => {
-                  const isComplete = status.clearTimes.length >= status.maxClearCount
-                  return (
-                    <td className={`p-1 w-fit h-fit align-middle ${status.isPriority ? focusedBackgroundColor : backgroundColor}`} key={`TaskOverviewCell-${task.taskId}-${status.characterId ?? ''}`}>
-                      <input type="checkbox" className={`checkbox checkbox-sm w-4 h-4`} checked={isComplete} onChange={checkBoxOnClickCurryFunc(status)}/>
-                    </td>
-                  )
-                })
-              }
-            </tr>)
-          })
-        }
-      </tbody>
-      </table>
+    <div className='absolute w-screen h-screen left-0 top-0 pt-24 px-5 bg-base-300 overflow-scroll pb-24'>
+      <div className='flex w-full h-full'>
+        <div className='flex flex-col w-fit h-fit mr-4'>
+          <div className={tableHeaderHeight}/>
+          {
+            prioritizedTasksAndStatuses.map((task) => {
+              return (
+                <div key={`task-title-${task.taskId}`} className={rowHeightStyle}>
+                  <div>
+                    {task.name}
+                  </div>
+                </div>
+              )
+            })
+          }
+        </div>
+        <div className='flex flex-col h-fit'>
+          <div className={`flex flex-row ${tableHeaderHeight}`}>
+             {
+               characters.map((character) => {
+                 const name = character.mapleGgData?.name ?? character.name
+                 return (
+                   <div key={`header-${name}`} className='w-[32px] h-[120px]'>
+                     <div className="-translate-x-1/4 -rotate-45 w-[30px] translate-y-20">
+                       {name}
+                     </div>
+                   </div>
+                   )
+               })
+             }
+          </div>
+          {
+            prioritizedTasksAndStatuses.map((task) => {
+              const backgroundColor = task.groupIndex % 2 === 0 ? 'bg-primary bg-opacity-5' : 'bg-secondary bg-opacity-5'
+              const focusedBackgroundColor = task.groupIndex % 2 === 0 ? 'bg-primary bg-opacity-20' : 'bg-secondary bg-opacity-20'
+              const contentColor = task.groupIndex % 2 === 0 ? 'primary-content' : 'secondary-content'
+              return (
+                <div className={`flex flex-row ${rowHeightStyle} w-fit`} key={`task-statuses-${task.taskId}`}>
+                  {
+                    task.statuses.map((status) => {
+                      const isComplete = status.clearTimes.length >= status.maxClearCount
+                      return (
+                        <div className={`${columnWidthStyle} content-center align-middle ${status.isPriority ? focusedBackgroundColor : backgroundColor}`} key={`TaskOverviewCell-${task.taskId}-${status.characterId ?? ''}`}>
+                          <input type="checkbox" className={`checkbox checkbox-sm w-4 h-4`} checked={isComplete} onChange={checkBoxOnClickCurryFunc(status)}/>
+                        </div>
+                      )
+                    })
+                  }
+                </div>
+              )
+            })
+          }
+        </div>
+        <div className='bg-base-200 w-20 h-fit'></div>
+      </div>
     </div>
   )
 }

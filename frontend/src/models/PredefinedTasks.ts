@@ -143,19 +143,19 @@ const ARCANE_SYMBOL_DAILIES: Task[] = [
 const SACRED_SYMBOL_DAILIES: Task[] = [
   {
     taskId: 'sacred-cernium',
-    name: 'Cernium Dailies'
+    name: 'Cernium'
   },
   {
     taskId: 'sacred-burninum',
-    name: 'Burning Cernium Dailies'
+    name: 'Burning Cernium'
   },
   {
     taskId: 'sacred-arcus',
-    name: 'Hotel Arcus Dailies'
+    name: 'Hotel Arcus'
   },
   {
     taskId: 'sacred-odium',
-    name: 'Odium Dailies'
+    name: 'Odium'
   }
 ].map((t) => {
   return {
