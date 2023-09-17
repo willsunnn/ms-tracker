@@ -256,20 +256,51 @@ const GUILD_WEEKLIES: Task[] = [
   {
     taskId: 'guild-culvert',
     name: 'Guild Culvert',
-    maxClearCount: 1,
-    resetType: 'Weekly_Monday',
-    taskType: 'Guild',
-    isPerAccount: false
+    maxClearCount: 1
   },
   {
     taskId: 'guild-flag',
     name: 'Guild Flag Race',
-    maxClearCount: 1,
+    maxClearCount: 1
+  },
+  {
+    taskId: 'guild-castle-5k',
+    name: 'Guild Castle 5k Mobs',
+    maxClearCount: 1
+  }
+].map((t) => {
+  return {
+    ...t,
     resetType: 'Weekly_Monday',
     taskType: 'Guild',
     isPerAccount: false
   }
-]
+})
+
+const OTHER_WEEKLIES: Task[] = [
+  {
+    taskId: 'weekly-dojo',
+    name: 'Mu Lung Dojo',
+    maxClearCount: 1
+  },
+  {
+    taskId: 'weekly-scrapyard',
+    name: 'Scrapyard Weeklies',
+    maxClearCount: 1
+  },
+  {
+    taskId: 'weekly-dwt',
+    name: 'Dark World Tree Weeklies',
+    maxClearCount: 1
+  }
+].map((t) => {
+  return {
+    ...t,
+    resetType: 'Weekly_Monday',
+    taskType: 'Other',
+    isPerAccount: false
+  }
+})
 
 const MONTHLY_BLACK_MAGE: Task[] = [
   {
@@ -290,7 +321,8 @@ export const TASK_LIST = [
   WEEKLY_BOSSES,
   MONTHLY_BLACK_MAGE,
   ARCANE_SYMBOL_WEEKLIES,
-  GUILD_WEEKLIES
+  GUILD_WEEKLIES,
+  OTHER_WEEKLIES
 ].flat(1)
 export const TASK_MAP = new Map(TASK_LIST.map((task) => [task.taskId, task]))
 
