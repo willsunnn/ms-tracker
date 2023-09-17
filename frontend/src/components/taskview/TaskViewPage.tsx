@@ -4,7 +4,7 @@ import { TaskViewByReset } from './todo/TaskTodo'
 import { TaskViewCompact } from './overview/TaskOverview'
 import { type User } from 'firebase/auth'
 import { useAlertCallback } from '../../contexts/AlertContext'
-import { TASK_LIST } from '../../models/PredefinedTasks'
+import { GROUPED_TASKS, TASK_LIST } from '../../models/PredefinedTasks'
 import { type Task, type AccountCharacters, type MapleGgCachedData, type CharacterWithMapleGgData, type TaskStatusForAccount, cacheKeyToString, getMapleGgCacheKey } from 'ms-tracker-library'
 import { useApi } from '../../contexts/ApiContext'
 import { Navigate, Outlet, Route, Routes, useNavigate } from 'react-router-dom'
@@ -16,6 +16,7 @@ export interface TaskViewProps {
   user: User
   taskStatus: TaskStatusForAccount
   tasks: Task[]
+  groupedTasks: Task[][]
   characters: CharacterWithMapleGgData[]
 }
 
@@ -107,6 +108,7 @@ export const TaskViewPage = () => {
     user,
     taskStatus,
     tasks: TASK_LIST,
+    groupedTasks: GROUPED_TASKS,
     characters: characterAndMapleGgData
   }
 

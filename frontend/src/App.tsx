@@ -17,7 +17,7 @@ const App = () => {
             <div className="fixed bottom-5 right-5 z-[100]">
               <FloatingActionButton/>
             </div>
-            <div className="w-screen min-h-screen h-full z-0 overflow-scroll py-20 px-5 max-w-screen ma ">
+            <div className="w-screen min-h-screen h-full z-0 overflow-scroll py-20 px-5 max-w-screen">
               {/* This is where the content (SignInPage/TaskViewPage) will go */}
               <Outlet/>
             </div>

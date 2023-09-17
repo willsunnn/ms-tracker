@@ -313,7 +313,7 @@ const MONTHLY_BLACK_MAGE: Task[] = [
   }
 ]
 
-export const TASK_LIST = [
+export const GROUPED_TASKS = [
   SACRED_SYMBOL_DAILIES,
   ARCANE_SYMBOL_DAILIES,
   OTHER_DAILIES,
@@ -323,7 +323,8 @@ export const TASK_LIST = [
   ARCANE_SYMBOL_WEEKLIES,
   GUILD_WEEKLIES,
   OTHER_WEEKLIES
-].flat(1)
+]
+export const TASK_LIST = GROUPED_TASKS.flat(1)
 export const TASK_MAP = new Map(TASK_LIST.map((task) => [task.taskId, task]))
 
 const tasksAreUniqueById = (TASK_LIST.length === TASK_MAP.size)

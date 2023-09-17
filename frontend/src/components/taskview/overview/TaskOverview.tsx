@@ -9,25 +9,39 @@ export const TaskViewCompact = (props: { taskViewAttrs: TaskViewProps }) => {
   const { taskStatusApi } = useApi()
   const { dateFormat } = useSettings()
 
-  const tasksAndStatuses = props.taskViewAttrs.tasks.map((task) => {
-    const statuses = characters.map((character) => {
-      const status = props.taskViewAttrs.taskStatus.get(character.id)?.get(task.taskId) ?? Model.defaultTaskStatus(user.uid, character.id, task.taskId)
-      const taskAndStatus: TaskAndStatus = {
-        ...task,
-        ...status
-      }
-      return Model.trimClearTimes(taskAndStatus)
-    })
-    const hasAnyCharacterThatPrioritizes = statuses.filter((status) => status.isPriority).length > 0
+  const groupedTasksAndStatuses = props.taskViewAttrs.groupedTasks.map(
+    (taskGroup) => {
+      return taskGroup.map((task) => {
+        const statuses = characters.map((character) => {
+          const status = props.taskViewAttrs.taskStatus.get(character.id)?.get(task.taskId) ?? Model.defaultTaskStatus(user.uid, character.id, task.taskId)
+          const taskAndStatus: TaskAndStatus = {
+            ...task,
+            ...status
+          }
+          return Model.trimClearTimes(taskAndStatus)
+        })
+        const hasAnyCharacterThatPrioritizes = statuses.filter((status) => status.isPriority).length > 0
 
-    return {
-      ...task,
-      statuses,
-      isAnyPriority: hasAnyCharacterThatPrioritizes
+        return {
+          ...task,
+          statuses,
+          isAnyPriority: hasAnyCharacterThatPrioritizes
+        }
+      })
     }
-  })
+  )
 
-  const prioritizedTasksAndStatuses = tasksAndStatuses.filter((task) => task.isAnyPriority)
+  const prioritizedGroupedTasksAndStatuses = groupedTasksAndStatuses.map((taskGroup) => taskGroup.filter((task) => task.isAnyPriority))
+    .filter((taskGroup) => taskGroup.length > 0)
+  const prioritizedGroupedTasksAndStatusesAndGroupIndex = prioritizedGroupedTasksAndStatuses.map((taskGroup, groupIndex) => {
+    return taskGroup.map((task) => {
+      return {
+        ...task,
+        groupIndex
+      }
+    })
+  })
+  const prioritizedTasksAndStatuses = prioritizedGroupedTasksAndStatusesAndGroupIndex.flat(1)
   const hasTasks = prioritizedTasksAndStatuses.length > 0
 
   const checkBoxOnClickCurryFunc = (task: TaskAndStatus) => {
@@ -51,27 +65,37 @@ export const TaskViewCompact = (props: { taskViewAttrs: TaskViewProps }) => {
   }
 
   return (
-    <div className="card bg-base-200 shadow-xl my-2 p-3">
-      <table className="table w-full"><tbody>
-        <tr>
-          <th/>
-          <th/>
-          {
-            characters.map((character) => {
-              const name = character.mapleGgData?.name ?? character.name
-              return (
-                <th key={`header-${name}`} className="-rotate-45 h-24 w-2 relative left-0 bottom-0 p-0">{name}</th>
-              )
-            })
-          }
-        </tr>
+    <div className="absolute w-screen h-screen left-0 top-0 right-0 py-20 px-5">
+      <table className="table w-full h-full">
+        <thead>
+          <tr>
+            <th/>
+            <th/>
+            {
+              characters.map((character) => {
+                const name = character.mapleGgData?.name ?? character.name
+                return (
+                  <th key={`header-${name}`} className='w-[32px] h-[120px]'>
+                    <div className="-translate-x-1/4 -rotate-45 w-[30px]">
+                      {name}
+                    </div>
+                  </th>
+                )
+              })
+            }
+          </tr>
+        </thead>
+        <tbody className='overflow-scroll'>
         {
           prioritizedTasksAndStatuses.map((task) => {
             const { name, resetType } = task
             const resetsAt = Model.nextReset(new Date(), resetType)
             const key = `TaskOverviewRow-${task.taskId}}`
-            return (<tr key={key}>
-              <td className="p-0">
+            const backgroundColor = task.groupIndex % 2 === 0 ? 'bg-primary bg-opacity-5' : 'bg-secondary bg-opacity-5'
+            const focusedBackgroundColor = task.groupIndex % 2 === 0 ? 'bg-primary bg-opacity-20' : 'bg-secondary bg-opacity-20'
+            const contentColor = task.groupIndex % 2 === 0 ? 'primary-content' : 'secondary-content'
+            return (<tr key={key} className={`${backgroundColor}`}>
+              <td className={`p-0 ${contentColor}`}>
                 <div className="font-bold">{name}</div>
               </td>
 
@@ -83,8 +107,8 @@ export const TaskViewCompact = (props: { taskViewAttrs: TaskViewProps }) => {
                 task.statuses.map((status) => {
                   const isComplete = status.clearTimes.length >= status.maxClearCount
                   return (
-                    <td className="p-0" key={`TaskOverviewCell-${task.taskId}-${status.characterId ?? ''}`}>
-                      <input type="checkbox" className="checkbox checkbox-sm" checked={isComplete} onChange={checkBoxOnClickCurryFunc(status)}/>
+                    <td className={`p-1 w-fit h-fit align-middle ${status.isPriority ? focusedBackgroundColor : backgroundColor}`} key={`TaskOverviewCell-${task.taskId}-${status.characterId ?? ''}`}>
+                      <input type="checkbox" className={`checkbox checkbox-sm w-4 h-4`} checked={isComplete} onChange={checkBoxOnClickCurryFunc(status)}/>
                     </td>
                   )
                 })
@@ -92,7 +116,8 @@ export const TaskViewCompact = (props: { taskViewAttrs: TaskViewProps }) => {
             </tr>)
           })
         }
-      </tbody></table>
+      </tbody>
+      </table>
     </div>
   )
 }
