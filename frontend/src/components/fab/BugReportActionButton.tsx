@@ -1,5 +1,5 @@
-import { AiFillBug } from "react-icons/ai"
-import { FabButtonWithLabel } from "./FabButtonWithLabel"
+import { AiFillBug } from 'react-icons/ai'
+import { FabButtonWithLabel } from './FabButtonWithLabel'
 
 export const BugReportActionButton = () => {
   const url = 'https://forms.gle/8HsSpeQ7UMerAbCa8'

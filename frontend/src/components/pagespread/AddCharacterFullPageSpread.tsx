@@ -1,4 +1,4 @@
-import { AddCharacterComponent } from "../dialog/AddCharacterDialog"
+import { AddCharacterComponent } from '../dialog/AddCharacterDialog'
 
 export const AddCharacterFullPageSpread = () => {
   return (

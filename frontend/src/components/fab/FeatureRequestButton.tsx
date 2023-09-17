@@ -1,5 +1,5 @@
-import { AiOutlinePullRequest } from "react-icons/ai"
-import { FabButtonWithLabel } from "./FabButtonWithLabel"
+import { AiOutlinePullRequest } from 'react-icons/ai'
+import { FabButtonWithLabel } from './FabButtonWithLabel'
 
 export const FeatureRequestActionButton = () => {
   const url = 'https://forms.gle/T8TAfnjgdtAaVub59'
