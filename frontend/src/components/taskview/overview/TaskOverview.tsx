@@ -126,7 +126,7 @@ export const TaskViewCompact = (props: { taskViewAttrs: TaskViewProps }) => {
                   const name = character.mapleGgData?.name ?? character.name
                   return (
                     <div key={`header-${name}`} className='w-[32px] h-[120px]'>
-                      <div className="translate-x-1/4 -rotate-45 w-[30px] translate-y-20 text-sm">
+                      <div className="translate-x-1/4 -rotate-45 w-[30px] translate-y-20">
                         {name}
                       </div>
                     </div>
