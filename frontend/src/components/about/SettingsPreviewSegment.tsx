@@ -13,6 +13,7 @@ export const SettingsPreviewSegment = () => {
       The App has a light and dark mode too, with more themes coming
     </div>
     <div>
+      {/* Taken from https://daisyui.com/components/swap/*/}
       <label className="swap swap-rotate">
         {/* this hidden checkbox controls the state */}
         <input type="checkbox" onChange={onChange} checked={theme === 'light'}/>
