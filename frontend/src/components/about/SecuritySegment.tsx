@@ -17,9 +17,9 @@ export const SecuritySegment = () => {
 
   return (<div className="flex flex-col w-full h-fit items-center justify-center py-20">
     <div className="w-1/3 h-fit text-center mb-2 text-lg">
-      All your data is securely stored in <FirebaseLink>Google Firebase</FirebaseLink>. Login and Passwords are handled directly by Firebase, not by the application
+      All your data, including login and passwords, is securely stored in <FirebaseLink>Google Firebase</FirebaseLink>, not by the application
     </div>
-    <div className="w-1/3 h-fit text-center mt-2 max-w-md">
+    <div className="w-1/4 h-fit text-center mt-2 max-w-md min-w-[200px]">
       <FirebaseLink>
         <img src={logo}/>
       </FirebaseLink>

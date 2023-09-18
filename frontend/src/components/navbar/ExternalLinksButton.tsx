@@ -49,7 +49,7 @@ const GroupedLinks = (props: { linkGroup: ExternalLinkGroup }) => {
 export const ExternalLinksButton = () => {
   return (
     <div className="dropdown">
-      <button className="btn btn-circle text-xl bg-base-200">
+      <button className="btn btn-circle text-xl bg-transparent border-opacity-0">
         <FaBars className="w-max"/>
       </button>
       <div className="dropdown-content top-16">
