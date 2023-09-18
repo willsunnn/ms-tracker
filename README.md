@@ -31,9 +31,10 @@ To emulate the cloud function locally, run `npm run import`, `npm install`, `npm
 - Account-wide dailies
 - In Each Display window, option to show dropdowns for groups of tasks
   - ex: checking Arcane Symbol Dailies would check - VJ through Esfera
-- TODO view should show "Go touch some grass" when there are no tasks remaining
-- App Name and icon should change based on first character in list rather than Buff NW
+- ~~TODO view should show "Go touch some grass" when there are no tasks remaining~~
+- ~~App Name and icon should change based on first character in list rather than Buff NW~~
 - Webpage looks terrible on mobile
-- Overview view should highlight tasks by color and by isPriority so its easier to understand
-- Overview view columns should be consistent width with Diagonal Name Headers
+- ~~Overview view should highlight tasks by color and by isPriority so its easier to understand~~
+- ~~Overview view columns should be consistent width with Diagonal Name Headers~~
 - ~~Add Bug Report and Feature Request Items to Floating Action Button~~
+- Edit Tasks UI is too clunky now that there's a large list of tasks
