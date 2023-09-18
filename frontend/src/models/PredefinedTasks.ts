@@ -207,6 +207,16 @@ const OTHER_DAILIES: Task[] = [
     taskId: 'commerci-pq',
     name: 'Commerci Party Quest',
     maxClearCount: 3
+  },
+  {
+    taskId: 'ursus',
+    name: 'Ursus',
+    maxClearCount: 3
+  },
+  {
+    taskId: 'maple-tour',
+    name: 'Maple Tour',
+    maxClearCount: 2
   }
 ].map((t) => {
   return {
