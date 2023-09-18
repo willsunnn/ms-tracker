@@ -1,4 +1,5 @@
 import './App.css'
+import { AboutPage } from './components/about/AboutPage'
 import { FloatingActionButton } from './components/fab/FloatingActionButton'
 import NavBar from './components/navbar/NavBar'
 import { SignInPage } from './components/SignInForm'
@@ -27,6 +28,11 @@ const App = () => {
         {/* If the path is SignIn, render the SignInPage */}
         <Route path="signin" element={(
           <SignInPage/>
+        )}/>
+
+        {/* If the path is About, render the SignInPage */}
+        <Route path="about" element={(
+          <AboutPage/>
         )}/>
 
         {/* Else, let's render the TaskViewPage */}

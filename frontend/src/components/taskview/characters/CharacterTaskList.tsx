@@ -5,10 +5,11 @@ import { useSettings } from '../../../contexts/SettingsContext'
 
 interface CharacterTaskListProps {
   tasks: TaskAndStatus[]
+  isPreview: boolean
 }
 
 export const CharacterTaskList = (props: CharacterTaskListProps) => {
-  const { tasks } = props
+  const { tasks, isPreview } = props
   const alert = useAlertCallback()
   const { taskStatusApi } = useApi()
   const { dateFormat } = useSettings()
@@ -20,6 +21,9 @@ export const CharacterTaskList = (props: CharacterTaskListProps) => {
   // define event handlers
   const checkBoxOnChangeCurryFunc = (task: TaskAndStatus) => {
     return () => {
+      if (isPreview) {
+        return
+      }
       const numClears = task.clearTimes.length
       const isComplete = numClears >= task.maxClearCount
       if (isComplete) {

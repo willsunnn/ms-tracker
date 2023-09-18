@@ -146,7 +146,7 @@ const SACRED_SYMBOL_DAILIES: Task[] = [
     name: 'Cernium'
   },
   {
-    taskId: 'sacred-burninum',
+    taskId: 'sacred-burnium',
     name: 'Burning Cernium'
   },
   {

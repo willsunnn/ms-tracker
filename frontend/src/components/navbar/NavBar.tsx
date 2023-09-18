@@ -29,9 +29,6 @@ const NavItem = (props: { name: string, path: string }) => {
 const NavBar = () => {
   const { user } = useAuth()
 
-  const path = window.location.pathname
-  const charactersSelected = path === '/characters'
-
   return (
     <div className="navbar bg-base-200 shadow-md rounded-3xl">
       <div className="navbar-start">
@@ -47,6 +44,7 @@ const NavBar = () => {
           { !user && (
             <>
             <NavItem path='signin' name='Sign In'/>
+            <NavItem path='about' name='About'/>
             </>
           )}
         </ul>

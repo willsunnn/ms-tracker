@@ -9,10 +9,11 @@ interface CharacterContextActionsDropdownProps {
   hasPrioritizedTasks: boolean
   character: Character
   tasks: TaskAndStatus[]
+  isPreview: boolean
 }
 
 export const CharacterContextActionsDropdown = (props: CharacterContextActionsDropdownProps) => {
-  const { hasPrioritizedTasks, character, tasks } = props
+  const { hasPrioritizedTasks, character, tasks, isPreview } = props
   const { openDialog } = useDialogContext()
 
   const closeDropdown = () => {
@@ -23,10 +24,16 @@ export const CharacterContextActionsDropdown = (props: CharacterContextActionsDr
   }
   const onEditClicked = () => {
     closeDropdown()
+    if (isPreview) {
+      return
+    }
     openDialog((<EditPrioritizedTasksComponent character={character} tasks={tasks}/>))
   }
   const onDeleteClicked = () => {
     closeDropdown()
+    if (isPreview) {
+      return
+    }
     openDialog((<DeleteCharacterComponent character={character}/>))
   }
 

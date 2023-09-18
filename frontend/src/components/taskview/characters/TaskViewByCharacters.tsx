@@ -15,7 +15,7 @@ export const TaskViewByCharacter = (props: { taskViewAttrs: TaskViewProps }) => 
       {characters.map((character: CharacterWithMapleGgData) => {
         // For each character we return a card that contains the CharacterTaskView
         const taskStatusForCharacter = taskStatus.get(character.id) ?? emptyTaskStatusForCharacter()
-        const tasksAndStatuses = Model.joinTasksAndStatuses(user, character, tasks, taskStatusForCharacter)
+        const tasksAndStatuses = Model.joinTasksAndStatuses(user.uid, character, tasks, taskStatusForCharacter)
         return (
           <div className="max-w-full" key={`TaskViewByCharacter-character-${character.id}`}>
             <CharacterTaskView

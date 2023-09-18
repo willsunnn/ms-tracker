@@ -6,10 +6,12 @@ import { CharacterTaskList } from './CharacterTaskList'
 interface CharacterTaskViewProps {
   character: CharacterWithMapleGgData
   tasks: TaskAndStatus[]
+  isPreview?: boolean
 }
 
 export const CharacterTaskView = (props: CharacterTaskViewProps) => {
   const { character, tasks } = props
+  const isPreview = props.isPreview ?? false
 
   // render data
   const prioritizedTasks = tasks.filter((task) => task.isPriority)
@@ -22,7 +24,8 @@ export const CharacterTaskView = (props: CharacterTaskViewProps) => {
         <CharacterContextActionsDropdown
           hasPrioritizedTasks={prioritizedTasks.length !== 0}
           character={character}
-          tasks={tasks}/>
+          tasks={tasks}
+          isPreview={isPreview}/>
       </div>
 
       {/* This div contains the content for the card
@@ -31,7 +34,7 @@ export const CharacterTaskView = (props: CharacterTaskViewProps) => {
         <div className='min-w-[8rem] max-w-[8rem] min-h-fit '>
           <CharacterView name={character.name} mapleGgData={character.mapleGgData} showName={true}/>
         </div>
-        <CharacterTaskList tasks={prioritizedTasks}/>
+        <CharacterTaskList tasks={prioritizedTasks} isPreview={isPreview}/>
       </div>
     </div>
   )

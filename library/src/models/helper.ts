@@ -1,4 +1,3 @@
-import {User} from "firebase/auth";
 import {Character} from "./character";
 import {DateFormat, ResetType, Task, TaskAndStatus, TaskStatus, TaskType} from "./tasks";
 
@@ -159,9 +158,9 @@ export const trimTaskStatus = (status: TaskStatus, resetType: ResetType) => {
   status.clearTimes = status.clearTimes.filter((clearTime) => clearTime > lastResetTime.getTime());
 };
 
-export const joinTasksAndStatuses = (user: User, character: Character, tasks: Task[], statuses: Map<string, TaskStatus>) => {
+export const joinTasksAndStatuses = (uid: string, character: Character, tasks: Task[], statuses: Map<string, TaskStatus>) => {
   return tasks.map((task) => {
-    const status = statuses.get(task.taskId) ?? defaultTaskStatus(user.uid, character.id, task.taskId);
+    const status = statuses.get(task.taskId) ?? defaultTaskStatus(uid, character.id, task.taskId);
     return {
       ...task,
       ...status,
