@@ -8,6 +8,7 @@ import { AuthContextProvider } from './contexts/AuthContext'
 import { OpenInDialogContextProvider } from './contexts/DialogContext'
 import { ApiContextProvider } from './contexts/ApiContext'
 import { FabContextProvider } from './contexts/FabContext'
+import { TitleContextProvider } from './contexts/TitleContext'
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
@@ -17,13 +18,15 @@ root.render(
     <SettingsContextProvider>
       <ApiContextProvider>
         <AuthContextProvider>
-          <AddAlertCallbackProvider>
-            <OpenInDialogContextProvider>
-              <FabContextProvider>
-                <App />
-              </FabContextProvider>
-            </OpenInDialogContextProvider>
-          </AddAlertCallbackProvider>
+          <TitleContextProvider>
+            <AddAlertCallbackProvider>
+              <OpenInDialogContextProvider>
+                <FabContextProvider>
+                  <App />
+                </FabContextProvider>
+              </OpenInDialogContextProvider>
+            </AddAlertCallbackProvider>
+          </TitleContextProvider>
         </AuthContextProvider>
       </ApiContextProvider>
     </SettingsContextProvider>

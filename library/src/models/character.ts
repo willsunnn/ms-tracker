@@ -16,7 +16,7 @@ export interface MapleGgCacheKey {
 export const getMapleGgCacheKey = (name: string, region: Region) => ({region, name: name.toLowerCase()});
 export const cacheKeyToString = (key: MapleGgCacheKey) => `${key.region}-${key.name.toLowerCase()}`;
 
-export const Class = z.enum([
+export const MapleClass = z.enum([
   // Adventurers
   "Hero",
   "Dark Knight",
@@ -79,13 +79,13 @@ export const Class = z.enum([
   // Fallback
   "Unknown",
 ]);
-export type Class = z.infer<typeof Class>;
+export type MapleClass = z.infer<typeof MapleClass>;
 
 // Model response for Calling Maple GG Api directly
 export const MapleGgCharacterData = z.object({
   // Basic Character Information
   CharacterImageURL: z.string().optional(),
-  Class: Class.default("Unknown").catch("Unknown"),
+  Class: MapleClass.default("Unknown").catch("Unknown"),
   Server: z.string(),
   Name: z.string(),
 
@@ -119,7 +119,7 @@ export const MapleGgCachedData = z.object({
   // The data being cached
   name: z.string().optional(),
   image: z.string().optional(),
-  class: Class.default("Unknown").catch("Unknown"),
+  class: MapleClass.default("Unknown").catch("Unknown"),
   classRank: z.number().optional(),
   level: z.number().optional(),
   server: z.string().optional(),

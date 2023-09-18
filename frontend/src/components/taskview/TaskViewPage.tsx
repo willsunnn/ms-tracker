@@ -11,6 +11,7 @@ import { Navigate, Outlet, Route, Routes, useNavigate } from 'react-router-dom'
 import { useAuth } from '../../contexts/AuthContext'
 import { FullScreenLoader } from '../helper/Loader'
 import { useFabContext } from '../../contexts/FabContext'
+import { useTitle } from '../../contexts/TitleContext'
 
 export interface TaskViewProps {
   user: User
@@ -26,6 +27,7 @@ export const TaskViewPage = () => {
   const alert = useAlertCallback()
   const { mapleGgFirebaseApi, taskStatusApi, characterApi } = useApi()
   const { updateFab } = useFabContext()
+  const { setTitleCharacter } = useTitle()
 
   // React States
   const [taskStatus, setTaskStatus] = React.useState<TaskStatusForAccount>()
@@ -87,8 +89,10 @@ export const TaskViewPage = () => {
   // and that it should render the AddCharacter and EditCharacterOrder
   React.useEffect(() => {
     updateFab(characterAndMapleGgData)
+    setTitleCharacter(characterAndMapleGgData)
     return () => {
       updateFab(undefined)
+      setTitleCharacter(undefined)
     }
   }, [characters, mapleGgCharacters])
 
