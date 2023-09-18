@@ -5,9 +5,9 @@ import { useAuth } from '../../contexts/AuthContext'
 import { useNavigate } from 'react-router-dom'
 import { ExternalLinksButton } from './ExternalLinksButton'
 
-const NavBar = () => {
-  const { user } = useAuth()
+const NavItem = (props: { name: string, path: string }) => {
   const navigate = useNavigate()
+  const { path, name } = props
 
   const openAppUriHandler = (destination: string) => {
     return () => {
@@ -15,17 +15,41 @@ const NavBar = () => {
     }
   }
 
+  const currentPath = window.location.pathname
+  const isCurrentPage = currentPath === `/${path}`
+
+  return (<li>
+    <a className={`${isCurrentPage ? 'underline font-bold select-none hover:bg-transparent' : ''}`}
+      onClick={openAppUriHandler(path)}>
+      {name}
+    </a>
+  </li>)
+}
+
+const NavBar = () => {
+  const { user } = useAuth()
+
+  const path = window.location.pathname
+  const charactersSelected = path === '/characters'
+
   return (
     <div className="navbar bg-base-200 shadow-md rounded-3xl">
       <div className="navbar-start">
         <ExternalLinksButton/>
-        { user &&
-          <ul className="menu menu-horizontal px-1">
-            <li><a onClick={openAppUriHandler('characters')}>Characters</a></li>
-            <li><a onClick={openAppUriHandler('todo')}>To-Do</a></li>
-            <li><a onClick={openAppUriHandler('overview')}>Overview</a></li>
-          </ul>
-        }
+        <ul className="menu menu-horizontal px-1">
+          { user && (
+            <>
+            <NavItem path='characters' name='Characters'/>
+            <NavItem path='todo' name='To-Do'/>
+            <NavItem path='overview' name='Overview'/>
+            </>
+          )}
+          { !user && (
+            <>
+            <NavItem path='signin' name='Sign In'/>
+            </>
+          )}
+        </ul>
       </div>
       <div className="navbar-center">
       </div>
