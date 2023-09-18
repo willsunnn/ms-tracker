@@ -1,21 +1,7 @@
 [
   {
-    "name": "Savior",
-    "isOpenByDefault": true,
-    "links": [
-      {
-        "name": "Patch Notes",
-        "url": "https://maplestory.nexon.net/news/83731/updated-6-15-v-242-savior-khali-wind-of-vengeance-patch-notes"
-      },
-      {
-        "name": "Coin Shop Tracker",
-        "url": "https://whackybeanz.com/calc/coin-events/savior"
-      },
-      {
-        "name": "Rock Paper Scissors Helper",
-        "url": "http://agrodesu.com/maple/RPS/"
-      }
-    ]
+    "name": "Patch Notes",
+    "url": "https://maplestory.nexon.net/news/85511/v-244-punch-king-palooza-patch-notes"
   },
   {
     "name": "Gear Calculators",

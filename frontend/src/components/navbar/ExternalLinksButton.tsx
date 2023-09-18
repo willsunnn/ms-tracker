@@ -12,7 +12,20 @@ interface ExternalLinkGroup {
   links: ExternalLink[]
 }
 
-const links: ExternalLinkGroup[] = CurrentExternalLinks
+type MenuItem = ExternalLink | ExternalLinkGroup
+
+const items: MenuItem[] = CurrentExternalLinks
+
+const Link = (props: { link: ExternalLink }) => {
+  const { link } = props
+  return (
+    <li key={`link-${link.name}`}>
+      <a className="link" href={link.url} target="_blank" rel="noreferrer noopener">
+        {link.name}
+      </a>
+    </li>
+  )
+}
 
 const GroupedLinks = (props: { linkGroup: ExternalLinkGroup }) => {
   const { linkGroup } = props
@@ -22,14 +35,9 @@ const GroupedLinks = (props: { linkGroup: ExternalLinkGroup }) => {
         <summary><a>{linkGroup.name}</a></summary>
         <ul>
           {
-            linkGroup.links.map((link) => {
-              return (
-                <li key={`link-${linkGroup.name}-${link.name}`}>
-                  <a className="link" href={link.url} target="_blank" rel="noreferrer noopener">
-                    {link.name}
-                  </a>
-                </li>)
-            })
+            linkGroup.links.map((link) => (
+              <Link key={`link-${linkGroup.name}-${link.name}`} link={link}/>
+            ))
           }
         </ul>
       </details>
@@ -45,9 +53,13 @@ export const ExternalLinksButton = () => {
       </button>
       <div className="dropdown-content top-16">
         <ul tabIndex={0} className="menu bg-base-200 rounded-box w-96 min-w-fit shadow-lg">
-          {links.map((linkGroup) => (
-            <GroupedLinks key={`linkgroup-${linkGroup.name}`} linkGroup={linkGroup}/>
-          ))}
+          {items.map((item) => {
+            if ('links' in item) {
+              return (<GroupedLinks key={`linkgroup-${item.name}`} linkGroup={item as ExternalLinkGroup} />)
+            } else {
+              return (<Link key={`link-${item.name}`} link={item as ExternalLink}/>)
+            }
+          })}
         </ul>
       </div>
     </div>
