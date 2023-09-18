@@ -1,9 +1,9 @@
-import { CharacterWithMapleGgData, Model, TaskAndStatus, TaskStatus } from "ms-tracker-library"
-import { useApi } from "../../contexts/ApiContext"
-import { CharacterTaskView } from "../taskview/characters/CharacterTaskView"
-import { useAlertCallback } from "../../contexts/AlertContext"
-import React from "react"
-import { TASK_LIST } from "../../models/PredefinedTasks"
+import { type CharacterWithMapleGgData, Model, type TaskAndStatus, type TaskStatus } from 'ms-tracker-library'
+import { useApi } from '../../contexts/ApiContext'
+import { CharacterTaskView } from '../taskview/characters/CharacterTaskView'
+import { useAlertCallback } from '../../contexts/AlertContext'
+import React from 'react'
+import { TASK_LIST } from '../../models/PredefinedTasks'
 
 const defaultCharacter: CharacterWithMapleGgData = {
   id: 'test',
@@ -47,7 +47,7 @@ const sampleStatuses: Map<string, TaskStatus> = new Map<string, TaskStatus>([
     userId: ''
   }]
 ])
-const sampleTasks: TaskAndStatus[] = Model.joinTasksAndStatuses("", defaultCharacter, TASK_LIST, sampleStatuses)
+const sampleTasks: TaskAndStatus[] = Model.joinTasksAndStatuses('', defaultCharacter, TASK_LIST, sampleStatuses)
 
 export const AboutSegment = () => {
   const [character, setCharacter] = React.useState<CharacterWithMapleGgData>(defaultCharacter)
@@ -63,7 +63,7 @@ export const AboutSegment = () => {
     }).catch(alert)
   }, [])
 
-  return (<div className="flex-col w-full h-fit items-center justify-center py-40">
+  return (<div className="flex flex-col w-full h-3/4 items-center justify-center py-20">
     <div className="flex flex-row justify-center w-full mb-4">
       <div className="max-w-lg h-fit text-center text-xl w-1/3">
         BuffNW is an app that you can use to keep track of your Maplestory Daily and Weekly Tasks
