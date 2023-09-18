@@ -17,8 +17,66 @@ export const getMapleGgCacheKey = (name: string, region: Region) => ({region, na
 export const cacheKeyToString = (key: MapleGgCacheKey) => `${key.region}-${key.name.toLowerCase()}`;
 
 export const Class = z.enum([
-  "Night Walker",
+  // Adventurers
+  "Hero",
+  "Dark Knight",
+  "Paladin",
   "Bishop",
+  "Ice/Lightning Archmage",
+  "Fire/Poison Archmage",
+  "Night Lord",
+  "Shadower",
+  "Dual Blade",
+  "Bowmaster",
+  "Marksman",
+  "Pathfinder",
+  "Buccaneer",
+  "Corsair",
+  "Cannon Master",
+  "Jett",
+  // Cygnus Knights
+  "Blaze Wizard",
+  "Thunder Breaker",
+  "Dawn Warrior",
+  "Wind Archer",
+  "Night Walker",
+  "Mihile",
+  // Resistance
+  "Wild Hunter",
+  "Battle Mage",
+  "Mechanic",
+  "Demon Slayer",
+  "Demon Avenger",
+  "Xenon",
+  "Blaster",
+  // Heroes
+  "Aran",
+  "Evan",
+  "Mercedes",
+  "Phantom",
+  "Luminous",
+  "Shade",
+  // Sengoku
+  "Kanna",
+  "Hayato",
+  // Nova
+  "Kaiser",
+  "Angelic Buster",
+  "Cadena",
+  "Kain",
+  // Flora
+  "Ark",
+  "Illium",
+  "Adele",
+  "Khali",
+  // Anima
+  "Beast Tamer",
+  "Hoyoung",
+  "Lara",
+  // Other
+  "Zero",
+  "Kinesis",
+  // Fallback
   "Unknown",
 ]);
 export type Class = z.infer<typeof Class>;
