@@ -44,9 +44,9 @@ const NavBar = () => {
           { !user && (
             <>
               <NavItem path='signin' name='Sign In'/>
-              <NavItem path='about' name='About'/>
             </>
           )}
+          <NavItem path='about' name='About'/>
         </ul>
       </div>
       <div className="navbar-center">
