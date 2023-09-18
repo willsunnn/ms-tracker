@@ -1,10 +1,10 @@
-import { useSettings } from "../../contexts/SettingsContext"
-import FirebaseLogoLight from "../../resources/about/Built_with_Firebase_Logo_Light.svg"
-import FirebaseLogoDark from "../../resources/about/Built_with_Firebase_Logo_Dark.svg"
-import { ReactNode } from "react"
-import { ExternalLinkWrapper } from "../helper/ExternalLinkWrapper"
+import { useSettings } from '../../contexts/SettingsContext'
+import FirebaseLogoLight from '../../resources/about/Built_with_Firebase_Logo_Light.svg'
+import FirebaseLogoDark from '../../resources/about/Built_with_Firebase_Logo_Dark.svg'
+import React from 'react'
+import { ExternalLinkWrapper } from '../helper/ExternalLinkWrapper'
 
-const FirebaseLink = (props: { children: ReactNode }) => {
+const FirebaseLink = (props: { children: React.ReactNode }) => {
   const link = 'https://firebase.google.com/'
   return (<ExternalLinkWrapper link={link}>
     {props.children}

@@ -1,14 +1,14 @@
-import { useNavigate } from "react-router-dom"
-import { useAuth } from "../../contexts/AuthContext"
+import { useNavigate } from 'react-router-dom'
+import { useAuth } from '../../contexts/AuthContext'
 
 export const GetStartedSegment = () => {
   const navigate = useNavigate()
   const { user } = useAuth()
   const onClick = () => {
     if (!user) {
-      navigate("signin")
+      navigate('signin')
     } else {
-      navigate("characters")
+      navigate('characters')
     }
   }
   return (<div className="flex flex-col w-full h-fit items-center justify-center pt-60 pb-40">
