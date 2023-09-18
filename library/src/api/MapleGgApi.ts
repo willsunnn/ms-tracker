@@ -2,7 +2,7 @@ import {FirebaseOptions, initializeApp} from "firebase/app";
 import {Unsubscribe, getFirestore} from "firebase/firestore";
 import {Firestore as FirestoreAdmin} from "firebase-admin/firestore";
 import {Functions, getFunctions, httpsCallable} from "firebase/functions";
-import {MapleGgCacheKey, MapleGgCachedData, Region, cacheKeyToString, defaultMapleGgCachedData} from "../models";
+import {MapleGgApiResponse, MapleGgCacheKey, MapleGgCachedData, Region, cacheKeyToString, defaultMapleGgCachedData} from "../models";
 import {FirestoreApiHelper} from "./FirestoreApiHelper";
 import {FirestoreApiHelperBase, QueryParam} from "./FirestoreApiHelperBase";
 import {FirestoreAdminApiHelper} from "./FirestoreAdminApiHelper";
@@ -110,31 +110,7 @@ export const mapleGgFirebaseApiAdmin = (firestore: FirestoreAdmin) => {
   return new MapleGgFirebaseApi(undefined, (collectionName) => new FirestoreAdminApiHelper(firestore, collectionName));
 };
 
-// For Calling Maple GG Api directly
-
-export interface MapleGgCharacterData {
-  // Basic Character Information
-  CharacterImageURL: string
-  Class: string
-  Server: string
-  Name: string
-
-  // Character Stats
-  Level: number
-  LegionLevel: number
-
-  // Ranking
-  ClassRank: number
-  GlobralRanking: number
-  ServerRank: number
-  ServerClassRanking: number
-}
-
-export interface MapleGgApiResponse {
-  CharacterData: MapleGgCharacterData
-}
-
 export const fetchFromMapleGg = async (username: string, region: Region) => {
   const response = await fetch(`https://api.maplestory.gg/v2/public/character/${region}/${username}`);
-  return await response.json() as MapleGgApiResponse;
+  return MapleGgApiResponse.parse(response);
 };
