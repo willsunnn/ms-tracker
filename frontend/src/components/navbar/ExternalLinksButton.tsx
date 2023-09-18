@@ -1,5 +1,6 @@
 import { FaBars } from 'react-icons/fa6'
 import CurrentExternalLinks from './external-links.json'
+import { ExternalLinkWrapper } from '../helper/ExternalLinkWrapper'
 
 interface ExternalLink {
   name: string
@@ -20,9 +21,9 @@ const Link = (props: { link: ExternalLink }) => {
   const { link } = props
   return (
     <li key={`link-${link.name}`}>
-      <a className="link" href={link.url} target="_blank" rel="noreferrer noopener">
+      <ExternalLinkWrapper link={link.url}>
         {link.name}
-      </a>
+      </ExternalLinkWrapper>
     </li>
   )
 }
