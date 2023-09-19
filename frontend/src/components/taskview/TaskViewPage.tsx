@@ -98,7 +98,7 @@ export const TaskViewPage = () => {
 
   // if user is not logged in, navigate to the signin page
   if (user === null) {
-    navigate('signin')
+    navigate('/signin')
     return <></>
   }
 
@@ -133,10 +133,10 @@ export const TaskViewPage = () => {
         )}/>
         {/* If path is blank or unknown navigate to characters page */}
         <Route path="*" element={(
-          <Navigate to="characters" replace={true}/>
+          <Navigate to="/characters" replace={true}/>
         )}/>
         <Route path="" element={(
-          <Navigate to="characters" replace={true}/>
+          <Navigate to="/characters" replace={true}/>
         )}/>
       </Route>
     </Routes>

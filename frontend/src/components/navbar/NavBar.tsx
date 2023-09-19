@@ -1,4 +1,3 @@
-import React from 'react'
 import UserIcon from './UserIcon'
 import { SettingsButton } from '../dialog/SettingsDialog'
 import { useAuth } from '../../contexts/AuthContext'
@@ -36,17 +35,17 @@ const NavBar = () => {
         <ul className="menu menu-horizontal px-1">
           { user && (
             <>
-              <NavItem path='characters' name='Characters'/>
-              <NavItem path='todo' name='To-Do'/>
-              <NavItem path='overview' name='Overview'/>
+              <NavItem path='/characters' name='Characters'/>
+              <NavItem path='/todo' name='To-Do'/>
+              <NavItem path='/overview' name='Overview'/>
             </>
           )}
           { !user && (
             <>
-              <NavItem path='signin' name='Sign In'/>
+              <NavItem path='/signin' name='Sign In'/>
             </>
           )}
-          <NavItem path='about' name='About'/>
+          <NavItem path='/about' name='About'/>
         </ul>
       </div>
       <div className="navbar-center">

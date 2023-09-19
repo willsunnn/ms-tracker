@@ -48,7 +48,7 @@ const App = () => {
           We check if undefined here because the page loads in with undefined first.
           We dont want to redirect while we're still determining auth status */}
         <Route path="" element={
-          (user === undefined) ? (<></>) : (user) ? (<Navigate to='characters'/>) : (<Navigate to='about'/>)
+          (user === undefined) ? (<></>) : (user) ? (<Navigate to='/characters'/>) : (<Navigate to='/about'/>)
         }/>
       </Route>
     </Routes>
