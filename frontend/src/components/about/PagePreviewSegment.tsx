@@ -3,7 +3,7 @@ import TodoPreview from '../../resources/about/todo-preview.png'
 import OverviewPreview from '../../resources/about/overview-preview.png'
 
 export const PagePreview = () => {
-  return (<div className="flex flex-col w-full h-fit items-center justify-center py-20">
+  return (<div className="flex flex-col w-full h-fit items-center justify-center">
     <div className="max-w-lg h-fit text-center text-xl w-1/3 mb-4">
       View your tasks by character, by due date, or in a compact spreadsheet-like form
     </div>

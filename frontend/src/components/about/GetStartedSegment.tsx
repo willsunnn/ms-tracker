@@ -11,7 +11,7 @@ export const GetStartedSegment = () => {
       navigate('characters')
     }
   }
-  return (<div className="flex flex-col w-full h-fit items-center justify-center pt-60 pb-40">
+  return (<div className="flex flex-col w-full h-fit items-center justify-center">
     <div className="h-fit text-center text-2xl btn-primary btn py-8 px-12" onClick={onClick}>
       Get Started!
     </div>

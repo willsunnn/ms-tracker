@@ -8,12 +8,12 @@ export const SettingsPreviewSegment = () => {
     setTheme(newTheme)
   }
 
-  return (<div className="flex flex-col w-full h-fit items-center justify-center py-20">
+  return (<div className="flex flex-col w-full h-fit items-center justify-center">
     <div className="w-1/3 h-fit text-center mb-4">
       The App has a light and dark mode too, with more themes coming
     </div>
     <div>
-      {/* Taken from https://daisyui.com/components/swap/*/}
+      {/* Taken from https://daisyui.com/components/swap/ */}
       <label className="swap swap-rotate">
         {/* this hidden checkbox controls the state */}
         <input type="checkbox" onChange={onChange} checked={theme === 'light'}/>

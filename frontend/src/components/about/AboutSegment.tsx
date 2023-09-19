@@ -63,7 +63,7 @@ export const AboutSegment = () => {
     }).catch(alert)
   }, [])
 
-  return (<div className="flex flex-col w-full h-fit items-center justify-center py-20">
+  return (<div className="flex flex-col w-full h-fit items-center justify-center">
     <div className="flex flex-row justify-center w-full mb-4">
       <div className="max-w-lg h-fit text-center text-xl w-1/3">
         BuffNW is an app that you can use to keep track of your Maplestory Daily and Weekly Tasks
