@@ -44,8 +44,8 @@ const App = () => {
         )}/>
 
         {/* If there was no path and the user is signed in, redirect to TaskViewPage
-          If there was no path and the user is not signed in, redirect to About page 
-          We check if undefined here because the page loads in with undefined first. 
+          If there was no path and the user is not signed in, redirect to About page
+          We check if undefined here because the page loads in with undefined first.
           We dont want to redirect while we're still determining auth status */}
         <Route path="" element={
           (user === undefined) ? (<></>) : (user) ? (<Navigate to='characters'/>) : (<Navigate to='about'/>)
