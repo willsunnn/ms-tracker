@@ -5,8 +5,11 @@ import NavBar from './components/navbar/NavBar'
 import { SignInPage } from './components/SignInForm'
 import { TaskViewPage } from './components/taskview/TaskViewPage'
 import { BrowserRouter, Routes, Route, Outlet, Navigate } from 'react-router-dom'
+import { useAuth } from './contexts/AuthContext'
 
 const App = () => {
+  const { user } = useAuth()
+
   return (<BrowserRouter>
     <Routes>
       <Route path="/" element={
@@ -40,10 +43,13 @@ const App = () => {
           <TaskViewPage/>
         )}/>
 
-        {/* If there was no path redirect to TaskViewPage */}
-        <Route path="" element={(
-          <Navigate to="characters"/>
-        )}/>
+        {/* If there was no path and the user is signed in, redirect to TaskViewPage
+          If there was no path and the user is not signed in, redirect to About page 
+          We check if undefined here because the page loads in with undefined first. 
+          We dont want to redirect while we're still determining auth status */}
+        <Route path="" element={
+          (user === undefined) ? (<></>) : (user) ? (<Navigate to='characters'/>) : (<Navigate to='about'/>)
+        }/>
       </Route>
     </Routes>
   </BrowserRouter>)
