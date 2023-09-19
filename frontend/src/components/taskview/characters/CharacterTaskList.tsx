@@ -2,6 +2,7 @@ import { type TaskAndStatus, Model } from 'ms-tracker-library'
 import { useAlertCallback } from '../../../contexts/AlertContext'
 import { useApi } from '../../../contexts/ApiContext'
 import { useSettings } from '../../../contexts/SettingsContext'
+import React from 'react'
 
 interface CharacterTaskListProps {
   tasks: TaskAndStatus[]
@@ -43,20 +44,20 @@ export const CharacterTaskList = (props: CharacterTaskListProps) => {
       {
         tasks.map((task, index) => {
           task = Model.trimClearTimes(task)
-          const { name, resetType } = task
+          const { name, taskId, resetType } = task
           const characterId = task.characterId ?? ''
           const resetsAt = Model.nextReset(new Date(), resetType)
           const isComplete = task.clearTimes.length >= task.maxClearCount
-          return (<>
-            { (index !== 0) && <div key={`divider-${name}-${characterId}`} className="divider col-span-3 -my-1.5 w-[1fr]"></div>}
-            <div key={`name-${name}-${characterId}`} className="font-bold grow text-sm">{name}</div>
+          return (<React.Fragment key={`character-tasks-${taskId}-${characterId}`}>
+            { (index !== 0) && <div className="divider col-span-3 -my-1.5 w-[1fr]"></div>}
+            <div className="font-bold grow text-sm">{name}</div>
 
-            <div key={`time-${name}-${characterId}`} className="text-sm">
+            <div className="text-sm">
               {Model.getReadableTime(resetsAt, dateFormat)}
             </div>
 
-            <input key={`status-${name}-${characterId}`} type="checkbox" className="checkbox" checked={isComplete} onChange={checkBoxOnChangeCurryFunc(task)}/>
-          </>)
+            <input type="checkbox" className="checkbox" checked={isComplete} onChange={checkBoxOnChangeCurryFunc(task)}/>
+          </React.Fragment>)
         })
       }
     </div>
