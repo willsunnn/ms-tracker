@@ -6,46 +6,47 @@ import { Model, type CharacterWithMapleGgData, type TaskAndStatus } from 'ms-tra
 import { useApi } from '../../contexts/ApiContext'
 
 export const EditPrioritizedTasksComponent = (props: { character: CharacterWithMapleGgData, tasks: TaskAndStatus[] }) => {
-  const { character, tasks } = props
+  const { character } = props
+  const characterName = character.mapleGgData?.name ?? character.name
 
   const { user } = useAuth()
   const alert = useAlertCallback()
   const { closeDialog } = useDialogContext()
   const { taskStatusApi } = useApi()
 
-  const modified = React.useRef(new Map<string, boolean>())
-  const [priorities, setPriorities] = React.useState<boolean[]>(tasks.map((t) => t.isPriority))
+  const [tasks, setTasks] = React.useState<TaskAndStatus[]>(props.tasks)
+  const priorities = tasks.map(t => t.isPriority)
 
-  const toggleTaskPriorityCurriedFunc = (task: TaskAndStatus, index: number) => {
+  const toggleTaskPriorityCurriedFunc = (taskId: string) => {
     return () => {
-      priorities[index] = !priorities[index]
-      modified.current.set(task.taskId, priorities[index])
-      setPriorities([...priorities])
+      if (user == null) {
+        alert('Failed to update tasks: user was undefined')
+        return
+      }
+      const task = tasks.find((task) => task.taskId === taskId)
+      if (task == null) {
+        alert(`Could not find task with taskId ${taskId} to prioritize`)
+        return
+      }
+
+      // toggle the priority
+      task.isPriority = !task.isPriority
+      setTasks([...tasks])
+
+      taskStatusApi.updatePriority(user, character, task.taskId, task.isPriority)
+        .then(() => {
+          const message = `${task.isPriority ? 'Prioritized' : 'Deprioritized'} ${task.name} for ${characterName}`
+          alert({
+            text: message,
+            alertLevel: 'info'
+          })
+        })
+        .catch((err) => {
+          alert(err)
+          closeDialog()
+        })
     }
   }
-
-  const submit = () => {
-    if (user == null) {
-      alert('Failed to save: user was undefined')
-      return
-    };
-
-    taskStatusApi.updatePriorities(user, character, modified.current)
-      .then(() => {
-        alert({
-          text: `Successfully updated ${character.name}'s prioritized tasks`,
-          alertLevel: 'info'
-        })
-        modified.current = new Map<string, boolean>()
-        closeDialog()
-      })
-      .catch((err) => {
-        alert(err)
-        closeDialog()
-      })
-  }
-
-  const characterName = character.mapleGgData?.name ?? character.name
 
   return (
     <>
@@ -72,17 +73,13 @@ export const EditPrioritizedTasksComponent = (props: { character: CharacterWithM
                 </td>
 
                 <td>
-                  <input type="checkbox" className="checkbox" checked={isPriority} onChange={toggleTaskPriorityCurriedFunc(task, index)}/>
+                  <input type="checkbox" className="checkbox" checked={isPriority} onChange={toggleTaskPriorityCurriedFunc(task.taskId)}/>
                 </td>
               </tr>)
             })
           }
         </tbody>
       </table>
-
-      <div className="flex items-center w-full max-w-xs pb-5 pt-3 px-3">
-        <span className="btn btn-primary btn-sm ml-auto" onClick={submit}>Save</span>
-      </div>
     </>
   )
 }
