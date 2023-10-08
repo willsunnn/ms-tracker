@@ -1,5 +1,6 @@
-import {Character} from "./character";
-import {DateFormat, ResetType, Task, TaskAndStatus, TaskStatus, TaskType} from "./tasks";
+import {Model} from ".";
+import {Character, CharacterWithMapleGgData} from "./character";
+import {DateFormat, GroupedTasks, ResetType, Task, TaskAndStatus, TaskList, TaskStatus, TaskStatusForAccount, TaskStatusForCharacter, TaskType, emptyTaskStatusForCharacter} from "./tasks";
 
 const midnight = (date: Date): Date => {
   date.setUTCHours(0, 0, 0, 0);
@@ -175,3 +176,202 @@ export const trimClearTimes = (task: TaskAndStatus): TaskAndStatus => {
   });
   return task;
 };
+
+export type StatusesAndCharacter = {
+  character: CharacterWithMapleGgData
+  tasks: TaskAndStatus[]
+}
+export type StatusesByCharacter = Array<StatusesAndCharacter>
+
+export type StatusesAndCharactersAndResetDate = {
+  resetDate: Date,
+  characters: StatusesAndCharacter[]
+}
+export type StatusesByDateThenCharacter = Array<StatusesAndCharactersAndResetDate>
+export type StatusesByCompletionThenDateThenCharacter = {
+  completed: StatusesByDateThenCharacter
+  pending: StatusesByDateThenCharacter
+}
+
+export type StatusesByTaskThenCharacter = {
+  task: Task
+  statuses: TaskStatus[]
+  isPrioritizedByAnyCharacter: boolean
+}
+export type StatusesByGroupThenTaskThenCharacter = Array<{
+  groupName: string,
+  tasks: StatusesByTaskThenCharacter[]
+  containsPrioritizedTask: boolean
+}>
+export type TaskAndStatusesAndGroupIndex = {
+  task: Task
+  statuses: TaskStatus[]
+  groupIndex: number
+}
+
+export class DataWrapper {
+  private userId: string;
+  private characters: CharacterWithMapleGgData[];
+  private tasks: TaskList;
+  private statuses: TaskStatusForAccount;
+
+  constructor(userId: string, characters: CharacterWithMapleGgData[], tasks: TaskList, statuses: TaskStatusForAccount) {
+    this.userId = userId;
+    this.characters = characters;
+    this.tasks = tasks;
+    this.statuses = statuses;
+  }
+
+  /*
+   * Basic getters
+   */
+
+  getTaskStatus = (): TaskStatusForAccount => {
+    return this.statuses;
+  };
+
+  getTaskStatusForCharacter = (characterId: string): TaskStatusForCharacter => {
+    return this.statuses.get(characterId) ?? emptyTaskStatusForCharacter();
+  };
+
+  getTaskStatusForCharacterAndTask = (chracterId: string, taskId: string): TaskStatus => {
+    return this.getTaskStatusForCharacter(chracterId).get(taskId) ?? defaultTaskStatus(this.userId, chracterId, taskId);
+  };
+
+  getCharacters = (): CharacterWithMapleGgData[] => {
+    return this.characters;
+  };
+
+  hasCharacters = (): boolean => {
+    return this.characters.length > 0;
+  };
+
+  hasMultipleCharacters = (): boolean => {
+    return this.characters.length > 1;
+  };
+
+  getTasks = (): Task[] => {
+    return this.tasks.getTasks();
+  };
+
+  getTask = (taskId: string): Task | undefined => {
+    return this.tasks.getTask(taskId);
+  };
+
+  getGroupedTasks = (): GroupedTasks[] => {
+    return this.tasks.getGroupedTasks();
+  };
+
+  /*
+   * Helper getters that involve multiple of the data structures
+   */
+
+  getByCharacterThenTask = (): StatusesByCharacter => {
+    return this.characters.map((character) => ({
+      character,
+      tasks: Model.joinTasksAndStatuses(this.userId, character, this.tasks.getTasks(), this.getTaskStatusForCharacter(character.id)),
+    }));
+  };
+
+  getByResetTimeThenCharacterThenTask = (): StatusesByCompletionThenDateThenCharacter => {
+    const allTaskStatusCharacters = this.getTasks().flatMap((task, taskIndex) => {
+      return this.getCharacters().map((character, characterIndex) => {
+        const status = this.getTaskStatusForCharacterAndTask(character.id, task.taskId);
+        const taskAndStatus: TaskAndStatus = Model.trimClearTimes({
+          ...status,
+          ...task,
+        });
+        const resetDate = Model.nextReset(new Date(), task.resetType);
+        return {
+          status: taskAndStatus,
+          taskIndex,
+          character,
+          characterIndex,
+          resetDate,
+        };
+      });
+    });
+
+    // Only show tasks that are prioritized but havent been finished
+    // Sort them by (resetDate, characterIndex, taskIndex)
+    // Group them by (resetDate, character)
+    const pending: StatusesByDateThenCharacter = [];
+    const completed: StatusesByDateThenCharacter = [];
+    allTaskStatusCharacters.filter((task) => task.status.isPriority)
+      .sort((a, b) => (a.resetDate.getTime() - b.resetDate.getTime()) || (a.characterIndex - b.characterIndex) || (a.taskIndex - b.taskIndex))
+      .forEach((task) => {
+        // decide which list to append it to
+        const groupedTasks = (task.status.clearTimes.length < task.status.maxClearCount) ? pending : completed;
+
+        // add it to the back of the list
+        const lastTime = groupedTasks.length > 0 ? (groupedTasks[groupedTasks.length - 1].resetDate.getTime()) : undefined;
+        if (lastTime !== task.resetDate.getTime()) {
+          groupedTasks.push({resetDate: task.resetDate, characters: []});
+        }
+
+        const characters = groupedTasks[groupedTasks.length - 1].characters;
+        const lastCharacterId = characters.length > 0 ? (characters[characters.length - 1].character.id) : undefined;
+        if (lastCharacterId !== task.character.id) {
+          characters.push({character: task.character, tasks: []});
+        }
+
+        characters[characters.length - 1].tasks.push(task.status);
+      });
+    return {
+      pending,
+      completed,
+    };
+  };
+
+  getByGroupThenTaskThenCharacter = (): StatusesByGroupThenTaskThenCharacter => {
+    const groupedTasksAndStatuses: StatusesByGroupThenTaskThenCharacter = this.getGroupedTasks().map(
+      (taskGroup) => {
+        const tasks = taskGroup.tasks.map((task) => {
+          const statuses = this.getCharacters().map((character) => {
+            const status = this.getTaskStatusForCharacterAndTask(character.id, task.taskId);
+            const taskAndStatus: TaskAndStatus = {
+              ...task,
+              ...status,
+            };
+            return Model.trimClearTimes(taskAndStatus);
+          });
+
+          return {
+            task,
+            statuses,
+            isPrioritizedByAnyCharacter: statuses.filter((status) => status.isPriority).length > 0,
+          };
+        });
+
+        return {
+          groupName: taskGroup.name,
+          tasks,
+          containsPrioritizedTask: tasks.filter((task) => task.isPrioritizedByAnyCharacter).length > 0,
+        };
+      }
+    );
+
+    return groupedTasksAndStatuses;
+  };
+
+  getPrioritizedByGroupThenTaskThenCharacter = (): TaskAndStatusesAndGroupIndex[] => {
+    const groupedTasks = this.getByGroupThenTaskThenCharacter();
+    const prioritizedTasksAndStatuses: TaskAndStatusesAndGroupIndex[] = groupedTasks
+      // remove groups without prioritized tasks
+      .filter((group) => group.containsPrioritizedTask)
+      // assign the group index to the group (so we know which is odd/even)
+      .map((group, groupIndex) => ({
+        ...group,
+        groupIndex,
+      }))
+      // add the groupIndex to each task in the group and flatten the list
+      .map((group) => {
+        return group.tasks.map((task) => ({
+          ...task,
+          groupIndex: group.groupIndex,
+        }));
+      })
+      .flat(1);
+    return prioritizedTasksAndStatuses;
+  };
+}

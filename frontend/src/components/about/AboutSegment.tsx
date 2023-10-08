@@ -3,7 +3,7 @@ import { useApi } from '../../contexts/ApiContext'
 import { CharacterTaskView } from '../taskview/characters/CharacterTaskView'
 import { useAlertCallback } from '../../contexts/AlertContext'
 import React from 'react'
-import { TASK_LIST } from '../../models/PredefinedTasks'
+import { PREDEFINED_TASKS } from '../../models/PredefinedTasks'
 
 const defaultCharacter: CharacterWithMapleGgData = {
   id: 'test',
@@ -45,9 +45,16 @@ const sampleStatuses: Map<string, TaskStatus> = new Map<string, TaskStatus>([
     isPriority: true,
     taskId: 'monster-park-extreme',
     userId: ''
+  }],
+  ['boss-monthly-black-mage', {
+    characterId: 'test',
+    clearTimes: [],
+    isPriority: true,
+    taskId: 'monster-park-extreme',
+    userId: ''
   }]
 ])
-const sampleTasks: TaskAndStatus[] = Model.joinTasksAndStatuses('', defaultCharacter, TASK_LIST, sampleStatuses)
+const sampleTasks: TaskAndStatus[] = Model.joinTasksAndStatuses('', defaultCharacter, PREDEFINED_TASKS.getTasks(), sampleStatuses)
 
 export const AboutSegment = () => {
   const [character, setCharacter] = React.useState<CharacterWithMapleGgData>(defaultCharacter)

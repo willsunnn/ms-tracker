@@ -1,8 +1,8 @@
 import { Model } from 'ms-tracker-library'
-import { type TasksGroupedByDateAndCharacter } from './TaskTodo'
 import { CharacterTaskView } from './CharacterTaskView'
+import { StatusesAndCharactersAndResetDate } from 'ms-tracker-library/lib/models/helper'
 
-export const ResetTaskView = (props: TasksGroupedByDateAndCharacter) => {
+export const ResetTaskView = (props: StatusesAndCharactersAndResetDate) => {
   const { resetDate, characters } = props
 
   return (

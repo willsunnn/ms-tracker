@@ -1,69 +1,13 @@
-import { type TaskAndStatus, Model, type CharacterWithMapleGgData } from 'ms-tracker-library'
-import { type TaskViewProps } from '../TaskViewPage'
 import { ResetTaskView } from './ResetTaskView'
 import { NoTaskRenavigateFullPageSpread } from '../../pagespread/NoTasksRenavigateFullPageSpread'
 import { TouchGrassFullPageSpread } from '../../pagespread/TouchGrassFullPageSpread'
+import { type DataWrapper } from 'ms-tracker-library/lib/models/helper'
 
-interface TaskAndStatusAndCharacter {
-  status: TaskAndStatus
-  taskIndex: number
-  character: CharacterWithMapleGgData
-  characterIndex: number
-  resetDate: Date
-}
-
-export interface TasksGroupedByDateAndCharacter {
-  resetDate: Date
-  characters: Array<{
-    character: CharacterWithMapleGgData
-    tasks: TaskAndStatus[]
-  }>
-}
-
-export const TaskViewByReset = (props: { taskViewAttrs: TaskViewProps }) => {
-  // Join all the data that the child views will need
-  const allTaskStatusCharacters: TaskAndStatusAndCharacter[] = props.taskViewAttrs.tasks.flatMap((task, taskIndex) => {
-    return props.taskViewAttrs.characters.map((character, characterIndex) => {
-      const status = props.taskViewAttrs.taskStatus.get(character.id)?.get(task.taskId) ?? Model.defaultTaskStatus(props.taskViewAttrs.user.uid, character.id, task.taskId)
-      const taskAndStatus: TaskAndStatus = Model.trimClearTimes({
-        ...status,
-        ...task
-      })
-      const resetDate = Model.nextReset(new Date(), task.resetType)
-      return {
-        status: taskAndStatus,
-        taskIndex,
-        character,
-        characterIndex,
-        resetDate
-      }
-    })
-  })
-
-  // Only show tasks that are prioritized but havent been finished
-  // Sort them by (resetDate, characterIndex, taskIndex)
-  // Group them by (resetDate, character
-  const groupedTasks: TasksGroupedByDateAndCharacter[] = []
-  allTaskStatusCharacters.filter((task) => task.status.isPriority)
-    .filter((task) => task.status.clearTimes.length < task.status.maxClearCount)
-    .sort((a, b) => (a.resetDate.getTime() - b.resetDate.getTime()) || (a.characterIndex - b.characterIndex) || (a.taskIndex - b.taskIndex))
-    .forEach((task) => {
-      const lastTime = groupedTasks.length > 0 ? (groupedTasks[groupedTasks.length - 1].resetDate.getTime()) : undefined
-      if (lastTime !== task.resetDate.getTime()) {
-        groupedTasks.push({ resetDate: task.resetDate, characters: [] })
-      }
-
-      const characters = groupedTasks[groupedTasks.length - 1].characters
-      const lastCharacterId = characters.length > 0 ? (characters[characters.length - 1].character.id) : undefined
-      if (lastCharacterId !== task.character.id) {
-        characters.push({ character: task.character, tasks: [] })
-      }
-
-      characters[characters.length - 1].tasks.push(task.status)
-    })
-
-  const hasTasks = allTaskStatusCharacters.length > 0
-  const hasPendingTasks = groupedTasks.length > 0
+export const TaskViewByReset = (props: { data: DataWrapper }) => {
+  const { data } = props
+  const tasks = data.getByResetTimeThenCharacterThenTask()
+  const hasPendingTasks = tasks.pending.length > 0
+  const hasTasks = hasPendingTasks || tasks.completed.length > 0
 
   if (!hasTasks) {
     return <NoTaskRenavigateFullPageSpread/>
@@ -76,7 +20,7 @@ export const TaskViewByReset = (props: { taskViewAttrs: TaskViewProps }) => {
     <div className="flex flex-col w-full h-fit items-center">
       <div className="flex flex-col max-w-lg w-full">
         {
-          groupedTasks.map(({ resetDate, characters }) => (
+          tasks.pending.map(({ resetDate, characters }) => (
             <ResetTaskView key={`TaskTodo-ResetTaskView-${resetDate.getTime()}`} resetDate={resetDate} characters={characters} />
           ))
         }

@@ -2,24 +2,16 @@ import React from 'react'
 import { TaskViewByCharacter } from './characters/TaskViewByCharacters'
 import { TaskViewByReset } from './todo/TaskTodo'
 import { TaskViewCompact } from './overview/TaskOverview'
-import { type User } from 'firebase/auth'
 import { useAlertCallback } from '../../contexts/AlertContext'
-import { GROUPED_TASKS, TASK_LIST } from '../../models/PredefinedTasks'
-import { type Task, type AccountCharacters, type MapleGgCachedData, type CharacterWithMapleGgData, type TaskStatusForAccount, cacheKeyToString, getMapleGgCacheKey } from 'ms-tracker-library'
+import { PREDEFINED_TASKS } from '../../models/PredefinedTasks'
+import { type AccountCharacters, type MapleGgCachedData, type TaskStatusForAccount, cacheKeyToString, getMapleGgCacheKey } from 'ms-tracker-library'
 import { useApi } from '../../contexts/ApiContext'
 import { Navigate, Outlet, Route, Routes, useNavigate } from 'react-router-dom'
 import { useAuth } from '../../contexts/AuthContext'
 import { FullScreenLoader } from '../helper/Loader'
 import { useFabContext } from '../../contexts/FabContext'
 import { useTitle } from '../../contexts/TitleContext'
-
-export interface TaskViewProps {
-  user: User
-  taskStatus: TaskStatusForAccount
-  tasks: Task[]
-  groupedTasks: Task[][]
-  characters: CharacterWithMapleGgData[]
-}
+import { DataWrapper } from 'ms-tracker-library/lib/models/helper'
 
 export const TaskViewPage = () => {
   const { user } = useAuth()
@@ -108,13 +100,7 @@ export const TaskViewPage = () => {
   }
 
   // Now we know the user is signed in, we can render all the other components
-  const taskViewProps: TaskViewProps = {
-    user,
-    taskStatus,
-    tasks: TASK_LIST,
-    groupedTasks: GROUPED_TASKS,
-    characters: characterAndMapleGgData
-  }
+  const data = new DataWrapper(user.uid, characterAndMapleGgData, PREDEFINED_TASKS, taskStatus)
 
   return (
     <Routes>
@@ -123,13 +109,13 @@ export const TaskViewPage = () => {
           <Outlet/>
         </div>)}>
         <Route path="characters" element={(
-          <TaskViewByCharacter taskViewAttrs={taskViewProps}/>
+          <TaskViewByCharacter data={data}/>
         )}/>
         <Route path="todo" element={(
-          <TaskViewByReset taskViewAttrs={taskViewProps}/>
+          <TaskViewByReset data={data}/>
         )}/>
         <Route path="overview" element={(
-          <TaskViewCompact taskViewAttrs={taskViewProps}/>
+          <TaskViewCompact data={data}/>
         )}/>
         {/* If path is blank or unknown navigate to characters page */}
         <Route path="*" element={(
