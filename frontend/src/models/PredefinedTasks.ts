@@ -420,6 +420,19 @@ const DAILY_FAIRY_BROS_TASK: Task[] = [
   }
 ]
 
+const EVENT_2023_07_SIXTH_STAR: Task[] = [
+  {
+    taskId: '2023-07-sixth-star-daily',
+    name: 'Sixth Star Daily',
+    maxClearCount: 1,
+    resetType: 'Daily',
+    taskType: 'Event',
+    isPerAccount: true,
+    startDate: new Date('2023-07-19T00:00:00Z'),
+    endDate: new Date('2023-11-14T23:59:59Z')
+  }
+]
+
 const EVENT_2023_09_FAIRY_BROS: Task[] = [
   {
     taskId: '2023-09-fairy-bros-golden-giveaway',
@@ -460,6 +473,7 @@ const EVENT_TASKS: GroupedTasks = {
   name: 'Event',
   tasks: [
     DAILY_FAIRY_BROS_TASK,
+    EVENT_2023_07_SIXTH_STAR,
     EVENT_2023_09_FAIRY_BROS,
     EVENT_2023_09_NIGHT_TROUPE_TASKS
   ]
