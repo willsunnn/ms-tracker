@@ -23,6 +23,7 @@ const TaskType = z.enum([
   "ArcaneSymbol",
   "SacredSymbol",
   "Guild",
+  "Event",
   "Other",
 ]);
 export type TaskType = z.infer<typeof TaskType>
@@ -36,6 +37,8 @@ const Task = z.object({
   taskType: TaskType,
   isPerAccount: z.boolean(),
   imageIcon: z.string().optional(),
+  startDate: z.date().optional(),
+  endDate: z.date().optional(),
 });
 export type Task = z.infer<typeof Task>
 

@@ -135,6 +135,7 @@ export const getReadableTaskType = (taskType: TaskType): string => {
   case "Ursus":
   case "Guild":
   case "Other":
+  case "Event":
     return taskType.toString();
   case "ArcaneSymbol":
     return "Arcane Symbol";
@@ -175,6 +176,20 @@ export const trimClearTimes = (task: TaskAndStatus): TaskAndStatus => {
     return time > reset;
   });
   return task;
+};
+
+export const isTaskActive = (task: Task): boolean => {
+  const now = new Date();
+  return (task.startDate === undefined || task.startDate <= now ) &&
+    (task.endDate === undefined || now < task.endDate);
+};
+
+export const filterInactiveTasks = (groupedTasks: GroupedTasks): GroupedTasks => {
+  const retValue = {
+    ...groupedTasks,
+    tasks: groupedTasks.tasks.filter(isTaskActive),
+  };
+  return retValue;
 };
 
 export type StatusesAndCharacter = {

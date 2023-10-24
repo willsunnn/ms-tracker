@@ -1,5 +1,6 @@
-import { TaskList, type GroupedTasks } from 'ms-tracker-library'
+import { TaskList, type GroupedTasks, Task } from 'ms-tracker-library'
 import HardHillaIcon from '../resources/tasks/hard-hilla.gif'
+import { filterInactiveTasks, isTaskActive } from 'ms-tracker-library/lib/models/helper'
 
 const WEEKLY_BOSSES: GroupedTasks = {
   name: 'Weekly Bosses',
@@ -282,32 +283,42 @@ const ARCANE_SYMBOL_WEEKLIES: GroupedTasks = {
   })
 }
 
-const GUILD_WEEKLIES: GroupedTasks = {
+const GUILD_TASKS: GroupedTasks = {
   name: 'Guild Weeklies',
   tasks: [
     {
       taskId: 'guild-culvert',
       name: 'Guild Culvert',
-      maxClearCount: 1
+      maxClearCount: 1,
+      resetType: 'Weekly_Monday',
+      taskType: 'Guild',
+      isPerAccount: false
     },
     {
       taskId: 'guild-flag',
       name: 'Guild Flag Race',
-      maxClearCount: 1
+      maxClearCount: 1,
+      resetType: 'Weekly_Monday',
+      taskType: 'Guild',
+      isPerAccount: false
     },
     {
       taskId: 'guild-castle-5k',
       name: 'Guild Castle 5k Mobs',
-      maxClearCount: 1
-    }
-  ].map((t) => {
-    return {
-      ...t,
+      maxClearCount: 1,
       resetType: 'Weekly_Monday',
       taskType: 'Guild',
       isPerAccount: false
+    },
+    {
+      taskId: 'guild-check-in',
+      name: 'Guild Check In',
+      maxClearCount: 1,
+      resetType: 'Daily',
+      taskType: 'Guild',
+      isPerAccount: false
     }
-  })
+  ]
 }
 
 const OTHER_WEEKLIES: GroupedTasks = {
@@ -352,7 +363,111 @@ const MONTHLY_BLACK_MAGE: GroupedTasks = {
   ]
 }
 
+const THREADS_OF_FATE: GroupedTasks = {
+  name: 'Threads of Fate',
+  tasks: [
+    {
+      taskId: 'threads-of-fate-roll-ask',
+      name: 'Reroll Threads of Fate Ask',
+      maxClearCount: 1,
+      resetType: 'Daily',
+      taskType: 'Other',
+      isPerAccount: false
+    },
+    {
+      taskId: 'threads-of-fate-lock-ask',
+      name: 'Lock Threads of Fate Ask',
+      maxClearCount: 1,
+      resetType: 'Daily',
+      taskType: 'Other',
+      isPerAccount: false
+    },
+    {
+      taskId: 'threads-of-fate-do-ask',
+      name: 'Threads of Fate Ask',
+      maxClearCount: 5,
+      resetType: 'Daily',
+      taskType: 'Other',
+      isPerAccount: false
+    },
+    {
+      taskId: 'threads-of-fate-talk-friendship',
+      name: 'Talk Threads of Fate',
+      maxClearCount: 1,
+      resetType: 'Daily',
+      taskType: 'Other',
+      isPerAccount: false
+    },
+    {
+      taskId: 'threads-of-fate-gift-friendship',
+      name: 'Gift Threads of Fate',
+      maxClearCount: 7,
+      resetType: 'Weekly_Monday',
+      taskType: 'Other',
+      isPerAccount: false
+    }
+  ]
+}
+
+const DAILY_FAIRY_BROS_TASK: Task[] = [
+  {
+    taskId: 'fairy-bros-daily-gift',
+    name: 'Daily Gift',
+    maxClearCount: 1,
+    resetType: 'Daily',
+    taskType: 'Event',
+    isPerAccount: true
+  }
+]
+
+const EVENT_2023_09_FAIRY_BROS: Task[] = [
+  {
+    taskId: '2023-09-fairy-bros-golden-giveaway',
+    name: 'Fairy Bros Golden Giveaway',
+    maxClearCount: 1,
+    resetType: 'Daily',
+    taskType: 'Event',
+    isPerAccount: true,
+    startDate: new Date('2023-08-30T00:00:00Z'),
+    endDate: new Date('2023-11-14T23:59:59Z')
+  }
+]
+
+const EVENT_2023_09_NIGHT_TROUPE_TASKS: Task[] = [
+  {
+    taskId: '2023-09-night-troupe-coin-cap',
+    name: 'Night Troupe Coin Cap',
+    maxClearCount: 1,
+    resetType: 'Daily',
+    taskType: 'Event',
+    isPerAccount: true,
+    startDate: new Date('2023-10-04T00:00:00Z'),
+    endDate: new Date('2023-10-31T23:59:59Z')
+  },
+  {
+    taskId: '2023-09-night-troupe-punch-king',
+    name: 'Night Troupe Punch King',
+    maxClearCount: 1,
+    resetType: 'Daily',
+    taskType: 'Event',
+    isPerAccount: true,
+    startDate: new Date('2023-10-04T00:00:00Z'),
+    endDate: new Date('2023-10-31T23:59:59Z')
+  }
+]
+
+const EVENT_TASKS: GroupedTasks = {
+  name: 'Event',
+  tasks: [
+    DAILY_FAIRY_BROS_TASK,
+    EVENT_2023_09_FAIRY_BROS,
+    EVENT_2023_09_NIGHT_TROUPE_TASKS
+  ]
+  .flat()
+}
+
 const GROUPED_TASKS: GroupedTasks[] = [
+  EVENT_TASKS,
   SACRED_SYMBOL_DAILIES,
   ARCANE_SYMBOL_DAILIES,
   OTHER_DAILIES,
@@ -360,8 +475,9 @@ const GROUPED_TASKS: GroupedTasks[] = [
   WEEKLY_BOSSES,
   MONTHLY_BLACK_MAGE,
   ARCANE_SYMBOL_WEEKLIES,
-  GUILD_WEEKLIES,
-  OTHER_WEEKLIES
-]
+  GUILD_TASKS,
+  OTHER_WEEKLIES,
+  THREADS_OF_FATE
+].map(filterInactiveTasks)
 
 export const PREDEFINED_TASKS = new TaskList(GROUPED_TASKS)
