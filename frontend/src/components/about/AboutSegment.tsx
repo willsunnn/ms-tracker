@@ -4,6 +4,7 @@ import { CharacterTaskView } from '../taskview/characters/CharacterTaskView'
 import { useAlertCallback } from '../../contexts/AlertContext'
 import React from 'react'
 import { PREDEFINED_TASKS } from '../../models/PredefinedTasks'
+import ExampleCharacter from '../../resources/about/nums-char.png'
 
 const defaultCharacter: CharacterWithMapleGgData = {
   id: 'test',
@@ -78,7 +79,7 @@ export const AboutSegment = () => {
     </div>
     <div className="flex flex-row justify-center w-full">
       <div className='max-w-lg mt-3 min-w-fit w-1/2'>
-        <CharacterTaskView character={character} tasks={sampleTasks} isPreview={true}/>
+        <CharacterTaskView character={character} tasks={sampleTasks} isPreview={true} characterImageOverride={ExampleCharacter}/>
       </div>
     </div>
   </div>)

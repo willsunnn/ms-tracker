@@ -7,10 +7,11 @@ interface CharacterTaskViewProps {
   character: CharacterWithMapleGgData
   tasks: TaskAndStatus[]
   isPreview?: boolean
+  characterImageOverride?: string
 }
 
 export const CharacterTaskView = (props: CharacterTaskViewProps) => {
-  const { character, tasks } = props
+  const { character, tasks, characterImageOverride } = props
   const isPreview = props.isPreview ?? false
 
   // render data
@@ -32,7 +33,7 @@ export const CharacterTaskView = (props: CharacterTaskViewProps) => {
           This means the CharacterView and the grid of prioritized tasks */}
       <div className="flex flex-row pr-10">
         <div className='min-w-[8rem] max-w-[8rem] min-h-fit '>
-          <CharacterView name={character.name} mapleGgData={character.mapleGgData} showName={true}/>
+          <CharacterView name={character.name} mapleGgData={character.mapleGgData} showName={true} characterImage={characterImageOverride}/>
         </div>
         <CharacterTaskList tasks={prioritizedTasks} isPreview={isPreview}/>
       </div>
