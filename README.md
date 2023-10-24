@@ -22,10 +22,11 @@ To start the frontend, run `npm install` and `npm run start`. To deploy, run `np
 To emulate the cloud function locally, run `npm run import`, `npm install`, `npm run start`. Because our local library project cannot be installed on firebase cloud, we do this hack of copying the library package into the functions directory, so that the functions directory is shipped too. To deploy the cloud functions, run `npm run import` and `npm run deploy`
 
 ## TODO
-- Add Character UI 
+- ~~Add Character UI~~
   - ~~Pressing Enter in the text box should submit~~
   - ~~Character Preview~~
-  - Upload own image (in case player is not in rankings)
+  - ~~Upload own image (in case player is not in rankings)~~ 
+    - Scrapped because i don't want to pay for S3 storage for minimal use case
   - ~~Region Selection (API url is different based on region)~~
 - ~~Improve initial workflow UI~~
 - Account-wide dailies
