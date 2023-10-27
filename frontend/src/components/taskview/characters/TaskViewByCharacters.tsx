@@ -11,13 +11,13 @@ export const TaskViewByCharacter = (props: { data: DataWrapper }) => {
 
   return (
     <div className="grid grid-cols-1 w-full gap-8 lg:grid-cols-2 2xl:grid-cols-3 pb-4">
-      {data.getByCharacterThenTask().map((characterAndTasks) => {
+      {data.getByCharacterThenGroupThenTask().map((characterAndTasks) => {
         // For each character we return a card that contains the CharacterTaskView
         const { character, tasks } = characterAndTasks
         return (
           <div className="max-w-full" key={`TaskViewByCharacter-character-${character.id}`}>
             <CharacterTaskView
-              tasks={tasks} character={character}/>
+              groupedTasks={tasks} character={character}/>
           </div>
         )
       })}

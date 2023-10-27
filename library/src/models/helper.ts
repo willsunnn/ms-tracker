@@ -1,6 +1,6 @@
 import {Model} from ".";
 import {Character, CharacterWithMapleGgData} from "./character";
-import {DateFormat, GroupedTasks, ResetType, Task, TaskAndStatus, TaskList, TaskStatus, TaskStatusForAccount, TaskStatusForCharacter, TaskType, emptyTaskStatusForCharacter} from "./tasks";
+import {DateFormat, GroupedTasks, GroupedTasksAndStatuses, ResetType, Task, TaskAndStatus, TaskList, TaskStatus, TaskStatusForAccount, TaskStatusForCharacter, TaskType, emptyTaskStatusForCharacter} from "./tasks";
 
 const midnight = (date: Date): Date => {
   date.setUTCHours(0, 0, 0, 0);
@@ -160,12 +160,21 @@ export const trimTaskStatus = (status: TaskStatus, resetType: ResetType) => {
   status.clearTimes = status.clearTimes.filter((clearTime) => clearTime > lastResetTime.getTime());
 };
 
-export const joinTasksAndStatuses = (uid: string, character: Character, tasks: Task[], statuses: Map<string, TaskStatus>) => {
+export const joinTasksAndStatuses = (uid: string, character: Character, tasks: Task[], statuses: Map<string, TaskStatus>): TaskAndStatus[] => {
   return tasks.map((task) => {
     const status = statuses.get(task.taskId) ?? defaultTaskStatus(uid, character.id, task.taskId);
     return {
       ...task,
       ...status,
+    };
+  });
+};
+
+export const joinTaskGroupsAndStatuses = (uid: string, character: Character, groupedTasks: GroupedTasks[], statuses: Map<string, TaskStatus>): GroupedTasksAndStatuses[] => {
+  return groupedTasks.map((group) => {
+    return {
+      ...group,
+      tasks: joinTasksAndStatuses(uid, character, group.tasks, statuses),
     };
   });
 };
@@ -281,10 +290,10 @@ export class DataWrapper {
    * Helper getters that involve multiple of the data structures
    */
 
-  getByCharacterThenTask = (): StatusesByCharacter => {
+  getByCharacterThenGroupThenTask = () => {
     return this.characters.map((character) => ({
       character,
-      tasks: Model.joinTasksAndStatuses(this.userId, character, this.tasks.getTasks(), this.getTaskStatusForCharacter(character.id)),
+      tasks: Model.joinTaskGroupsAndStatuses(this.userId, character, this.tasks.getGroupedTasks(), this.getTaskStatusForCharacter(character.id)),
     }));
   };
 

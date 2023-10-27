@@ -2,10 +2,10 @@ import React from 'react'
 import { useDialogContext } from '../../contexts/DialogContext'
 import { useAuth } from '../../contexts/AuthContext'
 import { useAlertCallback } from '../../contexts/AlertContext'
-import { Model, type CharacterWithMapleGgData, type TaskAndStatus } from 'ms-tracker-library'
+import { Model, type CharacterWithMapleGgData, type TaskAndStatus, GroupedTasksAndStatuses } from 'ms-tracker-library'
 import { useApi } from '../../contexts/ApiContext'
 
-export const EditPrioritizedTasksComponent = (props: { character: CharacterWithMapleGgData, tasks: TaskAndStatus[] }) => {
+export const EditPrioritizedTasksComponent = (props: { character: CharacterWithMapleGgData, tasks: GroupedTasksAndStatuses[] }) => {
   const { character } = props
   const characterName = character.mapleGgData?.name ?? character.name
 
@@ -14,7 +14,7 @@ export const EditPrioritizedTasksComponent = (props: { character: CharacterWithM
   const { closeDialog } = useDialogContext()
   const { taskStatusApi } = useApi()
 
-  const [tasks, setTasks] = React.useState<TaskAndStatus[]>(props.tasks)
+  const [tasks, setTasks] = React.useState<TaskAndStatus[]>(props.tasks.map((group) => group.tasks).flat(1))
   const priorities = tasks.map(t => t.isPriority)
 
   const toggleTaskPriorityCurriedFunc = (taskId: string) => {
