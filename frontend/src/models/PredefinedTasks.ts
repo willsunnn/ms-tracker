@@ -429,7 +429,7 @@ const EVENT_2023_07_SIXTH_STAR: Task[] = [
     taskType: 'Event',
     isPerAccount: true,
     startDate: new Date('2023-07-19T00:00:00Z'),
-    endDate: new Date('2023-11-14T23:59:59Z')
+    endDate: new Date('2023-10-31T23:59:59Z')
   }
 ]
 
