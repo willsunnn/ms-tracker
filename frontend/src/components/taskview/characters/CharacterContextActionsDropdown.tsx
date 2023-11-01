@@ -1,4 +1,4 @@
-import { type Character, type TaskAndStatus } from 'ms-tracker-library'
+import { GroupedTasksAndStatuses, type Character, type TaskAndStatus } from 'ms-tracker-library'
 import { FaArrowTurnUp } from 'react-icons/fa6'
 import { MdSettings } from 'react-icons/md'
 import { useDialogContext } from '../../../contexts/DialogContext'
@@ -8,12 +8,12 @@ import { EditPrioritizedTasksComponent } from '../../dialog/EditPrioritizedTasks
 interface CharacterContextActionsDropdownProps {
   hasPrioritizedTasks: boolean
   character: Character
-  tasks: TaskAndStatus[]
+  groupedTasks: GroupedTasksAndStatuses[]
   isPreview: boolean
 }
 
 export const CharacterContextActionsDropdown = (props: CharacterContextActionsDropdownProps) => {
-  const { hasPrioritizedTasks, character, tasks, isPreview } = props
+  const { hasPrioritizedTasks, character, groupedTasks, isPreview } = props
   const { openDialog } = useDialogContext()
 
   const closeDropdown = () => {
@@ -27,7 +27,7 @@ export const CharacterContextActionsDropdown = (props: CharacterContextActionsDr
     if (isPreview) {
       return
     }
-    openDialog((<EditPrioritizedTasksComponent character={character} tasks={tasks}/>))
+    openDialog((<EditPrioritizedTasksComponent character={character} tasks={groupedTasks}/>))
   }
   const onDeleteClicked = () => {
     closeDropdown()

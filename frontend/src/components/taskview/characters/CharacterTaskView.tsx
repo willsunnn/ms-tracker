@@ -1,21 +1,24 @@
 import { CharacterView } from '../../CharacterView'
-import { type CharacterWithMapleGgData, type TaskAndStatus } from 'ms-tracker-library'
+import { GroupedTasksAndStatuses, type CharacterWithMapleGgData, type TaskAndStatus } from 'ms-tracker-library'
 import { CharacterContextActionsDropdown } from './CharacterContextActionsDropdown'
 import { CharacterTaskList } from './CharacterTaskList'
 
 interface CharacterTaskViewProps {
   character: CharacterWithMapleGgData
-  tasks: TaskAndStatus[]
+  groupedTasks: GroupedTasksAndStatuses[]
   isPreview?: boolean
   characterImageOverride?: string
 }
 
 export const CharacterTaskView = (props: CharacterTaskViewProps) => {
-  const { character, tasks, characterImageOverride } = props
+  const { character, groupedTasks, characterImageOverride } = props
   const isPreview = props.isPreview ?? false
 
   // render data
-  const prioritizedTasks = tasks.filter((task) => task.isPriority)
+  const prioritizedTasks = groupedTasks
+    .map((group) => group.tasks)
+    .flat(1)
+    .filter((task) => task.isPriority)
   return (
     <div className="card bg-base-200 shadow-xl my-2 p-3 min-h-fit h-full">
 
@@ -25,7 +28,7 @@ export const CharacterTaskView = (props: CharacterTaskViewProps) => {
         <CharacterContextActionsDropdown
           hasPrioritizedTasks={prioritizedTasks.length !== 0}
           character={character}
-          tasks={tasks}
+          groupedTasks={groupedTasks}
           isPreview={isPreview}/>
       </div>
 

@@ -1,4 +1,4 @@
-import { type CharacterWithMapleGgData, Model, type TaskAndStatus, type TaskStatus } from 'ms-tracker-library'
+import { type CharacterWithMapleGgData, Model, type TaskAndStatus, type TaskStatus, GroupedTasksAndStatuses } from 'ms-tracker-library'
 import { useApi } from '../../contexts/ApiContext'
 import { CharacterTaskView } from '../taskview/characters/CharacterTaskView'
 import { useAlertCallback } from '../../contexts/AlertContext'
@@ -55,7 +55,7 @@ const sampleStatuses: Map<string, TaskStatus> = new Map<string, TaskStatus>([
     userId: ''
   }]
 ])
-const sampleTasks: TaskAndStatus[] = Model.joinTasksAndStatuses('', defaultCharacter, PREDEFINED_TASKS.getTasks(), sampleStatuses)
+const sampleTasks: GroupedTasksAndStatuses[] = Model.joinTaskGroupsAndStatuses('', defaultCharacter, PREDEFINED_TASKS.getGroupedTasks(), sampleStatuses)
 
 export const AboutSegment = () => {
   const [character, setCharacter] = React.useState<CharacterWithMapleGgData>(defaultCharacter)
@@ -79,7 +79,7 @@ export const AboutSegment = () => {
     </div>
     <div className="flex flex-row justify-center w-full">
       <div className='max-w-lg mt-3 min-w-fit w-1/2'>
-        <CharacterTaskView character={character} tasks={sampleTasks} isPreview={true} characterImageOverride={ExampleCharacter}/>
+        <CharacterTaskView character={character} groupedTasks={sampleTasks} isPreview={true} characterImageOverride={ExampleCharacter}/>
       </div>
     </div>
   </div>)
