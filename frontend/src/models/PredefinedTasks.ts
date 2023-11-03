@@ -234,6 +234,11 @@ const OTHER_DAILIES: GroupedTasks = {
       taskId: 'maple-tour',
       name: 'Maple Tour',
       maxClearCount: 2
+    },
+    {
+      taskId: 'talk-to-home-caretaker',
+      name: 'Talk to Home Caretaker',
+      maxClearCount: 1
     }
   ].map((t) => {
     return {
