@@ -38,4 +38,4 @@ To emulate the cloud function locally, run `npm run import`, `npm install`, `npm
 - ~~Overview view should highlight tasks by color and by isPriority so its easier to understand~~
 - ~~Overview view columns should be consistent width with Diagonal Name Headers~~
 - ~~Add Bug Report and Feature Request Items to Floating Action Button~~
-- Edit Tasks UI is too clunky now that there's a large list of tasks
+- ~~Edit Tasks UI is too clunky now that there's a large list of tasks~~
