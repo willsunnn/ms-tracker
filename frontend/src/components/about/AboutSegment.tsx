@@ -1,4 +1,4 @@
-import { type CharacterWithMapleGgData, Model, type TaskAndStatus, type TaskStatus, GroupedTasksAndStatuses } from 'ms-tracker-library'
+import { type CharacterWithMapleGgData, Model, type TaskAndStatus, type TaskStatus, type GroupedTasksAndStatuses } from 'ms-tracker-library'
 import { useApi } from '../../contexts/ApiContext'
 import { CharacterTaskView } from '../taskview/characters/CharacterTaskView'
 import { useAlertCallback } from '../../contexts/AlertContext'

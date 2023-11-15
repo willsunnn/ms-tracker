@@ -1,6 +1,6 @@
 import { Model } from 'ms-tracker-library'
 import { CharacterTaskView } from './CharacterTaskView'
-import { StatusesAndCharactersAndResetDate } from 'ms-tracker-library/lib/models/helper'
+import { type StatusesAndCharactersAndResetDate } from 'ms-tracker-library/lib/models/helper'
 
 export const ResetTaskView = (props: StatusesAndCharactersAndResetDate) => {
   const { resetDate, characters } = props

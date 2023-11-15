@@ -1,4 +1,4 @@
-import { GroupedTasksAndStatuses, type Character, type TaskAndStatus } from 'ms-tracker-library'
+import { type GroupedTasksAndStatuses, type Character, type TaskAndStatus } from 'ms-tracker-library'
 import { FaArrowTurnUp } from 'react-icons/fa6'
 import { MdSettings } from 'react-icons/md'
 import { useDialogContext } from '../../../contexts/DialogContext'
