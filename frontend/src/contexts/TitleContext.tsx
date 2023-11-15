@@ -48,7 +48,7 @@ const getAbbreviatedName = (characterClass: MapleClass | undefined): string => {
       return 'NW'
     case 'Shadower':
       return 'Shad'
-    case 'Dual Blade':
+    case 'Blade Master':
       return 'DB'
     case 'Bowmaster':
       return 'BM'
@@ -134,7 +134,7 @@ const getArcaneWeapon = (characterClass: MapleClass | undefined): string => {
       return ArcaneWeapons.Claw
     case 'Shadower':
       return ArcaneWeapons.Dagger
-    case 'Dual Blade':
+    case 'Blade Master':
       return ArcaneWeapons.Katara
     case 'Bowmaster':
     case 'Wind Archer':

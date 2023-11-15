@@ -26,7 +26,7 @@ export const MapleClass = z.enum([
   "Fire/Poison Archmage",
   "Night Lord",
   "Shadower",
-  "Dual Blade",
+  "Blade Master",
   "Bowmaster",
   "Marksman",
   "Pathfinder",
