@@ -94,6 +94,10 @@ const WEEKLY_BOSSES: GroupedTasks = {
     {
       taskId: 'boss-weekly-kalos',
       name: 'Kalos'
+    },
+    {
+      taskId: 'boss-weekly-kaling',
+      name: 'Kaling'
     }
   ].map((t) => {
     return {
