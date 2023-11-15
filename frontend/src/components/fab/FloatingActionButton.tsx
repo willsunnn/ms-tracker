@@ -4,6 +4,7 @@ import { EditCharacterOrderButton } from './EditCharacterOrderActionButton'
 import { AddCharacterButton } from './AddCharacterActionButton'
 import { BugReportActionButton } from './BugReportActionButton'
 import { FeatureRequestActionButton } from './FeatureRequestButton'
+import { DonateButton } from './DonateButton'
 
 export const FloatingActionButton = () => {
   const { isOpen, toggleFab, characters } = useFabContext()
@@ -23,6 +24,7 @@ export const FloatingActionButton = () => {
           { showAddCharacter && <AddCharacterButton/> }
           <FeatureRequestActionButton/>
           <BugReportActionButton/>
+          <DonateButton/>
         </>
       )}
       <button className={`btn btn-circle btn-primary ${isOpen ? '-rotate-180' : ''}`} onClick={toggleFab}>
