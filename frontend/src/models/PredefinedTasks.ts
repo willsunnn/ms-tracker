@@ -289,7 +289,7 @@ const ARCANE_SYMBOL_WEEKLIES: GroupedTasks = {
 }
 
 const GUILD_TASKS: GroupedTasks = {
-  name: 'Guild Weeklies',
+  name: 'Guild',
   tasks: [
     {
       taskId: 'guild-culvert',
