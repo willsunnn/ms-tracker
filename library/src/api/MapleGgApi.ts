@@ -112,5 +112,6 @@ export const mapleGgFirebaseApiAdmin = (firestore: FirestoreAdmin) => {
 
 export const fetchFromMapleGg = async (username: string, region: Region) => {
   const response = await fetch(`https://api.maplestory.gg/v2/public/character/${region}/${username}`);
-  return MapleGgApiResponse.parse(response);
+  const characterJson = await response.json();
+  return MapleGgApiResponse.parse(characterJson);
 };

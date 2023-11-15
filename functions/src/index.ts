@@ -57,6 +57,10 @@ const updateAndSave = async (key: MapleGgCacheKey): Promise<MapleGgCachedData> =
     // Error fetching the data probably
     // Lets log it, and then update the time so we dont keep making failed requests
     logger.error(`api.maplestory.gg Failed to fetch character ${char.name} e=${err}`);
+    if (err instanceof Error) {
+      const {stack, message} = err;
+      logger.error(`${message}\n${stack}`);
+    }
     newData = {...char};
     newData.lastRetrievedTimestamp = now;
   }
