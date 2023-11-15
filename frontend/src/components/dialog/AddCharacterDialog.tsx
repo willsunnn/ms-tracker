@@ -129,6 +129,8 @@ export const AddCharacterComponent = () => {
         { !isLoading && <div className='w-full h-full'><CharacterView name={name.current} mapleGgData={character} showName={false}/></div> }
       </div>
 
+      <div className={`text-xs text-info w-2/3 ${isLoading ? '' : 'invisible'}`}>{'Fetching images for the first time can be slow as we have to search player rankings for your character'}</div>
+
       <div className="flex items-center w-full pb-5 pt-3 px-3">
         <span className="btn btn-primary btn-sm ml-auto" onClick={submit}>Next</span>
       </div>
