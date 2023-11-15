@@ -167,6 +167,18 @@ const SACRED_SYMBOL_DAILIES: GroupedTasks = {
     {
       taskId: 'sacred-odium',
       name: 'Odium'
+    },
+    {
+      taskId: 'sacred-shangrila',
+      name: 'Shangri-La'
+    },
+    {
+      taskId: 'sacred-arteria',
+      name: 'Arteria'
+    },
+    {
+      taskId: 'sacred-carcion',
+      name: 'Carcion'
     }
   ].map((t) => {
     return {
