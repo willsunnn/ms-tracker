@@ -2,7 +2,7 @@ import React from 'react'
 import { useDialogContext } from '../../contexts/DialogContext'
 import { useAuth } from '../../contexts/AuthContext'
 import { useAlertCallback } from '../../contexts/AlertContext'
-import { Model, type CharacterWithMapleGgData, type TaskAndStatus, type GroupedTasksAndStatuses } from 'ms-tracker-library'
+import type { CharacterWithMapleGgData, TaskAndStatus, GroupedTasksAndStatuses } from 'ms-tracker-library'
 import { useApi } from '../../contexts/ApiContext'
 
 const TaskEntryComponent = (props: { character: CharacterWithMapleGgData, task: TaskAndStatus }) => {
@@ -14,18 +14,15 @@ const TaskEntryComponent = (props: { character: CharacterWithMapleGgData, task: 
   const { character, task } = props
   const characterName = character.mapleGgData?.name ?? character.name
 
-  const [isPriority, setIsPriority] = React.useState<boolean>(task.isPriority)
-
   const toggleTaskPriority = () => {
     if (user == null) {
       alert('Failed to update tasks: user was undefined')
       return
     }
 
-    taskStatusApi.updatePriority(user, character, task.taskId, !isPriority)
+    taskStatusApi.updatePriority(user, character, task.taskId, !task.isPriority)
       .then(() => {
-        task.isPriority = !isPriority
-        setIsPriority(!isPriority)
+        task.isPriority = !task.isPriority
         const message = `${task.isPriority ? 'Prioritized' : 'Deprioritized'} ${task.name} for ${characterName}`
         alert({
           text: message,
@@ -40,7 +37,7 @@ const TaskEntryComponent = (props: { character: CharacterWithMapleGgData, task: 
 
   return (
     <div className="flex my-1">
-      <input type="checkbox" className="checkbox mx-1" checked={isPriority} onClick={toggleTaskPriority}/>
+      <input type="checkbox" className="checkbox mx-1" checked={task.isPriority} onClick={toggleTaskPriority}/>
       <div className="font-bold">
         { task.name }
       </div>
@@ -51,27 +48,38 @@ const TaskEntryComponent = (props: { character: CharacterWithMapleGgData, task: 
 type GroupChecked = 'none' | 'some' | 'all'
 
 const TaskGroupEntryComponent = (props: { character: CharacterWithMapleGgData, taskGroup: GroupedTasksAndStatuses }) => {
-  const { character, taskGroup } = props
+  const { taskStatusApi } = useApi()
+  const { user } = useAuth()
+  const alert = useAlertCallback()
+
+  const { character } = props
+  const characterName = character.mapleGgData?.name ?? character.name
+
+  const { taskGroup } = props
   const groupName = taskGroup.name
   const { tasks } = taskGroup
   const numChecked = tasks.filter(t => t.isPriority).length
   const groupChecked: GroupChecked = numChecked === 0 ? 'none' : numChecked === tasks.length ? 'all' : 'some'
-  const { taskStatusApi } = useApi()
-  const { user } = useAuth()
-  const characterName = character.mapleGgData?.name ?? character.name
   const groupCheckboxRef = React.createRef<HTMLInputElement>()
-  const alert = useAlertCallback()
 
-  React.useEffect(() => {
+  const updateGroupCheckbox = () => {
     if (groupCheckboxRef.current) {
       groupCheckboxRef.current.indeterminate = (groupChecked) === 'some'
       groupCheckboxRef.current.checked = (groupChecked) === 'all'
+    } else {
+      alert('TaskGroupEntryComponent cannot update checkbox state as ref is null')
     }
-  }, [groupChecked])
+  }
+
+  React.useEffect(updateGroupCheckbox, [groupChecked])
 
   const onClick = () => {
+    // the click event will change the state, but we don't want it to show the state
+    // change until after we recieved a response from firebase
+    // so we revert it to its unchanged state with this function
+    updateGroupCheckbox()
     if (!user) {
-      console.log(`cannot perform onClick as user is null`)
+      alert('TaskGroupEntryComponent cannot perform onClick as user is null')
       return
     }
     // if its currently none, or some, we prioritize them all
@@ -85,6 +93,9 @@ const TaskGroupEntryComponent = (props: { character: CharacterWithMapleGgData, t
         alert({
           text: message,
           alertLevel: 'info'
+        })
+        tasks.forEach((t) => {
+          t.isPriority = nextIsPriority
         })
       })
       .catch(alert)

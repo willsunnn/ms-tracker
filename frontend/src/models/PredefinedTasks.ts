@@ -1,6 +1,6 @@
-import { TaskList, type GroupedTasks, Task } from 'ms-tracker-library'
+import { TaskList, type GroupedTasks, type Task } from 'ms-tracker-library'
 import HardHillaIcon from '../resources/tasks/hard-hilla.gif'
-import { filterInactiveTasks, isTaskActive } from 'ms-tracker-library/lib/models/helper'
+import { filterInactiveTasks } from 'ms-tracker-library/lib/models/helper'
 
 const WEEKLY_BOSSES: GroupedTasks = {
   name: 'Weekly Bosses',
@@ -482,7 +482,7 @@ const EVENT_TASKS: GroupedTasks = {
     EVENT_2023_09_FAIRY_BROS,
     EVENT_2023_09_NIGHT_TROUPE_TASKS
   ]
-  .flat()
+    .flat()
 }
 
 const GROUPED_TASKS: GroupedTasks[] = [
