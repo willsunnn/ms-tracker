@@ -1,6 +1,6 @@
 {
   "name": "ms-tracker-cloud-functions",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "scripts": {
     "lint": "eslint --ext .js,.ts .",
     "lint-fix": "eslint --ext .js,.ts . --fix",
