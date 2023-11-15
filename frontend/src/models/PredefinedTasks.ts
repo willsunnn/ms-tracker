@@ -183,13 +183,68 @@ const DAILY_BOSSES: GroupedTasks = {
   name: 'Daily Bosses',
   tasks: [
     {
-      taskId: 'gollux',
-      name: 'Gollux',
+      taskId: 'zakum',
+      name: 'Easy/Normal Zakum',
+      maxClearCount: 1
+    },
+    {
+      taskId: 'hilla',
+      name: 'Normal Hilla',
+      maxClearCount: 1
+    },
+    {
+      taskId: 'von-bon',
+      name: 'Normal Von Bon',
+      maxClearCount: 1
+    },
+    {
+      taskId: 'crimson-queen',
+      name: 'Normal Crimson Queen',
+      maxClearCount: 1
+    },
+    {
+      taskId: 'pierre',
+      name: 'Normal Pierre',
+      maxClearCount: 1
+    },
+    {
+      taskId: 'vellum',
+      name: 'Normal Vellum',
+      maxClearCount: 1
+    },
+    {
+      taskId: 'horntail',
+      name: 'Horntail',
+      maxClearCount: 1
+    },
+    {
+      taskId: 'von-leon',
+      name: 'Von Leon',
+      maxClearCount: 1
+    },
+    {
+      taskId: 'pink-bean',
+      name: 'Normal Pink Bean',
+      maxClearCount: 1
+    },
+    {
+      taskId: 'magnus',
+      name: 'Easy/Normal Magnus',
       maxClearCount: 1
     },
     {
       taskId: 'arkarium',
       name: 'Arkarium',
+      maxClearCount: 1
+    },
+    {
+      taskId: 'ranmaru',
+      name: 'Mori Ranmaru',
+      maxClearCount: 1
+    },
+    {
+      taskId: 'gollux',
+      name: 'Gollux',
       maxClearCount: 1
     }
   ].map((t) => {
