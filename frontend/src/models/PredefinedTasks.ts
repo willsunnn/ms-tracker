@@ -161,10 +161,6 @@ const SACRED_SYMBOL_DAILIES: GroupedTasks = {
       name: 'Cernium'
     },
     {
-      taskId: 'sacred-burnium',
-      name: 'Burning Cernium'
-    },
-    {
       taskId: 'sacred-arcus',
       name: 'Hotel Arcus'
     },
@@ -545,13 +541,57 @@ const EVENT_2023_09_NIGHT_TROUPE_TASKS: Task[] = [
   }
 ]
 
+const EVENT_2023_11_IDENTISK_TASKS: Task[] = [
+  {
+    taskId: '2023-11-identisk-basic-exploration',
+    name: 'Identisk Basic Exploration',
+    maxClearCount: 1,
+    resetType: 'Daily',
+    taskType: 'Event',
+    isPerAccount: true,
+    startDate: new Date('2023-11-15T00:00:00Z'),
+    endDate: new Date('2024-02-06T23:59:59Z')
+  },
+  {
+    taskId: '2023-11-identisk-indepth-exploration',
+    name: 'Identisk In-Depth Exploration',
+    maxClearCount: 1,
+    resetType: 'Daily',
+    taskType: 'Event',
+    isPerAccount: true,
+    startDate: new Date('2023-11-15T00:00:00Z'),
+    endDate: new Date('2024-02-06T23:59:59Z')
+  },
+  {
+    taskId: '2023-11-identisk-food-storehouse',
+    name: 'Identisk Food Storehouse',
+    maxClearCount: 1,
+    resetType: 'Daily',
+    taskType: 'Event',
+    isPerAccount: true,
+    startDate: new Date('2023-11-15T00:00:00Z'),
+    endDate: new Date('2024-02-06T23:59:59Z')
+  },
+  {
+    taskId: '2023-11-identisk-tropical-adventure',
+    name: 'Identisk Tropical Adventure',
+    maxClearCount: 1,
+    resetType: 'Daily',
+    taskType: 'Event',
+    isPerAccount: true,
+    startDate: new Date('2023-11-15T00:00:00Z'),
+    endDate: new Date('2024-02-06T23:59:59Z')
+  }
+]
+
 const EVENT_TASKS: GroupedTasks = {
   name: 'Event',
   tasks: [
     DAILY_FAIRY_BROS_TASK,
     EVENT_2023_07_SIXTH_STAR,
     EVENT_2023_09_FAIRY_BROS,
-    EVENT_2023_09_NIGHT_TROUPE_TASKS
+    EVENT_2023_09_NIGHT_TROUPE_TASKS,
+    EVENT_2023_11_IDENTISK_TASKS
   ]
     .flat()
 }
