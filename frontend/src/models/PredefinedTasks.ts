@@ -157,6 +157,10 @@ const SACRED_SYMBOL_DAILIES: GroupedTasks = {
   name: 'Sacred Symbol Dailies',
   tasks: [
     {
+      taskId: 'grandis-sol-erda',
+      name: 'Sol Erda Daily'
+    },
+    {
       taskId: 'sacred-cernium',
       name: 'Cernium'
     },
