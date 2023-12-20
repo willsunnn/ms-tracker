@@ -581,6 +581,49 @@ const EVENT_2023_11_IDENTISK_TASKS: Task[] = [
     isPerAccount: true,
     startDate: new Date('2023-11-15T00:00:00Z'),
     endDate: new Date('2024-02-06T23:59:59Z')
+  },
+  {
+    taskId: '2023-11-identisk-coconut-smash',
+    name: 'Identisk Coconut Smash',
+    maxClearCount: 1,
+    resetType: 'Daily',
+    taskType: 'Event',
+    isPerAccount: true,
+    startDate: new Date('2023-12-20T00:00:00Z'),
+    endDate: new Date('2024-02-06T23:59:59Z')
+  }
+]
+
+const EVENT_2023_12_ABYSS_EXPEDITION_TASKS: Task[] = [
+  {
+    taskId: '2023-12-abyss-expedition-mercenary-level-up',
+    name: 'Level Up Abyss Mercenary',
+    maxClearCount: 1,
+    resetType: 'Daily',
+    taskType: 'Event',
+    isPerAccount: true,
+    startDate: new Date('2023-12-20T00:00:00Z'),
+    endDate: new Date('2024-02-06T23:59:59Z')
+  },
+  {
+    taskId: '2023-12-abyss-expedition-daily-tasks',
+    name: 'Abyss Expedition Daily Missions',
+    maxClearCount: 3,
+    resetType: 'Daily',
+    taskType: 'Event',
+    isPerAccount: true,
+    startDate: new Date('2023-12-20T00:00:00Z'),
+    endDate: new Date('2024-02-06T23:59:59Z')
+  },
+  {
+    taskId: '2023-12-abyss-expedition-boss-cap',
+    name: 'Abyss Expedition Daily Boss',
+    maxClearCount: 3,
+    resetType: 'Daily',
+    taskType: 'Event',
+    isPerAccount: true,
+    startDate: new Date('2023-12-20T00:00:00Z'),
+    endDate: new Date('2024-02-06T23:59:59Z')
   }
 ]
 
@@ -591,7 +634,8 @@ const EVENT_TASKS: GroupedTasks = {
     EVENT_2023_07_SIXTH_STAR,
     EVENT_2023_09_FAIRY_BROS,
     EVENT_2023_09_NIGHT_TROUPE_TASKS,
-    EVENT_2023_11_IDENTISK_TASKS
+    EVENT_2023_11_IDENTISK_TASKS,
+    EVENT_2023_12_ABYSS_EXPEDITION_TASKS
   ]
     .flat()
 }
