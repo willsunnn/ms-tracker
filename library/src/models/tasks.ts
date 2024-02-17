@@ -22,6 +22,7 @@ const TaskType = z.enum([
   "Ursus",
   "ArcaneSymbol",
   "SacredSymbol",
+  "6thJob",
   "Guild",
   "Event",
   "Other",

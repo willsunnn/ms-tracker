@@ -153,13 +153,31 @@ const ARCANE_SYMBOL_DAILIES: GroupedTasks = {
   })
 }
 
+const SIXTH_JOB_DAILIES: GroupedTasks = {
+  name: "6th Job",
+  tasks: [
+    {
+      taskId: '6th-job-sol-erda',
+      name: 'Erda\'s request'
+    },
+    {
+      taskId: '6th-job-sol-erda-booster',
+      name: 'Sol Erda Booster'
+    }
+  ].map((t) => {
+    return {
+      ...t,
+      maxClearCount: 1,
+      resetType: 'Daily',
+      taskType: '6thJob',
+      isPerAccount: false
+    }
+  })
+}
+
 const SACRED_SYMBOL_DAILIES: GroupedTasks = {
   name: 'Sacred Symbol Dailies',
   tasks: [
-    {
-      taskId: 'grandis-sol-erda',
-      name: 'Sol Erda Daily'
-    },
     {
       taskId: 'sacred-cernium',
       name: 'Cernium'
@@ -682,6 +700,7 @@ const GROUPED_TASKS: GroupedTasks[] = [
   EVENT_TASKS,
   SACRED_SYMBOL_DAILIES,
   ARCANE_SYMBOL_DAILIES,
+  SIXTH_JOB_DAILIES,
   OTHER_DAILIES,
   DAILY_BOSSES,
   WEEKLY_BOSSES,

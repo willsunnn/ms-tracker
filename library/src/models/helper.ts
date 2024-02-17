@@ -141,6 +141,8 @@ export const getReadableTaskType = (taskType: TaskType): string => {
     return "Arcane Symbol";
   case "SacredSymbol":
     return "Sacred Symbol";
+  case "6thJob":
+    return "6th Job";
   }
 };
 
