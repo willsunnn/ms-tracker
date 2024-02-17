@@ -631,6 +631,39 @@ const EVENT_2023_12_ABYSS_EXPEDITION_TASKS: Task[] = [
   }
 ]
 
+const EVENT_2024_02_V248_TASKS: Task[] = [
+  {
+    taskId: '2024-02-strawberry-farm-daily',
+    name: 'Strawberry Farm Daily',
+    maxClearCount: 1,
+    resetType: 'Daily',
+    taskType: 'Event',
+    isPerAccount: true,
+    startDate: new Date('2024-02-07T00:00:00Z'),
+    endDate: new Date('2024-02-20T23:59:59Z')
+  },
+  {
+    taskId: '2024-02-gold-richies-safe',
+    name: 'Gold Richie\'s Safe',
+    maxClearCount: 1,
+    resetType: 'Daily',
+    taskType: 'Event',
+    isPerAccount: true,
+    startDate: new Date('2024-03-06T00:00:00Z'),
+    endDate: new Date('2024-03-19T23:59:59Z')
+  },
+  {
+    taskId: '2024-02-fairy-bros-golden-giveaway',
+    name: 'Fairy Bros Golden Giveaway',
+    maxClearCount: 1,
+    resetType: 'Daily',
+    taskType: 'Event',
+    isPerAccount: true,
+    startDate: new Date('2024-02-07T00:00:00Z'),
+    endDate: new Date('2024-06-11T23:59:59Z')
+  }
+]
+
 const EVENT_TASKS: GroupedTasks = {
   name: 'Event',
   tasks: [
@@ -639,7 +672,8 @@ const EVENT_TASKS: GroupedTasks = {
     EVENT_2023_09_FAIRY_BROS,
     EVENT_2023_09_NIGHT_TROUPE_TASKS,
     EVENT_2023_11_IDENTISK_TASKS,
-    EVENT_2023_12_ABYSS_EXPEDITION_TASKS
+    EVENT_2023_12_ABYSS_EXPEDITION_TASKS,
+    EVENT_2024_02_V248_TASKS
   ]
     .flat()
 }
