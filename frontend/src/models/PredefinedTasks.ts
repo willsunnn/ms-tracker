@@ -682,6 +682,49 @@ const EVENT_2024_02_V248_TASKS: Task[] = [
   }
 ]
 
+const EVENT_2024_02_KONOSUBA_TASKS: Task[] = [
+  {
+    taskId: '2024-02-konosuba-aqua',
+    name: 'Recieve Daily Aqua\'s Cheer',
+    maxClearCount: 1,
+    resetType: 'Daily',
+    taskType: 'Event',
+    isPerAccount: true,
+    startDate: new Date('2024-02-21T00:00:00Z'),
+    endDate: new Date('2024-03-18T23:59:59Z')
+  },
+  {
+    taskId: '2024-02-konosuba-megumin',
+    name: 'Use Megumin\'s Explosion Magic',
+    maxClearCount: 1,
+    resetType: 'Daily',
+    taskType: 'Event',
+    isPerAccount: true,
+    startDate: new Date('2024-02-21T00:00:00Z'),
+    endDate: new Date('2024-03-18T23:59:59Z')
+  },
+  {
+    taskId: '2024-02-konosuba-darkness',
+    name: 'Use Darkness\'s Joyful Sacrifice',
+    maxClearCount: 1,
+    resetType: 'Daily',
+    taskType: 'Event',
+    isPerAccount: true,
+    startDate: new Date('2024-02-21T00:00:00Z'),
+    endDate: new Date('2024-03-18T23:59:59Z')
+  },
+  {
+    taskId: '2024-02-konosuba-kazuma',
+    name: 'Do Kazuma\'s Small Fortune 5 times',
+    maxClearCount: 1,
+    resetType: 'Daily',
+    taskType: 'Event',
+    isPerAccount: true,
+    startDate: new Date('2024-02-21T00:00:00Z'),
+    endDate: new Date('2024-03-18T23:59:59Z')
+  }
+]
+
 const EVENT_TASKS: GroupedTasks = {
   name: 'Event',
   tasks: [
@@ -691,7 +734,8 @@ const EVENT_TASKS: GroupedTasks = {
     EVENT_2023_09_NIGHT_TROUPE_TASKS,
     EVENT_2023_11_IDENTISK_TASKS,
     EVENT_2023_12_ABYSS_EXPEDITION_TASKS,
-    EVENT_2024_02_V248_TASKS
+    EVENT_2024_02_V248_TASKS,
+    EVENT_2024_02_KONOSUBA_TASKS
   ]
     .flat()
 }
