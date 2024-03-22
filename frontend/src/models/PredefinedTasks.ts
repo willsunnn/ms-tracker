@@ -783,7 +783,7 @@ const EVENT_2024_03_MINAR_FOREST_TASKS: Task[] = [
     resetType: 'Weekly_Thursday',
     taskType: 'Event',
     isPerAccount: true,
-    startDate: new Date('2024-04-17T00:00:00Z'),
+    startDate: new Date('2024-03-20T00:00:00Z'),
     endDate: new Date('2024-04-30T23:59:59Z')
   }
 ]
