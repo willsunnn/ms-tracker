@@ -5,156 +5,156 @@ import { filterInactiveTasks } from 'ms-tracker-library/lib/models/helper'
 const WEEKLY_BOSSES: GroupedTasks = {
   name: 'Weekly Bosses',
   tasks:
-  [
-    {
-      taskId: 'boss-weekly-hhilla',
-      name: 'Hard Hilla',
-      imageIcon: HardHillaIcon
-    },
-    {
-      taskId: 'boss-weekly-cygnus',
-      name: 'Easy/Normal Cygnus'
-    },
-    {
-      taskId: 'boss-weekly-cpb',
-      name: 'Chaos Pink Bean'
-    },
-    {
-      taskId: 'boss-weekly-czak',
-      name: 'Chaos Zakum'
-    },
-    {
-      taskId: 'boss-weekly-pno',
-      name: 'Princess No'
-    },
-    {
-      taskId: 'boss-weekly-cchicken',
-      name: 'Chaos Von Bon'
-    },
-    {
-      taskId: 'boss-weekly-cqueen',
-      name: 'Chaos Crimson Queen'
-    },
-    {
-      taskId: 'boss-weekly-cpierre',
-      name: 'Chaos Pierre'
-    },
-    {
-      taskId: 'boss-weekly-cvel',
-      name: 'Chaos Vellum'
-    },
-    {
-      taskId: 'boss-weekly-hmag',
-      name: 'Hard Magnus'
-    },
-    {
-      taskId: 'boss-weekly-akechi',
-      name: 'Akechi Mitsuhide'
-    },
-    {
-      taskId: 'boss-weekly-cpap',
-      name: 'Chaos Papulatus'
-    },
-    {
-      taskId: 'boss-weekly-lotus',
-      name: 'Lotus'
-    },
-    {
-      taskId: 'boss-weekly-damien',
-      name: 'Damien'
-    },
-    {
-      taskId: 'boss-weekly-slime',
-      name: 'Guardian Angel Slime'
-    },
-    {
-      taskId: 'boss-weekly-lucid',
-      name: 'Lucid'
-    },
-    {
-      taskId: 'boss-weekly-will',
-      name: 'Will'
-    },
-    {
-      taskId: 'boss-weekly-gloom',
-      name: 'Gloom'
-    },
-    {
-      taskId: 'boss-weekly-vhilla',
-      name: 'Verus Hilla'
-    },
-    {
-      taskId: 'boss-weekly-darknell',
-      name: 'Darknell'
-    },
-    {
-      taskId: 'boss-weekly-seren',
-      name: 'Seren'
-    },
-    {
-      taskId: 'boss-weekly-kalos',
-      name: 'Kalos'
-    },
-    {
-      taskId: 'boss-weekly-kaling',
-      name: 'Kaling'
-    }
-  ].map((t) => {
-    return {
-      ...t,
-      maxClearCount: 1,
-      resetType: 'Weekly_Thursday',
-      taskType: 'Boss',
-      isPerAccount: false
-    }
-  })
+    [
+      {
+        taskId: 'boss-weekly-hhilla',
+        name: 'Hard Hilla',
+        imageIcon: HardHillaIcon
+      },
+      {
+        taskId: 'boss-weekly-cygnus',
+        name: 'Easy/Normal Cygnus'
+      },
+      {
+        taskId: 'boss-weekly-cpb',
+        name: 'Chaos Pink Bean'
+      },
+      {
+        taskId: 'boss-weekly-czak',
+        name: 'Chaos Zakum'
+      },
+      {
+        taskId: 'boss-weekly-pno',
+        name: 'Princess No'
+      },
+      {
+        taskId: 'boss-weekly-cchicken',
+        name: 'Chaos Von Bon'
+      },
+      {
+        taskId: 'boss-weekly-cqueen',
+        name: 'Chaos Crimson Queen'
+      },
+      {
+        taskId: 'boss-weekly-cpierre',
+        name: 'Chaos Pierre'
+      },
+      {
+        taskId: 'boss-weekly-cvel',
+        name: 'Chaos Vellum'
+      },
+      {
+        taskId: 'boss-weekly-hmag',
+        name: 'Hard Magnus'
+      },
+      {
+        taskId: 'boss-weekly-akechi',
+        name: 'Akechi Mitsuhide'
+      },
+      {
+        taskId: 'boss-weekly-cpap',
+        name: 'Chaos Papulatus'
+      },
+      {
+        taskId: 'boss-weekly-lotus',
+        name: 'Lotus'
+      },
+      {
+        taskId: 'boss-weekly-damien',
+        name: 'Damien'
+      },
+      {
+        taskId: 'boss-weekly-slime',
+        name: 'Guardian Angel Slime'
+      },
+      {
+        taskId: 'boss-weekly-lucid',
+        name: 'Lucid'
+      },
+      {
+        taskId: 'boss-weekly-will',
+        name: 'Will'
+      },
+      {
+        taskId: 'boss-weekly-gloom',
+        name: 'Gloom'
+      },
+      {
+        taskId: 'boss-weekly-vhilla',
+        name: 'Verus Hilla'
+      },
+      {
+        taskId: 'boss-weekly-darknell',
+        name: 'Darknell'
+      },
+      {
+        taskId: 'boss-weekly-seren',
+        name: 'Seren'
+      },
+      {
+        taskId: 'boss-weekly-kalos',
+        name: 'Kalos'
+      },
+      {
+        taskId: 'boss-weekly-kaling',
+        name: 'Kaling'
+      }
+    ].map((t) => {
+      return {
+        ...t,
+        maxClearCount: 1,
+        resetType: 'Weekly_Thursday',
+        taskType: 'Boss',
+        isPerAccount: false
+      }
+    })
 }
 
 const ARCANE_SYMBOL_DAILIES: GroupedTasks = {
   name: 'Arcane Symbol Dailies',
   tasks:
-  [
-    {
-      taskId: 'arcane-vj',
-      name: 'Vanishing Journey'
-    },
-    {
-      taskId: 'arcane-chuchu',
-      name: 'Chu Chu Island'
-    },
-    {
-      taskId: 'arcane-lach',
-      name: 'Lachelin'
-    },
-    {
-      taskId: 'arcane-arcana',
-      name: 'Arcana'
-    },
-    {
-      taskId: 'arcane-morass',
-      name: 'Morass'
-    },
-    {
-      taskId: 'arcane-esfera',
-      name: 'Esfera'
-    },
-    {
-      taskId: 'arcane-tenebris',
-      name: 'Tenebris'
-    }
-  ].map((t) => {
-    return {
-      ...t,
-      maxClearCount: 1,
-      resetType: 'Daily',
-      taskType: 'ArcaneSymbol',
-      isPerAccount: false
-    }
-  })
+    [
+      {
+        taskId: 'arcane-vj',
+        name: 'Vanishing Journey'
+      },
+      {
+        taskId: 'arcane-chuchu',
+        name: 'Chu Chu Island'
+      },
+      {
+        taskId: 'arcane-lach',
+        name: 'Lachelin'
+      },
+      {
+        taskId: 'arcane-arcana',
+        name: 'Arcana'
+      },
+      {
+        taskId: 'arcane-morass',
+        name: 'Morass'
+      },
+      {
+        taskId: 'arcane-esfera',
+        name: 'Esfera'
+      },
+      {
+        taskId: 'arcane-tenebris',
+        name: 'Tenebris'
+      }
+    ].map((t) => {
+      return {
+        ...t,
+        maxClearCount: 1,
+        resetType: 'Daily',
+        taskType: 'ArcaneSymbol',
+        isPerAccount: false
+      }
+    })
 }
 
 const SIXTH_JOB_DAILIES: GroupedTasks = {
-  name: "6th Job",
+  name: '6th Job',
   tasks: [
     {
       taskId: '6th-job-sol-erda',
@@ -725,6 +725,69 @@ const EVENT_2024_02_KONOSUBA_TASKS: Task[] = [
   }
 ]
 
+const EVENT_2024_03_MINAR_FOREST_TASKS: Task[] = [
+  {
+    taskId: '2024-03-minar-checkin',
+    name: 'Minar Picnic Daily Check In',
+    maxClearCount: 1,
+    resetType: 'Daily',
+    taskType: 'Event',
+    isPerAccount: true,
+    startDate: new Date('2024-03-20T00:00:00Z'),
+    endDate: new Date('2024-04-30T23:59:59Z')
+  },
+  {
+    taskId: '2024-03-minar-treasure',
+    name: 'Minar Picnic Treasure Hunt',
+    maxClearCount: 1,
+    resetType: 'Daily',
+    taskType: 'Event',
+    isPerAccount: true,
+    startDate: new Date('2024-03-20T00:00:00Z'),
+    endDate: new Date('2024-04-30T23:59:59Z')
+  },
+  {
+    taskId: '2024-03-minar-forest-blast',
+    name: 'Minar Picnic Dragon Minigame',
+    maxClearCount: 1,
+    resetType: 'Daily',
+    taskType: 'Event',
+    isPerAccount: true,
+    startDate: new Date('2024-03-20T00:00:00Z'),
+    endDate: new Date('2024-04-30T23:59:59Z')
+  },
+  {
+    taskId: '2024-03-minar-drop-the-acorn',
+    name: 'Minar Picnic Acorn Punchking',
+    maxClearCount: 1,
+    resetType: 'Weekly_Wednesday',
+    taskType: 'Event',
+    isPerAccount: true,
+    startDate: new Date('2024-03-20T00:00:00Z'),
+    endDate: new Date('2024-04-30T23:59:59Z')
+  },
+  {
+    taskId: '2024-03-minar-make-bracelet',
+    name: 'Minar Picnic Make Bracelet',
+    maxClearCount: 1,
+    resetType: 'Daily',
+    taskType: 'Event',
+    isPerAccount: true,
+    startDate: new Date('2024-04-17T00:00:00Z'),
+    endDate: new Date('2024-04-30T23:59:59Z')
+  },
+  {
+    taskId: '2024-03-minar-yellow-leaves',
+    name: 'Minar Picnic Claim Yellow Maple Leaves',
+    maxClearCount: 1,
+    resetType: 'Weekly_Thursday',
+    taskType: 'Event',
+    isPerAccount: true,
+    startDate: new Date('2024-04-17T00:00:00Z'),
+    endDate: new Date('2024-04-30T23:59:59Z')
+  }
+]
+
 const EVENT_TASKS: GroupedTasks = {
   name: 'Event',
   tasks: [
@@ -735,7 +798,8 @@ const EVENT_TASKS: GroupedTasks = {
     EVENT_2023_11_IDENTISK_TASKS,
     EVENT_2023_12_ABYSS_EXPEDITION_TASKS,
     EVENT_2024_02_V248_TASKS,
-    EVENT_2024_02_KONOSUBA_TASKS
+    EVENT_2024_02_KONOSUBA_TASKS,
+    EVENT_2024_03_MINAR_FOREST_TASKS
   ]
     .flat()
 }

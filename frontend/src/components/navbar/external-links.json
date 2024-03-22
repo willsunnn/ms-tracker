@@ -1,7 +1,7 @@
 [
   {
     "name": "Patch Notes",
-    "url": "https://maplestory.nexon.net/news/89340"
+    "url": "https://maplestory.nexon.net/news/90462/updated-3-21-v-249-minar-picnic-patch-notes"
   },
   {
     "name": "Official News",
@@ -11,6 +11,10 @@
     "name": "Old Patch Notes",
     "isOpenByDefault": false,
     "links": [
+      {
+        "name": "v248 - Maple x Konosuba",
+        "url": "https://maplestory.nexon.net/news/89340"
+      },
       {
         "name": "v247 - New Age: Into the Abyss",
         "url": "https://maplestory.nexon.net/news/87688"
