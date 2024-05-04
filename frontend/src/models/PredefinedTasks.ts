@@ -788,6 +788,69 @@ const EVENT_2024_03_MINAR_FOREST_TASKS: Task[] = [
   }
 ]
 
+const EVENT_2024_05_MAYPLE_ISLAND: Task[] = [
+  {
+    taskId: '2024-05-mayple-checkin',
+    name: 'Mayple Island Daily Check In',
+    maxClearCount: 1,
+    resetType: 'Daily',
+    taskType: 'Event',
+    isPerAccount: true,
+    startDate: new Date('2024-05-01T00:00:00Z'),
+    endDate: new Date('2024-06-11T23:59:59Z')
+  },
+  {
+    taskId: '2024-05-mayple-claim-mayple-leaves',
+    name: 'Mayple Island Claim Mayple Leaves',
+    maxClearCount: 1,
+    resetType: 'Daily',
+    taskType: 'Event',
+    isPerAccount: false,
+    startDate: new Date('2024-05-01T00:00:00Z'),
+    endDate: new Date('2024-06-11T23:59:59Z')
+  },
+  {
+    taskId: '2024-05-mayple-claim-mayple-candies',
+    name: 'Mayple Island Claim Mayple Candies',
+    maxClearCount: 1,
+    resetType: 'Daily',
+    taskType: 'Event',
+    isPerAccount: false,
+    startDate: new Date('2024-05-01T00:00:00Z'),
+    endDate: new Date('2024-06-11T23:59:59Z')
+  },
+  {
+    taskId: '2024-05-mayple-play-mayple-adventure',
+    name: 'Mayple Island Play Mayple Adventure',
+    maxClearCount: 1,
+    resetType: 'Daily',
+    taskType: 'Event',
+    isPerAccount: false,
+    startDate: new Date('2024-05-01T00:00:00Z'),
+    endDate: new Date('2024-06-11T23:59:59Z')
+  },
+  {
+    taskId: '2024-05-mayple-leona-chances',
+    name: 'Mayple Island Use 5 Leona Chances',
+    maxClearCount: 1,
+    resetType: 'Daily',
+    taskType: 'Event',
+    isPerAccount: true,
+    startDate: new Date('2024-05-01T00:00:00Z'),
+    endDate: new Date('2024-06-11T23:59:59Z')
+  },
+  {
+    taskId: '2024-05-mayple-claim-mayple-stars',
+    name: 'Mayple Island Claim Mayple Stars',
+    maxClearCount: 1,
+    resetType: 'Weekly_Thursday',
+    taskType: 'Event',
+    isPerAccount: true,
+    startDate: new Date('2024-05-01T00:00:00Z'),
+    endDate: new Date('2024-06-11T23:59:59Z')
+  }
+]
+
 const EVENT_TASKS: GroupedTasks = {
   name: 'Event',
   tasks: [
@@ -799,7 +862,8 @@ const EVENT_TASKS: GroupedTasks = {
     EVENT_2023_12_ABYSS_EXPEDITION_TASKS,
     EVENT_2024_02_V248_TASKS,
     EVENT_2024_02_KONOSUBA_TASKS,
-    EVENT_2024_03_MINAR_FOREST_TASKS
+    EVENT_2024_03_MINAR_FOREST_TASKS,
+    EVENT_2024_05_MAYPLE_ISLAND
   ]
     .flat()
 }
