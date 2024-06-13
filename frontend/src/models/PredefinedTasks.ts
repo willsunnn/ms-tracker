@@ -158,21 +158,29 @@ const SIXTH_JOB_DAILIES: GroupedTasks = {
   tasks: [
     {
       taskId: '6th-job-sol-erda',
-      name: 'Erda\'s request'
-    },
-    {
-      taskId: '6th-job-sol-erda-booster',
-      name: 'Sol Erda Booster'
-    }
-  ].map((t) => {
-    return {
-      ...t,
+      name: 'Erda\'s request',
       maxClearCount: 1,
       resetType: 'Daily',
       taskType: '6thJob',
       isPerAccount: false
+    },
+    {
+      taskId: '6th-job-sol-erda-booster',
+      name: 'Sol Erda Booster',
+      maxClearCount: 1,
+      resetType: 'Daily',
+      taskType: '6thJob',
+      isPerAccount: false
+    },
+    {
+      taskId: '6th-job-high-mountain',
+      name: 'High Mountain Dungeon',
+      maxClearCount: 1,
+      resetType: 'Weekly_Thursday',
+      taskType: '6thJob',
+      isPerAccount: true
     }
-  })
+  ]
 }
 
 const SACRED_SYMBOL_DAILIES: GroupedTasks = {
@@ -851,6 +859,119 @@ const EVENT_2024_05_MAYPLE_ISLAND: Task[] = [
   }
 ]
 
+const EVENT_2024_06_GO_WEST: Task[] = [
+  {
+    taskId: '2024-06-dreamer-daily-checkin',
+    name: 'Dreamer Daily Party Check In',
+    maxClearCount: 1,
+    resetType: 'Daily',
+    taskType: 'Event',
+    isPerAccount: true,
+    startDate: new Date('2024-06-12T00:00:00Z'),
+    endDate: new Date('2024-08-27T23:59:59Z')
+  },
+  {
+    taskId: '2024-06-dreamer-weekly-checkin',
+    name: 'Dreamer Weekly Party Check In',
+    maxClearCount: 1,
+    resetType: 'Weekly_Wednesday',
+    taskType: 'Event',
+    isPerAccount: true,
+    startDate: new Date('2024-06-12T00:00:00Z'),
+    endDate: new Date('2024-08-27T23:59:59Z')
+  },
+  {
+    taskId: '2024-06-dreamer-boss-crystals',
+    name: 'Dreamer Claim Boss Night Fragments',
+    maxClearCount: 1,
+    resetType: 'Weekly_Thursday',
+    taskType: 'Event',
+    isPerAccount: true,
+    startDate: new Date('2024-06-12T00:00:00Z'),
+    endDate: new Date('2024-08-27T23:59:59Z')
+  },
+  {
+    taskId: '2024-06-dreamer-midnight-dreamcatcher',
+    name: 'Dreamer Midnight Dreamcatcher',
+    maxClearCount: 1,
+    resetType: 'Daily',
+    taskType: 'Event',
+    isPerAccount: true,
+    startDate: new Date('2024-06-12T00:00:00Z'),
+    endDate: new Date('2024-08-27T23:59:59Z')
+  },
+  {
+    taskId: '2024-06-dreamer-tomato-punchking',
+    name: 'Dreamer Tomato Punch King',
+    maxClearCount: 1,
+    resetType: 'Weekly_Wednesday',
+    taskType: 'Event',
+    isPerAccount: true,
+    startDate: new Date('2024-07-03T00:00:00Z'),
+    endDate: new Date('2024-07-30T23:59:59Z')
+  },
+  {
+    taskId: '2024-06-dreamer-monster-arcade',
+    name: 'Dreamer Get Dance Fragments',
+    maxClearCount: 1,
+    resetType: 'Daily',
+    taskType: 'Event',
+    isPerAccount: true,
+    startDate: new Date('2024-06-12T00:00:00Z'),
+    endDate: new Date('2024-07-30T23:59:59Z')
+  },
+  {
+    taskId: '2024-06-dreamer-safe',
+    name: 'Dreamer Enter In Gold Richie\'s Safe',
+    maxClearCount: 1,
+    resetType: 'Daily',
+    taskType: 'Event',
+    isPerAccount: true,
+    startDate: new Date('2024-07-03T00:00:00Z'),
+    endDate: new Date('2024-07-30T23:59:59Z')
+  },
+  {
+    taskId: '2024-06-go-west-world-tour',
+    name: 'Go West Maple World Tour',
+    maxClearCount: 1,
+    resetType: 'Daily',
+    taskType: 'Event',
+    isPerAccount: true,
+    startDate: new Date('2024-06-12T00:00:00Z'),
+    endDate: new Date('2024-07-16T23:59:59Z')
+  },
+  {
+    taskId: '2024-06-go-west-star-queue',
+    name: 'Cap Go West Star Queue Hours',
+    maxClearCount: 1,
+    resetType: 'Daily',
+    taskType: 'Event',
+    isPerAccount: true,
+    startDate: new Date('2024-06-12T00:00:00Z'),
+    endDate: new Date('2024-07-16T23:59:59Z')
+  },
+  {
+    taskId: '2024-06-go-west-7000-days',
+    name: 'Complete Go West 7000 days mission',
+    maxClearCount: 1,
+    resetType: 'Daily',
+    taskType: 'Event',
+    isPerAccount: true,
+    startDate: new Date('2024-07-10T00:00:00Z'),
+    endDate: new Date('2024-07-14T23:59:59Z')
+  },
+  {
+    taskId: '2024-06-ab-daily-checkin',
+    name: 'AB Remaster Checkin',
+    maxClearCount: 1,
+    resetType: 'Daily',
+    taskType: 'Event',
+    isPerAccount: true,
+    startDate: new Date('2024-06-12T00:00:00Z'),
+    endDate: new Date('2024-07-16T23:59:59Z')
+  }
+]
+
 const EVENT_TASKS: GroupedTasks = {
   name: 'Event',
   tasks: [
@@ -863,7 +984,8 @@ const EVENT_TASKS: GroupedTasks = {
     EVENT_2024_02_V248_TASKS,
     EVENT_2024_02_KONOSUBA_TASKS,
     EVENT_2024_03_MINAR_FOREST_TASKS,
-    EVENT_2024_05_MAYPLE_ISLAND
+    EVENT_2024_05_MAYPLE_ISLAND,
+    EVENT_2024_06_GO_WEST
   ]
     .flat()
 }

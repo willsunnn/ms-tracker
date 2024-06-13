@@ -1,7 +1,7 @@
 [
   {
     "name": "Patch Notes",
-    "url": "https://maplestory.nexon.net/news/91576/updated-5-1-v-250-mayple-island-patch-notes"
+    "url": "https://www.nexon.com/maplestory/news/update/17541/updated-6-12-2024-v-251-go-west-patch-notes"
   },
   {
     "name": "Official News",
@@ -11,6 +11,10 @@
     "name": "Old Patch Notes",
     "isOpenByDefault": false,
     "links": [
+      {
+        "name": "v250 - Mayple Island",
+        "url": "https://maplestory.nexon.net/news/91576/updated-5-1-v-250-mayple-island-patch-notes"
+      },
       {
         "name": "v249 - Minar Picnic",
         "url": "https://maplestory.nexon.net/news/90462/updated-3-21-v-249-minar-picnic-patch-notes"
