@@ -874,7 +874,7 @@ const EVENT_2024_06_GO_WEST: Task[] = [
     taskId: '2024-06-dreamer-weekly-checkin',
     name: 'Dreamer Weekly Party Check In',
     maxClearCount: 1,
-    resetType: 'Weekly_Wednesday',
+    resetType: 'Daily',
     taskType: 'Event',
     isPerAccount: true,
     startDate: new Date('2024-06-12T00:00:00Z'),
