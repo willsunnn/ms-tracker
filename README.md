@@ -32,9 +32,9 @@ To emulate the cloud function locally, run `npm run import`, `npm install`, `npm
     - Scrapped because i don't want to pay for S3 storage for minimal use case
   - ~~Region Selection (API url is different based on region)~~
 - ~~Improve initial workflow UI~~
-- Account-wide dailies
-- In Each Display window, option to show dropdowns for groups of tasks
-  - ex: checking Arcane Symbol Dailies would check - VJ through Esfera
+- Properly implement account-wide dailies
+- ~~In Each Display window, option to show dropdowns for groups of tasks~~
+  - ~~ex: checking Arcane Symbol Dailies would check - VJ through Esfera~~
 - ~~TODO view should show "Go touch some grass" when there are no tasks remaining~~
 - ~~App Name and icon should change based on first character in list rather than Buff NW~~
 - Webpage looks terrible on mobile
@@ -42,3 +42,4 @@ To emulate the cloud function locally, run `npm run import`, `npm install`, `npm
 - ~~Overview view columns should be consistent width with Diagonal Name Headers~~
 - ~~Add Bug Report and Feature Request Items to Floating Action Button~~
 - ~~Edit Tasks UI is too clunky now that there's a large list of tasks~~
+- Allow users to create custom tasks

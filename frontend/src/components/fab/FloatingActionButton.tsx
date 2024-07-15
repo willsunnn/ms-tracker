@@ -5,6 +5,7 @@ import { AddCharacterButton } from './AddCharacterActionButton'
 import { BugReportActionButton } from './BugReportActionButton'
 import { FeatureRequestActionButton } from './FeatureRequestButton'
 import { DonateButton } from './DonateButton'
+import { GithubActionButton } from './GithubActionButton'
 
 export const FloatingActionButton = () => {
   const { isOpen, toggleFab, characters } = useFabContext()
@@ -24,6 +25,7 @@ export const FloatingActionButton = () => {
           { showAddCharacter && <AddCharacterButton/> }
           <FeatureRequestActionButton/>
           <BugReportActionButton/>
+          <GithubActionButton/>
           <DonateButton/>
         </>
       )}

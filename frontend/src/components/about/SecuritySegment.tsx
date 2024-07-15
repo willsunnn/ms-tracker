@@ -19,7 +19,7 @@ export const SecuritySegment = () => {
     <div className="w-1/3 h-fit text-center mb-2 text-lg">
       All your data, including login and passwords, is securely stored in <FirebaseLink>Google Firebase</FirebaseLink>, not by the application
     </div>
-    <div className="w-1/4 h-fit text-center mt-2 max-w-md min-w-[200px]">
+    <div className="w-1/6 h-fit text-center mt-2 max-w-md min-w-[200px]">
       <FirebaseLink>
         <img src={logo}/>
       </FirebaseLink>
