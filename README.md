@@ -43,3 +43,4 @@ To emulate the cloud function locally, run `npm run import`, `npm install`, `npm
 - ~~Add Bug Report and Feature Request Items to Floating Action Button~~
 - ~~Edit Tasks UI is too clunky now that there's a large list of tasks~~
 - Allow users to create custom tasks
+- Scrape maplestory rankings rather than use 3rd party external API
