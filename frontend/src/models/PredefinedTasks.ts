@@ -280,6 +280,11 @@ const DAILY_BOSSES: GroupedTasks = {
       maxClearCount: 1
     },
     {
+      taskId: 'papulatus',
+      name: 'Easy/Normal Papulatus',
+      maxClearCount: 1
+    },
+    {
       taskId: 'ranmaru',
       name: 'Mori Ranmaru',
       maxClearCount: 1
