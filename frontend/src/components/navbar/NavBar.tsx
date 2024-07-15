@@ -51,7 +51,7 @@ const NavBar = () => {
       <div className="navbar-center">
       </div>
       <div className="navbar-end">
-        { !user && <SettingsButton/>}
+        <SettingsButton/>
         { user && <UserIcon/>}
       </div>
     </div>
