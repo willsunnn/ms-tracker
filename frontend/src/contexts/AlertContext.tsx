@@ -61,6 +61,7 @@ export const AddAlertCallbackProvider = (props: { children: React.ReactNode }) =
     } else if (instanceOfAlert(obj)) {
       alert = obj as Alert
     } else if (obj instanceof Error) {
+      console.log(obj)
       alert = {
         text: obj.message,
         alertLevel: 'error'

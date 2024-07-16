@@ -4,7 +4,7 @@ import { TaskViewByReset } from './todo/TaskTodo'
 import { TaskViewCompact } from './overview/TaskOverview'
 import { useAlertCallback } from '../../contexts/AlertContext'
 import { PREDEFINED_TASKS } from '../../models/PredefinedTasks'
-import { type AccountCharacters, type MapleGgCachedData, type TaskStatusForAccount, cacheKeyToString, getMapleGgCacheKey } from 'ms-tracker-library'
+import { type AccountCharacters, type CachedCharacter, CharacterWithCachedData, type TaskStatusForAccount, cacheKeyToString, getCharacterCacheKey } from 'ms-tracker-library'
 import { useApi } from '../../contexts/ApiContext'
 import { Navigate, Outlet, Route, Routes, useNavigate } from 'react-router-dom'
 import { useAuth } from '../../contexts/AuthContext'
@@ -17,14 +17,14 @@ export const TaskViewPage = () => {
   const { user } = useAuth()
   const navigate = useNavigate()
   const alert = useAlertCallback()
-  const { mapleGgFirebaseApi, taskStatusApi, characterApi } = useApi()
+  const { additionalCharacterInfoFirebaseApi, taskStatusApi, characterApi } = useApi()
   const { updateFab } = useFabContext()
   const { setTitleCharacter } = useTitle()
 
   // React States
   const [taskStatus, setTaskStatus] = React.useState<TaskStatusForAccount>()
   const [characters, setCharacters] = React.useState<AccountCharacters>()
-  const [mapleGgCharacters, setMapleGgCharacters] = React.useState<Map<string, MapleGgCachedData>>(new Map<string, MapleGgCachedData>())
+  const [cachedCharacterData, setCachedCharacterData] = React.useState<Map<string, CachedCharacter>>(new Map<string, CachedCharacter>())
 
   // Fetch & Listen for TaskStatuses and Characters
   React.useEffect(() => {
@@ -43,9 +43,9 @@ export const TaskViewPage = () => {
   React.useEffect(() => {
     if (characters !== undefined) {
       const characterKeys = characters.characters.map((char) => ({ name: char.name, region: char.region }))
-      const unsubFunc = mapleGgFirebaseApi.searchAndListen(
+      const unsubFunc = additionalCharacterInfoFirebaseApi.searchAndListen(
         characterKeys,
-        setMapleGgCharacters,
+        setCachedCharacterData,
         alert)
       return unsubFunc
     }
@@ -56,7 +56,7 @@ export const TaskViewPage = () => {
   // asynchronously through the listen hook
   React.useEffect(() => {
     let charactersAreUpToDate = true
-    mapleGgCharacters.forEach((character) => {
+    cachedCharacterData.forEach((character) => {
       const now = new Date().getTime()
       const millisInADay = 1000 * 60 * 60 * 24
       const lastFetch = character.lastRetrievedTimestamp
@@ -66,27 +66,27 @@ export const TaskViewPage = () => {
       }
     })
     if (!charactersAreUpToDate) {
-      mapleGgFirebaseApi.updateCharacter().then(console.log).catch(alert)
+      additionalCharacterInfoFirebaseApi.updateCharacter().then(console.log).catch(alert)
     }
-  }, [mapleGgCharacters])
+  }, [cachedCharacterData])
 
-  // Join the character data with the mapleGgData
-  const characterAndMapleGgData = characters?.characters.map((character) => ({
+  // Join the character data with the cached character data
+  const charactersAndCachedData: CharacterWithCachedData[] | undefined = characters?.characters.map((character) => ({
     ...character,
-    mapleGgData: mapleGgCharacters.get(cacheKeyToString(getMapleGgCacheKey(character.name, character.region)))
+    cachedData: cachedCharacterData.get(cacheKeyToString(getCharacterCacheKey(character.name, character.region)))
   }))
 
   // Add the character to the FloationActionButton
   // so that it knows we are on a character view screen
   // and that it should render the AddCharacter and EditCharacterOrder
   React.useEffect(() => {
-    updateFab(characterAndMapleGgData)
-    setTitleCharacter(characterAndMapleGgData)
+    updateFab(charactersAndCachedData)
+    setTitleCharacter(charactersAndCachedData)
     return () => {
       updateFab(undefined)
       setTitleCharacter(undefined)
     }
-  }, [characters, mapleGgCharacters])
+  }, [characters, cachedCharacterData])
 
   // if user is not logged in, navigate to the signin page
   if (user === null) {
@@ -95,12 +95,12 @@ export const TaskViewPage = () => {
   }
 
   // if user data hasn't loaded in yet display a loader
-  if ((user === undefined) || (taskStatus === undefined) || (characters === undefined) || (characterAndMapleGgData === undefined)) {
+  if ((user === undefined) || (taskStatus === undefined) || (characters === undefined) || (charactersAndCachedData === undefined)) {
     return <FullScreenLoader/>
   }
 
   // Now we know the user is signed in, we can render all the other components
-  const data = new DataWrapper(user.uid, characterAndMapleGgData, PREDEFINED_TASKS, taskStatus)
+  const data = new DataWrapper(user.uid, charactersAndCachedData, PREDEFINED_TASKS, taskStatus)
 
   return (
     <Routes>

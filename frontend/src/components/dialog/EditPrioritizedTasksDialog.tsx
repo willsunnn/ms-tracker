@@ -2,17 +2,17 @@ import React from 'react'
 import { useDialogContext } from '../../contexts/DialogContext'
 import { useAuth } from '../../contexts/AuthContext'
 import { useAlertCallback } from '../../contexts/AlertContext'
-import type { CharacterWithMapleGgData, TaskAndStatus, GroupedTasksAndStatuses } from 'ms-tracker-library'
+import type { CharacterWithCachedData, TaskAndStatus, GroupedTasksAndStatuses } from 'ms-tracker-library'
 import { useApi } from '../../contexts/ApiContext'
 
-const TaskEntryComponent = (props: { character: CharacterWithMapleGgData, task: TaskAndStatus }) => {
+const TaskEntryComponent = (props: { character: CharacterWithCachedData, task: TaskAndStatus }) => {
   const { user } = useAuth()
   const alert = useAlertCallback()
   const { closeDialog } = useDialogContext()
   const { taskStatusApi } = useApi()
 
   const { character, task } = props
-  const characterName = character.mapleGgData?.name ?? character.name
+  const characterName = character.cachedData?.name ?? character.name
 
   const toggleTaskPriority = () => {
     if (user == null) {
@@ -47,13 +47,13 @@ const TaskEntryComponent = (props: { character: CharacterWithMapleGgData, task: 
 
 type GroupChecked = 'none' | 'some' | 'all'
 
-const TaskGroupEntryComponent = (props: { character: CharacterWithMapleGgData, taskGroup: GroupedTasksAndStatuses }) => {
+const TaskGroupEntryComponent = (props: { character: CharacterWithCachedData, taskGroup: GroupedTasksAndStatuses }) => {
   const { taskStatusApi } = useApi()
   const { user } = useAuth()
   const alert = useAlertCallback()
 
   const { character } = props
-  const characterName = character.mapleGgData?.name ?? character.name
+  const characterName = character.cachedData?.name ?? character.name
 
   const { taskGroup } = props
   const groupName = taskGroup.name
@@ -118,9 +118,9 @@ const TaskGroupEntryComponent = (props: { character: CharacterWithMapleGgData, t
   )
 }
 
-export const EditPrioritizedTasksComponent = (props: { character: CharacterWithMapleGgData, tasks: GroupedTasksAndStatuses[] }) => {
+export const EditPrioritizedTasksComponent = (props: { character: CharacterWithCachedData, tasks: GroupedTasksAndStatuses[] }) => {
   const { character, tasks } = props
-  const characterName = character.mapleGgData?.name ?? character.name
+  const characterName = character.cachedData?.name ?? character.name
 
   return (
     <div className="w-full h-full">

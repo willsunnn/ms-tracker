@@ -2,17 +2,17 @@ import React from 'react'
 import { useAuth } from '../../contexts/AuthContext'
 import { useAlertCallback } from '../../contexts/AlertContext'
 import { useApi } from '../../contexts/ApiContext'
-import { type CharacterWithMapleGgData } from 'ms-tracker-library'
+import { type CharacterWithCachedData } from 'ms-tracker-library'
 import { CharacterView } from '../CharacterView'
 import { DndContext, type DragEndEvent, useDroppable } from '@dnd-kit/core'
 import { CSS as DndCss } from '@dnd-kit/utilities'
 import { SortableContext, arrayMove, useSortable } from '@dnd-kit/sortable'
 
-const CharacterDraggableCard = (props: { character: CharacterWithMapleGgData }) => {
+const CharacterDraggableCard = (props: { character: CharacterWithCachedData }) => {
   const { character } = props
-  const name = character.mapleGgData?.name ?? character.name
-  const className = character.mapleGgData?.class ?? ''
-  const level = character.mapleGgData?.level ? `Lvl ${character.mapleGgData.level}` : ''
+  const name = character.cachedData?.name ?? character.name
+  const className = character.cachedData?.class ?? ''
+  const level = character.cachedData?.level ? `Lvl ${character.cachedData.level}` : ''
 
   const { attributes, listeners, setNodeRef, transform, transition } = useSortable({
     id: character.id
@@ -26,7 +26,7 @@ const CharacterDraggableCard = (props: { character: CharacterWithMapleGgData }) 
     <div ref={setNodeRef} style={style} {...attributes} {...listeners}>
       <div className='h-28 w-96 card card-body bg-base-200 shadow-sm gap-y-1 p-2 grid grid-cols-2'>
         <div className='h-24 w-48 row-span-5'>
-          <CharacterView name={character.name} mapleGgData={character.mapleGgData} showName={false}/>
+          <CharacterView name={character.name} cachedCharacter={character.cachedData} showName={false}/>
         </div>
         <div/>
         <div className='text-lg font-bold -mb-2 truncate mr-4'>{name}</div>
@@ -48,12 +48,12 @@ const CharacterDroppable = (props: { children?: React.ReactNode }) => {
   )
 }
 
-export const EditCharacterOrderComponent = (props: { characters: CharacterWithMapleGgData[] }) => {
+export const EditCharacterOrderComponent = (props: { characters: CharacterWithCachedData[] }) => {
   const { characterApi } = useApi()
   const { user } = useAuth()
   const alert = useAlertCallback()
 
-  const [characters, setCharacters] = React.useState<CharacterWithMapleGgData[]>(props.characters)
+  const [characters, setCharacters] = React.useState<CharacterWithCachedData[]>(props.characters)
 
   // If the parent gets an update here, we need to update this component
   React.useEffect(() => {
@@ -61,7 +61,7 @@ export const EditCharacterOrderComponent = (props: { characters: CharacterWithMa
   }, [props.characters])
 
   // Helper function to update local state and send state to Database
-  const setNewOrder = (val: CharacterWithMapleGgData[]) => {
+  const setNewOrder = (val: CharacterWithCachedData[]) => {
     setCharacters(val)
 
     // Send update to firebase

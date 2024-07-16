@@ -28,6 +28,8 @@ import Knuckle from './Eqp_Arcane_Umbra_Knuckle.webp'
 import LongSword from './Eqp_Lazuli_Type_9.webp'
 import LucentGauntlet from './Eqp_Arcane_Umbra_Lucent_Gauntlet.webp'
 
+import MemorialStaff from './Eqp_Arcane_Umbra_Memorial_Staff.png'
+
 import OneHandedAxe from './Eqp_Arcane_Umbra_Axe.webp'
 import OneHandedHammer from './Eqp_Arcane_Umbra_Hammer.webp'
 import OneHandedSword from './Eqp_Arcane_Umbra_Saber.webp'
@@ -73,6 +75,7 @@ export default {
   Knuckle,
   LongSword,
   LucentGauntlet,
+  MemorialStaff,
   OneHandedAxe,
   OneHandedHammer,
   OneHandedSword,

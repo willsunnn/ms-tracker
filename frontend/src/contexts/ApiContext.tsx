@@ -1,12 +1,12 @@
 import React from 'react'
-import { type AuthenticationApi, type CharacterApi, type MapleGgFirebaseApi, type TaskStatusApi, authenticationApi, characterApi, mapleGgFirebaseApi, taskStatusApi } from 'ms-tracker-library'
+import { type AuthenticationApi, type CharacterApi, type AdditionalCharacterInfoFirebaseApi, type TaskStatusApi, authenticationApi, characterApi, additionalCharacterInfoFirebaseApi, taskStatusApi } from 'ms-tracker-library'
 import config from '../config/frontend.config.json'
 
 interface Api {
   authenticationApi: AuthenticationApi
   taskStatusApi: TaskStatusApi
   characterApi: CharacterApi
-  mapleGgFirebaseApi: MapleGgFirebaseApi
+  additionalCharacterInfoFirebaseApi: AdditionalCharacterInfoFirebaseApi
 }
 
 const ApiContext = React.createContext<Api | undefined>(undefined)
@@ -21,7 +21,7 @@ export const ApiContextProvider = (props: { children: React.ReactNode }) => {
     authenticationApi: authenticationApi(config),
     taskStatusApi: taskStatusApi(config),
     characterApi: characterApi(config),
-    mapleGgFirebaseApi: mapleGgFirebaseApi(config)
+    additionalCharacterInfoFirebaseApi: additionalCharacterInfoFirebaseApi(config)
   }
 
   return (

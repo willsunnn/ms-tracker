@@ -1,10 +1,10 @@
-import { type CharacterWithMapleGgData } from 'ms-tracker-library'
+import { type CharacterWithCachedData } from 'ms-tracker-library'
 import { useDialogContext } from '../../contexts/DialogContext'
 import { EditCharacterOrderComponent } from '../dialog/EditCharacterOrderDialog'
 import { FabButtonWithLabel } from './FabButtonWithLabel'
 import { AiFillEdit } from 'react-icons/ai'
 
-export const EditCharacterOrderButton = (props: { characters: CharacterWithMapleGgData[] }) => {
+export const EditCharacterOrderButton = (props: { characters: CharacterWithCachedData[] }) => {
   const { openDialog } = useDialogContext()
   const onClick = () => {
     openDialog((<EditCharacterOrderComponent characters={ props.characters }/>))

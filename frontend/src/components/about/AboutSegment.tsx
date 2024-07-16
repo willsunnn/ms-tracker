@@ -1,4 +1,4 @@
-import { type CharacterWithMapleGgData, Model, type TaskAndStatus, type TaskStatus, type GroupedTasksAndStatuses } from 'ms-tracker-library'
+import { type CharacterWithCachedData, Model, type TaskAndStatus, type TaskStatus, type GroupedTasksAndStatuses } from 'ms-tracker-library'
 import { useApi } from '../../contexts/ApiContext'
 import { CharacterTaskView } from '../taskview/characters/CharacterTaskView'
 import { useAlertCallback } from '../../contexts/AlertContext'
@@ -6,10 +6,10 @@ import React from 'react'
 import { PREDEFINED_TASKS } from '../../models/PredefinedTasks'
 import ExampleCharacter from '../../resources/about/nums-char.png'
 
-const defaultCharacter: CharacterWithMapleGgData = {
+const defaultCharacter: CharacterWithCachedData = {
   id: 'test',
   name: 'nùms',
-  region: 'gms'
+  region: 'na'
 }
 const sampleStatuses: Map<string, TaskStatus> = new Map<string, TaskStatus>([
   ['sacred-arcus', {
@@ -58,15 +58,15 @@ const sampleStatuses: Map<string, TaskStatus> = new Map<string, TaskStatus>([
 const sampleTasks: GroupedTasksAndStatuses[] = Model.joinTaskGroupsAndStatuses('', defaultCharacter, PREDEFINED_TASKS.getGroupedTasks(), sampleStatuses)
 
 export const AboutSegment = () => {
-  const [character, setCharacter] = React.useState<CharacterWithMapleGgData>(defaultCharacter)
-  const { mapleGgFirebaseApi } = useApi()
+  const [character, setCharacter] = React.useState<CharacterWithCachedData>(defaultCharacter)
+  const { additionalCharacterInfoFirebaseApi } = useApi()
   const alert = useAlertCallback()
 
   React.useEffect(() => {
-    mapleGgFirebaseApi.getFromCache(character).then((mapleGgData) => {
+    additionalCharacterInfoFirebaseApi.getFromCache(character).then((cachedCharacter) => {
       setCharacter({
         ...character,
-        mapleGgData
+        cachedData: cachedCharacter
       })
     }).catch(alert)
   }, [])

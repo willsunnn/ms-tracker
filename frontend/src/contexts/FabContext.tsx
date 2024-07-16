@@ -1,4 +1,4 @@
-import { type CharacterWithMapleGgData } from 'ms-tracker-library'
+import { type CharacterWithCachedData } from 'ms-tracker-library'
 import React from 'react'
 
 interface FabContextType {
@@ -6,8 +6,8 @@ interface FabContextType {
   openFab: () => void
   closeFab: () => void
   toggleFab: () => void
-  characters: CharacterWithMapleGgData[] | undefined
-  updateFab: (characters: CharacterWithMapleGgData[] | undefined) => void
+  characters: CharacterWithCachedData[] | undefined
+  updateFab: (characters: CharacterWithCachedData[] | undefined) => void
 }
 
 const FabContext = React.createContext<FabContextType>({
@@ -24,7 +24,7 @@ export const useFabContext = () => {
 }
 
 export const FabContextProvider = (props: { children: React.ReactNode }) => {
-  const [characters, setCharacters] = React.useState<CharacterWithMapleGgData[]>()
+  const [characters, setCharacters] = React.useState<CharacterWithCachedData[]>()
   const [isOpen, setIsOpen] = React.useState(false)
 
   const value = {

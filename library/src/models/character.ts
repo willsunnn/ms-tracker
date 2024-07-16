@@ -2,19 +2,18 @@
 
 import {z} from "zod";
 
-// These are the regions as defined by api.maplestory.gg (a 3rd party service unaffiliated by Nexon)
 export const Region = z.enum([
-  "gms",
+  "na",
   "eu",
 ]);
 export type Region = z.infer<typeof Region>
 
-export interface MapleGgCacheKey {
+export interface CharacterCacheKey {
   name: string,
   region: Region,
 }
-export const getMapleGgCacheKey = (name: string, region: Region) => ({region, name: name.toLowerCase()});
-export const cacheKeyToString = (key: MapleGgCacheKey) => `${key.region}-${key.name.toLowerCase()}`;
+export const getCharacterCacheKey = (name: string, region: Region) => ({region, name: name.toLowerCase()});
+export const cacheKeyToString = (key: CharacterCacheKey) => `${key.region}-${key.name.toLowerCase()}`;
 
 export const MapleClass = z.enum([
   // Adventurers
@@ -76,66 +75,65 @@ export const MapleClass = z.enum([
   // Other
   "Zero",
   "Kinesis",
+  "Lynn",
   // Fallback
   "Unknown",
 ]);
 export type MapleClass = z.infer<typeof MapleClass>;
 
-// Model response for Calling Maple GG Api directly
-export const MapleGgCharacterData = z.object({
+// Cached data about a character
+export const CharacterData = z.object({
   // Basic Character Information
-  CharacterImageURL: z.string().optional(),
-  Class: MapleClass.default("Unknown").catch("Unknown"),
-  Server: z.string(),
-  Name: z.string(),
-
-  // Character Stats
-  Level: z.number().optional(),
-  LegionLevel: z.number().optional(),
-
-  // Ranking
-  ClassRank: z.number().optional(),
-  GlobralRanking: z.number().optional(),
-  ServerRank: z.number().optional(),
-  ServerClassRanking: z.number().optional(),
+  characterImageURL: z.string().nullable().default(null),
+  class: MapleClass.default("Unknown").catch("Unknown"),
+  region: Region.default("na"),
+  name: z.string(),
+  level: z.number().nullable().default(null),
 });
-export type MapleGgCharacterData = z.infer<typeof MapleGgCharacterData>
-
-export const MapleGgApiResponse = z.object({
-  CharacterData: MapleGgCharacterData,
-});
-export type MapleGgApiResponse = z.infer<typeof MapleGgApiResponse>
+export type CharacterData = z.infer<typeof CharacterData>
 
 // Model response for the cached data
 // a few extra fields, and i dont like their variable name case-ing
-export const MapleGgCachedData = z.object({
+export const CachedCharacter = CharacterData.merge(z.object({
   key: z.string(),
   loweredName: z.string(),
-  region: Region,
-
-  // Metadata
   lastRetrievedTimestamp: z.number().optional(),
+}));
+export type CachedCharacter = z.infer<typeof CachedCharacter>;
 
-  // The data being cached
-  name: z.string().optional(),
-  image: z.string().optional(),
-  class: MapleClass.default("Unknown").catch("Unknown"),
-  classRank: z.number().optional(),
-  level: z.number().optional(),
-  server: z.string().optional(),
-});
-export type MapleGgCachedData = z.infer<typeof MapleGgCachedData>;
-
-export const defaultMapleGgCachedData = (key: MapleGgCacheKey): MapleGgCachedData => ({
+export const defaultCachedCharacter = (key: CharacterCacheKey): CachedCharacter => ({
   key: cacheKeyToString(key),
   class: "Unknown",
+  name: key.name,
   loweredName: key.name.toLowerCase(),
   region: key.region,
+  level: null,
+  characterImageURL: null,
 });
+
+// Model response for Calling 3rd party Api directly
+export const ThirdPartyCharacterData = z.object({
+  characterImgURL: z.string().optional(),
+  characterName: z.string(),
+  jobName: z.string().optional(),
+  jobID: z.number().int().optional(),
+  jobDetail: z.number().int().optional(),
+  worldID: z.number().int().optional(),
+  worldName: z.string().optional(),
+  level: z.number().int().optional(),
+  // There are other fields but we dont really need them
+});
+export type ThirdPartyCharacterData = z.infer<typeof ThirdPartyCharacterData>
+
+export const ThirdPartyCharacterSearchResponse = z.object({
+  totalCount: z.number().int(),
+  ranks: z.array(ThirdPartyCharacterData),
+});
+export type ThirdPartyCharacterSearchResponse = z.infer<typeof ThirdPartyCharacterSearchResponse>
 
 export const Character = z.object({
   name: z.string(),
-  region: Region,
+  region: Region.default("na").catch("na"),
   id: z.string(),
 });
 export type Character = z.infer<typeof Character>
@@ -148,6 +146,6 @@ export const defaultAccountCharacters: () => AccountCharacters = () => {
   return {characters: []};
 };
 
-export type CharacterWithMapleGgData = Character & {
-  mapleGgData?: MapleGgCachedData
+export type CharacterWithCachedData = Character & {
+  cachedData?: CachedCharacter
 }

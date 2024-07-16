@@ -1,10 +1,10 @@
 import { CharacterView } from '../../CharacterView'
-import { type GroupedTasksAndStatuses, type CharacterWithMapleGgData, type TaskAndStatus } from 'ms-tracker-library'
+import { type GroupedTasksAndStatuses, type CharacterWithCachedData, type TaskAndStatus } from 'ms-tracker-library'
 import { CharacterContextActionsDropdown } from './CharacterContextActionsDropdown'
 import { CharacterTaskList } from './CharacterTaskList'
 
 interface CharacterTaskViewProps {
-  character: CharacterWithMapleGgData
+  character: CharacterWithCachedData
   groupedTasks: GroupedTasksAndStatuses[]
   isPreview?: boolean
   characterImageOverride?: string
@@ -36,7 +36,7 @@ export const CharacterTaskView = (props: CharacterTaskViewProps) => {
           This means the CharacterView and the grid of prioritized tasks */}
       <div className="flex flex-row pr-10">
         <div className='min-w-[8rem] max-w-[8rem] min-h-fit '>
-          <CharacterView name={character.name} mapleGgData={character.mapleGgData} showName={true} characterImage={characterImageOverride}/>
+          <CharacterView name={character.name} cachedCharacter={character.cachedData} showName={true} characterImage={characterImageOverride}/>
         </div>
         <CharacterTaskList tasks={prioritizedTasks} isPreview={isPreview}/>
       </div>

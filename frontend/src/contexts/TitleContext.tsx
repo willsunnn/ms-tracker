@@ -1,4 +1,4 @@
-import { type CharacterWithMapleGgData, type MapleClass } from 'ms-tracker-library'
+import { type CharacterWithCachedData, type MapleClass } from 'ms-tracker-library'
 import React, { useContext, useState, type ReactNode, useEffect } from 'react'
 import Favicon from 'react-favicon'
 import ArcaneWeapons from '../resources/arcane-weapons'
@@ -8,7 +8,7 @@ interface Title {
   image: string
   setTitle: (_: string) => void
   setImage: (_: string) => void
-  setTitleCharacter: (_: CharacterWithMapleGgData[] | undefined) => void
+  setTitleCharacter: (_: CharacterWithCachedData[] | undefined) => void
 }
 
 const defaultTitle = 'Buff NW'
@@ -110,6 +110,7 @@ const getAbbreviatedName = (characterClass: MapleClass | undefined): string => {
     case 'Lara':
     case 'Zero':
     case 'Kinesis':
+    case 'Lynn':
       return characterClass
   }
 }
@@ -202,6 +203,8 @@ const getArcaneWeapon = (characterClass: MapleClass | undefined): string => {
       return ArcaneWeapons.HeavySword
     case 'Kinesis':
       return ArcaneWeapons.PsyLimiter
+    case 'Lynn':
+      return ArcaneWeapons.MemorialStaff
     case 'Unknown':
     case undefined:
       return ArcaneWeapons.Claw
@@ -217,11 +220,11 @@ export const TitleContextProvider = (props: { children: ReactNode }) => {
     document.title = title
   }, [title])
 
-  const setTitleCharacter = (characters: CharacterWithMapleGgData[] | undefined) => {
+  const setTitleCharacter = (characters: CharacterWithCachedData[] | undefined) => {
     if (characters && characters.length > 0) {
       const character = characters[0]
-      setTitle(`Buff ${getAbbreviatedName(character.mapleGgData?.class)}`)
-      setImage(getArcaneWeapon(character.mapleGgData?.class))
+      setTitle(`Buff ${getAbbreviatedName(character.cachedData?.class)}`)
+      setImage(getArcaneWeapon(character.cachedData?.class))
     } else {
       setTitle(defaultTitle)
       setImage(defaultImage)

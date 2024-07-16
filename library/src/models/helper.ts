@@ -1,5 +1,5 @@
 import {Model} from ".";
-import {Character, CharacterWithMapleGgData} from "./character";
+import {Character, CharacterWithCachedData} from "./character";
 import {DateFormat, GroupedTasks, GroupedTasksAndStatuses, ResetType, Task, TaskAndStatus, TaskList, TaskStatus, TaskStatusForAccount, TaskStatusForCharacter, TaskType, emptyTaskStatusForCharacter} from "./tasks";
 
 const midnight = (date: Date): Date => {
@@ -204,7 +204,7 @@ export const filterInactiveTasks = (groupedTasks: GroupedTasks): GroupedTasks =>
 };
 
 export type StatusesAndCharacter = {
-  character: CharacterWithMapleGgData
+  character: CharacterWithCachedData
   tasks: TaskAndStatus[]
 }
 export type StatusesByCharacter = Array<StatusesAndCharacter>
@@ -237,11 +237,11 @@ export type TaskAndStatusesAndGroupIndex = {
 
 export class DataWrapper {
   private userId: string;
-  private characters: CharacterWithMapleGgData[];
+  private characters: CharacterWithCachedData[];
   private tasks: TaskList;
   private statuses: TaskStatusForAccount;
 
-  constructor(userId: string, characters: CharacterWithMapleGgData[], tasks: TaskList, statuses: TaskStatusForAccount) {
+  constructor(userId: string, characters: CharacterWithCachedData[], tasks: TaskList, statuses: TaskStatusForAccount) {
     this.userId = userId;
     this.characters = characters;
     this.tasks = tasks;
@@ -264,7 +264,7 @@ export class DataWrapper {
     return this.getTaskStatusForCharacter(chracterId).get(taskId) ?? defaultTaskStatus(this.userId, chracterId, taskId);
   };
 
-  getCharacters = (): CharacterWithMapleGgData[] => {
+  getCharacters = (): CharacterWithCachedData[] => {
     return this.characters;
   };
 

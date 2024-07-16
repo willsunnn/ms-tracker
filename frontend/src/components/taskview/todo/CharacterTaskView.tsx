@@ -1,14 +1,14 @@
 import { useApi } from '../../../contexts/ApiContext'
-import { type CharacterWithMapleGgData, type TaskAndStatus } from 'ms-tracker-library'
+import { type CharacterWithCachedData, type TaskAndStatus } from 'ms-tracker-library'
 
 interface CharacterTaskViewProps {
-  character: CharacterWithMapleGgData
+  character: CharacterWithCachedData
   tasks: TaskAndStatus[]
 }
 
 export const CharacterTaskView = (props: CharacterTaskViewProps) => {
   const { character, tasks } = props
-  const characterName = character.mapleGgData?.name ?? character.name
+  const characterName = character.cachedData?.name ?? character.name
   const { taskStatusApi } = useApi()
 
   const checkBoxOnClickCurryFunc = (task: TaskAndStatus) => {

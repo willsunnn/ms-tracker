@@ -9,16 +9,16 @@
 import * as functions from "firebase-functions";
 import * as admin from "firebase-admin";
 import * as logger from "firebase-functions/logger";
-import {AccountCharacters, CharacterApi, MapleGgCacheKey, MapleGgCachedData, cacheKeyToString, characterApiAdmin, fetchFromMapleGg, mapleGgFirebaseApiAdmin} from "ms-tracker-library";
+import {AccountCharacters, CharacterApi, CharacterCacheKey, CachedCharacter, cacheKeyToString, characterApiAdmin, additionalCharacterInfoFirebaseApiAdmin, fetchAndTransform} from "ms-tracker-library";
 
 // Initialize the app
 const app = admin.initializeApp(functions.config().firebase);
 const firestore = app.firestore();
 const characterApi = characterApiAdmin(firestore);
-const mapleGgFirebaseApi = mapleGgFirebaseApiAdmin(firestore);
+const additionalCharacterInfoFirebaseApi = additionalCharacterInfoFirebaseApiAdmin(firestore);
 
-const updateAndSave = async (key: MapleGgCacheKey): Promise<MapleGgCachedData> => {
-  const char = await mapleGgFirebaseApi.getFromCache(key);
+const updateAndSave = async (key: CharacterCacheKey): Promise<CachedCharacter> => {
+  const char = await additionalCharacterInfoFirebaseApi.getFromCache(key);
 
   // Don't refresh if we have a cached version less than a day old
   const lastFetched = char?.lastRetrievedTimestamp;
@@ -31,32 +31,29 @@ const updateAndSave = async (key: MapleGgCacheKey): Promise<MapleGgCachedData> =
 
 
   // Either we do not have a cached version or we need to update it
-  let newData: MapleGgCachedData;
+  let newData: CachedCharacter;
   try {
-    const response = await fetchFromMapleGg(key.name, key.region);
-    const data = response.CharacterData;
-    logger.info(`api.maplestory.gg Fetched character ${char.name} in ${new Date().getTime() - now} ms`);
-    logger.debug(`api.maplestory.gg Data for ${char.name} data=${data}`);
+    const data = await fetchAndTransform(key.name, key.region);
+    logger.info(`Fetched character ${char.name} in ${new Date().getTime() - now} ms from 3rd party API`);
+    logger.debug(`3rd party Data for ${char.name} data=${data}`);
 
-    const formattedData: MapleGgCachedData = {
+    const formattedData: CachedCharacter = {
       key: cacheKeyToString(key),
       region: key.region,
-      loweredName: data.Name.toLowerCase(),
+      loweredName: data.name.toLowerCase(),
       lastRetrievedTimestamp: now,
 
-      name: data.Name,
-      image: data.CharacterImageURL,
-      class: data.Class,
-      classRank: data.ClassRank,
-      level: data.Level,
-      server: data.Server,
+      name: data.name,
+      characterImageURL: data.characterImageURL,
+      class: data.class,
+      level: data.level,
     };
 
     newData = formattedData;
   } catch (err) {
     // Error fetching the data probably
     // Lets log it, and then update the time so we dont keep making failed requests
-    logger.error(`api.maplestory.gg Failed to fetch character ${char.name} e=${err}`);
+    logger.error(`Failed to fetch character ${char.name} from 3rd party API e=${err}`);
     if (err instanceof Error) {
       const {stack, message} = err;
       logger.error(`${message}\n${stack}`);
@@ -68,8 +65,8 @@ const updateAndSave = async (key: MapleGgCacheKey): Promise<MapleGgCachedData> =
   // Since we have an update (either fetched new data or lastRetrievedTimetsamp on failure)
   // Update the DB and return the value
   try {
-    logger.debug(`Updating ${char.name} in cache from api.maplestory.gg`);
-    await mapleGgFirebaseApi.set(newData);
+    logger.debug(`Updating ${char.name} in cache from 3rd party API`);
+    await additionalCharacterInfoFirebaseApi.set(newData);
   } catch (err) {
     logger.error(`Failed to update character ${JSON.stringify(char)} e=${err}`);
   }

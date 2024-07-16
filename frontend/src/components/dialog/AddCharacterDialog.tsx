@@ -5,21 +5,21 @@ import { useAlertCallback } from '../../contexts/AlertContext'
 import { useApi } from '../../contexts/ApiContext'
 import { uuidv4 } from '@firebase/util'
 import { CharacterView } from '../CharacterView'
-import { type Region, type MapleGgCachedData } from 'ms-tracker-library'
+import { type Region, type CachedCharacter } from 'ms-tracker-library'
 
 const TIME_AFTER_TYPING_END_BEFORE_CHECKING_IMAGE = 300
 
 export const AddCharacterComponent = () => {
   const name = React.useRef<string>('')
   const [nameEntryError, setNameEntryError] = React.useState<string | null>(null)
-  const [character, setCharacter] = React.useState<MapleGgCachedData | undefined>(undefined)
-  const [region, setRegion] = React.useState<Region>('gms')
+  const [character, setCharacter] = React.useState<CachedCharacter | undefined>(undefined)
+  const [region, setRegion] = React.useState<Region>('na')
   const lastTypedTime = React.useRef<number>(0)
   const [isLoading, setLoading] = React.useState(false)
 
   const { user } = useAuth()
   const alert = useAlertCallback()
-  const { characterApi, mapleGgFirebaseApi } = useApi()
+  const { characterApi, additionalCharacterInfoFirebaseApi } = useApi()
   const { closeDialog } = useDialogContext()
 
   // We want to fetch the image when the user updates the name input
@@ -54,7 +54,7 @@ export const AddCharacterComponent = () => {
       // At this point, the user has stopped typing and the input is valid
       // so lets make the request and update the image view
       setLoading(true)
-      mapleGgFirebaseApi.get(name.current, region).then((data) => {
+      additionalCharacterInfoFirebaseApi.get(name.current, region).then((data) => {
         if (name.current.trim().toLowerCase() === data.loweredName) {
           setLoading(false)
           setCharacter(data)
@@ -73,7 +73,7 @@ export const AddCharacterComponent = () => {
 
   const onRegionSelectChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     const { value } = event.target
-    if (value === 'gms' || value === 'eu') {
+    if (value === 'na' || value === 'eu') {
       onChange(name.current, value)
     } else {
       alert(`Region ${value} is not supported`)
@@ -119,14 +119,14 @@ export const AddCharacterComponent = () => {
           </label>
         </div>
         <select className="select select-accent" onChange={onRegionSelectChange} defaultValue={'gms'}>
-          <option value="gms">NA</option>
+          <option value="na">NA</option>
           <option value="eu">EU</option>
         </select>
       </div>
 
       <div className='flex flex-col min-w-[10rem] min-h-[10rem] max-w-[16rem] max-h-[16rem] h-32 w-32 items-center'>
         { isLoading && <div className='flex flex-row items-center h-full'><span className="loading loading-spinner loading-lg place-self-center"></span></div> }
-        { !isLoading && <div className='w-full h-full'><CharacterView name={name.current} mapleGgData={character} showName={false}/></div> }
+        { !isLoading && <div className='w-full h-full'><CharacterView name={name.current} cachedCharacter={character} showName={false}/></div> }
       </div>
 
       <div className={`text-xs text-info w-2/3 ${isLoading ? '' : 'invisible'}`}>{'Fetching images for the first time can be slow as we have to search player rankings for your character'}</div>

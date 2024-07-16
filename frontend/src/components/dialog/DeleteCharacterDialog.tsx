@@ -2,12 +2,12 @@ import React from 'react'
 import { useDialogContext } from '../../contexts/DialogContext'
 import { useAuth } from '../../contexts/AuthContext'
 import { useAlertCallback } from '../../contexts/AlertContext'
-import { type CharacterWithMapleGgData } from 'ms-tracker-library'
+import { type CharacterWithCachedData } from 'ms-tracker-library'
 import { useApi } from '../../contexts/ApiContext'
 import { type Alert } from '../AlertList'
 import { CharacterView } from '../CharacterView'
 
-export const DeleteCharacterComponent = (props: { character: CharacterWithMapleGgData }) => {
+export const DeleteCharacterComponent = (props: { character: CharacterWithCachedData }) => {
   const { character } = props
 
   const { user } = useAuth()
@@ -15,7 +15,7 @@ export const DeleteCharacterComponent = (props: { character: CharacterWithMapleG
   const { closeDialog } = useDialogContext()
   const { taskStatusApi, characterApi } = useApi()
 
-  const name = character.mapleGgData?.name ?? character.name
+  const name = character.cachedData?.name ?? character.name
 
   const deleteConfirmed = () => {
     if (!user) {
@@ -43,7 +43,7 @@ export const DeleteCharacterComponent = (props: { character: CharacterWithMapleG
     <div className="flex flex-col items-center">
       <div className="text-xl font-bold text-center mb-8">Are you sure?</div>
       <div className="w-full h-48">
-        <CharacterView name={character.name} mapleGgData={character.mapleGgData} showName={false}/>
+        <CharacterView name={character.name} cachedCharacter={character.cachedData} showName={false}/>
       </div>
       <div className="text-md text-center mx-20 mt-8 mb-4">Do you really want to delete {name} and all of the characters tasks?</div>
       <div className="flex flex-row items-center py-3">

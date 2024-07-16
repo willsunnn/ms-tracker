@@ -86,7 +86,7 @@ export const TaskViewCompact = (props: { data: DataWrapper }) => {
             <div className={`flex flex-row ${tableHeaderHeight}`}>
               {
                 data.getCharacters().map((character) => {
-                  const name = character.mapleGgData?.name ?? character.name
+                  const name = character.cachedData?.name ?? character.name
                   return (
                     <div key={`header-${name}`} className='w-[32px] h-[120px]'>
                       <div className="translate-x-1/4 -rotate-45 w-[30px] translate-y-20">

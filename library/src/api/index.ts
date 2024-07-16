@@ -1,5 +1,5 @@
 export * from "./CharacterApi";
-export * from "./MapleGgApi";
+export * from "./AdditionalCharacterInfoFirebaseApi";
 export * from "./TaskStatusApi";
 export * from "./AuthenticationApi";
 export * from "./FirestoreAdminApiHelper";
