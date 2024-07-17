@@ -943,7 +943,7 @@ const EVENT_2024_06_GO_WEST: Task[] = [
     taskType: 'Event',
     isPerAccount: true,
     startDate: new Date('2024-06-12T00:00:00Z'),
-    endDate: new Date('2024-07-16T23:59:59Z')
+    endDate: new Date('2024-08-27T23:59:59Z')
   },
   {
     taskId: '2024-06-go-west-star-queue',
@@ -953,7 +953,7 @@ const EVENT_2024_06_GO_WEST: Task[] = [
     taskType: 'Event',
     isPerAccount: true,
     startDate: new Date('2024-06-12T00:00:00Z'),
-    endDate: new Date('2024-07-16T23:59:59Z')
+    endDate: new Date('2024-08-27T23:59:59Z')
   },
   {
     taskId: '2024-06-go-west-7000-days',
@@ -977,6 +977,29 @@ const EVENT_2024_06_GO_WEST: Task[] = [
   }
 ]
 
+const EVENT_2024_07_GO_WEST: Task[] = [
+  {
+    taskId: '2024-07-pharoahs-treasure',
+    name: 'Run Pharoah\'s treasure',
+    maxClearCount: 1,
+    resetType: 'Daily',
+    taskType: 'Event',
+    isPerAccount: false,
+    startDate: new Date('2024-07-17T00:00:00Z'),
+    endDate: new Date('2024-08-27T23:59:59Z')
+  },
+  {
+    taskId: '2024-07-ab-lucid-conquest',
+    name: 'AB x Lucid Complete Conquest Check In',
+    maxClearCount: 1,
+    resetType: 'Daily',
+    taskType: 'Event',
+    isPerAccount: true,
+    startDate: new Date('2024-07-17T00:00:00Z'),
+    endDate: new Date('2024-08-06T23:59:59Z')
+  }
+]
+
 const EVENT_TASKS: GroupedTasks = {
   name: 'Event',
   tasks: [
@@ -990,7 +1013,8 @@ const EVENT_TASKS: GroupedTasks = {
     EVENT_2024_02_KONOSUBA_TASKS,
     EVENT_2024_03_MINAR_FOREST_TASKS,
     EVENT_2024_05_MAYPLE_ISLAND,
-    EVENT_2024_06_GO_WEST
+    EVENT_2024_06_GO_WEST,
+    EVENT_2024_07_GO_WEST
   ]
     .flat()
 }
