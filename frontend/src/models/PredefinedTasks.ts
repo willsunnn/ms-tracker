@@ -923,7 +923,7 @@ const EVENT_2024_06_GO_WEST: Task[] = [
     taskType: 'Event',
     isPerAccount: true,
     startDate: new Date('2024-06-12T00:00:00Z'),
-    endDate: new Date('2024-07-30T23:59:59Z')
+    endDate: new Date('2024-08-27T23:59:59Z')
   },
   {
     taskId: '2024-06-dreamer-safe',
