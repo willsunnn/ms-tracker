@@ -936,6 +936,16 @@ const EVENT_2024_06_GO_WEST: Task[] = [
     endDate: new Date('2024-07-30T23:59:59Z')
   },
   {
+    taskId: '2024-06-dreamer-day-dream-party',
+    name: 'Dreamer Day Dream Party Check In',
+    maxClearCount: 1,
+    resetType: 'Daily',
+    taskType: 'Event',
+    isPerAccount: true,
+    startDate: new Date('2024-08-14T00:00:00Z'),
+    endDate: new Date('2024-08-27T23:59:59Z')
+  },
+  {
     taskId: '2024-06-go-west-world-tour',
     name: 'Go West Maple World Tour',
     maxClearCount: 1,
