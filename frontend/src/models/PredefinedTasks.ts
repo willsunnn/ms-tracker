@@ -397,7 +397,7 @@ const GUILD_TASKS: GroupedTasks = {
       taskId: 'guild-culvert',
       name: 'Guild Culvert',
       maxClearCount: 1,
-      resetType: 'Weekly_Monday',
+      resetType: 'Weekly_Thursday',
       taskType: 'Guild',
       isPerAccount: false
     },
@@ -1010,6 +1010,49 @@ const EVENT_2024_07_GO_WEST: Task[] = [
   }
 ]
 
+const EVENT_2024_08_BUGCAT: Task[] = [
+  {
+    taskId: '2024-08-bugcat-dungeon-adventure',
+    name: 'Bugcat Capoo Dungeon Adventure',
+    maxClearCount: 1,
+    resetType: 'Daily',
+    taskType: 'Event',
+    isPerAccount: false,
+    startDate: new Date('2024-08-28T00:00:00Z'),
+    endDate: new Date('2024-10-01T23:59:59Z')
+  },
+  {
+    taskId: '2024-08-nexon-30th-checkin',
+    name: 'Nexon 30th Anniversary Checkin',
+    maxClearCount: 1,
+    resetType: 'Daily',
+    taskType: 'Event',
+    isPerAccount: false,
+    startDate: new Date('2024-08-28T00:00:00Z'),
+    endDate: new Date('2024-10-08T23:59:59Z')
+  },
+  {
+    taskId: '2024-08-chuchu-slushy',
+    name: 'Chu Chu Slushy Checkin',
+    maxClearCount: 1,
+    resetType: 'Daily',
+    taskType: 'Event',
+    isPerAccount: false,
+    startDate: new Date('2024-08-28T00:00:00Z'),
+    endDate: new Date('2024-09-17T23:59:59Z')
+  },
+  {
+    taskId: '2024-08-rockspirit-checkin',
+    name: 'Rock Spirit Giveaway Checkin',
+    maxClearCount: 1,
+    resetType: 'Daily',
+    taskType: 'Event',
+    isPerAccount: false,
+    startDate: new Date('2024-08-28T00:00:00Z'),
+    endDate: new Date('2024-10-08T23:59:59Z')
+  }
+]
+
 const EVENT_TASKS: GroupedTasks = {
   name: 'Event',
   tasks: [
@@ -1024,7 +1067,8 @@ const EVENT_TASKS: GroupedTasks = {
     EVENT_2024_03_MINAR_FOREST_TASKS,
     EVENT_2024_05_MAYPLE_ISLAND,
     EVENT_2024_06_GO_WEST,
-    EVENT_2024_07_GO_WEST
+    EVENT_2024_07_GO_WEST,
+    EVENT_2024_08_BUGCAT
   ]
     .flat()
 }
