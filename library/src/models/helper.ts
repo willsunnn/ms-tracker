@@ -134,6 +134,7 @@ export const getReadableTaskType = (taskType: TaskType): string => {
   case "Boss":
   case "Ursus":
   case "Guild":
+  case "Legion":
   case "Other":
   case "Event":
     return taskType.toString();

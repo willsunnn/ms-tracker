@@ -24,6 +24,7 @@ const TaskType = z.enum([
   "SacredSymbol",
   "6thJob",
   "Guild",
+  "Legion",
   "Event",
   "Other",
 ]);

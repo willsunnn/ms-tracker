@@ -428,6 +428,28 @@ const GUILD_TASKS: GroupedTasks = {
   ]
 }
 
+const LEGION_TASKS: GroupedTasks = {
+  name: 'Legion',
+  tasks: [
+    {
+      taskId: 'legion-coin-claim',
+      name: 'Claim Legion Coins',
+      maxClearCount: 1,
+      resetType: 'Daily',
+      taskType: 'Legion',
+      isPerAccount: true
+    },
+    {
+      taskId: 'legion-weekly',
+      name: 'Legion Weekly Dragon Extermination',
+      maxClearCount: 1,
+      resetType: 'Weekly_Monday',
+      taskType: 'Legion',
+      isPerAccount: true
+    }
+  ]
+}
+
 const OTHER_WEEKLIES: GroupedTasks = {
   name: 'Other Weeklies',
   tasks: [
@@ -1053,6 +1075,89 @@ const EVENT_2024_08_BUGCAT: Task[] = [
   }
 ]
 
+const EVENT_2024_10_NIGHT_TROUPE: Task[] = [
+  {
+    taskId: '2024-10-nighttroupe-coin-cap',
+    name: 'Night Troupe Coin Cap',
+    maxClearCount: 1,
+    resetType: 'Daily',
+    taskType: 'Event',
+    isPerAccount: false,
+    startDate: new Date('2024-10-09T00:00:00Z'),
+    endDate: new Date('2024-11-19T23:59:59Z')
+  },
+  {
+    taskId: '2024-10-nighttroupe-punch-king',
+    name: 'Night Troupe Punch King Blockulatus',
+    maxClearCount: 1,
+    resetType: 'Weekly_Wednesday',
+    taskType: 'Event',
+    isPerAccount: false,
+    startDate: new Date('2024-10-16T00:00:00Z'),
+    endDate: new Date('2024-11-19T23:59:59Z')
+  },
+  {
+    taskId: '2024-10-nighttroupe-claw-machine',
+    name: 'Night Troupe Claw Machine Minigame',
+    maxClearCount: 1,
+    resetType: 'Daily',
+    taskType: 'Event',
+    isPerAccount: false,
+    startDate: new Date('2024-10-16T00:00:00Z'),
+    endDate: new Date('2024-11-19T23:59:59Z')
+  },
+  {
+    taskId: '2024-10-nighttroupe-bumper-car',
+    name: 'Night Troupe Bumper Car Minigame',
+    maxClearCount: 1,
+    resetType: 'Daily',
+    taskType: 'Event',
+    isPerAccount: false,
+    startDate: new Date('2024-10-23T00:00:00Z'),
+    endDate: new Date('2024-11-19T23:59:59Z')
+  },
+  {
+    taskId: '2024-10-nighttroupe-candy-dispenser',
+    name: 'Night Troupe Lucky Candy Dispenser',
+    maxClearCount: 1,
+    resetType: 'Daily',
+    taskType: 'Event',
+    isPerAccount: false,
+    startDate: new Date('2024-10-30T00:00:00Z'),
+    endDate: new Date('2024-11-19T23:59:59Z')
+  },
+  {
+    taskId: '2024-10-rockspirit-checkin',
+    name: 'Rock Spirit Giveaway Checkin',
+    maxClearCount: 1,
+    resetType: 'Daily',
+    taskType: 'Event',
+    isPerAccount: false,
+    startDate: new Date('2024-10-09T00:00:00Z'),
+    endDate: new Date('2024-11-19T23:59:59Z')
+  },
+  {
+    taskId: '2024-10-fashion-week',
+    name: 'Fashion Week Daily Reward',
+    maxClearCount: 1,
+    resetType: 'Daily',
+    taskType: 'Event',
+    isPerAccount: false,
+    startDate: new Date('2024-10-23T00:00:00Z'),
+    endDate: new Date('2024-11-19T23:59:59Z')
+  },
+  {
+    taskId: '2024-10-legion-relay',
+    name: 'Legion Relay Daily Missions',
+    maxClearCount: 1,
+    resetType: 'Daily',
+    taskType: 'Event',
+    isPerAccount: false,
+    startDate: new Date('2024-11-06T00:00:00Z'),
+    endDate: new Date('2024-11-19T23:59:59Z')
+  }
+]
+
 const EVENT_TASKS: GroupedTasks = {
   name: 'Event',
   tasks: [
@@ -1068,7 +1173,8 @@ const EVENT_TASKS: GroupedTasks = {
     EVENT_2024_05_MAYPLE_ISLAND,
     EVENT_2024_06_GO_WEST,
     EVENT_2024_07_GO_WEST,
-    EVENT_2024_08_BUGCAT
+    EVENT_2024_08_BUGCAT,
+    EVENT_2024_10_NIGHT_TROUPE
   ]
     .flat()
 }
@@ -1084,6 +1190,7 @@ const GROUPED_TASKS: GroupedTasks[] = [
   MONTHLY_BLACK_MAGE,
   ARCANE_SYMBOL_WEEKLIES,
   GUILD_TASKS,
+  LEGION_TASKS,
   OTHER_WEEKLIES,
   THREADS_OF_FATE
 ].map(filterInactiveTasks)
