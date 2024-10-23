@@ -1110,7 +1110,7 @@ const EVENT_2024_10_NIGHT_TROUPE: Task[] = [
     taskId: '2024-10-nighttroupe-bumper-car',
     name: 'Night Troupe Bumper Car Minigame',
     maxClearCount: 1,
-    resetType: 'Daily',
+    resetType: 'Weekly_Wednesday',
     taskType: 'Event',
     isPerAccount: false,
     startDate: new Date('2024-10-23T00:00:00Z'),
