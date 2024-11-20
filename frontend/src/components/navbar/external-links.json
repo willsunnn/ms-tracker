@@ -1,7 +1,7 @@
 [
   {
     "name": "Patch Notes",
-    "url": "https://www.nexon.com/maplestory/news/update/20934"
+    "url": "https://www.nexon.com/maplestory/news/update/21375"
   },
   {
     "name": "Official News",
@@ -11,6 +11,10 @@
     "name": "Old Patch Notes",
     "isOpenByDefault": false,
     "links": [
+      {
+        "name": "v254 - Ludibrium Night Troupe",
+        "url": "https://www.nexon.com/maplestory/news/update/20934"
+      },
       {
         "name": "v253 - Bugcat Capoo",
         "url": "https://www.nexon.com/maplestory/news/update/18317"

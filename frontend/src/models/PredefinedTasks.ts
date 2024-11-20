@@ -1158,6 +1158,69 @@ const EVENT_2024_10_NIGHT_TROUPE: Task[] = [
   }
 ]
 
+const EVENT_2024_11_DARK_RIDE: Task[] = [
+  {
+    taskId: '2024-11-remaster-aran-checkin',
+    name: 'Aran Remaster Check In',
+    maxClearCount: 1,
+    resetType: 'Daily',
+    taskType: 'Event',
+    isPerAccount: true,
+    startDate: new Date('2024-11-20T00:00:00Z'),
+    endDate: new Date('2025-02-11T23:59:59Z')
+  },
+  {
+    taskId: '2024-11-remaster-shade-checkin',
+    name: 'Shade Remaster Check In',
+    maxClearCount: 1,
+    resetType: 'Daily',
+    taskType: 'Event',
+    isPerAccount: true,
+    startDate: new Date('2024-11-20T00:00:00Z'),
+    endDate: new Date('2025-02-11T23:59:59Z')
+  },
+  {
+    taskId: '2024-11-darkride-weekly-participation',
+    name: 'Dark Ride Complete Challenges',
+    maxClearCount: 1,
+    resetType: 'Weekly_Wednesday',
+    taskType: 'Event',
+    isPerAccount: true,
+    startDate: new Date('2024-11-20T00:00:00Z'),
+    endDate: new Date('2025-02-11T23:59:59Z')
+  },
+  {
+    taskId: '2024-11-memories-basic-research',
+    name: 'Book of Forgotten Festivals Basic Research',
+    maxClearCount: 1,
+    resetType: 'Daily',
+    taskType: 'Event',
+    isPerAccount: true,
+    startDate: new Date('2024-11-20T00:00:00Z'),
+    endDate: new Date('2025-01-14T23:59:59Z')
+  },
+  {
+    taskId: '2024-11-memories-advanced-research',
+    name: 'Book of Forgotten Festivals Advanced Research',
+    maxClearCount: 1,
+    resetType: 'Daily',
+    taskType: 'Event',
+    isPerAccount: true,
+    startDate: new Date('2024-11-20T00:00:00Z'),
+    endDate: new Date('2025-01-14T23:59:59Z')
+  },
+  {
+    taskId: '2024-11-memories-punch-king',
+    name: 'Preserving Secret Records Punch King',
+    maxClearCount: 1,
+    resetType: 'Weekly_Wednesday',
+    taskType: 'Event',
+    isPerAccount: true,
+    startDate: new Date('2024-11-20T00:00:00Z'),
+    endDate: new Date('2025-01-14T23:59:59Z')
+  }
+]
+
 const EVENT_TASKS: GroupedTasks = {
   name: 'Event',
   tasks: [
@@ -1174,7 +1237,8 @@ const EVENT_TASKS: GroupedTasks = {
     EVENT_2024_06_GO_WEST,
     EVENT_2024_07_GO_WEST,
     EVENT_2024_08_BUGCAT,
-    EVENT_2024_10_NIGHT_TROUPE
+    EVENT_2024_10_NIGHT_TROUPE,
+    EVENT_2024_11_DARK_RIDE
   ]
     .flat()
 }
