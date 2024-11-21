@@ -1201,9 +1201,9 @@ const EVENT_2024_11_DARK_RIDE: Task[] = [
   },
   {
     taskId: '2024-11-memories-advanced-research',
-    name: 'Book of Forgotten Festivals Advanced Research',
+    name: 'Book of Forgotten Festivals 3x Advanced Research',
     maxClearCount: 1,
-    resetType: 'Daily',
+    resetType: 'Weekly_Wednesday',
     taskType: 'Event',
     isPerAccount: true,
     startDate: new Date('2024-11-20T00:00:00Z'),
