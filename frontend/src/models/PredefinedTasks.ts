@@ -1283,7 +1283,7 @@ const EVENT_2024_12_DARK_MAPLEMAS: Task[] = [
     isPerAccount: true,
     startDate: new Date('2024-12-17T00:00:00Z'),
     endDate: new Date('2025-01-14T23:59:59Z')
-  },
+  }
 ]
 
 const EVENT_TASKS: GroupedTasks = {
