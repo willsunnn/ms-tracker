@@ -98,6 +98,10 @@ const WEEKLY_BOSSES: GroupedTasks = {
       {
         taskId: 'boss-weekly-kaling',
         name: 'Kaling'
+      },
+      {
+        taskId: 'boss-weekly-limbo',
+        name: 'Limbo'
       }
     ].map((t) => {
       return {
@@ -175,6 +179,14 @@ const SIXTH_JOB_DAILIES: GroupedTasks = {
     {
       taskId: '6th-job-high-mountain',
       name: 'High Mountain Dungeon',
+      maxClearCount: 1,
+      resetType: 'Weekly_Thursday',
+      taskType: '6thJob',
+      isPerAccount: true
+    },
+    {
+      taskId: '6th-job-angler-comppany',
+      name: 'Angler Company Dungeon',
       maxClearCount: 1,
       resetType: 'Weekly_Thursday',
       taskType: '6thJob',
@@ -1221,6 +1233,59 @@ const EVENT_2024_11_DARK_RIDE: Task[] = [
   }
 ]
 
+const EVENT_2024_12_DARK_MAPLEMAS: Task[] = [
+  {
+    taskId: '2024-12-burning-express-checkin',
+    name: 'Burning Express Check In',
+    maxClearCount: 1,
+    resetType: 'Daily',
+    taskType: 'Event',
+    isPerAccount: true,
+    startDate: new Date('2024-12-17T00:00:00Z'),
+    endDate: new Date('2025-01-14T23:59:59Z')
+  },
+  {
+    taskId: '2024-12-dark-maplemas-ornaments',
+    name: 'Maplemas Place 10 Tree Ornaments',
+    maxClearCount: 1,
+    resetType: 'Daily',
+    taskType: 'Event',
+    isPerAccount: true,
+    startDate: new Date('2024-12-17T00:00:00Z'),
+    endDate: new Date('2025-01-14T23:59:59Z')
+  },
+  {
+    taskId: '2024-12-dark-maplemas-login-time',
+    name: 'Maplemas Play for 5 Hours',
+    maxClearCount: 1,
+    resetType: 'Daily',
+    taskType: 'Event',
+    isPerAccount: true,
+    startDate: new Date('2024-12-17T00:00:00Z'),
+    endDate: new Date('2025-01-14T23:59:59Z')
+  },
+  {
+    taskId: '2024-12-dark-maplemas-holy-fright',
+    name: 'Maplemas Clear O Holy Fright 5 times',
+    maxClearCount: 1,
+    resetType: 'Weekly_Wednesday',
+    taskType: 'Event',
+    isPerAccount: true,
+    startDate: new Date('2024-12-17T00:00:00Z'),
+    endDate: new Date('2025-01-14T23:59:59Z')
+  },
+  {
+    taskId: '2024-12-dark-maplemas-slay-ride',
+    name: 'Maplemas Clear Slay Ride 5 times',
+    maxClearCount: 1,
+    resetType: 'Weekly_Wednesday',
+    taskType: 'Event',
+    isPerAccount: true,
+    startDate: new Date('2024-12-17T00:00:00Z'),
+    endDate: new Date('2025-01-14T23:59:59Z')
+  },
+]
+
 const EVENT_TASKS: GroupedTasks = {
   name: 'Event',
   tasks: [
@@ -1238,7 +1303,8 @@ const EVENT_TASKS: GroupedTasks = {
     EVENT_2024_07_GO_WEST,
     EVENT_2024_08_BUGCAT,
     EVENT_2024_10_NIGHT_TROUPE,
-    EVENT_2024_11_DARK_RIDE
+    EVENT_2024_11_DARK_RIDE,
+    EVENT_2024_12_DARK_MAPLEMAS
   ]
     .flat()
 }
