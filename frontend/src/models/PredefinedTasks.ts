@@ -1283,6 +1283,16 @@ const EVENT_2024_12_DARK_MAPLEMAS: Task[] = [
     isPerAccount: true,
     startDate: new Date('2024-12-17T00:00:00Z'),
     endDate: new Date('2025-01-14T23:59:59Z')
+  },
+  {
+    taskId: '2024-12-new-year-blue-snake-checkin',
+    name: 'Complete Blue Snake Altar ',
+    maxClearCount: 1,
+    resetType: 'Daily',
+    taskType: 'Event',
+    isPerAccount: true,
+    startDate: new Date('2025-01-01T00:00:00Z'),
+    endDate: new Date('2025-01-07T23:59:59Z')
   }
 ]
 
