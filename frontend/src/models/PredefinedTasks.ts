@@ -1296,6 +1296,59 @@ const EVENT_2024_12_DARK_MAPLEMAS: Task[] = [
   }
 ]
 
+const EVENT_2025_01_EXTRADIMENSIONAL_VISITORS: Task[] = [
+  {
+    taskId: '2025-01-Champion-Burning-Double-Up-Points',
+    name: 'Champion Double Up Cap Weekly Points',
+    maxClearCount: 1,
+    resetType: 'Weekly_Wednesday',
+    taskType: 'Event',
+    isPerAccount: true,
+    startDate: new Date('2025-01-15T00:00:00Z'),
+    endDate: new Date('2025-03-18T23:59:59Z')
+  },
+  {
+    taskId: '2025-01-Champion-Burning-Double-Up-Checkin',
+    name: 'Champion Double Up Check In',
+    maxClearCount: 1,
+    resetType: 'Daily',
+    taskType: 'Event',
+    isPerAccount: true,
+    startDate: new Date('2025-01-15T00:00:00Z'),
+    endDate: new Date('2025-03-18T23:59:59Z')
+  },
+  {
+    taskId: '2025-01-Extradimensional-Visitors-Basic-Draft',
+    name: 'Blueprints for Tirnog Basic Draft',
+    maxClearCount: 1,
+    resetType: 'Daily',
+    taskType: 'Event',
+    isPerAccount: true,
+    startDate: new Date('2025-01-15T00:00:00Z'),
+    endDate: new Date('2025-03-18T23:59:59Z')
+  },
+  {
+    taskId: '2025-01-Extradimensional-Visitors-Detailed-Draft',
+    name: 'Blueprints for Tirnog 3x Detailed Draft',
+    maxClearCount: 1,
+    resetType: 'Weekly_Thursday',
+    taskType: 'Event',
+    isPerAccount: true,
+    startDate: new Date('2025-01-15T00:00:00Z'),
+    endDate: new Date('2025-03-18T23:59:59Z')
+  },
+  {
+    taskId: '2025-01-Extradimensional-Visitors-Expedition',
+    name: 'Dimensional Crack Expedition',
+    maxClearCount: 1,
+    resetType: 'Daily',
+    taskType: 'Event',
+    isPerAccount: true,
+    startDate: new Date('2025-01-15T00:00:00Z'),
+    endDate: new Date('2025-02-11T23:59:59Z')
+  }
+]
+
 const EVENT_TASKS: GroupedTasks = {
   name: 'Event',
   tasks: [
@@ -1314,7 +1367,8 @@ const EVENT_TASKS: GroupedTasks = {
     EVENT_2024_08_BUGCAT,
     EVENT_2024_10_NIGHT_TROUPE,
     EVENT_2024_11_DARK_RIDE,
-    EVENT_2024_12_DARK_MAPLEMAS
+    EVENT_2024_12_DARK_MAPLEMAS,
+    EVENT_2025_01_EXTRADIMENSIONAL_VISITORS
   ]
     .flat()
 }
