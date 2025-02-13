@@ -1346,6 +1346,16 @@ const EVENT_2025_01_EXTRADIMENSIONAL_VISITORS: Task[] = [
     isPerAccount: true,
     startDate: new Date('2025-01-15T00:00:00Z'),
     endDate: new Date('2025-02-11T23:59:59Z')
+  },
+  {
+    taskId: '2025-01-Extradimensional-Visitors-Hashtag',
+    name: 'Tirnog Hashtag Check In',
+    maxClearCount: 1,
+    resetType: 'Daily',
+    taskType: 'Event',
+    isPerAccount: true,
+    startDate: new Date('2025-02-12T00:00:00Z'),
+    endDate: new Date('2025-03-18T23:59:59Z')
   }
 ]
 
