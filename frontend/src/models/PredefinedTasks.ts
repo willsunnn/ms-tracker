@@ -221,6 +221,10 @@ const SACRED_SYMBOL_DAILIES: GroupedTasks = {
     {
       taskId: 'sacred-carcion',
       name: 'Carcion'
+    },
+    {
+      taskId: 'sacred-tallahart',
+      name: 'Tallahart'
     }
   ].map((t) => {
     return {
