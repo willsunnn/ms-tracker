@@ -1,7 +1,7 @@
 [
   {
     "name": "Patch Notes",
-    "url": "https://www.nexon.com/maplestory/news/update/23160"
+    "url": "https://www.nexon.com/maplestory/news/update/23927"
   },
   {
     "name": "Official News",
@@ -11,6 +11,10 @@
     "name": "Old Patch Notes",
     "isOpenByDefault": false,
     "links": [
+      {
+        "name": "v257 - Tallahart",
+        "url": "https://www.nexon.com/maplestory/news/update/23160"
+      },
       {
         "name": "v256 - Limbo",
         "url": "https://www.nexon.com/maplestory/news/update/21376"

@@ -357,6 +357,11 @@ const OTHER_DAILIES: GroupedTasks = {
       taskId: 'talk-to-home-caretaker',
       name: 'Talk to Home Caretaker',
       maxClearCount: 1
+    },
+    {
+      taskId: 'autoharvest-herbs-and-minerals',
+      name: 'Auto-Harvest Herbs and Minerals',
+      maxClearCount: 1
     }
   ].map((t) => {
     return {
@@ -1363,6 +1368,49 @@ const EVENT_2025_01_EXTRADIMENSIONAL_VISITORS: Task[] = [
   }
 ]
 
+const EVENT_2025_03_KIMETSU_NO_YAIBA: Task[] = [
+  {
+    taskId: '2025-03-KnY-Check-In',
+    name: 'Demon Slayer Training Journal Check In',
+    maxClearCount: 1,
+    resetType: 'Daily',
+    taskType: 'Event',
+    isPerAccount: true,
+    startDate: new Date('2025-03-19T00:00:00Z'),
+    endDate: new Date('2025-04-28T23:59:59Z')
+  },
+  {
+    taskId: '2025-03-KnY-Gourd-Training-Test',
+    name: 'Demon Slayer Gourd Training Test',
+    maxClearCount: 1,
+    resetType: 'Daily',
+    taskType: 'Event',
+    isPerAccount: true,
+    startDate: new Date('2025-04-02T00:00:00Z'),
+    endDate: new Date('2025-04-28T23:59:59Z')
+  },
+  {
+    taskId: '2025-03-KnY-Coin-Flip-Challenge',
+    name: 'Demon Slayer Coin Flip Challenge',
+    maxClearCount: 1,
+    resetType: 'Daily',
+    taskType: 'Event',
+    isPerAccount: true,
+    startDate: new Date('2025-04-16T00:00:00Z'),
+    endDate: new Date('2025-04-28T23:59:59Z')
+  },
+  {
+    taskId: '2025-03-rockspirit-checkin',
+    name: 'Rock Spirit Giveaway Checkin',
+    maxClearCount: 1,
+    resetType: 'Daily',
+    taskType: 'Event',
+    isPerAccount: false,
+    startDate: new Date('2025-03-19T00:00:00Z'),
+    endDate: new Date('2025-04-28T23:59:59Z')
+  }
+]
+
 const EVENT_TASKS: GroupedTasks = {
   name: 'Event',
   tasks: [
@@ -1382,7 +1430,8 @@ const EVENT_TASKS: GroupedTasks = {
     EVENT_2024_10_NIGHT_TROUPE,
     EVENT_2024_11_DARK_RIDE,
     EVENT_2024_12_DARK_MAPLEMAS,
-    EVENT_2025_01_EXTRADIMENSIONAL_VISITORS
+    EVENT_2025_01_EXTRADIMENSIONAL_VISITORS,
+    EVENT_2025_03_KIMETSU_NO_YAIBA
   ]
     .flat()
 }
