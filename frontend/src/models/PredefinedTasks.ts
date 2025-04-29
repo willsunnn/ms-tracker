@@ -1456,7 +1456,7 @@ const EVENT_2025_04_VICTORIA_CUP: Task[] = [
     taskId: '2025-04-VC-Punch-King',
     name: 'Victoria Cup Balloon Pop Punch King',
     maxClearCount: 1,
-    resetType: 'Weekly_Thursday',
+    resetType: 'Weekly_Wednesday',
     taskType: 'Event',
     isPerAccount: true,
     startDate: new Date('2025-04-29T00:00:00Z'),
@@ -1471,6 +1471,16 @@ const EVENT_2025_04_VICTORIA_CUP: Task[] = [
     isPerAccount: true,
     startDate: new Date('2025-04-29T00:00:00Z'),
     endDate: new Date('2025-06-10T23:59:59Z')
+  },
+  {
+    taskId: '2025-04-VC-Running',
+    name: 'Victoria Cup Long Distance Running Point Cap',
+    maxClearCount: 1,
+    resetType: 'Daily',
+    taskType: 'Event',
+    isPerAccount: true,
+    startDate: new Date('2025-04-29T00:00:00Z'),
+    endDate: new Date('2025-05-20T23:59:59Z')
   },
   {
     taskId: '2025-04-Hit-The-Road-Checkin',
