@@ -1,7 +1,7 @@
 [
   {
     "name": "Patch Notes",
-    "url": "https://www.nexon.com/maplestory/news/update/23927"
+    "url": "https://www.nexon.com/maplestory/news/update/26290"
   },
   {
     "name": "Official News",
@@ -11,6 +11,10 @@
     "name": "Old Patch Notes",
     "isOpenByDefault": false,
     "links": [
+      {
+        "name": "v258 - Maplestory x Demon Slayer: Kimetsu no Yaiba",
+        "url": "https://www.nexon.com/maplestory/news/update/23927"
+      },
       {
         "name": "v257 - Tallahart",
         "url": "https://www.nexon.com/maplestory/news/update/23160"

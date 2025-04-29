@@ -1411,6 +1411,79 @@ const EVENT_2025_03_KIMETSU_NO_YAIBA: Task[] = [
   }
 ]
 
+const EVENT_2025_04_VICTORIA_CUP: Task[] = [
+  {
+    taskId: '2025-04-VC-Daily-Checkin',
+    name: 'Victoria Cup Stamp Book Check In',
+    maxClearCount: 1,
+    resetType: 'Daily',
+    taskType: 'Event',
+    isPerAccount: true,
+    startDate: new Date('2025-04-29T00:00:00Z'),
+    endDate: new Date('2025-06-10T23:59:59Z')
+  },
+  {
+    taskId: '2025-04-VC-Minigame-Points',
+    name: 'Victoria Cup Minigame 300 Collection Points',
+    maxClearCount: 1,
+    resetType: 'Daily',
+    taskType: 'Event',
+    isPerAccount: true,
+    startDate: new Date('2025-04-29T00:00:00Z'),
+    endDate: new Date('2025-06-10T23:59:59Z')
+  },
+  {
+    taskId: '2025-04-VC-Minigame-Checkin',
+    name: 'Victoria Cup Colection Book Check In',
+    maxClearCount: 1,
+    resetType: 'Daily',
+    taskType: 'Event',
+    isPerAccount: true,
+    startDate: new Date('2025-04-29T00:00:00Z'),
+    endDate: new Date('2025-06-10T23:59:59Z')
+  },
+  {
+    taskId: '2025-04-VC-Trophy',
+    name: 'Victoria Cup Earn Boss Trophies',
+    maxClearCount: 1,
+    resetType: 'Weekly_Thursday',
+    taskType: 'Event',
+    isPerAccount: true,
+    startDate: new Date('2025-04-29T00:00:00Z'),
+    endDate: new Date('2025-06-10T23:59:59Z')
+  },
+  {
+    taskId: '2025-04-VC-Punch-King',
+    name: 'Victoria Cup Balloon Pop Punch King',
+    maxClearCount: 1,
+    resetType: 'Weekly_Thursday',
+    taskType: 'Event',
+    isPerAccount: true,
+    startDate: new Date('2025-04-29T00:00:00Z'),
+    endDate: new Date('2025-06-10T23:59:59Z')
+  },
+  {
+    taskId: '2025-04-VC-Snack-Break',
+    name: 'Victoria Cup Snack Break',
+    maxClearCount: 1,
+    resetType: 'Daily',
+    taskType: 'Event',
+    isPerAccount: true,
+    startDate: new Date('2025-04-29T00:00:00Z'),
+    endDate: new Date('2025-06-10T23:59:59Z')
+  },
+  {
+    taskId: '2025-04-Hit-The-Road-Checkin',
+    name: 'Hit the Road Check In',
+    maxClearCount: 1,
+    resetType: 'Daily',
+    taskType: 'Event',
+    isPerAccount: true,
+    startDate: new Date('2025-05-28T00:00:00Z'),
+    endDate: new Date('2025-06-24T23:59:59Z')
+  }
+]
+
 const EVENT_TASKS: GroupedTasks = {
   name: 'Event',
   tasks: [
@@ -1431,7 +1504,8 @@ const EVENT_TASKS: GroupedTasks = {
     EVENT_2024_11_DARK_RIDE,
     EVENT_2024_12_DARK_MAPLEMAS,
     EVENT_2025_01_EXTRADIMENSIONAL_VISITORS,
-    EVENT_2025_03_KIMETSU_NO_YAIBA
+    EVENT_2025_03_KIMETSU_NO_YAIBA,
+    EVENT_2025_04_VICTORIA_CUP
   ]
     .flat()
 }
