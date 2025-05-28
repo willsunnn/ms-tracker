@@ -1423,8 +1423,8 @@ const EVENT_2025_04_VICTORIA_CUP: Task[] = [
     endDate: new Date('2025-06-10T23:59:59Z')
   },
   {
-    taskId: '2025-04-VC-Minigame-Points',
-    name: 'Victoria Cup Minigame 300 Collection Points',
+    taskId: '2025-04-VC-Minigame-Checkin',
+    name: 'Victoria Cup Colection Book Check In',
     maxClearCount: 1,
     resetType: 'Daily',
     taskType: 'Event',
@@ -1433,13 +1433,13 @@ const EVENT_2025_04_VICTORIA_CUP: Task[] = [
     endDate: new Date('2025-06-10T23:59:59Z')
   },
   {
-    taskId: '2025-04-VC-Minigame-Checkin',
-    name: 'Victoria Cup Colection Book Check In',
+    taskId: '2025-04-VC-Goodbye-Checkin',
+    name: 'Goodbye Victoria Cup Check In',
     maxClearCount: 1,
     resetType: 'Daily',
     taskType: 'Event',
     isPerAccount: true,
-    startDate: new Date('2025-04-29T00:00:00Z'),
+    startDate: new Date('2025-05-28T00:00:00Z'),
     endDate: new Date('2025-06-10T23:59:59Z')
   },
   {
