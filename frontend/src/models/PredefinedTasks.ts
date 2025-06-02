@@ -426,7 +426,7 @@ const GUILD_TASKS: GroupedTasks = {
       taskId: 'guild-flag',
       name: 'Guild Flag Race',
       maxClearCount: 1,
-      resetType: 'Weekly_Monday',
+      resetType: 'Weekly_Thursday',
       taskType: 'Guild',
       isPerAccount: false
     },
