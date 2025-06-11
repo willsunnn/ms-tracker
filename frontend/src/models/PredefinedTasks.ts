@@ -182,7 +182,7 @@ const SIXTH_JOB_DAILIES: GroupedTasks = {
       maxClearCount: 1,
       resetType: 'Weekly_Thursday',
       taskType: '6thJob',
-      isPerAccount: true
+      isPerAccount: false
     },
     {
       taskId: '6th-job-angler-comppany',
@@ -190,7 +190,7 @@ const SIXTH_JOB_DAILIES: GroupedTasks = {
       maxClearCount: 1,
       resetType: 'Weekly_Thursday',
       taskType: '6thJob',
-      isPerAccount: true
+      isPerAccount: false
     }
   ]
 }
@@ -326,51 +326,68 @@ const OTHER_DAILIES: GroupedTasks = {
     {
       taskId: 'monster-park',
       name: 'Monster Park',
-      maxClearCount: 7
+      resetType: 'Daily',
+      maxClearCount: 7,
+      taskType: 'Other',
+      isPerAccount: false
     },
     {
       taskId: 'monster-park-extreme',
       name: 'Monster Park Extreme',
-      maxClearCount: 1
+      resetType: 'Weekly_Thursday',
+      maxClearCount: 1,
+      taskType: 'Other',
+      isPerAccount: false
     },
     {
       taskId: 'commerci-voyages',
       name: 'Commerci Voyages',
-      maxClearCount: 1
+      resetType: 'Daily',
+      maxClearCount: 1,
+      taskType: 'Other',
+      isPerAccount: false
     },
     {
       taskId: 'commerci-pq',
       name: 'Commerci Party Quest',
-      maxClearCount: 3
+      resetType: 'Daily',
+      maxClearCount: 3,
+      taskType: 'Other',
+      isPerAccount: false
     },
     {
       taskId: 'ursus',
       name: 'Ursus',
-      maxClearCount: 3
+      resetType: 'Daily',
+      maxClearCount: 3,
+      taskType: 'Other',
+      isPerAccount: false
     },
     {
       taskId: 'maple-tour',
       name: 'Maple Tour',
-      maxClearCount: 2
+      resetType: 'Daily',
+      maxClearCount: 2,
+      taskType: 'Other',
+      isPerAccount: false
     },
     {
       taskId: 'talk-to-home-caretaker',
       name: 'Talk to Home Caretaker',
-      maxClearCount: 1
+      resetType: 'Daily',
+      maxClearCount: 1,
+      taskType: 'Other',
+      isPerAccount: false
     },
     {
       taskId: 'autoharvest-herbs-and-minerals',
       name: 'Auto-Harvest Herbs and Minerals',
-      maxClearCount: 1
-    }
-  ].map((t) => {
-    return {
-      ...t,
       resetType: 'Daily',
+      maxClearCount: 1,
       taskType: 'Other',
       isPerAccount: false
     }
-  })
+  ]
 }
 
 const ARCANE_SYMBOL_WEEKLIES: GroupedTasks = {
@@ -1494,6 +1511,39 @@ const EVENT_2025_04_VICTORIA_CUP: Task[] = [
   }
 ]
 
+const EVENT_2025_06_STARGAZER: Task[] = [
+  {
+    taskId: '2025-06-Daily Feast Prep',
+    name: 'Morning Star Feast Daily Feast Prep',
+    maxClearCount: 1,
+    resetType: 'Daily',
+    taskType: 'Event',
+    isPerAccount: true,
+    startDate: new Date('2025-06-11T00:00:00Z'),
+    endDate: new Date('2025-08-26T23:59:59Z')
+  },
+  {
+    taskId: '2025-04-VC-Minigame-Checkin',
+    name: 'Morning Star Feast Special Feast Prep',
+    maxClearCount: 1,
+    resetType: 'Daily',
+    taskType: 'Event',
+    isPerAccount: true,
+    startDate: new Date('2025-06-11T00:00:00Z'),
+    endDate: new Date('2025-08-26T23:59:59Z')
+  },
+  {
+    taskId: '2025-04-VC-Trophy',
+    name: 'Earn Boss Victory Badges',
+    maxClearCount: 1,
+    resetType: 'Weekly_Thursday',
+    taskType: 'Event',
+    isPerAccount: true,
+    startDate: new Date('2025-06-11T00:00:00Z'),
+    endDate: new Date('2025-08-26T23:59:59Z')
+  }
+]
+
 const EVENT_TASKS: GroupedTasks = {
   name: 'Event',
   tasks: [
@@ -1515,7 +1565,8 @@ const EVENT_TASKS: GroupedTasks = {
     EVENT_2024_12_DARK_MAPLEMAS,
     EVENT_2025_01_EXTRADIMENSIONAL_VISITORS,
     EVENT_2025_03_KIMETSU_NO_YAIBA,
-    EVENT_2025_04_VICTORIA_CUP
+    EVENT_2025_04_VICTORIA_CUP,
+    EVENT_2025_06_STARGAZER
   ]
     .flat()
 }
