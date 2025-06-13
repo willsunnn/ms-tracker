@@ -1524,9 +1524,9 @@ const EVENT_2025_06_STARGAZER: Task[] = [
   },
   {
     taskId: '2025-04-VC-Minigame-Checkin',
-    name: 'Morning Star Feast Special Feast Prep',
+    name: 'Morning Star Feast Special Feast Prep x3',
     maxClearCount: 1,
-    resetType: 'Daily',
+    resetType: 'Weekly_Wednesday',
     taskType: 'Event',
     isPerAccount: true,
     startDate: new Date('2025-06-11T00:00:00Z'),
