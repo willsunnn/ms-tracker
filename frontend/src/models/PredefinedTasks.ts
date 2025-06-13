@@ -1513,7 +1513,7 @@ const EVENT_2025_04_VICTORIA_CUP: Task[] = [
 
 const EVENT_2025_06_STARGAZER: Task[] = [
   {
-    taskId: '2025-06-Daily Feast Prep',
+    taskId: '2025-06-Daily-Feast-Prep',
     name: 'Morning Star Feast Daily Feast Prep',
     maxClearCount: 1,
     resetType: 'Daily',
@@ -1523,7 +1523,7 @@ const EVENT_2025_06_STARGAZER: Task[] = [
     endDate: new Date('2025-08-26T23:59:59Z')
   },
   {
-    taskId: '2025-04-VC-Minigame-Checkin',
+    taskId: '2025-06-Special-Feast-Prep',
     name: 'Morning Star Feast Special Feast Prep x3',
     maxClearCount: 1,
     resetType: 'Weekly_Wednesday',
@@ -1533,7 +1533,7 @@ const EVENT_2025_06_STARGAZER: Task[] = [
     endDate: new Date('2025-08-26T23:59:59Z')
   },
   {
-    taskId: '2025-04-VC-Trophy',
+    taskId: '2025-06-Boss-Badges',
     name: 'Earn Boss Victory Badges',
     maxClearCount: 1,
     resetType: 'Weekly_Thursday',
@@ -1541,6 +1541,16 @@ const EVENT_2025_06_STARGAZER: Task[] = [
     isPerAccount: true,
     startDate: new Date('2025-06-11T00:00:00Z'),
     endDate: new Date('2025-08-26T23:59:59Z')
+  },
+  {
+    taskId: '2025-06-Challenger-World-Hunting-Mission',
+    name: 'Challenger World Hunting Mission',
+    maxClearCount: 1,
+    resetType: 'Daily',
+    taskType: 'Event',
+    isPerAccount: true,
+    startDate: new Date('2025-06-11T00:00:00Z'),
+    endDate: new Date('2025-09-24T02:00:00Z')
   }
 ]
 
