@@ -1554,6 +1554,59 @@ const EVENT_2025_06_STARGAZER: Task[] = [
   }
 ]
 
+const EVENT_2025_07_DAVE_THE_DIVER: Task[] = [
+  {
+    taskId: '2025-07-Dave-The-Diver-Blue-Hole',
+    name: 'Daily Blue Hole Exploration Preparation',
+    maxClearCount: 1,
+    resetType: 'Daily',
+    taskType: 'Event',
+    isPerAccount: true,
+    startDate: new Date('2025-07-16T00:00:00Z'),
+    endDate: new Date('2025-08-26T23:59:59Z')
+  },
+  {
+    taskId: '2025-07-Ride-Or-Die',
+    name: 'Clear Ride or Die Bosses',
+    maxClearCount: 1,
+    resetType: 'Weekly_Wednesday',
+    taskType: 'Event',
+    isPerAccount: true,
+    startDate: new Date('2025-07-16T00:00:00Z'),
+    endDate: new Date('2025-08-26T23:59:59Z')
+  },
+  {
+    taskId: '2025-07-Morning-Star-Fountain',
+    name: 'Morning Star Fountain Check In',
+    maxClearCount: 1,
+    resetType: 'Daily',
+    taskType: 'Event',
+    isPerAccount: true,
+    startDate: new Date('2025-07-16T00:00:00Z'),
+    endDate: new Date('2025-08-05T23:59:59Z')
+  },
+  {
+    taskId: '2025-07-Morning-Star-Fountain-Challenger-World',
+    name: 'Morning Star Fountain Challenger World Check In',
+    maxClearCount: 1,
+    resetType: 'Daily',
+    taskType: 'Event',
+    isPerAccount: true,
+    startDate: new Date('2025-07-16T00:00:00Z'),
+    endDate: new Date('2025-08-05T23:59:59Z')
+  },
+  {
+    taskId: '2025-08-Burning-Express-Check-In',
+    name: 'Burning Express Check In',
+    maxClearCount: 1,
+    resetType: 'Daily',
+    taskType: 'Event',
+    isPerAccount: true,
+    startDate: new Date('2025-08-13T00:00:00Z'),
+    endDate: new Date('2025-08-05T23:59:59Z')
+  }
+]
+
 const EVENT_TASKS: GroupedTasks = {
   name: 'Event',
   tasks: [
@@ -1576,7 +1629,8 @@ const EVENT_TASKS: GroupedTasks = {
     EVENT_2025_01_EXTRADIMENSIONAL_VISITORS,
     EVENT_2025_03_KIMETSU_NO_YAIBA,
     EVENT_2025_04_VICTORIA_CUP,
-    EVENT_2025_06_STARGAZER
+    EVENT_2025_06_STARGAZER,
+    EVENT_2025_07_DAVE_THE_DIVER
   ]
     .flat()
 }
