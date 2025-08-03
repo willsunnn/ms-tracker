@@ -451,7 +451,7 @@ const GUILD_TASKS: GroupedTasks = {
       taskId: 'guild-castle-5k',
       name: 'Guild Castle 5k Mobs',
       maxClearCount: 1,
-      resetType: 'Weekly_Monday',
+      resetType: 'Weekly_Thursday',
       taskType: 'Guild',
       isPerAccount: false
     },
