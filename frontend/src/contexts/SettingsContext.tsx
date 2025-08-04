@@ -48,7 +48,10 @@ export const SettingsContextProvider = (props: { children: ReactNode }) => {
       theme,
       dateFormat
     }
-    Cookies.set(SettingsCookieKey, JSON.stringify(cookieValue), { sameSite: 'strict' })
+    Cookies.set(SettingsCookieKey, JSON.stringify(cookieValue), {
+      sameSite: 'strict',
+      expires: 365
+    })
   }
 
   useEffect(() => {
