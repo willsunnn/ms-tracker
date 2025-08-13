@@ -1603,7 +1603,7 @@ const EVENT_2025_07_DAVE_THE_DIVER: Task[] = [
     taskType: 'Event',
     isPerAccount: true,
     startDate: new Date('2025-08-13T00:00:00Z'),
-    endDate: new Date('2025-08-05T23:59:59Z')
+    endDate: new Date('2025-09-05T23:59:59Z')
   }
 ]
 
