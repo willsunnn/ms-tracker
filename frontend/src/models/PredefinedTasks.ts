@@ -1607,6 +1607,69 @@ const EVENT_2025_07_DAVE_THE_DIVER: Task[] = [
   }
 ]
 
+const EVENT_2025_08_NIGHT_TROUPE: Task[] = [
+  {
+    taskId: '2025-08-Night-Troupe-Coin-Cap',
+    name: 'Night Troupe Coin Cap',
+    maxClearCount: 1,
+    resetType: 'Daily',
+    taskType: 'Event',
+    isPerAccount: true,
+    startDate: new Date('2025-08-27T00:00:00Z'),
+    endDate: new Date('2025-09-23T23:59:59Z')
+  },
+  {
+    taskId: '2025-08-Night-Troupe-Acuity-Training',
+    name: 'Night Troupe Acuity Training Minigame',
+    maxClearCount: 1,
+    resetType: 'Daily',
+    taskType: 'Event',
+    isPerAccount: true,
+    startDate: new Date('2025-09-10T00:00:00Z'),
+    endDate: new Date('2025-09-23T23:59:59Z')
+  },
+  {
+    taskId: '2025-08-Night-Troupe-Fortune-Sticks',
+    name: 'Night Troupe Fortune Sticks Minigame',
+    maxClearCount: 1,
+    resetType: 'Daily',
+    taskType: 'Event',
+    isPerAccount: true,
+    startDate: new Date('2025-09-17T00:00:00Z'),
+    endDate: new Date('2025-09-23T23:59:59Z')
+  },
+  {
+    taskId: '2025-08-Night-Troupe-Mu-Lung-Challenge',
+    name: 'Night Troupe Mu Lung Night Challenge',
+    maxClearCount: 1,
+    resetType: 'Weekly_Wednesday',
+    taskType: 'Event',
+    isPerAccount: true,
+    startDate: new Date('2025-09-03T00:00:00Z'),
+    endDate: new Date('2025-09-23T23:59:59Z')
+  },
+  {
+    taskId: '2025-08-Champion-Burning-Double-Up-Points',
+    name: 'Champion Double Up Cap Weekly Points',
+    maxClearCount: 1,
+    resetType: 'Weekly_Thursday',
+    taskType: 'Event',
+    isPerAccount: true,
+    startDate: new Date('2025-08-27T00:00:00Z'),
+    endDate: new Date('2025-10-21T23:59:59Z')
+  },
+  {
+    taskId: '2025-08-Champion-Burning-Double-Up-Checkin',
+    name: 'Champion Double Up 3x Coin Checkin',
+    maxClearCount: 1,
+    resetType: 'Weekly_Thursday',
+    taskType: 'Event',
+    isPerAccount: true,
+    startDate: new Date('2025-08-27T00:00:00Z'),
+    endDate: new Date('2025-10-21T23:59:59Z')
+  }
+]
+
 const EVENT_TASKS: GroupedTasks = {
   name: 'Event',
   tasks: [
@@ -1630,7 +1693,8 @@ const EVENT_TASKS: GroupedTasks = {
     EVENT_2025_03_KIMETSU_NO_YAIBA,
     EVENT_2025_04_VICTORIA_CUP,
     EVENT_2025_06_STARGAZER,
-    EVENT_2025_07_DAVE_THE_DIVER
+    EVENT_2025_07_DAVE_THE_DIVER,
+    EVENT_2025_08_NIGHT_TROUPE
   ]
     .flat()
 }
