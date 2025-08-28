@@ -10,9 +10,9 @@ test("fetch 3rd party call - GelatoShine", async () => {
   expect(character.characterName).toBe("GelatoShine");
   expect(character.level).toBeDefined()
   expect(character.characterImgURL).toBeDefined()
-  expect(character.jobName).toBe("Magician");
+  expect(character.jobID).toBe(2);
   expect(character.jobDetail).toBe(32);
-  expect(character.worldName).toBe("Kronos");
+  expect(character.worldID).toBe(45);
 });
 
 // Test reboot with name with accents
@@ -25,9 +25,9 @@ test("fetch 3rd party call - nùms", async () => {
   expect(character.characterName).toBe("nùms");
   expect(character.level).toBeDefined()
   expect(character.characterImgURL).toBeDefined()
-  expect(character.jobName).toBe("Night Walker");
+  expect(character.jobID).toBe(14);
   expect(character.jobDetail).toBe(12);
-  expect(character.worldName).toBe("Kronos");
+  expect(character.worldID).toBe(45);
 });
 
 // Test Reg Server with regular name
@@ -40,9 +40,9 @@ test("fetch 3rd party call - Niru", async () => {
   expect(character.characterName).toBe("Niru");
   expect(character.level).toBeDefined();
   expect(character.characterImgURL).toBeDefined()
-  expect(character.jobName).toBe("Magician");
+  expect(character.jobID).toBe(2);
   expect(character.jobDetail).toBe(32);
-  expect(character.worldName).toBe("Aurora");
+  expect(character.worldID).toBe(19);
 });
 
 // Test EU
@@ -55,9 +55,9 @@ test("fetch 3rd party call - Nerf", async () => {
   expect(character.characterName).toBe("Nerf");
   expect(character.level).toBeDefined();
   expect(character.characterImgURL).toBeDefined()
-  expect(character.jobName).toBe("Pirate");
+  expect(character.jobID).toBe(5);
   expect(character.jobDetail).toBe(12);
-  expect(character.worldName).toBe("Luna");
+  expect(character.worldID).toBe(30);
 });
 
 
@@ -69,7 +69,7 @@ test("Can parse class from job details", async () => {
     ["Zerk", "Dark Knight"],
     ["KeyPaladin", "Paladin"],
     ["Niru", "Bishop"],
-    ["Snøwed", "Ice/Lightning Archmage"],
+    ["lcey", "Ice/Lightning Archmage"],
     ["Comet", "Fire/Poison Archmage"],
     ["MisaoMaki", "Shadower"],
     ["iNoBlades", "Night Lord"],
@@ -85,47 +85,54 @@ test("Can parse class from job details", async () => {
     ["WolfandLamb", "Wind Archer"],
     ["Shapaz", "Night Walker"],
     ["Tecklo", "Thunder Breaker"],
-    ["iaba", "Mihile"],
+    ["Gecko", "Mihile"],
     ["Ellucidate", "Demon Slayer"],
     ["DonutChief", "Battle Mage"],
     ["Huyz", "Wild Hunter"],
     ["HowsToast", "Mechanic"],
-    ["maindeal", "Xenon"],
+    ["NeXTH", "Xenon"],
     ["Pheaktra", "Demon Avenger"],
-    ["jopfjea", "Blaster"],
+    ["Dare", "Blaster"],
     ["AranBhav", "Aran"],
     ["Leløuch", "Evan"],
     ["Fairy", "Mercedes"],
-    ["Suzuka", "Phantom"],
+    ["Sprinted", "Phantom"],
     ["Lapy", "Luminous"],
     ["M0onShad3", "Shade"],
     ["Layouts", "Kaiser"],
     ["idoI", "Angelic Buster"],
     ["Wrathlor", "Cadena"],
-    ["Virtuoso", "Kain"],
+    ["Yuel", "Kain"],
     ["Hollow", "Illium"],
     ["ArkXu", "Ark"],
     ["Anime", "Adele"],
     ["SpIooki", "Khali"],
     ["OktoAeon", "Hayato"],
     ["Monk", "Kanna"],
-    ["ponf", "Lara"],
+    ["yonf", "Lara"],
     ["Kraane", "Hoyoung"],
     ["WhitexKnight", "Zero"],
     ["Wall", "Kinesis"],
     ["Risporia", "Lynn"],
+    ["Öççú", "Mo Xuan"],
+    ["YozoraAI", "Sia Astelle"],
   ]
 
   // Check each test case
   await Promise.all(
       testCases.map(async (example) => {
       const [name, mapleClass] = example
-      const result = await lib.fetchAndTransform(name, "na")
-      expect(result.class).toBe(mapleClass)
+      try {
+        
+        const result = await lib.fetchAndTransform(name, "na")
+        expect(result.class).toBe(mapleClass)
+      } catch (err) {
+        console.error(`Failed fetching ${name}`)
+        throw err
+      }
     })
   )
 
-  // There are currently 49 playable classes
-  // 52 in the enum set. Beast Tamer, Jett and Unknown are omitted cases
-  expect(new Set(testCases.map((tuple) => tuple[1])).size).toBe(49);
+  // There are currently 51 playable classes
+  expect(new Set(testCases.map((tuple) => tuple[1])).size).toBe(51);
 });

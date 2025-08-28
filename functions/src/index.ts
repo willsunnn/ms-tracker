@@ -35,7 +35,7 @@ const updateAndSave = async (key: CharacterCacheKey): Promise<CachedCharacter> =
   try {
     const data = await fetchAndTransform(key.name, key.region);
     logger.info(`Fetched character ${char.name} in ${new Date().getTime() - now} ms from 3rd party API`);
-    logger.debug(`3rd party Data for ${char.name} data=${data}`);
+    logger.debug(`3rd party Data for ${char.name} data=${JSON.stringify(data)}`);
 
     const formattedData: CachedCharacter = {
       key: cacheKeyToString(key),

@@ -85,6 +85,10 @@ const getAbbreviatedName = (characterClass: MapleClass | undefined): string => {
     case 'Hoyoung':
       return 'HY'
     case 'Unknown':
+    case 'Mo Xuan':
+      return 'MX'
+    case 'Sia Astelle':
+      return 'Sia'
     case undefined:
       return 'NW'
     // These are all not abbreviated
@@ -205,6 +209,10 @@ const getArcaneWeapon = (characterClass: MapleClass | undefined): string => {
       return ArcaneWeapons.PsyLimiter
     case 'Lynn':
       return ArcaneWeapons.MemorialStaff
+    case 'Mo Xuan':
+      return ArcaneWeapons.WarFist
+    case 'Sia Astelle':
+      return ArcaneWeapons.CelestialLight
     case 'Unknown':
     case undefined:
       return ArcaneWeapons.Claw

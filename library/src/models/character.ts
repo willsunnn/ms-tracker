@@ -76,6 +76,8 @@ export const MapleClass = z.enum([
   "Zero",
   "Kinesis",
   "Lynn",
+  "Mo Xuan",
+  "Sia Astelle",
   // Fallback
   "Unknown",
 ]);
@@ -115,11 +117,9 @@ export const defaultCachedCharacter = (key: CharacterCacheKey): CachedCharacter 
 export const ThirdPartyCharacterData = z.object({
   characterImgURL: z.string().optional(),
   characterName: z.string(),
-  jobName: z.string().optional(),
   jobID: z.number().int().optional(),
   jobDetail: z.number().int().optional(),
   worldID: z.number().int().optional(),
-  worldName: z.string().optional(),
   level: z.number().int().optional(),
   // There are other fields but we dont really need them
 });

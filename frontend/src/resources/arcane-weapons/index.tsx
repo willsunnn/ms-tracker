@@ -5,6 +5,7 @@ import Bladecaster from './Eqp_Arcane_Umbra_Bladecaster.webp'
 import Bow from './Eqp_Arcane_Umbra_Bow.webp'
 
 import Cane from './Eqp_Arcane_Umbra_Cane.webp'
+import CelestialLight from './Eqp_Arcane_Umbra_Celestial_Light.png'
 import Chain from './Eqp_Arcane_Umbra_Chain.webp'
 import Chakram from './Eqp_Arcane_Umbra_Chakram.webp'
 import Claw from './Eqp_Arcane_Umbra_Guards.webp'
@@ -50,8 +51,11 @@ import TwoHandedHammer from './Eqp_Arcane_Umbra_Two-Handed_Hammer.webp'
 import TwoHandedSword from './Eqp_Arcane_Umbra_Two-handed_Sword.webp'
 
 import Wand from './Eqp_Arcane_Umbra_Wand.webp'
+import WarFist from './Eqp_Arcane_Umbra_War_Fist.webp'
 import WhipBlade from './Eqp_Arcane_Umbra_Energy_Chain.webp'
 import Whispershot from './Eqp_Arcane_Umbra_Whispershot.webp'
+
+// Assets taken from https://maplestorywiki.net
 
 export default {
   AncientBow,
@@ -59,6 +63,7 @@ export default {
   Bladecaster,
   Bow,
   Cane,
+  CelestialLight,
   Chain,
   Chakram,
   Claw,
@@ -91,6 +96,7 @@ export default {
   TwoHandedHammer,
   TwoHandedSword,
   Wand,
+  WarFist
   WhipBlade,
   Whispershot
 }
