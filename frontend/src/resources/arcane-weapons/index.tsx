@@ -96,7 +96,7 @@ export default {
   TwoHandedHammer,
   TwoHandedSword,
   Wand,
-  WarFist
+  WarFist,
   WhipBlade,
   Whispershot
 }

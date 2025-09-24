@@ -1746,7 +1746,7 @@ const EVENT_2025_09_STRANGE_TIDES: Task[] = [
     startDate: new Date('2025-09-24T00:00:00Z'),
     endDate: new Date('2025-10-21T23:59:59Z')
   }
-];
+]
 
 const EVENT_TASKS: GroupedTasks = {
   name: 'Event',
