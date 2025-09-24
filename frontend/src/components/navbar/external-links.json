@@ -1,7 +1,7 @@
 [
   {
     "name": "Patch Notes",
-    "url": "https://www.nexon.com/maplestory/news/update/29874"
+    "url": "https://www.nexon.com/maplestory/news/update/31006"
   },
   {
     "name": "Official News",
@@ -11,6 +11,10 @@
     "name": "Old Patch Notes",
     "isOpenByDefault": false,
     "links": [
+      {
+        "name": "v262 - Mu Lung Night Troupe",
+        "url": "https://www.nexon.com/maplestory/news/update/29874"
+      },
       {
         "name": "v261 - Dave the Diver",
         "url": "https://www.nexon.com/maplestory/news/update/28137"
