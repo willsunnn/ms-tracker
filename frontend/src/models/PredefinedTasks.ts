@@ -102,7 +102,12 @@ const WEEKLY_BOSSES: GroupedTasks = {
       {
         taskId: 'boss-weekly-limbo',
         name: 'Limbo'
+      },
+      {
+        taskId: 'boss-weekly-baldrix',
+        name: 'Baldrix'
       }
+
     ].map((t) => {
       return {
         ...t,
@@ -1670,6 +1675,79 @@ const EVENT_2025_08_NIGHT_TROUPE: Task[] = [
   }
 ]
 
+const EVENT_2025_09_STRANGE_TIDES: Task[] = [
+  {
+    taskId: '2025-09-Carcion-Octo-Fest-Daily-Prep',
+    name: 'Carcion Octo Daily Fest Prep',
+    maxClearCount: 1,
+    resetType: 'Daily',
+    taskType: 'Event',
+    isPerAccount: true,
+    startDate: new Date('2025-09-24T00:00:00Z'),
+    endDate: new Date('2025-10-21T23:59:59Z')
+  },
+  {
+    taskId: '2025-09-Carcion-Octo-Fest-Weekly-Prep',
+    name: 'Carcion Octo Weekly Fest Prep x3',
+    maxClearCount: 1,
+    resetType: 'Weekly_Wednesday',
+    taskType: 'Event',
+    isPerAccount: true,
+    startDate: new Date('2025-09-24T00:00:00Z'),
+    endDate: new Date('2025-10-21T23:59:59Z')
+  },
+  {
+    taskId: '2025-09-Octo-Hunt',
+    name: 'Octo Hunt',
+    maxClearCount: 1,
+    resetType: 'Weekly_Wednesday',
+    taskType: 'Event',
+    isPerAccount: true,
+    startDate: new Date('2025-09-24T00:00:00Z'),
+    endDate: new Date('2025-10-21T23:59:59Z')
+  },
+  {
+    taskId: '2025-09-Raise-A-Golden-Octopus',
+    name: 'Raise a Golden Octopus',
+    maxClearCount: 1,
+    resetType: 'Weekly_Wednesday',
+    taskType: 'Event',
+    isPerAccount: true,
+    startDate: new Date('2025-09-24T00:00:00Z'),
+    endDate: new Date('2025-10-21T23:59:59Z')
+  },
+  {
+    taskId: '2025-09-Strange-Tides-Luxe-Sauna',
+    name: 'Luxe Sauna',
+    maxClearCount: 1,
+    resetType: 'Weekly_Thursday',
+    taskType: 'Event',
+    isPerAccount: true,
+    startDate: new Date('2025-09-24T00:00:00Z'),
+    endDate: new Date('2025-10-21T23:59:59Z')
+  },
+  {
+    taskId: '2025-09-Strange-Tides-Haunted-Mansion',
+    name: 'Haunted Mansion',
+    maxClearCount: 1,
+    resetType: 'Daily',
+    taskType: 'Event',
+    isPerAccount: true,
+    startDate: new Date('2025-09-24T00:00:00Z'),
+    endDate: new Date('2025-10-21T23:59:59Z')
+  },
+  {
+    taskId: '2025-09-Strange-Tides-Winter-Countdown',
+    name: 'Winter Countdown',
+    maxClearCount: 1,
+    resetType: 'Daily',
+    taskType: 'Event',
+    isPerAccount: true,
+    startDate: new Date('2025-09-24T00:00:00Z'),
+    endDate: new Date('2025-10-21T23:59:59Z')
+  }
+];
+
 const EVENT_TASKS: GroupedTasks = {
   name: 'Event',
   tasks: [
@@ -1694,7 +1772,8 @@ const EVENT_TASKS: GroupedTasks = {
     EVENT_2025_04_VICTORIA_CUP,
     EVENT_2025_06_STARGAZER,
     EVENT_2025_07_DAVE_THE_DIVER,
-    EVENT_2025_08_NIGHT_TROUPE
+    EVENT_2025_08_NIGHT_TROUPE,
+    EVENT_2025_09_STRANGE_TIDES
   ]
     .flat()
 }
