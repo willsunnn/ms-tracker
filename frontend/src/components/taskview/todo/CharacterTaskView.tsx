@@ -32,10 +32,18 @@ export const CharacterTaskView = (props: CharacterTaskViewProps) => {
       <div className='w-full font-semibold text-lg'>{characterName}</div>
       {
         tasks.map((task) => {
-          return (<div className='w-full flex flex-row pl-4' key={`CharacterTaskView-${task.name}-${character.id}`}>
-            <div className='flex-grow'>{task.name}</div>
-            <input type="checkbox" className="checkbox checkbox-sm" checked={task.clearTimes.length >= task.maxClearCount} onChange={checkBoxOnClickCurryFunc(task)}/>
-          </div>
+          return (
+            <label
+              className="w-full flex flex-row items-center gap-3 cursor-pointer"
+              key={`CharacterTaskView-${task.name}-${character.id}`}
+            >
+              <input
+                type="checkbox"
+                className="checkbox ..."
+                onChange={checkBoxOnClickCurryFunc(task)}
+              />
+              <span className="flex-grow">{task.name}</span>
+            </label>
           )
         })
       }
