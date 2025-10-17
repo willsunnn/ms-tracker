@@ -33,7 +33,7 @@ export const CharacterTaskView = (props: CharacterTaskViewProps) => {
       {tasks.map((task) => {
         return (
           <div
-            className="w-full flex flex-row hover:bg-base-300 pl-4 transition-colors"
+            className="w-full flex flex-row items-center rounded-md hover:bg-base-300 pl-4 pr-2 transition-colors"
             key={`CharacterTaskView-${task.name}-${character.id}`}
           >
             <div className="flex-grow">{task.name}</div>
