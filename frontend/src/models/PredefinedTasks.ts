@@ -527,6 +527,14 @@ const MVP_TASKS: GroupedTasks = {
       resetType: 'Monthly',
       taskType: 'MVP',
       isPerAccount: true
+    },
+    {
+      taskId: 'mvp-sol-erda',
+      name: 'MVP Sol Erda',
+      maxClearCount: 1,
+      resetType: 'Monthly',
+      taskType: 'MVP',
+      isPerAccount: true
     }
   ]
 }
