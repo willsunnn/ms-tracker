@@ -493,6 +493,20 @@ const LEGION_TASKS: GroupedTasks = {
   ]
 }
 
+const MVP_TASKS: GroupedTasks = {
+  name: 'MVP',
+  tasks: [
+    {
+      taskId: 'mvp-3x-exp',
+      name: 'MVP 3x EXP Coupon',
+      maxClearCount: 1,
+      resetType: 'Weekly_Thursday',
+      taskType: 'MVP',
+      isPerAccount: true
+    }
+  ]
+}
+
 const OTHER_WEEKLIES: GroupedTasks = {
   name: 'Other Weeklies',
   tasks: [
@@ -1790,6 +1804,7 @@ const GROUPED_TASKS: GroupedTasks[] = [
   ARCANE_SYMBOL_WEEKLIES,
   GUILD_TASKS,
   LEGION_TASKS,
+  MVP_TASKS,
   OTHER_WEEKLIES,
   THREADS_OF_FATE
 ].map(filterInactiveTasks)
