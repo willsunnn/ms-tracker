@@ -503,6 +503,22 @@ const MVP_TASKS: GroupedTasks = {
       resetType: 'Weekly_Thursday',
       taskType: 'MVP',
       isPerAccount: true
+    },
+    {
+      taskId: 'mvp-bonus-50-exp',
+      name: 'MVP 50% Bonus EXP Coupon',
+      maxClearCount: 1,
+      resetType: 'Weekly_Thursday',
+      taskType: 'MVP',
+      isPerAccount: true
+    },
+    {
+      taskId: 'mvp-superpower',
+      name: 'MVP Superpower Buff',
+      maxClearCount: 1,
+      resetType: 'Weekly_Thursday',
+      taskType: 'MVP',
+      isPerAccount: true
     }
   ]
 }
