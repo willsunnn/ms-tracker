@@ -28,17 +28,24 @@ export const CharacterTaskView = (props: CharacterTaskViewProps) => {
   }
 
   return (
-    <div className='w-full flex flex-col my-1'>
-      <div className='w-full font-semibold text-lg'>{characterName}</div>
-      {
-        tasks.map((task) => {
-          return (<div className='w-full flex flex-row pl-4' key={`CharacterTaskView-${task.name}-${character.id}`}>
-            <div className='flex-grow'>{task.name}</div>
-            <input type="checkbox" className="checkbox checkbox-sm" checked={task.clearTimes.length >= task.maxClearCount} onChange={checkBoxOnClickCurryFunc(task)}/>
+    <div className="w-full flex flex-col my-1">
+      <div className="w-full font-semibold text-lg">{characterName}</div>
+      {tasks.map((task) => {
+        return (
+          <div
+            className="w-full flex flex-row items-center rounded-md hover:bg-base-300 pl-4 pr-2 transition-colors"
+            key={`CharacterTaskView-${task.name}-${character.id}`}
+          >
+            <div className="flex-grow">{task.name}</div>
+            <input
+              type="checkbox"
+              className="checkbox checkbox-sm"
+              checked={task.clearTimes.length >= task.maxClearCount}
+              onChange={checkBoxOnClickCurryFunc(task)}
+            />
           </div>
-          )
-        })
-      }
+        )
+      })}
     </div>
   )
 }
