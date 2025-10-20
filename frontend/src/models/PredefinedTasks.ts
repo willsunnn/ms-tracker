@@ -553,12 +553,92 @@ const MVP_TASKS: GroupedTasks = {
       isPerAccount: true
     },
     {
+      taskId: 'mvp-pendant',
+      name: 'MVP Prepared Pendant of the Spirit',
+      maxClearCount: 1,
+      resetType: 'Monthly',
+      taskType: 'MVP',
+      isPerAccount: true
+    },
+    {
+      taskId: 'mvp-exp-ring',
+      name: 'MVP EXP Boost Ring',
+      maxClearCount: 1,
+      resetType: 'Monthly',
+      taskType: 'MVP',
+      isPerAccount: true
+    },
+    {
       taskId: 'mvp-sol-erda',
       name: 'MVP Sol Erda',
       maxClearCount: 1,
       resetType: 'Monthly',
       taskType: 'MVP',
       isPerAccount: true
+    },
+    {
+      taskId: 'mvp-kinship-ring',
+      name: 'MVP Kinship Ring',
+      maxClearCount: 1,
+      resetType: 'Monthly',
+      taskType: 'MVP',
+      isPerAccount: true
+    },
+    {
+      taskId: 'mvp-unlimited-elixir',
+      name: 'MVP Unlimited Elixir',
+      maxClearCount: 1,
+      resetType: 'Monthly',
+      taskType: 'MVP',
+      isPerAccount: false
+    },
+    {
+      taskId: 'mvp-damage-skin',
+      name: 'MVP Basic Damage Skin (Unit)',
+      maxClearCount: 1,
+      resetType: 'Monthly',
+      taskType: 'MVP',
+      isPerAccount: false
+    },
+    {
+      taskId: 'mvp-title',
+      name: 'MVP Title',
+      maxClearCount: 1,
+      resetType: 'Monthly',
+      taskType: 'MVP',
+      isPerAccount: false
+    },
+    {
+      taskId: 'mvp-medal',
+      name: 'MVP Medal',
+      maxClearCount: 1,
+      resetType: 'Monthly',
+      taskType: 'MVP',
+      isPerAccount: false
+    },
+    {
+      taskId: 'mvp-chair',
+      name: 'MVP Chair',
+      maxClearCount: 1,
+      resetType: 'Monthly',
+      taskType: 'MVP',
+      isPerAccount: false
+    },
+    {
+      taskId: 'mvp-chat-ring',
+      name: 'MVP Chat Ring',
+      maxClearCount: 1,
+      resetType: 'Monthly',
+      taskType: 'MVP',
+      isPerAccount: false
+    },
+    {
+      taskId: 'mvp-label-ring',
+      name: 'MVP Label Ring',
+      maxClearCount: 1,
+      resetType: 'Monthly',
+      taskType: 'MVP',
+      isPerAccount: false
     }
   ]
 }
