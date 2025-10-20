@@ -537,6 +537,14 @@ const MVP_TASKS: GroupedTasks = {
       isPerAccount: true
     },
     {
+      taskId: 'mvp-bonus-70-exp-atmospheric',
+      name: 'MVP 70% Bonus EXP Atmospheric Effect',
+      maxClearCount: 1,
+      resetType: 'Weekly_Thursday',
+      taskType: 'MVP',
+      isPerAccount: true
+    },
+    {
       taskId: 'mvp-monthly-resort',
       name: 'MVP Resort',
       maxClearCount: 1,
