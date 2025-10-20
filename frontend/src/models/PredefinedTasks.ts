@@ -519,6 +519,14 @@ const MVP_TASKS: GroupedTasks = {
       resetType: 'Weekly_Thursday',
       taskType: 'MVP',
       isPerAccount: true
+    },
+    {
+      taskId: 'mvp-monthly-resort',
+      name: 'MVP Resort',
+      maxClearCount: 1,
+      resetType: 'Monthly',
+      taskType: 'MVP',
+      isPerAccount: true
     }
   ]
 }
