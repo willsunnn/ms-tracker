@@ -493,6 +493,156 @@ const LEGION_TASKS: GroupedTasks = {
   ]
 }
 
+const MVP_TASKS: GroupedTasks = {
+  name: 'MVP',
+  tasks: [
+    {
+      taskId: 'mvp-3x-exp',
+      name: 'MVP 3x EXP Coupon',
+      maxClearCount: 1,
+      resetType: 'Weekly_Thursday',
+      taskType: 'MVP',
+      isPerAccount: true
+    },
+    {
+      taskId: 'mvp-4x-exp',
+      name: 'MVP 4x EXP Coupon',
+      maxClearCount: 1,
+      resetType: 'Weekly_Thursday',
+      taskType: 'MVP',
+      isPerAccount: true
+    },
+    {
+      taskId: 'mvp-bonus-50-exp',
+      name: 'MVP 50% Bonus EXP Coupon',
+      maxClearCount: 1,
+      resetType: 'Weekly_Thursday',
+      taskType: 'MVP',
+      isPerAccount: true
+    },
+    {
+      taskId: 'mvp-bonus-70-exp',
+      name: 'MVP 70% Bonus EXP Coupon',
+      maxClearCount: 1,
+      resetType: 'Weekly_Thursday',
+      taskType: 'MVP',
+      isPerAccount: true
+    },
+    {
+      taskId: 'mvp-superpower',
+      name: 'MVP Superpower Buff',
+      maxClearCount: 1,
+      resetType: 'Weekly_Thursday',
+      taskType: 'MVP',
+      isPerAccount: true
+    },
+    {
+      taskId: 'mvp-bonus-70-exp-atmospheric',
+      name: 'MVP 70% Bonus EXP Atmospheric Effect',
+      maxClearCount: 1,
+      resetType: 'Weekly_Thursday',
+      taskType: 'MVP',
+      isPerAccount: true
+    },
+    {
+      taskId: 'mvp-monthly-resort',
+      name: 'MVP Resort',
+      maxClearCount: 1,
+      resetType: 'Monthly',
+      taskType: 'MVP',
+      isPerAccount: true
+    },
+    {
+      taskId: 'mvp-pendant',
+      name: 'MVP Prepared Pendant of the Spirit',
+      maxClearCount: 1,
+      resetType: 'Monthly',
+      taskType: 'MVP',
+      isPerAccount: true
+    },
+    {
+      taskId: 'mvp-exp-ring',
+      name: 'MVP EXP Boost Ring',
+      maxClearCount: 1,
+      resetType: 'Monthly',
+      taskType: 'MVP',
+      isPerAccount: true
+    },
+    {
+      taskId: 'mvp-sol-erda',
+      name: 'MVP Sol Erda',
+      maxClearCount: 1,
+      resetType: 'Monthly',
+      taskType: 'MVP',
+      isPerAccount: true
+    },
+    {
+      taskId: 'mvp-kinship-ring',
+      name: 'MVP Kinship Ring',
+      maxClearCount: 1,
+      resetType: 'Monthly',
+      taskType: 'MVP',
+      isPerAccount: true
+    },
+    {
+      taskId: 'mvp-unlimited-elixir',
+      name: 'MVP Unlimited Elixir',
+      maxClearCount: 1,
+      resetType: 'Monthly',
+      taskType: 'MVP',
+      isPerAccount: false
+    },
+    {
+      taskId: 'mvp-damage-skin',
+      name: 'MVP Basic Damage Skin (Unit)',
+      maxClearCount: 1,
+      resetType: 'Monthly',
+      taskType: 'MVP',
+      isPerAccount: false
+    },
+    {
+      taskId: 'mvp-title',
+      name: 'MVP Title',
+      maxClearCount: 1,
+      resetType: 'Monthly',
+      taskType: 'MVP',
+      isPerAccount: false
+    },
+    {
+      taskId: 'mvp-medal',
+      name: 'MVP Medal',
+      maxClearCount: 1,
+      resetType: 'Monthly',
+      taskType: 'MVP',
+      isPerAccount: false
+    },
+    {
+      taskId: 'mvp-chair',
+      name: 'MVP Chair',
+      maxClearCount: 1,
+      resetType: 'Monthly',
+      taskType: 'MVP',
+      isPerAccount: false
+    },
+    {
+      taskId: 'mvp-chat-ring',
+      name: 'MVP Chat Ring',
+      maxClearCount: 1,
+      resetType: 'Monthly',
+      taskType: 'MVP',
+      isPerAccount: false
+    },
+    {
+      taskId: 'mvp-label-ring',
+      name: 'MVP Label Ring',
+      maxClearCount: 1,
+      resetType: 'Monthly',
+      taskType: 'MVP',
+      isPerAccount: false
+    }
+  ]
+}
+
 const OTHER_WEEKLIES: GroupedTasks = {
   name: 'Other Weeklies',
   tasks: [
@@ -1790,6 +1940,7 @@ const GROUPED_TASKS: GroupedTasks[] = [
   ARCANE_SYMBOL_WEEKLIES,
   GUILD_TASKS,
   LEGION_TASKS,
+  MVP_TASKS,
   OTHER_WEEKLIES,
   THREADS_OF_FATE
 ].map(filterInactiveTasks)
