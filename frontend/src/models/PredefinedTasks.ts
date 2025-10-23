@@ -1834,7 +1834,7 @@ const EVENT_2025_09_STRANGE_TIDES: Task[] = [
     taskType: 'Event',
     isPerAccount: true,
     startDate: new Date('2025-09-24T00:00:00Z'),
-    endDate: new Date('2025-10-21T23:59:59Z')
+    endDate: new Date('2025-11-11T23:59:59Z')
   },
   {
     taskId: '2025-09-Carcion-Octo-Fest-Weekly-Prep',
@@ -1844,7 +1844,7 @@ const EVENT_2025_09_STRANGE_TIDES: Task[] = [
     taskType: 'Event',
     isPerAccount: true,
     startDate: new Date('2025-09-24T00:00:00Z'),
-    endDate: new Date('2025-10-21T23:59:59Z')
+    endDate: new Date('2025-11-11T23:59:59Z')
   },
   {
     taskId: '2025-09-Octo-Hunt',
@@ -1854,7 +1854,7 @@ const EVENT_2025_09_STRANGE_TIDES: Task[] = [
     taskType: 'Event',
     isPerAccount: true,
     startDate: new Date('2025-09-24T00:00:00Z'),
-    endDate: new Date('2025-10-21T23:59:59Z')
+    endDate: new Date('2025-11-11T23:59:59Z')
   },
   {
     taskId: '2025-09-Raise-A-Golden-Octopus',
@@ -1864,7 +1864,7 @@ const EVENT_2025_09_STRANGE_TIDES: Task[] = [
     taskType: 'Event',
     isPerAccount: true,
     startDate: new Date('2025-09-24T00:00:00Z'),
-    endDate: new Date('2025-10-21T23:59:59Z')
+    endDate: new Date('2025-11-11T23:59:59Z')
   },
   {
     taskId: '2025-09-Strange-Tides-Luxe-Sauna',
@@ -1883,8 +1883,8 @@ const EVENT_2025_09_STRANGE_TIDES: Task[] = [
     resetType: 'Daily',
     taskType: 'Event',
     isPerAccount: true,
-    startDate: new Date('2025-09-24T00:00:00Z'),
-    endDate: new Date('2025-10-21T23:59:59Z')
+    startDate: new Date('2025-10-22T00:00:00Z'),
+    endDate: new Date('2025-11-04T23:59:59Z')
   },
   {
     taskId: '2025-09-Strange-Tides-Winter-Countdown',
@@ -1893,8 +1893,8 @@ const EVENT_2025_09_STRANGE_TIDES: Task[] = [
     resetType: 'Daily',
     taskType: 'Event',
     isPerAccount: true,
-    startDate: new Date('2025-09-24T00:00:00Z'),
-    endDate: new Date('2025-10-21T23:59:59Z')
+    startDate: new Date('2025-10-15T00:00:00Z'),
+    endDate: new Date('2025-11-11T23:59:59Z')
   }
 ]
 
