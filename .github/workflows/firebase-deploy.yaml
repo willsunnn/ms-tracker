@@ -1,4 +1,4 @@
-name: Deploy Firebase Frontend
+name: Deploy Firebase Frontend and Functions
 
 on:
   workflow_dispatch:
