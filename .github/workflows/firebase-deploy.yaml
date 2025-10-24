@@ -50,7 +50,7 @@ jobs:
       - name: Deploy frontend
         run: npm run deploy-ci
         working-directory: ./frontend
-        with:
+        env:
           FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
 
       - name: Install functions dependencies
@@ -68,5 +68,5 @@ jobs:
       - name: Deploy functions
         run: npm run deploy-ci
         working-directory: ./functions
-        with:
+        env:
           FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
