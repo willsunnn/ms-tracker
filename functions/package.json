@@ -4,7 +4,7 @@
   "scripts": {
     "lint": "eslint --ext .js,.ts .",
     "lint-fix": "eslint --ext .js,.ts . --fix",
-    "import": "node -e \"const fs = require('fs'); ['lib', 'package.json', 'package-lock.json'].forEach((subpath) => fs.cpSync(`../library/${subpath}`, `./import/library/${subpath}`, {recursive: true}));\"",
+    "import": "mkdir -p ./import/library & cp -r ../library/* ./import/library",
     "build": "tsc",
     "build:watch": "tsc --watch",
     "serve": "npm run build && firebase emulators:start --only functions",
