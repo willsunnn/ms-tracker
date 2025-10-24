@@ -12,6 +12,7 @@
     "start": "npm run shell",
     "prebuild": "npm run import",
     "deploy": "firebase deploy --only functions",
+    "deploy-ci": "firebase deploy --only functions --token \"$FIREBASE_TOKEN\"",
     "logs": "firebase functions:log"
   },
   "engines": {

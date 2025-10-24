@@ -1,0 +1,72 @@
+name: Deploy Firebase Frontend
+
+on:
+  workflow_dispatch:
+    inputs:
+      commit_sha:
+        description: 'Optional commit SHA to checkout. Uses the latest commit if not provided.'
+        required: false
+        type: string
+
+jobs:
+  build_and_deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.inputs.commit_sha || github.sha }}
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20.12.2'
+
+      - name: Cache Node.js modules
+        uses: actions/cache@v4
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }} # Cache key based on OS and package-lock.json.
+          restore-keys: |
+            ${{ runner.os }}-node-
+
+      - name: Install library dependencies
+        run: npm ci
+        working-directory: ./library
+
+      - name: Build library
+        run: npm run build
+        working-directory: ./library
+
+      - name: Install frontend dependencies
+        run: npm ci
+        working-directory: ./frontend
+
+      - name: Build frontend
+        run: npm run build
+        working-directory: ./frontend
+
+      - name: Deploy frontend
+        run: npm run deploy-ci
+        working-directory: ./frontend
+        with:
+          FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
+
+      - name: Install functions dependencies
+        run: npm ci
+        working-directory: ./functions
+
+      - name: Copy library to functions
+        run: npm run import
+        working-directory: ./functions
+
+      - name: Build functions
+        run: npm run build
+        working-directory: ./functions
+
+      - name: Deploy functions
+        run: npm run deploy-ci
+        working-directory: ./functions
+        with:
+          FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}

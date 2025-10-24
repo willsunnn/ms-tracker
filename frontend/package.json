@@ -33,6 +33,7 @@
     "lint-fix": "eslint --ext .js,.ts,.jsx,.tsx . --fix",
     "predeploy": "npm run build",
     "deploy": "firebase deploy --only hosting",
+    "deploy-ci": "firebase deploy --only hosting --token \"$FIREBASE_TOKEN\"",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
