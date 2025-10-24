@@ -1,5 +1,5 @@
 import { CharacterView } from '../../CharacterView'
-import { type GroupedTasksAndStatuses, type CharacterWithCachedData, type TaskAndStatus } from 'ms-tracker-library'
+import { type GroupedTasksAndStatuses, type CharacterWithCachedData } from 'ms-tracker-library'
 import { CharacterContextActionsDropdown } from './CharacterContextActionsDropdown'
 import { CharacterTaskList } from './CharacterTaskList'
 
