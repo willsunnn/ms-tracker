@@ -15,13 +15,11 @@ const App = () => {
       <Route path="/" element={
         (
           <div className="bg-base-300 w-screen h-screen">
-            <div className="top-bar w-full fixed p-2 z-[100]">
-              <NavBar/>
-            </div>
+            <NavBar/>
             <div className="fixed bottom-5 right-5 z-[100]">
               <FloatingActionButton/>
             </div>
-            <div className="w-screen min-h-screen h-full z-0 overflow-scroll py-20 px-5 max-w-screen">
+            <div className="w-screen min-h-screen h-full z-0 overflow-scroll py-2 px-5 max-w-screen">
               {/* This is where the content (SignInPage/TaskViewPage) will go */}
               <Outlet/>
             </div>
