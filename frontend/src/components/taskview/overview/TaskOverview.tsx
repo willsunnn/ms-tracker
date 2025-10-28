@@ -48,7 +48,7 @@ export const TaskViewCompact = (props: { data: DataWrapper }) => {
   }
 
   return (
-    <div className='absolute w-screen h-screen left-0 top-0 pt-24 px-5 bg-base-300 overflow-scroll'>
+    <div className='w-screen h-screen left-0 top-0 px-5 bg-base-300 overflow-scroll'>
       <div className='pb-12'>
         <div className='flex w-full h-full pb-12'>
           <div className='flex flex-col w-fit h-fit grow'>

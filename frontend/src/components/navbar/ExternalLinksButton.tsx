@@ -52,17 +52,15 @@ export const ExternalLinksButton = () => {
       <button className="btn btn-circle text-xl bg-transparent border-opacity-0">
         <FaBars className="w-max"/>
       </button>
-      <div className="dropdown-content top-16">
-        <ul tabIndex={0} className="menu bg-base-200 rounded-box w-96 min-w-fit shadow-lg">
-          {items.map((item) => {
-            if ('links' in item) {
-              return (<GroupedLinks key={`linkgroup-${item.name}`} linkGroup={item as ExternalLinkGroup} />)
-            } else {
-              return (<Link key={`link-${item.name}`} link={item as ExternalLink}/>)
-            }
-          })}
-        </ul>
-      </div>
+      <ul tabIndex={0} className="menu dropdown-content bg-base-200 rounded-box w-96 min-w-fit shadow-lg z-[100]">
+        {items.map((item) => {
+          if ('links' in item) {
+            return (<GroupedLinks key={`linkgroup-${item.name}`} linkGroup={item as ExternalLinkGroup} />)
+          } else {
+            return (<Link key={`link-${item.name}`} link={item as ExternalLink}/>)
+          }
+        })}
+      </ul>
     </div>
   )
 }
