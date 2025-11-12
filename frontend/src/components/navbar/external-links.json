@@ -1,7 +1,7 @@
 [
   {
     "name": "Patch Notes",
-    "url": "https://www.nexon.com/maplestory/news/update/31006"
+    "url": "https://www.nexon.com/maplestory/news/update/32522"
   },
   {
     "name": "Official News",
@@ -11,6 +11,14 @@
     "name": "Old Patch Notes",
     "isOpenByDefault": false,
     "links": [
+      {
+        "name": "v264 - Every Little Thing Every Precious Thing",
+        "url": "https://www.nexon.com/maplestory/news/update/32522"
+      },
+      {
+        "name": "v263 - Carcion Octo Fest",
+        "url": "https://www.nexon.com/maplestory/news/update/31006"
+      },
       {
         "name": "v262 - Mu Lung Night Troupe",
         "url": "https://www.nexon.com/maplestory/news/update/29874"
