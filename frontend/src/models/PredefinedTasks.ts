@@ -426,7 +426,7 @@ const ARCANE_SYMBOL_WEEKLIES: GroupedTasks = {
     return {
       ...t,
       maxClearCount: 1,
-      resetType: 'Weekly_Monday',
+      resetType: 'Weekly_Thursday',
       taskType: 'ArcaneSymbol',
       isPerAccount: false
     }
@@ -486,7 +486,7 @@ const LEGION_TASKS: GroupedTasks = {
       taskId: 'legion-weekly',
       name: 'Legion Weekly Dragon Extermination',
       maxClearCount: 1,
-      resetType: 'Weekly_Monday',
+      resetType: 'Weekly_Thursday',
       taskType: 'Legion',
       isPerAccount: true
     }
@@ -664,7 +664,7 @@ const OTHER_WEEKLIES: GroupedTasks = {
   ].map((t) => {
     return {
       ...t,
-      resetType: 'Weekly_Monday',
+      resetType: 'Weekly_Thursday',
       taskType: 'Other',
       isPerAccount: false
     }
@@ -1898,6 +1898,69 @@ const EVENT_2025_09_STRANGE_TIDES: Task[] = [
   }
 ]
 
+const EVENT_2025_11_ASSEMBLE: Task[] = [
+  {
+    taskId: '2025-11-Assemble-Wanderers-Travelogue-Weekly-Missions',
+    name: 'Wanderer\'s Travelogue Weekly Missions',
+    maxClearCount: 1,
+    resetType: 'Weekly_Thursday',
+    taskType: 'Event',
+    isPerAccount: true,
+    startDate: new Date('2025-11-12T00:00:00Z'),
+    endDate: new Date('2026-02-03T23:59:59Z')
+  },
+  {
+    taskId: '2025-11-Assemble-Challenger-World-Hunting-Mission',
+    name: 'Challenger World Hunting Mission',
+    maxClearCount: 1,
+    resetType: 'Daily',
+    taskType: 'Event',
+    isPerAccount: true,
+    startDate: new Date('2025-11-12T00:00:00Z'),
+    endDate: new Date('2026-04-22T14:00:00Z')
+  },
+  {
+    taskId: '2025-11-Assemble-Challenger-Pass-Weekly-Missions',
+    name: 'Challenger Pass Weekly Missions',
+    maxClearCount: 1,
+    resetType: 'Weekly_Thursday',
+    taskType: 'Event',
+    isPerAccount: true,
+    startDate: new Date('2025-11-12T00:00:00Z'),
+    endDate: new Date('2026-02-03T23:59:59Z')
+  },
+  {
+    taskId: '2025-11-Assemble-Frontier-Pass-Weekly-Missions',
+    name: 'Frontier Pass Weekly Missions',
+    maxClearCount: 1,
+    resetType: 'Weekly_Thursday',
+    taskType: 'Event',
+    isPerAccount: true,
+    startDate: new Date('2025-11-12T00:00:00Z'),
+    endDate: new Date('2026-04-21T23:59:59Z')
+  },
+  {
+    taskId: '2025-11-Assemble-Evernias-Bounty-Exploration',
+    name: 'Evernia\'s Bounty Exploration',
+    maxClearCount: 1,
+    resetType: 'Daily',
+    taskType: 'Event',
+    isPerAccount: true,
+    startDate: new Date('2025-11-12T00:00:00Z'),
+    endDate: new Date('2026-02-03T23:59:59Z')
+  },
+  {
+    taskId: '2025-11-Assemble-Sands-of-Time-Cap',
+    name: 'Sands of Time Cap',
+    maxClearCount: 1,
+    resetType: 'Weekly_Thursday',
+    taskType: 'Event',
+    isPerAccount: true,
+    startDate: new Date('2025-11-12T00:00:00Z'),
+    endDate: new Date('2026-02-03T23:59:59Z')
+  },
+]
+
 const EVENT_TASKS: GroupedTasks = {
   name: 'Event',
   tasks: [
@@ -1923,7 +1986,8 @@ const EVENT_TASKS: GroupedTasks = {
     EVENT_2025_06_STARGAZER,
     EVENT_2025_07_DAVE_THE_DIVER,
     EVENT_2025_08_NIGHT_TROUPE,
-    EVENT_2025_09_STRANGE_TIDES
+    EVENT_2025_09_STRANGE_TIDES,
+    EVENT_2025_11_ASSEMBLE
   ]
     .flat()
 }
