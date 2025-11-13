@@ -169,7 +169,7 @@ const SIXTH_JOB_DAILIES: GroupedTasks = {
       taskId: '6th-job-sol-erda',
       name: 'Erda\'s request',
       maxClearCount: 1,
-      resetType: 'Daily',
+      resetType: 'Weekly_Thursday',
       taskType: '6thJob',
       isPerAccount: false
     },
@@ -1958,7 +1958,7 @@ const EVENT_2025_11_ASSEMBLE: Task[] = [
     isPerAccount: true,
     startDate: new Date('2025-11-12T00:00:00Z'),
     endDate: new Date('2026-02-03T23:59:59Z')
-  },
+  }
 ]
 
 const EVENT_TASKS: GroupedTasks = {
