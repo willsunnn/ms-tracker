@@ -34,9 +34,9 @@ const getAbbreviatedName = (characterClass: MapleClass | undefined): string => {
       return 'Pally'
     case 'Bishop':
       return 'Bish'
-    case 'Ice/Lightning Archmage':
+    case 'Arch Mage (I/L)':
       return 'I/L'
-    case 'Fire/Poison Archmage':
+    case 'Arch Mage (F/P)':
       return 'F/P'
     case 'Battle Mage':
       return 'BaM'
@@ -50,7 +50,7 @@ const getAbbreviatedName = (characterClass: MapleClass | undefined): string => {
       return 'Shad'
     case 'Blade Master':
       return 'DB'
-    case 'Bowmaster':
+    case 'Bow Master':
       return 'BM'
     case 'Wind Archer':
       return 'WA'
@@ -84,13 +84,10 @@ const getAbbreviatedName = (characterClass: MapleClass | undefined): string => {
       return 'BT'
     case 'Hoyoung':
       return 'HY'
-    case 'Unknown':
     case 'Mo Xuan':
       return 'MX'
     case 'Sia Astelle':
       return 'Sia'
-    case undefined:
-      return 'NW'
     // These are all not abbreviated
     case 'Hero':
     case 'Evan':
@@ -115,7 +112,11 @@ const getAbbreviatedName = (characterClass: MapleClass | undefined): string => {
     case 'Zero':
     case 'Kinesis':
     case 'Lynn':
+    case 'Ren':
       return characterClass
+    case 'Unknown':
+    case undefined:
+      return 'NW'
   }
 }
 
@@ -128,8 +129,8 @@ const getArcaneWeapon = (characterClass: MapleClass | undefined): string => {
     case 'Paladin':
       return ArcaneWeapons.TwoHandedHammer
     case 'Bishop':
-    case 'Ice/Lightning Archmage':
-    case 'Fire/Poison Archmage':
+    case 'Arch Mage (I/L)':
+    case 'Arch Mage (F/P)':
     case 'Battle Mage':
     case 'Blaze Wizard':
     case 'Evan':
@@ -141,7 +142,7 @@ const getArcaneWeapon = (characterClass: MapleClass | undefined): string => {
       return ArcaneWeapons.Dagger
     case 'Blade Master':
       return ArcaneWeapons.Katara
-    case 'Bowmaster':
+    case 'Bow Master':
     case 'Wind Archer':
       return ArcaneWeapons.Bow
     case 'Marksman':
@@ -213,6 +214,8 @@ const getArcaneWeapon = (characterClass: MapleClass | undefined): string => {
       return ArcaneWeapons.WarFist
     case 'Sia Astelle':
       return ArcaneWeapons.CelestialLight
+    case 'Ren':
+      return ArcaneWeapons.IllusorySword
     case 'Unknown':
     case undefined:
       return ArcaneWeapons.Claw

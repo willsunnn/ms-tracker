@@ -21,12 +21,12 @@ export const MapleClass = z.enum([
   "Dark Knight",
   "Paladin",
   "Bishop",
-  "Ice/Lightning Archmage",
-  "Fire/Poison Archmage",
+  "Arch Mage (F/P)",
+  "Arch Mage (I/L)",
   "Night Lord",
   "Shadower",
   "Blade Master",
-  "Bowmaster",
+  "Bow Master",
   "Marksman",
   "Pathfinder",
   "Buccaneer",
@@ -72,6 +72,7 @@ export const MapleClass = z.enum([
   "Beast Tamer",
   "Hoyoung",
   "Lara",
+  "Ren",
   // Other
   "Zero",
   "Kinesis",
@@ -117,8 +118,7 @@ export const defaultCachedCharacter = (key: CharacterCacheKey): CachedCharacter 
 export const ThirdPartyCharacterData = z.object({
   characterImgURL: z.string().optional(),
   characterName: z.string(),
-  jobID: z.number().int().optional(),
-  jobDetail: z.number().int().optional(),
+  jobName: MapleClass,
   worldID: z.number().int().optional(),
   level: z.number().int().optional(),
   // There are other fields but we dont really need them

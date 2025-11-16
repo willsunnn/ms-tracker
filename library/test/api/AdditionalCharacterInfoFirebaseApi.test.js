@@ -10,8 +10,7 @@ test("fetch 3rd party call - GelatoShine", async () => {
   expect(character.characterName).toBe("GelatoShine");
   expect(character.level).toBeDefined()
   expect(character.characterImgURL).toBeDefined()
-  expect(character.jobID).toBe(2);
-  expect(character.jobDetail).toBe(32);
+  expect(character.jobName).toBe("Bishop");
   expect(character.worldID).toBe(45);
 });
 
@@ -25,8 +24,7 @@ test("fetch 3rd party call - nùms", async () => {
   expect(character.characterName).toBe("nùms");
   expect(character.level).toBeDefined()
   expect(character.characterImgURL).toBeDefined()
-  expect(character.jobID).toBe(14);
-  expect(character.jobDetail).toBe(12);
+  expect(character.jobName).toBe("Night Walker");
   expect(character.worldID).toBe(45);
 });
 
@@ -40,8 +38,7 @@ test("fetch 3rd party call - Niru", async () => {
   expect(character.characterName).toBe("Niru");
   expect(character.level).toBeDefined();
   expect(character.characterImgURL).toBeDefined()
-  expect(character.jobID).toBe(2);
-  expect(character.jobDetail).toBe(32);
+  expect(character.jobName).toBe("Bishop");
   expect(character.worldID).toBe(19);
 });
 
@@ -55,8 +52,7 @@ test("fetch 3rd party call - Nerf", async () => {
   expect(character.characterName).toBe("Nerf");
   expect(character.level).toBeDefined();
   expect(character.characterImgURL).toBeDefined()
-  expect(character.jobID).toBe(5);
-  expect(character.jobDetail).toBe(12);
+  expect(character.jobName).toBe("Buccaneer");
   expect(character.worldID).toBe(30);
 });
 
@@ -69,13 +65,13 @@ test("Can parse class from job details", async () => {
     ["Zerk", "Dark Knight"],
     ["KeyPaladin", "Paladin"],
     ["Niru", "Bishop"],
-    ["lcey", "Ice/Lightning Archmage"],
-    ["Comet", "Fire/Poison Archmage"],
+    ["lcey", "Arch Mage (I/L)"],
+    ["Comet", "Arch Mage (F/P)"],
     ["MisaoMaki", "Shadower"],
     ["iNoBlades", "Night Lord"],
     ["Gurbo", "Blade Master"],
     ["Altos", "Marksman"],
-    ["Smartcloud", "Bowmaster"],
+    ["Smartcloud", "Bow Master"],
     ["Naicha", "Pathfinder"],
     ["MulletPirate", "Buccaneer"],
     ["Hatim", "Corsair"],
@@ -96,7 +92,7 @@ test("Can parse class from job details", async () => {
     ["AranBhav", "Aran"],
     ["Leløuch", "Evan"],
     ["Fairy", "Mercedes"],
-    ["Sprinted", "Phantom"],
+    ["Rïtuals", "Phantom"],
     ["Lapy", "Luminous"],
     ["M0onShad3", "Shade"],
     ["Layouts", "Kaiser"],
@@ -109,13 +105,14 @@ test("Can parse class from job details", async () => {
     ["SpIooki", "Khali"],
     ["OktoAeon", "Hayato"],
     ["Monk", "Kanna"],
-    ["yonf", "Lara"],
+    ["barkbarkbark", "Lara"],
     ["Kraane", "Hoyoung"],
     ["WhitexKnight", "Zero"],
     ["Wall", "Kinesis"],
     ["Risporia", "Lynn"],
     ["Öççú", "Mo Xuan"],
     ["YozoraAI", "Sia Astelle"],
+    ["UsagiAkuma", "Ren"],
   ]
 
   // Check each test case
@@ -133,6 +130,6 @@ test("Can parse class from job details", async () => {
     })
   )
 
-  // There are currently 51 playable classes
-  expect(new Set(testCases.map((tuple) => tuple[1])).size).toBe(51);
+  // There are currently 52 playable classes
+  expect(new Set(testCases.map((tuple) => tuple[1])).size).toBe(52);
 });

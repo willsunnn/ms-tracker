@@ -22,6 +22,8 @@ import Gun from './Eqp_Arcane_Umbra_Pistol.webp'
 import HandCannon from './Eqp_Arcane_Umbra_Siege_Gun.webp'
 import HeavySword from './Eqp_Lapis_Type_9.webp'
 
+import IllusorySword from './Eqp_Arcane_Umbra_Illusory_Sword.png'
+
 import Katana from './Eqp_Arcane_Umbra_Katana.webp'
 import Katara from './Eqp_Arcane_Umbra_Katara.webp'
 import Knuckle from './Eqp_Arcane_Umbra_Knuckle.webp'
@@ -75,6 +77,7 @@ export default {
   Gun,
   HandCannon,
   HeavySword,
+  IllusorySword,
   Katana,
   Katara,
   Knuckle,
