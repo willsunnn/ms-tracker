@@ -1953,7 +1953,7 @@ const EVENT_2025_11_ASSEMBLE: Task[] = [
     taskId: '2025-11-Assemble-Sands-of-Time-Cap',
     name: 'Sands of Time Cap',
     maxClearCount: 1,
-    resetType: 'Weekly_Thursday',
+    resetType: 'Weekly_Wednesday',
     taskType: 'Event',
     isPerAccount: true,
     startDate: new Date('2025-11-12T00:00:00Z'),

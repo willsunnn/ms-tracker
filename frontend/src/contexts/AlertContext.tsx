@@ -1,7 +1,7 @@
 import React, { useContext, useState, useEffect, useRef } from 'react'
 import { type Alert, AlertList, instanceOfAlert } from '../components/AlertList'
 import { Queue } from 'queue-typescript'
-import { uuidv4 } from '@firebase/util'
+import { v4 as uuidv4 } from 'uuid'
 
 type AlertCallback = (alert: unknown | Alert) => void
 

@@ -3,7 +3,7 @@ import { useDialogContext } from '../../contexts/DialogContext'
 import { useAuth } from '../../contexts/AuthContext'
 import { useAlertCallback } from '../../contexts/AlertContext'
 import { useApi } from '../../contexts/ApiContext'
-import { uuidv4 } from '@firebase/util'
+import { v4 as uuidv4 } from 'uuid'
 import { CharacterView } from '../CharacterView'
 import { type Region, type CachedCharacter } from 'ms-tracker-library'
 
