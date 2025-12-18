@@ -106,6 +106,10 @@ const WEEKLY_BOSSES: GroupedTasks = {
       {
         taskId: 'boss-weekly-baldrix',
         name: 'Baldrix'
+      },
+      {
+        taskId: 'boss-weekly-firstadversary',
+        name: 'First Adversary'
       }
 
     ].map((t) => {
@@ -1903,7 +1907,7 @@ const EVENT_2025_11_ASSEMBLE: Task[] = [
     taskId: '2025-11-Assemble-Wanderers-Travelogue-Weekly-Missions',
     name: 'Wanderer\'s Travelogue Weekly Missions',
     maxClearCount: 1,
-    resetType: 'Weekly_Thursday',
+    resetType: 'Weekly_Wednesday',
     taskType: 'Event',
     isPerAccount: true,
     startDate: new Date('2025-11-12T00:00:00Z'),
@@ -1923,7 +1927,7 @@ const EVENT_2025_11_ASSEMBLE: Task[] = [
     taskId: '2025-11-Assemble-Challenger-Pass-Weekly-Missions',
     name: 'Challenger Pass Weekly Missions',
     maxClearCount: 1,
-    resetType: 'Weekly_Thursday',
+    resetType: 'Weekly_Wednesday',
     taskType: 'Event',
     isPerAccount: true,
     startDate: new Date('2025-11-12T00:00:00Z'),
@@ -1933,7 +1937,7 @@ const EVENT_2025_11_ASSEMBLE: Task[] = [
     taskId: '2025-11-Assemble-Frontier-Pass-Weekly-Missions',
     name: 'Frontier Pass Weekly Missions',
     maxClearCount: 1,
-    resetType: 'Weekly_Thursday',
+    resetType: 'Weekly_Wednesday',
     taskType: 'Event',
     isPerAccount: true,
     startDate: new Date('2025-11-12T00:00:00Z'),
@@ -1957,6 +1961,49 @@ const EVENT_2025_11_ASSEMBLE: Task[] = [
     taskType: 'Event',
     isPerAccount: true,
     startDate: new Date('2025-11-12T00:00:00Z'),
+    endDate: new Date('2026-02-03T23:59:59Z')
+  }
+]
+
+const EVENT_2025_11_ASSEMBLE_PART2: Task[] = [
+  {
+    taskId: '2025-12-Ride-or-Die-Bosses',
+    name: 'Ride or Die Bosses',
+    maxClearCount: 1,
+    resetType: 'Weekly_Wednesday',
+    taskType: 'Event',
+    isPerAccount: true,
+    startDate: new Date('2025-12-17T00:00:00Z'),
+    endDate: new Date('2026-02-03T23:59:59Z')
+  },
+  {
+    taskId: '2025-12-Evernian-Trade-King-Alpaca-Merchant',
+    name: 'Alpaca Merchant All 3 Trades',
+    maxClearCount: 1,
+    resetType: 'Weekly-Wednesday',
+    taskType: 'Event',
+    isPerAccount: true,
+    startDate: new Date('2025-12-17T00:00:00Z'),
+    endDate: new Date('2026-01-13T23:59:59Z')
+  },
+  {
+    taskId: '2026-1-Evernia-In-Bloom',
+    name: 'Bloom 10 Wildflowers',
+    maxClearCount: 1,
+    resetType: 'Daily',
+    taskType: 'Event',
+    isPerAccount: true,
+    startDate: new Date('2026-01-21T00:00:00Z'),
+    endDate: new Date('2026-02-03T23:59:59Z')
+  },
+  {
+    taskId: '2025-12-Twenteenas-Adventure-Day',
+    name: 'Defeat Twenteena 10 Times',
+    maxClearCount: 1,
+    resetType: 'Daily',
+    taskType: 'Event',
+    isPerAccount: true,
+    startDate: new Date('2025-12-17T00:00:00Z'),
     endDate: new Date('2026-02-03T23:59:59Z')
   }
 ]
