@@ -1980,7 +1980,7 @@ const EVENT_2025_11_ASSEMBLE_PART2: Task[] = [
     taskId: '2025-12-Evernian-Trade-King-Alpaca-Merchant',
     name: 'Alpaca Merchant All 3 Trades',
     maxClearCount: 1,
-    resetType: 'Weekly-Wednesday',
+    resetType: 'Weekly_Wednesday',
     taskType: 'Event',
     isPerAccount: true,
     startDate: new Date('2025-12-17T00:00:00Z'),
