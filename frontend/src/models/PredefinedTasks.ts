@@ -2008,6 +2008,50 @@ const EVENT_2025_11_ASSEMBLE_PART2: Task[] = [
   }
 ]
 
+const EVENT_2026_02_THE_SENGOKU_WARRIOR_REAWAKENING: Task[] = [
+  {
+    taskId: '2026-2-NLM-Daily-Management',
+    name: 'New Leaf Mall Daily Managemeant',
+    maxClearCount: 1,
+    resetType: 'Daily',
+    taskType: 'Event',
+    isPerAccount: true,
+    startDate: new Date('2026-02-04T00:00:00Z'),
+    endDate: new Date('2026-03-17T23:59:59Z')
+  },
+  {
+    taskId: '2026-2-Cindys-Special-Helper',
+    name: 'Cindy\'s Special Helper 30 Activations',
+    maxClearCount: 1,
+    resetType: 'Daily',
+    taskType: 'Event',
+    isPerAccount: true,
+    startDate: new Date('2026-02-04T00:00:00Z'),
+    endDate: new Date('2026-03-17T23:59:59Z')
+  },
+  {
+    taskId: '2026-2-Victoria-Adventure',
+    name: 'Victoria Adventure',
+    maxClearCount: 1,
+    resetType: 'Weekly_Thursday',
+    taskType: 'Event',
+    isPerAccount: true,
+    startDate: new Date('2026-02-04T00:00:00Z'),
+    endDate: new Date('2026-03-17T23:59:59Z')
+  },
+  {
+    taskId: '2026-2-Mall-Duo',
+    name: 'Mall Duo 50k Mobs',
+    maxClearCount: 1,
+    resetType: 'Weekly_Wednesday',
+    taskType: 'Event',
+    isPerAccount: true,
+    startDate: new Date('2026-02-04T00:00:00Z'),
+    endDate: new Date('2026-03-17T23:59:59Z')
+  }
+]
+
+
 const EVENT_TASKS: GroupedTasks = {
   name: 'Event',
   tasks: [
@@ -2035,7 +2079,8 @@ const EVENT_TASKS: GroupedTasks = {
     EVENT_2025_08_NIGHT_TROUPE,
     EVENT_2025_09_STRANGE_TIDES,
     EVENT_2025_11_ASSEMBLE,
-    EVENT_2025_11_ASSEMBLE_PART2
+    EVENT_2025_11_ASSEMBLE_PART2,
+    EVENT_2026_02_THE_SENGOKU_WARRIOR_REAWAKENING
   ]
     .flat()
 }
