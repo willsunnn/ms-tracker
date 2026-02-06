@@ -2051,7 +2051,6 @@ const EVENT_2026_02_THE_SENGOKU_WARRIOR_REAWAKENING: Task[] = [
   }
 ]
 
-
 const EVENT_TASKS: GroupedTasks = {
   name: 'Event',
   tasks: [
