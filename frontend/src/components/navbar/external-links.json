@@ -1,7 +1,7 @@
 [
   {
     "name": "Patch Notes",
-    "url": "https://www.nexon.com/maplestory/news/update/35483"
+    "url": "https://www.nexon.com/maplestory/news/update/36809"
   },
   {
     "name": "Official News",
@@ -11,6 +11,10 @@
     "name": "Old Patch Notes",
     "isOpenByDefault": false,
     "links": [
+      {
+        "name": "v266 - The Sengoku Warrior Reawakening",
+        "url": "https://www.nexon.com/maplestory/news/update/35483"
+      },
       {
         "name": "v265 - Every Little Thing Every Precious Thing 2nd Update",
         "url": "https://www.nexon.com/maplestory/news/update/33938"
