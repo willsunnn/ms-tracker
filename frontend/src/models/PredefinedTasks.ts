@@ -200,6 +200,14 @@ const SIXTH_JOB_DAILIES: GroupedTasks = {
       resetType: 'Weekly_Thursday',
       taskType: '6thJob',
       isPerAccount: false
+    },
+    {
+      taskId: '6th-job-nightmare-paradise',
+      name: 'Nightmare Paradise Dungeon',
+      maxClearCount: 1,
+      resetType: 'Weekly_Thursday',
+      taskType: '6thJob',
+      isPerAccount: false
     }
   ]
 }
@@ -2051,6 +2059,40 @@ const EVENT_2026_02_THE_SENGOKU_WARRIOR_REAWAKENING: Task[] = [
   }
 ]
 
+const EVENT_2026_03_ONE_PUNCH_MAN: Task[] = [
+  {
+    taskId: '2026-3-Savage-Check-In',
+    name: 'SAVAGE 1k Mobs Check-in',
+    maxClearCount: 1,
+    resetType: 'Daily',
+    taskType: 'Event',
+    isPerAccount: true,
+    startDate: new Date('2026-03-18T00:00:00Z'),
+    endDate: new Date('2026-04-21T23:59:59Z')
+  },
+  {
+    taskId: '2026-3-Monster-Park-Mayhem',
+    name: 'Monster Park Mayhem Check-in',
+    maxClearCount: 1,
+    resetType: 'Daily',
+    taskType: 'Event',
+    isPerAccount: true,
+    startDate: new Date('2026-03-18T00:00:00Z'),
+    endDate: new Date('2026-04-14T23:59:59Z')
+  },
+  {
+    taskId: '2026-3-Centichoro-Punch-King',
+    name: 'Centichoro Punch King',
+    maxClearCount: 1,
+    resetType: 'Weekly_Wednesday',
+    taskType: 'Event',
+    isPerAccount: true,
+    startDate: new Date('2026-03-18T00:00:00Z'),
+    endDate: new Date('2026-04-14T23:59:59Z')
+  },
+  
+]
+
 const EVENT_TASKS: GroupedTasks = {
   name: 'Event',
   tasks: [
@@ -2079,7 +2121,8 @@ const EVENT_TASKS: GroupedTasks = {
     EVENT_2025_09_STRANGE_TIDES,
     EVENT_2025_11_ASSEMBLE,
     EVENT_2025_11_ASSEMBLE_PART2,
-    EVENT_2026_02_THE_SENGOKU_WARRIOR_REAWAKENING
+    EVENT_2026_02_THE_SENGOKU_WARRIOR_REAWAKENING,
+    EVENT_2026_03_ONE_PUNCH_MAN
   ]
     .flat()
 }
