@@ -2089,8 +2089,7 @@ const EVENT_2026_03_ONE_PUNCH_MAN: Task[] = [
     isPerAccount: true,
     startDate: new Date('2026-03-18T00:00:00Z'),
     endDate: new Date('2026-04-14T23:59:59Z')
-  },
-  
+  }
 ]
 
 const EVENT_TASKS: GroupedTasks = {
