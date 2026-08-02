@@ -2302,6 +2302,49 @@ const EVENT_2026_06_RIDE_THE_LIGHTNING: Task[] = [
   }
 ]
 
+const EVENT_2026_07_RIDE_THE_LIGHTNING_PT2: Task[] = [
+  {
+    taskId: '2026-7-Operation-Dive-Dungeon',
+    name: 'Operation: Dive Dungeon Max Coins',
+    maxClearCount: 1,
+    resetType: 'Weekly_Wednesday',
+    taskType: 'Event',
+    isPerAccount: true,
+    startDate: new Date('2026-07-22T00:00:00Z'),
+    endDate: new Date('2026-09-08T23:59:59Z')
+  },
+  {
+    taskId: '2026-7-Lightning-Charge',
+    name: 'Lightning Charge 5 Hours',
+    maxClearCount: 1,
+    resetType: 'Daily',
+    taskType: 'Event',
+    isPerAccount: true,
+    startDate: new Date('2026-06-17T00:00:00Z'),
+    endDate: new Date('2026-09-08T23:59:59Z')
+  },
+  {
+    taskId: '2026-7-Frontier-Pass',
+    name: 'Frontier Pass Max Points',
+    maxClearCount: 1,
+    resetType: 'Weekly_Wednesday',
+    taskType: 'Event',
+    isPerAccount: true,
+    startDate: new Date('2026-06-17T00:00:00Z'),
+    endDate: new Date('2026-09-08T23:59:59Z')
+  },
+  {
+    taskId: '2026-7-Fantasia-Finale',
+    name: 'Fantasia Finale 2k Mobs',
+    maxClearCount: 1,
+    resetType: 'Daily',
+    taskType: 'Event',
+    isPerAccount: true,
+    startDate: new Date('2026-08-26T00:00:00Z'),
+    endDate: new Date('2026-09-08T23:59:59Z')
+  }
+]
+
 const EVENT_TASKS: GroupedTasks = {
   name: 'Event',
   tasks: [
@@ -2333,7 +2376,8 @@ const EVENT_TASKS: GroupedTasks = {
     EVENT_2026_02_THE_SENGOKU_WARRIOR_REAWAKENING,
     EVENT_2026_03_ONE_PUNCH_MAN,
     EVENT_2026_04_MAPLE_UNIVERSITY,
-    EVENT_2026_06_RIDE_THE_LIGHTNING
+    EVENT_2026_06_RIDE_THE_LIGHTNING,
+    EVENT_2026_07_RIDE_THE_LIGHTNING_PT2
   ]
     .flat()
 }

@@ -1,7 +1,7 @@
 [
   {
     "name": "Patch Notes",
-    "url": "https://www.nexon.com/maplestory/news/update/41138"
+    "url": "https://www.nexon.com/maplestory/news/update/42415"
   },
   {
     "name": "Official News",
@@ -11,6 +11,10 @@
     "name": "Old Patch Notes",
     "isOpenByDefault": false,
     "links": [
+      {
+        "name": "v269 - Ride the Lightning",
+        "url": "https://www.nexon.com/maplestory/news/update/41138"
+      },
       {
         "name": "v268 - Maple University",
         "url": "https://www.nexon.com/maplestory/news/update/39235"
